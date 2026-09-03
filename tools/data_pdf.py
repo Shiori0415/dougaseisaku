@@ -1,310 +1,350 @@
 # -*- coding: utf-8 -*-
-import sys, os
+"""全ページの文言・写真の割り当てを1か所にまとめた単一の情報源。
+   ここを直せば、PDF（pdf/kakutei.html）とPPTX（tools/deck_data.json 経由）の両方に反映される。"""
+import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_pdf import vpage, build
 
 T = 10
-P = []
 
-# ============ P1 表紙 ============
-P.append('''<div class="page cover">
-  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
-  <div class="rule"></div>
-  <h1>動画 8本<br>企画・構成・絵コンテ</h1>
-  <div class="sub">Eight Films &nbsp;/&nbsp; Plan, Structure, Storyboard</div>
-  <div class="meta">
-    2026年9月3日　第4版<br>
-    株式会社B supply　宮下 詩織<br>
-    テロップはすべて日本語と英語の二本立てで記載しています。
-  </div>
-  <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
-  <div class="pagenum">1 / 10</div>
-</div>''')
+COVER = {
+ "eyebrow": "BROOKLYN MUSEUM ／ 向島工房",
+ "title_jp": "動画 8本<br>企画・構成・絵コンテ",
+ "title_jp_plain": "動画 8本\n企画・構成・絵コンテ",
+ "subtitle_en": "Eight Films / Plan, Structure, Storyboard",
+ "subtitle_en_html": "Eight Films &nbsp;/&nbsp; Plan, Structure, Storyboard",
+ "meta_lines": ["2026年9月3日　第4版", "株式会社B supply　宮下 詩織", "テロップはすべて日本語と英語の二本立てで記載しています。"],
+ "footer": "BROOKLYN MUSEUM ／ 向島工房　動画制作",
+}
 
-# ============ P2 目次 ============
-toc = [
- ("1","今日の服に、合う色。","A Colour for Every Outfit","20秒 ×1","新規・リピーター",
-  '<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）',"3"),
- ("2","この道、20年。","Twenty Years","40秒 ×1","新規（まだ知らない人）",
-  '<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）',"4"),
- ("3","The Making of the Royale M Tote","ロワイヤルMトートの作りかた","28秒 ×1","メディア関係者・ハイエンド層",
-  '<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux）',"5"),
- ("4","絵になる日常を。","Everyday, Worth a Frame","30秒 ×1","仕事道具として買う人・贈る人",
-  '<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH）',"6"),
- ("5","1979年から、東京で。","Since 1979, Tokyo","2分 ×1／60秒短縮版 ×1","メディア関係者・OEMの調達担当・新規",
-  '<span style="color:#b8ac97">参考動画：未定（年号で語る型を推奨）</span>',"7"),
- ("6","つくる、確かめる、包む。","Make. Check. Pack.","2分20秒 ×1／無音版 ×1","OEMの調達・生産担当",
-  '<span style="color:#b8ac97">参考動画：未定（工場見学ワンテイク型を推奨）</span>',"8"),
- ("7","HURRY UP.","急ぐ朝ほど、迷わない。","25秒 ×3品番","新規（買う直前の人）",
-  '<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>',"9"),
- ("8","がんばった自分に、ひとつ。","One Thing, For Getting Through","18秒 ×1","まだ名前を知らない人",
-  '<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',"10"),
+TOC_INTRO = "1〜4本目と7・8本目は参考動画があり、絵コンテの写真もそこから抜いています。5・6本目は参考動画をいただき次第、同じ形式で写真を入れます。"
+
+TOC = [
+ {"n":"1","jp":"今日の服に、合う色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
+  "ref_html":'<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）',
+  "ref_url":"https://www.instagram.com/reels/DZG2DvMh-Ts/", "ref_text":"instagram.com/reels/DZG2DvMh-Ts（innovator SWEDEN）","pg":"3"},
+ {"n":"2","jp":"この道、20年。","en":"Twenty Years","len":"40秒 ×1","target":"新規（まだ知らない人）",
+  "ref_html":'<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）',
+  "ref_url":"http://youtube.com/shorts/c2mH8rStFCA", "ref_text":"youtube.com/shorts/c2mH8rStFCA ＋ instagram.com/reel/DbAniDDyF0U（コバ塗り・477万再生）","pg":"4"},
+ {"n":"3","jp":"The Making of the Royale M Tote","en":"ロワイヤルMトートの作りかた","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
+  "ref_html":'<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux）',
+  "ref_url":"https://www.instagram.com/reels/DWiwFp5DED-/", "ref_text":"instagram.com/reels/DWiwFp5DED-（delvaux）","pg":"5"},
+ {"n":"4","jp":"絵になる日常を。","en":"Everyday, Worth a Frame","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
+  "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH）',
+  "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ ＋ instagram.com/reel/DaxjHnkB62p（yifan.liii × COACH）","pg":"6"},
+ {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"2分 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
+  "ref_html":'<span style="color:#b8ac97">参考動画：未定（年号で語る型を推奨）</span>',
+  "ref_url":"", "ref_text":"参考動画：未定（年号で語る型を推奨）","pg":"7"},
+ {"n":"6","jp":"つくる、確かめる、包む。","en":"Make. Check. Pack.","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
+  "ref_html":'<span style="color:#b8ac97">参考動画：未定（工場見学ワンテイク型を推奨）</span>',
+  "ref_url":"", "ref_text":"参考動画：未定（工場見学ワンテイク型を推奨）","pg":"8"},
+ {"n":"7","jp":"HURRY UP.","en":"急ぐ朝ほど、迷わない。","len":"25秒 ×3品番","target":"新規（買う直前の人）",
+  "ref_html":'<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>',
+  "ref_url":"https://www.instagram.com/reel/DZE-_hZuwXb/", "ref_text":"instagram.com/reel/DZE-_hZuwXb ＋ instagram.com/reel/DaorwuKvWAj","pg":"9"},
+ {"n":"8","jp":"がんばった自分に、ひとつ。","en":"One Thing, For Getting Through","len":"18秒 ×1","target":"まだ名前を知らない人",
+  "ref_html":'<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',
+  "ref_url":"https://www.instagram.com/reel/Dbi4WDONwhq/", "ref_text":"instagram.com/reel/Dbi4WDONwhq ＋ @cherifaakili ＋ instagram.com/reel/DEIijWmsN08","pg":"10"},
 ]
-rows = "\n".join(
-  f'<tr><td class="n">{n}</td><td class="ti"><b>{jp}</b><br><span>{en}</span></td>'
-  f'<td class="ln">{ln}</td><td class="tg">{tg}</td><td class="lk">{lk}</td><td class="pg">p.{pg}</td></tr>'
-  for n,jp,en,ln,tg,lk,pg in toc)
-P.append(f'''<div class="page">
+
+PAGES = [
+ dict(no="01", jp="今日の服に、合う色。", en="A Colour for Every Outfit",
+  meta_len="20秒 ／ 12ショット", meta_target="対象＝新規・リピーター　／　全媒体",
+  ref='参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）',
+  plan="家を出てから会社に着くまでの二十秒。<b>カメラは固定し、変わるのは服と革の色だけ。</b>車・電車・エスカレーターが視界を横切った瞬間に切り替える。売り込みはひとつも入れない。玄関一か所、通勤路二か所、会社前一か所で撮り切れる。",
+  says="服が変われば、合う革の色も変わる。同じ革・同じ色で、財布からバッグまで揃う。",
+  telop_jp="その日の服に、その日の色。", telop_en="A colour for every outfit.",
+  extra=("ナ レ ー シ ョ ン","毎日をカラフルに<br><span style='color:#8a7a63'>Make every day colourful.</span>"),
+  rows=[
+   ("S1 支度","0-4秒",[
+     (None,"玄関。財布をポケットに入れる（寄り）"),
+     (None,"ドアノブに手がかかる（超寄り）"),
+     ("1_S1_03_玄関を出た引き","ドアが開き、外へ出る（引き・逆光）"),
+   ]),
+   ("S2 変わる①","4-9秒",[
+     ("1_S2_01_同じ画角で服が変わる","<b>同じ画角のまま服が変わっている。</b>小物の色も変わる"),
+     ("1_S2_02_通り過ぎてトランジション","車が横切る → 抜けたら別の服・別の色"),
+     ("1_S2_03_別の色の小物","手元の小物だけに寄る（キャメル）"),
+   ]),
+   ("S3 変わる②","9-15秒",[
+     ("1_S3_01_さらに別の色","電車が通り過ぎる → 抜けたら変わっている"),
+     ("1_S3_02_建物内で変わる","エスカレーターを上がりきると変わっている"),
+     (None,"歩く足元（ロー）。手元の色だけが見える"),
+   ]),
+   ("S4 到着","15-20秒",[
+     ("1_S4_01_到着","会社のエントランス。ここが到着点"),
+     ("1_S4_02_全色が並ぶ","<b>真俯瞰。四色が並ぶ</b>"),
+     (None,"テロップ 1.5秒 → ロゴ 0.5秒"),
+   ]),
+  ], pn=3, total=T),
+
+ dict(no="02", jp="この道、20年。", en="Twenty Years",
+  meta_len="40秒 ／ 12ショット", meta_target="対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
+  ref='参考動画＝<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）',
+  plan="アングルは<b>真俯瞰と横の二つだけ</b>。音はカメラのマイクでは録れないので、スマホを手元三十センチに置いて別録りする。<b>S3のコバ塗りがこの一本の核。</b>塗料が乗った瞬間に断面の色が変わる ── 一カットの中でビフォーアフターが起きる。参考動画が四百七十七万回見られた理由がこれ。最後は作業机で終わらせず、使われている場所に置いて終える。",
+  says="ここで作っている。工程の四割は、この断面に使われている。",
+  telop_jp="神は細部に宿る。", telop_en="God is in the details.",
+  extra=("コ バ 塗 り の カ ッ ト で 出 す テ ロ ッ プ",
+   "一つの製品の、四割の時間は、この断面に使われます。<br><span style='color:#8a7a63'>Forty percent of the making goes into this one edge.</span><br><span style='color:#a8763e'>コバの色はキャメル（生成りの断面）を推奨。差がいちばん出ます。</span>"),
+  rows=[
+   ("S1 音","0-3秒",[
+     ("2_S1_01_刃が革に入る","超マクロ。刃が革に入る瞬間。何を見ているか分からない距離"),
+     (None,"「スッ」の一音だけ。BGMは鳴らさない"),
+     (None,"―"),
+   ]),
+   ("S2 切る","3-14秒",[
+     ("2_S2_01_金属定規で直線","真俯瞰。<b>金属定規</b>を当てて直線を一気に引く"),
+     ("2_S2_02_角を丸く回す","四十五度。角を丸く回して切る"),
+     ("2_S2_03_作業台と職人","<b>真俯瞰。作業台と職人の手全体</b>（引き）"),
+   ]),
+   ("S3 縫う・塗る","14-31秒",[
+     ("2_S3_01_針と糸","真俯瞰。針が革を抜ける"),
+     ("2_S3_02_横から目のアップ","<b>横から。目だけのアップ</b>。顔全体は入れない"),
+     ("2_S3_03b_コバ塗り_ワンカット","<b>コバ塗り ★核。</b>塗った側と塗っていない側が同じ画面に入る。長回し・カットを割らない"),
+   ]),
+   ("S4 磨く・終わり","31-40秒",[
+     ("2_S4_01_仕上げ剤を取る","超マクロ。コバを磨く。摩擦音"),
+     (None,"手が止まる。<b>職人の声が一言だけ入る</b>（台本なし）"),
+     ("2_S4_03_使われる場所","<b>使われている場所に置かれる</b> → テロップ → ロゴ"),
+   ]),
+  ], pn=4, total=T),
+
+ dict(no="03", jp="The Making of the Royale M Tote", en="ロワイヤルMトートの作りかた",
+  meta_len="28秒 ／ 9ショット", meta_target="対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
+  ref='参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux「le Brillant Tempo」）',
+  plan="ブランドの格を上げる一本。<b>黒い布一枚とライト一灯</b>で撮れる。工房の蛍光灯は全部消す。<b>顔と工房は一切映さない。</b>映るのは手と、革と、金具だけ。この一本だけは商品を売らない。<br><br><b>6本目との違い</b>：背景（黒／実景）・光（一灯／自然光）・被写体（手だけ／人と機械）・カメラ（固定／歩く）・音（BGM／作業音）・終わり方（ロゴ／梱包と問い合わせ先）。<b>撮影日も分ける。</b>",
+  says="一点の革製品が生まれるまでを、美しさだけで見せる。",
+  telop_jp="", telop_en="",
+  extra=("最 後 は ロ ゴ だ け","テロップは出さない。BGMが終わり、ロゴが0.5秒。それで終える。"),
+  rows=[
+   ("S1 闇","0-5秒",[
+     ("3_S1_02_黒の中の光","真っ黒。細い光の帯が、革の断面だけを照らす"),
+     ("3_S1_01_道具が並ぶ","黒の上に道具だけが並ぶ（真俯瞰）"),
+     (None,"無音から、低いBGMが立ち上がる"),
+   ]),
+   ("S2 手","5-15秒",[
+     ("3_S2_01_手で革を折る","手だけ。革を折り、角を作る。<b>腕時計・指輪は外す</b>"),
+     ("3_S2_02_角を作る","角が立ち上がる（超マクロ）"),
+     ("3_S2_03_白手袋と金具","<b>白手袋</b>で金具を持ち、取り付ける。金属が触れる音"),
+   ]),
+   ("S3 コバ","15-24秒",[
+     (None,"コバに染料を入れる（超マクロ）"),
+     ("3_S3_02_磨く","磨く。<b>光が断面に反射する角度</b>を探す"),
+     ("3_S3_03_完成品","完成品が黒の中に浮かぶ。上から一灯だけ"),
+   ]),
+   ("S4 締め","24-28秒",[
+     (None,"ロゴのみ。<b>テロップは出さない</b>"),
+     (None,"―"),
+     (None,"―"),
+   ]),
+  ], pn=5, total=T),
+
+ dict(no="04", jp="絵になる日常を。", en="Everyday, Worth a Frame",
+  meta_len="30秒 ／ 11ショット", meta_target="対象＝仕事道具として買う人・贈る人　／　全媒体",
+  ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH・11.8万いいね）',
+  plan="映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。",
+  says="この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。",
+  telop_jp="", telop_en="",
+  extra=("壁 に 重 ね る 一 文","Everyday, worth a frame.<br><span style='color:#8a7a63'>街の白い壁に重ねる。画面の下にテロップは出さない。最後はロゴだけ。</span>"),
+  rows=[
+   ("S1 街に出る","0-8秒",[
+     ("4_S1_01_ガラスの反射","店のガラスの反射に映る（引き）"),
+     ("4_S1_02_街を歩く","街を歩く。横移動で追う"),
+     ("4_S1_03_電車が通り過ぎる","<b>電車が通り過ぎる（ブレ＝トランジション）</b>"),
+   ]),
+   ("S2 中身","8-17秒",[
+     ("4_S2_01_真俯瞰で入れる","手すりに置き、真俯瞰でA4とノートPCを入れる"),
+     ("4_S2_02_中身を並べる","寄り。内ポケットに名刺入れ・鍵・携帯"),
+     ("4_S2_03_財布に差し込む超マクロ","<b>財布に何かを差し込む超マクロ</b>"),
+   ]),
+   ("S3 一人の時間","17-25秒",[
+     ("4_S3_01_カフェの窓際","カフェの窓際。自然光・浅い被写界深度"),
+     ("4_S3_02_金具のロゴに超マクロ","<b>金具のロゴに超マクロ</b>"),
+     ("4_S3_03_高い場所に立つ","高い場所に立つ（引き・映画的）"),
+   ]),
+   ("S4 締め","25-30秒",[
+     ("4_S4_02_街に置く","街に置く。背景をボカして流す"),
+     ("4_S4_01_白い壁の前","白い壁の前。正面。壁に英語一文を重ねる"),
+     (None,"ロゴのみ。<b>テロップは出さない</b>"),
+   ]),
+  ], pn=6, total=T),
+
+ dict(no="05", jp="1979年から、東京で。", en="Since 1979, Tokyo",
+  meta_len="2分 ／ 12ショット（60秒短縮版 ×1）", meta_target="対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
+  ref='参考動画＝未定。<b style="color:#a8763e">年号で語る型</b>を推奨（年表テロップ＋工房の現在＋二人の顔と声）',
+  plan="会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<b>年表で信用を作り、最後に二人の顔と声で締める。</b>これがいちばん低予算で、いちばんメディアに刺さる。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割。<br><b>先に要ること</b>：お二人の収録を三十分ずつ。使うのは各十秒ほどだが、<b>単独インタビュー動画にそのまま展開できる素材</b>になる。",
+  says="1979年から続く会社が、いま向島の工房と一つになった。",
+  telop_jp="作る場所は、変わっていません。", telop_en="The place has not changed.",
+  extra=("年 表 テ ロ ッ プ",
+   "1979 創業　／　1980 SHIPS　／　1982 BEAMS　／　1990 UNITED ARROWS　／　1991 Paul Smith　／　2011 RALPH LAUREN 全直営店のカルトン"),
+  rows=[
+   ("S1 刻印","0-25秒",[
+     (None,"黒。刻印が押され、ロゴが革に沈む（超マクロ）"),
+     (None,"窪みに光が差す。そこに<b>年号テロップ</b>が重なる"),
+     (None,"引くと向島工房の全景になる（ハイアングル）"),
+   ]),
+   ("S2 二人","25-57秒",[
+     (None,"永尾社長。窓を背に座る（中景）。<b>顔が出るのはここだけ</b>"),
+     (None,"佐藤さん。<b>同じ光・同じ画角</b>で撮る"),
+     (None,"打ち合わせ台を真俯瞰。図面・革見本・道具"),
+   ]),
+   ("S3 製造","57-96秒",[
+     (None,"原反が広げられる（真俯瞰）"),
+     (None,"裁断 → 縫製 → コバ磨き。声が終わり工程の音だけになる"),
+     (None,"検品。<b>ここで一度、音を消す</b>"),
+   ]),
+   ("S4 渡る","96-120秒",[
+     (None,"梱包され、箱が閉じる（真俯瞰）"),
+     (None,"受け取る手。開けた瞬間"),
+     (None,"仕事で使われている → テロップ → ロゴ"),
+   ]),
+  ], pn=7, total=T),
+
+ dict(no="06", jp="つくる、確かめる、包む。", en="Make. Check. Pack.",
+  meta_len="2分20秒 ／ 12ショット（展示会用の無音版 ×1）", meta_target="対象＝OEMの調達・生産担当　／　商談・展示会・提案資料",
+  ref='参考動画＝未定。<b style="color:#a8763e">工場見学ワンテイク型</b>を推奨（入口から入り、工程順に歩き、梱包場で終わる）',
+  plan="OEMの粗利は36%。自社ブランドの財布・小物は76〜93%ある。訪問前に体制を伝えて、<b>価格ではなく品質で選ばれる状態</b>を作る。<br><br><b>3本目との違い</b>：3本目は黒背景・一灯・手だけ・固定・BGM・ロゴで終わる。<b>この6本目は工房の実景・自然光・人と機械・歩くカメラ・作業音・梱包と問い合わせ先で終わる。</b>同じ工程を撮っても別物になる。撮影日も分ける。<br><br>同じ素材から<b>展示会用の60秒無音版</b>を作る。",
+  says="量産も少量生産もできる。検品まで自社で完結し、この形で届く。",
+  telop_jp="つくる、確かめる、包む。", telop_en="Make. Check. Pack.",
+  extra=("テ ロ ッ プ は 工 程 名 だ け",
+   "金型裁断 Die Cutting／手裁断 Hand Cutting／機械縫製 Machine Stitching／手縫い Hand Stitching／目止め Edge Sealing／コバ磨き Edge Burnishing／検品 Inspection／梱包 Packing"),
+  rows=[
+   ("S1 入る","0-25秒",[
+     (None,"工房の外観と看板（ローアングル）。街の音"),
+     (None,"中に入る。工房の全景（ハイアングル）。<b>規模が分かる画角</b>"),
+     (None,"作業台に原反が広がる（真俯瞰）。扱える革の大きさを示す"),
+   ]),
+   ("S2 歩く","25-95秒",[
+     (None,"金型が置かれ、裁断機が下りる／革包丁で細部を切る"),
+     (None,"ミシンで縫う（横）／手縫い。二本の針が交差する（マクロ）"),
+     (None,"目止め → コバ磨き。<b>全工程の四割</b>とテロップ"),
+   ]),
+   ("S3 検品 ★最重要","95-120秒",[
+     (None,"職人が縫い目と断面を目で確かめる（寄り）。<b>作業音が消える</b>"),
+     (None,"検品済みの製品と道具が並ぶ（真俯瞰）"),
+     (None,"一点を手に取り、光にかざす"),
+   ]),
+   ("S4 包む","120-140秒",[
+     (None,"不織布で包み、角を折る（真俯瞰）。紙の音"),
+     (None,"箱に納め、テープで閉じる。<b>ここまで見せる</b>"),
+     (None,"対応技法の一覧 → 問い合わせ先とURL"),
+   ]),
+  ], pn=8, total=T),
+
+ dict(no="07", jp="HURRY UP.", en="急ぐ朝ほど、迷わない。",
+  meta_len="25秒 ×3品番 ／ 10ショット", meta_target="対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下",
+  ref='参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>（ASMR実測）',
+  plan="購入転換率が0.263%。前年0.583%から半減している。写真では入る量が伝わらない。<br><br><b>白い台の上、正面固定。カメラは一度も動かさない。</b>三品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かる。冒頭三秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。<br><br><b>秤のカットは使わない。</b>数字を読ませるかわりに、<b>片手で持ち上げる動作</b>で軽さを見せる。数字は小さくテロップで添えるだけ。",
+  says="A4もノートPCも入って、片手で持ち上がる。三品番の大きさの差が、並べれば分かる。",
+  telop_jp="CARRY YOUR DAY.", telop_en="今日を、持っていく。",
+  extra=("小 さ く 添 え る","A4・13インチPC対応　／　千百六十グラム　／　返品送料無料<br><span style='color:#8a7a63'>三品番＝ロワイヤルMトート・ベルシートート・Lジップ</span>"),
+  rows=[
+   ("S1 質感","0-6秒",[
+     ("7_S1_01_モノクロのファスナー","超マクロ・<b>モノクロ</b>。ファスナーの歯"),
+     ("7_S1_02_型押しの質感","型押しのロゴ、ハンドルの付け根"),
+     ("7_S1_03_白い台に鞄","引く。<b>カラーに変わる。</b>白い台に鞄が一つ"),
+   ]),
+   ("S2 入れる","6-16秒",[
+     ("7_S2_03_PCを入れる","正面固定。A4書類とノートPCを入れる"),
+     ("7_S2_01_入れていく","同じ画角。手帳・鍵・サングラス。<b>顔は入れない</b>"),
+     ("7_S2_02_小物を入れる","同じ画角。ペン・小物。入れる音を一つずつ拾う"),
+   ]),
+   ("S3 持ち上げる","16-20秒",[
+     ("7_S3_01_持ち上げる","<b>片手で持ち上げる。</b>軽さを動作で見せる"),
+     (None,"肩にかける。台は動かさない"),
+     (None,"―"),
+   ]),
+   ("S4 残る","20-25秒",[
+     ("7_S4_01_鞄だけが残る","人がフレームから出る。<b>鞄だけが残る</b>"),
+     ("7_S4_02_テロップ","テロップ → ロゴ"),
+     (None,"―"),
+   ]),
+  ], pn=9, total=T),
+
+ dict(no="08", jp="がんばった自分に、ひとつ。", en="One Thing, For Getting Through",
+  meta_len="18秒 ／ 10ショット", meta_target="対象＝まだ名前を知らない人　／　Instagram広告・全媒体",
+  ref='参考動画＝<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili（5.7万いいね）　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',
+  plan="<b>商品説明をひとつもしない。</b>買った直後、家まで待てずに車の中で開けてしまう十八秒。<br><br><b>パクリに見せない作り方</b>：参考動画はどれも<b>顔の反応が主役</b>。この一本は<b>手と、袋と、窓の外</b>を主役にして、顔は一瞬だけにする。さらに「店を出る → タクシー → 開ける」とつなぐと、どの一本とも似なくなる。<br><br><b>BGMを入れない。</b>車内の環境音と、紙・リボン・革の音だけ。足した瞬間に広告になる。",
+  says="誰かのためでなく、自分のために買っていい。八本のうち<b>顔を映す唯一の動画</b>。",
+  telop_jp="がんばった自分に、ひとつ。", telop_en="One thing, for getting through.",
+  extra=("決 め る こ と","出演者は未定。社内の方でよいか、外部にお願いするか。<br><span style='color:#8a7a63'>不織布・箱・リボンが自然に映るので、見送った「梱包から受け取りまで」の役割も半分果たします。</span>"),
+  rows=[
+   ("S1 店を出る","0-4秒",[
+     ("8_S1_01_店を出る","表参道。紙袋を持って店から出てくる"),
+     ("8_S1_02_袋を持って歩く","歩きながら、袋だけに寄る"),
+     ("8_S1_03_袋に寄る","BROOKLYNのロゴが一瞬だけ読める"),
+   ]),
+   ("S2 タクシー","4-8秒",[
+     ("8_S2_01_車内_膝の上に袋","乗り込む。膝の上に袋（<b>手だけ</b>）"),
+     ("8_S2_02_窓の外が流れる","窓の外が流れる。車内の環境音だけ"),
+     (None,"―"),
+   ]),
+   ("S3 開ける","8-14秒",[
+     ("8_S3_01_リボンをほどく","リボンをほどく（手だけ）。紐を引く音"),
+     ("8_S3_02_開けた瞬間","蓋を開ける。<b>顔は一瞬だけ</b>。無音の一拍"),
+     ("8_S3_03_光にかざす","取り出し、窓の光にかざす。断面が光る"),
+   ]),
+   ("S4 使う","14-18秒",[
+     (None,"その場でカードを差し込む。<b>もう使っている</b>"),
+     (None,"窓の外に目をやる → テロップ → ロゴ"),
+     (None,"―"),
+   ]),
+  ], pn=10, total=T),
+]
+
+
+def render_html():
+    P = ['''<div class="page cover">
+  <div class="eyebrow">%s</div>
+  <div class="rule"></div>
+  <h1>%s</h1>
+  <div class="sub">%s</div>
+  <div class="meta">
+    %s
+  </div>
+  <div class="foot">%s</div>
+  <div class="pagenum">1 / %d</div>
+</div>''' % (COVER["eyebrow"], COVER["title_jp"], COVER["subtitle_en_html"],
+             "<br>\n    ".join(COVER["meta_lines"]), COVER["footer"], T)]
+
+    rows_html = "\n".join(
+      f'<tr><td class="n">{r["n"]}</td><td class="ti"><b>{r["jp"]}</b><br><span>{r["en"]}</span></td>'
+      f'<td class="ln">{r["len"]}</td><td class="tg">{r["target"]}</td><td class="lk">{r["ref_html"]}</td><td class="pg">p.{r["pg"]}</td></tr>'
+      for r in TOC)
+    P.append(f'''<div class="page">
   <div class="eyebrow">目 次 　C O N T E N T S</div>
   <div class="h-sec">8本の動画</div>
-  <div class="subline">1〜4本目と7・8本目は参考動画があり、絵コンテの写真もそこから抜いています。5・6本目は参考動画をいただき次第、同じ形式で写真を入れます。</div>
+  <div class="subline">{TOC_INTRO}</div>
   <table class="toc">
     <tr><th>#</th><th>タイトル</th><th>尺・本数</th><th>届ける相手</th><th>参考動画</th><th></th></tr>
-    {rows}
+    {rows_html}
   </table>
-  <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
-  <div class="pagenum">2 / 10</div>
+  <div class="foot">{COVER["footer"]}</div>
+  <div class="pagenum">2 / {T}</div>
 </div>''')
 
-# ============ P3　1本目 ============
-P.append(vpage("01","今日の服に、合う色。","A Colour for Every Outfit",
- "20秒 ／ 12ショット","対象＝新規・リピーター　／　全媒体",
- '参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）',
- "家を出てから会社に着くまでの二十秒。<b>カメラは固定し、変わるのは服と革の色だけ。</b>車・電車・エスカレーターが視界を横切った瞬間に切り替える。売り込みはひとつも入れない。玄関一か所、通勤路二か所、会社前一か所で撮り切れる。",
- "服が変われば、合う革の色も変わる。同じ革・同じ色で、財布からバッグまで揃う。",
- "その日の服に、その日の色。","A colour for every outfit.",
- ("ナ レ ー シ ョ ン","毎日をカラフルに<br><span style='color:#8a7a63'>Make every day colourful.</span>"),
- [
-  ("S1 支度","0-4秒",[
-    (None,"玄関。財布をポケットに入れる（寄り）"),
-    (None,"ドアノブに手がかかる（超寄り）"),
-    ("1_S1_03_玄関を出た引き","ドアが開き、外へ出る（引き・逆光）"),
-  ]),
-  ("S2 変わる①","4-9秒",[
-    ("1_S2_01_同じ画角で服が変わる","<b>同じ画角のまま服が変わっている。</b>小物の色も変わる"),
-    ("1_S2_02_通り過ぎてトランジション","車が横切る → 抜けたら別の服・別の色"),
-    ("1_S2_03_別の色の小物","手元の小物だけに寄る（キャメル）"),
-  ]),
-  ("S3 変わる②","9-15秒",[
-    ("1_S3_01_さらに別の色","電車が通り過ぎる → 抜けたら変わっている"),
-    ("1_S3_02_建物内で変わる","エスカレーターを上がりきると変わっている"),
-    (None,"歩く足元（ロー）。手元の色だけが見える"),
-  ]),
-  ("S4 到着","15-20秒",[
-    ("1_S4_01_到着","会社のエントランス。ここが到着点"),
-    ("1_S4_02_全色が並ぶ","<b>真俯瞰。四色が並ぶ</b>"),
-    (None,"テロップ 1.5秒 → ロゴ 0.5秒"),
-  ]),
- ], 3, T))
+    for d in PAGES:
+        P.append(vpage(d["no"], d["jp"], d["en"], d["meta_len"], d["meta_target"], d["ref"],
+                        d["plan"], d["says"], d["telop_jp"], d["telop_en"], d["extra"],
+                        d["rows"], d["pn"], d["total"]))
+    return P
 
-# ============ P4　2本目 ============
-P.append(vpage("02","この道、20年。","Twenty Years",
- "40秒 ／ 12ショット","対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
- '参考動画＝<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）',
- "アングルは<b>真俯瞰と横の二つだけ</b>。音はカメラのマイクでは録れないので、スマホを手元三十センチに置いて別録りする。<b>S3のコバ塗りがこの一本の核。</b>塗料が乗った瞬間に断面の色が変わる ── 一カットの中でビフォーアフターが起きる。参考動画が四百七十七万回見られた理由がこれ。最後は作業机で終わらせず、使われている場所に置いて終える。",
- "ここで作っている。工程の四割は、この断面に使われている。",
- "神は細部に宿る。","God is in the details.",
- ("コ バ 塗 り の カ ッ ト で 出 す テ ロ ッ プ",
-  "一つの製品の、四割の時間は、この断面に使われます。<br><span style='color:#8a7a63'>Forty percent of the making goes into this one edge.</span><br><span style='color:#a8763e'>コバの色はキャメル（生成りの断面）を推奨。差がいちばん出ます。</span>"),
- [
-  ("S1 音","0-3秒",[
-    ("2_S1_01_刃が革に入る","超マクロ。刃が革に入る瞬間。何を見ているか分からない距離"),
-    (None,"「スッ」の一音だけ。BGMは鳴らさない"),
-    (None,"―"),
-  ]),
-  ("S2 切る","3-14秒",[
-    ("2_S2_01_金属定規で直線","真俯瞰。<b>金属定規</b>を当てて直線を一気に引く"),
-    ("2_S2_02_角を丸く回す","四十五度。角を丸く回して切る"),
-    ("2_S2_03_作業台と職人","<b>真俯瞰。作業台と職人の手全体</b>（引き）"),
-  ]),
-  ("S3 縫う・塗る","14-31秒",[
-    ("2_S3_01_針と糸","真俯瞰。針が革を抜ける"),
-    ("2_S3_02_横から目のアップ","<b>横から。目だけのアップ</b>。顔全体は入れない"),
-    ("2_S3_03b_コバ塗り_ワンカット","<b>コバ塗り ★核。</b>塗った側と塗っていない側が同じ画面に入る。長回し・カットを割らない"),
-  ]),
-  ("S4 磨く・終わり","31-40秒",[
-    ("2_S4_01_仕上げ剤を取る","超マクロ。コバを磨く。摩擦音"),
-    (None,"手が止まる。<b>職人の声が一言だけ入る</b>（台本なし）"),
-    ("2_S4_03_使われる場所","<b>使われている場所に置かれる</b> → テロップ → ロゴ"),
-  ]),
- ], 4, T))
 
-# ============ P5　3本目 ============
-P.append(vpage("03","The Making of the Royale M Tote","ロワイヤルMトートの作りかた",
- "28秒 ／ 9ショット","対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
- '参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux「le Brillant Tempo」）',
- "ブランドの格を上げる一本。<b>黒い布一枚とライト一灯</b>で撮れる。工房の蛍光灯は全部消す。<b>顔と工房は一切映さない。</b>映るのは手と、革と、金具だけ。この一本だけは商品を売らない。<br><br><b>6本目との違い</b>：背景（黒／実景）・光（一灯／自然光）・被写体（手だけ／人と機械）・カメラ（固定／歩く）・音（BGM／作業音）・終わり方（ロゴ／梱包と問い合わせ先）。<b>撮影日も分ける。</b>",
- "一点の革製品が生まれるまでを、美しさだけで見せる。",
- "", "",
- ("最 後 は ロ ゴ だ け","テロップは出さない。BGMが終わり、ロゴが0.5秒。それで終える。"),
- [
-  ("S1 闇","0-5秒",[
-    ("3_S1_02_黒の中の光","真っ黒。細い光の帯が、革の断面だけを照らす"),
-    ("3_S1_01_道具が並ぶ","黒の上に道具だけが並ぶ（真俯瞰）"),
-    (None,"無音から、低いBGMが立ち上がる"),
-  ]),
-  ("S2 手","5-15秒",[
-    ("3_S2_01_手で革を折る","手だけ。革を折り、角を作る。<b>腕時計・指輪は外す</b>"),
-    ("3_S2_02_角を作る","角が立ち上がる（超マクロ）"),
-    ("3_S2_03_白手袋と金具","<b>白手袋</b>で金具を持ち、取り付ける。金属が触れる音"),
-  ]),
-  ("S3 コバ","15-24秒",[
-    (None,"コバに染料を入れる（超マクロ）"),
-    ("3_S3_02_磨く","磨く。<b>光が断面に反射する角度</b>を探す"),
-    ("3_S3_03_完成品","完成品が黒の中に浮かぶ。上から一灯だけ"),
-  ]),
-  ("S4 締め","24-28秒",[
-    (None,"ロゴのみ。<b>テロップは出さない</b>"),
-    (None,"―"),
-    (None,"―"),
-  ]),
- ], 5, T))
+def dump_json(path=None):
+    path = path or os.path.join(os.path.dirname(os.path.abspath(__file__)), "deck_data.json")
+    data = {
+        "cover": {**COVER, "toc_intro": TOC_INTRO},
+        "toc": TOC,
+        "pages": [
+            {**{k: v for k, v in d.items() if k != "rows"},
+             "rows": [[name, t, [list(s) for s in shots]] for name, t, shots in d["rows"]]}
+            for d in PAGES
+        ],
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    return path
 
-# ============ P6　4本目 ============
-P.append(vpage("04","絵になる日常を。","Everyday, Worth a Frame",
- "30秒 ／ 11ショット","対象＝仕事道具として買う人・贈る人　／　全媒体",
- '参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH・11.8万いいね）',
- "映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。",
- "この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。",
- "", "",
- ("壁 に 重 ね る 一 文","Everyday, worth a frame.<br><span style='color:#8a7a63'>街の白い壁に重ねる。画面の下にテロップは出さない。最後はロゴだけ。</span>"),
- [
-  ("S1 街に出る","0-8秒",[
-    ("4_S1_01_ガラスの反射","店のガラスの反射に映る（引き）"),
-    ("4_S1_02_街を歩く","街を歩く。横移動で追う"),
-    ("4_S1_03_電車が通り過ぎる","<b>電車が通り過ぎる（ブレ＝トランジション）</b>"),
-  ]),
-  ("S2 中身","8-17秒",[
-    ("4_S2_01_真俯瞰で入れる","手すりに置き、真俯瞰でA4とノートPCを入れる"),
-    ("4_S2_02_中身を並べる","寄り。内ポケットに名刺入れ・鍵・携帯"),
-    ("4_S2_03_財布に差し込む超マクロ","<b>財布に何かを差し込む超マクロ</b>"),
-  ]),
-  ("S3 一人の時間","17-25秒",[
-    ("4_S3_01_カフェの窓際","カフェの窓際。自然光・浅い被写界深度"),
-    ("4_S3_02_金具のロゴに超マクロ","<b>金具のロゴに超マクロ</b>"),
-    ("4_S3_03_高い場所に立つ","高い場所に立つ（引き・映画的）"),
-  ]),
-  ("S4 締め","25-30秒",[
-    ("4_S4_02_街に置く","街に置く。背景をボカして流す"),
-    ("4_S4_01_白い壁の前","白い壁の前。正面。壁に英語一文を重ねる"),
-    (None,"ロゴのみ。<b>テロップは出さない</b>"),
-  ]),
- ], 6, T))
 
-# ============ P7　5本目 ============
-P.append(vpage("05","1979年から、東京で。","Since 1979, Tokyo",
- "2分 ／ 12ショット（60秒短縮版 ×1）","対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
- '参考動画＝未定。<b style="color:#a8763e">年号で語る型</b>を推奨（年表テロップ＋工房の現在＋二人の顔と声）',
- "会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<b>年表で信用を作り、最後に二人の顔と声で締める。</b>これがいちばん低予算で、いちばんメディアに刺さる。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割。<br><b>先に要ること</b>：お二人の収録を三十分ずつ。使うのは各十秒ほどだが、<b>単独インタビュー動画にそのまま展開できる素材</b>になる。",
- "1979年から続く会社が、いま向島の工房と一つになった。",
- "作る場所は、変わっていません。","The place has not changed.",
- ("年 表 テ ロ ッ プ",
-  "1979 創業　／　1980 SHIPS　／　1982 BEAMS　／　1990 UNITED ARROWS　／　1991 Paul Smith　／　2011 RALPH LAUREN 全直営店のカルトン"),
- [
-  ("S1 刻印","0-25秒",[
-    (None,"黒。刻印が押され、ロゴが革に沈む（超マクロ）"),
-    (None,"窪みに光が差す。そこに<b>年号テロップ</b>が重なる"),
-    (None,"引くと向島工房の全景になる（ハイアングル）"),
-  ]),
-  ("S2 二人","25-57秒",[
-    (None,"永尾社長。窓を背に座る（中景）。<b>顔が出るのはここだけ</b>"),
-    (None,"佐藤さん。<b>同じ光・同じ画角</b>で撮る"),
-    (None,"打ち合わせ台を真俯瞰。図面・革見本・道具"),
-  ]),
-  ("S3 製造","57-96秒",[
-    (None,"原反が広げられる（真俯瞰）"),
-    (None,"裁断 → 縫製 → コバ磨き。声が終わり工程の音だけになる"),
-    (None,"検品。<b>ここで一度、音を消す</b>"),
-  ]),
-  ("S4 渡る","96-120秒",[
-    (None,"梱包され、箱が閉じる（真俯瞰）"),
-    (None,"受け取る手。開けた瞬間"),
-    (None,"仕事で使われている → テロップ → ロゴ"),
-  ]),
- ], 7, T))
-
-# ============ P8　6本目 ============
-P.append(vpage("06","つくる、確かめる、包む。","Make. Check. Pack.",
- "2分20秒 ／ 12ショット（展示会用の無音版 ×1）","対象＝OEMの調達・生産担当　／　商談・展示会・提案資料",
- '参考動画＝未定。<b style="color:#a8763e">工場見学ワンテイク型</b>を推奨（入口から入り、工程順に歩き、梱包場で終わる）',
- "OEMの粗利は36%。自社ブランドの財布・小物は76〜93%ある。訪問前に体制を伝えて、<b>価格ではなく品質で選ばれる状態</b>を作る。<br><br><b>3本目との違い</b>：3本目は黒背景・一灯・手だけ・固定・BGM・ロゴで終わる。<b>この6本目は工房の実景・自然光・人と機械・歩くカメラ・作業音・梱包と問い合わせ先で終わる。</b>同じ工程を撮っても別物になる。撮影日も分ける。<br><br>同じ素材から<b>展示会用の60秒無音版</b>を作る。",
- "量産も少量生産もできる。検品まで自社で完結し、この形で届く。",
- "つくる、確かめる、包む。","Make. Check. Pack.",
- ("テ ロ ッ プ は 工 程 名 だ け",
-  "金型裁断 Die Cutting／手裁断 Hand Cutting／機械縫製 Machine Stitching／手縫い Hand Stitching／目止め Edge Sealing／コバ磨き Edge Burnishing／検品 Inspection／梱包 Packing"),
- [
-  ("S1 入る","0-25秒",[
-    (None,"工房の外観と看板（ローアングル）。街の音"),
-    (None,"中に入る。工房の全景（ハイアングル）。<b>規模が分かる画角</b>"),
-    (None,"作業台に原反が広がる（真俯瞰）。扱える革の大きさを示す"),
-  ]),
-  ("S2 歩く","25-95秒",[
-    (None,"金型が置かれ、裁断機が下りる／革包丁で細部を切る"),
-    (None,"ミシンで縫う（横）／手縫い。二本の針が交差する（マクロ）"),
-    (None,"目止め → コバ磨き。<b>全工程の四割</b>とテロップ"),
-  ]),
-  ("S3 検品 ★最重要","95-120秒",[
-    (None,"職人が縫い目と断面を目で確かめる（寄り）。<b>作業音が消える</b>"),
-    (None,"検品済みの製品と道具が並ぶ（真俯瞰）"),
-    (None,"一点を手に取り、光にかざす"),
-  ]),
-  ("S4 包む","120-140秒",[
-    (None,"不織布で包み、角を折る（真俯瞰）。紙の音"),
-    (None,"箱に納め、テープで閉じる。<b>ここまで見せる</b>"),
-    (None,"対応技法の一覧 → 問い合わせ先とURL"),
-  ]),
- ], 8, T))
-
-# ============ P9　7本目 ============
-P.append(vpage("07","HURRY UP.","急ぐ朝ほど、迷わない。",
- "25秒 ×3品番 ／ 10ショット","対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下",
- '参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>（ASMR実測）',
- "購入転換率が0.263%。前年0.583%から半減している。写真では入る量が伝わらない。<br><br><b>白い台の上、正面固定。カメラは一度も動かさない。</b>三品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かる。冒頭三秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。<br><br><b>秤のカットは使わない。</b>数字を読ませるかわりに、<b>片手で持ち上げる動作</b>で軽さを見せる。数字は小さくテロップで添えるだけ。",
- "A4もノートPCも入って、片手で持ち上がる。三品番の大きさの差が、並べれば分かる。",
- "CARRY YOUR DAY.","今日を、持っていく。",
- ("小 さ く 添 え る","A4・13インチPC対応　／　千百六十グラム　／　返品送料無料<br><span style='color:#8a7a63'>三品番＝ロワイヤルMトート・ベルシートート・Lジップ</span>"),
- [
-  ("S1 質感","0-6秒",[
-    ("7_S1_01_モノクロのファスナー","超マクロ・<b>モノクロ</b>。ファスナーの歯"),
-    ("7_S1_02_型押しの質感","型押しのロゴ、ハンドルの付け根"),
-    ("7_S1_03_白い台に鞄","引く。<b>カラーに変わる。</b>白い台に鞄が一つ"),
-  ]),
-  ("S2 入れる","6-16秒",[
-    ("7_S2_03_PCを入れる","正面固定。A4書類とノートPCを入れる"),
-    ("7_S2_01_入れていく","同じ画角。手帳・鍵・サングラス。<b>顔は入れない</b>"),
-    ("7_S2_02_小物を入れる","同じ画角。ペン・小物。入れる音を一つずつ拾う"),
-  ]),
-  ("S3 持ち上げる","16-20秒",[
-    ("7_S3_01_持ち上げる","<b>片手で持ち上げる。</b>軽さを動作で見せる"),
-    (None,"肩にかける。台は動かさない"),
-    (None,"―"),
-  ]),
-  ("S4 残る","20-25秒",[
-    ("7_S4_01_鞄だけが残る","人がフレームから出る。<b>鞄だけが残る</b>"),
-    ("7_S4_02_テロップ","テロップ → ロゴ"),
-    (None,"―"),
-  ]),
- ], 9, T))
-
-# ============ P10　8本目 ============
-P.append(vpage("08","がんばった自分に、ひとつ。","One Thing, For Getting Through",
- "18秒 ／ 10ショット","対象＝まだ名前を知らない人　／　Instagram広告・全媒体",
- '参考動画＝<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili（5.7万いいね）　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',
- "<b>商品説明をひとつもしない。</b>買った直後、家まで待てずに車の中で開けてしまう十八秒。<br><br><b>パクリに見せない作り方</b>：参考動画はどれも<b>顔の反応が主役</b>。この一本は<b>手と、袋と、窓の外</b>を主役にして、顔は一瞬だけにする。さらに「店を出る → タクシー → 開ける」とつなぐと、どの一本とも似なくなる。<br><br><b>BGMを入れない。</b>車内の環境音と、紙・リボン・革の音だけ。足した瞬間に広告になる。",
- "誰かのためでなく、自分のために買っていい。八本のうち<b>顔を映す唯一の動画</b>。",
- "がんばった自分に、ひとつ。","One thing, for getting through.",
- ("決 め る こ と","出演者は未定。社内の方でよいか、外部にお願いするか。<br><span style='color:#8a7a63'>不織布・箱・リボンが自然に映るので、見送った「梱包から受け取りまで」の役割も半分果たします。</span>"),
- [
-  ("S1 店を出る","0-4秒",[
-    ("8_S1_01_店を出る","表参道。紙袋を持って店から出てくる"),
-    ("8_S1_02_袋を持って歩く","歩きながら、袋だけに寄る"),
-    ("8_S1_03_袋に寄る","BROOKLYNのロゴが一瞬だけ読める"),
-  ]),
-  ("S2 タクシー","4-8秒",[
-    ("8_S2_01_車内_膝の上に袋","乗り込む。膝の上に袋（<b>手だけ</b>）"),
-    ("8_S2_02_窓の外が流れる","窓の外が流れる。車内の環境音だけ"),
-    (None,"―"),
-  ]),
-  ("S3 開ける","8-14秒",[
-    ("8_S3_01_リボンをほどく","リボンをほどく（手だけ）。紐を引く音"),
-    ("8_S3_02_開けた瞬間","蓋を開ける。<b>顔は一瞬だけ</b>。無音の一拍"),
-    ("8_S3_03_光にかざす","取り出し、窓の光にかざす。断面が光る"),
-  ]),
-  ("S4 使う","14-18秒",[
-    (None,"その場でカードを差し込む。<b>もう使っている</b>"),
-    (None,"窓の外に目をやる → テロップ → ロゴ"),
-    (None,"―"),
-  ]),
- ], 10, T))
-
-print(build(P))
+if __name__ == "__main__":
+    print(build(render_html()))
+    print(dump_json(), file=sys.stderr)

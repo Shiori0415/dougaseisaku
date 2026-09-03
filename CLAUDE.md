@@ -27,6 +27,8 @@
 
 ## 生成方法
 
+### PDF版
+
 ```
 python3 tools/data_pdf.py          # pdf/kakutei.html を生成
 cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
@@ -35,3 +37,18 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 
 内容は `tools/data_pdf.py` に、版面は `tools/build_pdf.py` にある。
 日本語フォントは IPAGothic ／ IPAPGothic。
+
+### Googleスライドで編集できるpptx版
+
+文言・写真の割り当ては `tools/data_pdf.py` が唯一の情報源。`python3 tools/data_pdf.py` を実行すると
+`tools/deck_data.json` も同時に書き出され、これを `tools/build_pptx.js`（pptxgenjs）が読んで
+`pdf/00_動画8本_企画と絵コンテ.pptx` を生成する。PDF版と内容は同じで、レイアウトのみワイド16:9で作り直している。
+
+```
+python3 tools/data_pdf.py          # deck_data.json を書き出す（PDFも同時に更新される）
+node tools/build_pptx.js           # pdf/00_動画8本_企画と絵コンテ.pptx を生成（要 npm install pptxgenjs）
+```
+
+`.pptx` はGoogleドライブにアップロードして「Googleスライドで開く」でそのまま編集できる。
+左カラム（企画・この1本で言うこと・テロップ・追加ブロック）の文章が長いページは、フッターと重ならないよう
+`build_pptx.js` が自動でフォントを縮小してレイアウトを収める。

@@ -5,6 +5,7 @@
 | ファイル | 内容 |
 |---|---|
 | [pdf/00_動画8本_企画と絵コンテ.pdf](pdf/00_動画8本_企画と絵コンテ.pdf) | **これ1つで足ります。**表紙／目次／8本の企画書・構成・絵コンテ（A4横10ページ） |
+| [pdf/00_動画8本_企画と絵コンテ.pptx](pdf/00_動画8本_企画と絵コンテ.pptx) | 上と同じ内容のGoogleスライド編集用版。Googleドライブにアップロードして「Googleスライドで開く」で編集し、ファイル→ダウンロード→PDFで保存し直せます |
 | [pdf/02_使用シーン動画_企画書5案.pdf](pdf/02_使用シーン動画_企画書5案.pdf) | 社長提出用。使用シーン動画 5案（同社フォーム準拠） |
 | [assets/ref4/](assets/ref4/) | 参考動画から抽出した静止画 51枚。絵コンテに埋め込んでいるもの |
 | [CLAUDE.md](CLAUDE.md) | 資料づくりの恒久ルール（入れてはいけないもの・絵コンテの形式・言葉のルール） |
@@ -26,10 +27,13 @@
 
 ### 資料の作り直し方
 
+文言・写真の割り当てはすべて `tools/data_pdf.py` にあり、PDF版・pptx版はここから作る。
+
 ```
-python3 tools/data_pdf.py
+python3 tools/data_pdf.py          # pdf/kakutei.html と tools/deck_data.json を書き出す
 cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
   --no-pdf-header-footer --print-to-pdf="00_動画8本_企画と絵コンテ.pdf" "file://$PWD/kakutei.html"
+cd .. && node tools/build_pptx.js   # pdf/00_動画8本_企画と絵コンテ.pptx を作り直す（要 npm install pptxgenjs）
 ```
 
 ## 旧版（参照しないでください）
