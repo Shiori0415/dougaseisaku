@@ -7,686 +7,288 @@
 @page { size: A4 landscape; margin: 0; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body {
-  font-family: "IPAPGothic","IPAGothic",sans-serif;
-  color:#1a1a1a; background:#fff;
-  font-size:9pt; line-height:1.65; letter-spacing:.02em;
-}
+body { font-family:"IPAPGothic","IPAGothic",sans-serif; color:#1a1a1a; background:#fff;
+       font-size:9pt; line-height:1.65; letter-spacing:.02em; }
 a { color:#1a1a1a; text-decoration:none; }
-.page {
-  width:297mm; height:210mm; padding:13mm 14mm;
-  page-break-after: always; position:relative; overflow:hidden; background:#fff;
-}
-.page:last-child { page-break-after: auto; }
-.page.cover, .page.plan48 { display:flex; flex-direction:column; }
-.page.plan48 .four { flex:1; }
-.eyebrow { font-size:7.5pt; letter-spacing:.18em; color:#8a7a63; }
-.pagenum { position:absolute; right:14mm; bottom:8mm; font-size:7.5pt; color:#a89b86; letter-spacing:.1em; }
+.page { width:297mm; height:210mm; padding:13mm 14mm; page-break-after:always;
+        position:relative; overflow:hidden; background:#fff; }
+.page:last-child { page-break-after:auto; }
 .foot { position:absolute; left:14mm; bottom:8mm; font-size:7.5pt; color:#a89b86; letter-spacing:.06em; }
+.pagenum { position:absolute; right:14mm; bottom:8mm; font-size:7.5pt; color:#a89b86; letter-spacing:.1em; }
+.eyebrow { font-size:7.5pt; letter-spacing:.18em; color:#8a7a63; }
+
+/* 表紙 */
+.cover { display:flex; flex-direction:column; justify-content:center; }
+.cover h1 { font-size:40pt; line-height:1.25; letter-spacing:.04em; margin:6mm 0 4mm; }
+.cover .sub { font-size:13pt; color:#4a4136; letter-spacing:.1em; }
+.cover .meta { margin-top:auto; padding-top:8mm; padding-bottom:6mm; border-top:1px solid #d8d0c2;
+               font-size:8.5pt; color:#6b5f4d; line-height:1.9; }
+.cover .rule { width:40mm; height:3px; background:#1a1a1a; margin-top:2mm; }
+
+/* 目次 */
 .h-sec { font-size:19pt; letter-spacing:.04em; }
-.sub { font-size:8.5pt; color:#6b5f4d; margin-top:1.5mm; }
+.subline { font-size:8.5pt; color:#6b5f4d; margin-top:1.5mm; }
+table.toc { width:100%; border-collapse:collapse; font-size:8.5pt; margin-top:6mm; }
+table.toc th { text-align:left; font-size:7pt; letter-spacing:.12em; color:#8a7a63; font-weight:normal;
+               border-bottom:1.5px solid #1a1a1a; padding:0 3mm 1.5mm 0; }
+table.toc td { border-bottom:1px solid #e6ded0; padding:2.9mm 3mm 2.9mm 0; vertical-align:top; line-height:1.5; }
+table.toc td.n { width:10mm; font-weight:bold; color:#a8763e; }
+table.toc td.ti { width:52mm; }
+table.toc td.ti b { font-size:10pt; }
+table.toc td.ti span { font-size:7.5pt; color:#8a7a63; letter-spacing:.04em; }
+table.toc td.ln { width:26mm; color:#6b5f4d; white-space:nowrap; }
+table.toc td.tg { width:46mm; color:#4a4136; }
+table.toc td.lk { font-size:7.3pt; color:#8a7a63; word-break:break-all; }
+table.toc td.pg { width:12mm; text-align:right; color:#6b5f4d; }
 
-/* ---- cover ---- */
-.cover-head { display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:4mm; }
-.cover-head h1 { font-size:25pt; line-height:1.2; letter-spacing:.03em; }
-.cover-head .meta { text-align:right; font-size:8pt; color:#6b5f4d; line-height:1.8; }
-.lede { margin:5mm 0 6mm; font-size:9.5pt; color:#3a3226; max-width:215mm; }
-.cards { display:flex; gap:4mm; flex:1; }
-.card { display:flex; flex-direction:column; }
-.card .punch { margin-top:auto !important; }
-.card { flex:1; border:1px solid #ddd5c6; border-top:3px solid #1a1a1a; padding:4mm 4mm 4.5mm; background:#fdfcf9; }
-.card .no { font-size:7.5pt; letter-spacing:.16em; color:#a8763e; font-weight:bold; }
-.card h2 { font-size:12.5pt; line-height:1.35; margin:1.5mm 0 1mm; }
-.card .len { font-size:8pt; color:#6b5f4d; padding-bottom:2.5mm; border-bottom:1px solid #e6ded0; }
-.card dt { font-size:7pt; letter-spacing:.12em; color:#9b8e79; margin-top:2.2mm; }
-.card dd { font-size:8.5pt; line-height:1.5; }
-.card .punch { margin-top:3mm; padding:2.2mm 2.5mm; background:#1a1a1a; color:#fff; font-size:8.5pt; line-height:1.45; }
-.strip { display:flex; gap:6mm; margin-top:5mm; padding-top:4mm; border-top:1px solid #d8d0c2; }
-.strip h3 { font-size:7.5pt; letter-spacing:.14em; color:#8a7a63; margin-bottom:1.5mm; }
-.strip p { font-size:8.5pt; line-height:1.6; }
-.ord { display:flex; gap:2mm; margin-top:1mm; }
-.ord span { flex:1; text-align:center; font-size:8pt; padding:1.5mm 0; background:#f1ece1; border-bottom:2px solid #a8763e; }
-
-/* ---- master table ---- */
-table.all { width:100%; border-collapse:collapse; font-size:8pt; margin-top:5mm; }
-table.all th { text-align:left; font-size:7pt; letter-spacing:.1em; color:#8a7a63; font-weight:normal;
-  border-bottom:1.5px solid #1a1a1a; padding:0 2.5mm 1.5mm 0; }
-table.all td { border-bottom:1px solid #e6ded0; padding:1.9mm 2.5mm 1.9mm 0; vertical-align:top; line-height:1.5; }
-table.all td.n { width:9mm; font-weight:bold; color:#a8763e; }
-table.all td.ti { width:40mm; }
-table.all td.ti b { font-size:9pt; }
-table.all td.ln { width:19mm; color:#6b5f4d; white-space:nowrap; }
-table.all td.tg { width:36mm; color:#4a4136; }
-table.all td.sy { width:64mm; }
-table.all td.md { width:32mm; color:#4a4136; font-size:7.5pt; }
-table.all td.lk { font-size:7.3pt; color:#6b5f4d; word-break:break-all; }
-table.all tr.fixed td.n { color:#1a1a1a; }
-table.all tr.fixed td { background:#faf6ee; }
-table.all tr.grp td { background:#fff; border-bottom:none; padding:3.5mm 0 1mm; font-size:7pt; letter-spacing:.14em; color:#8a7a63; }
-.blank { display:inline-block; min-width:44mm; border-bottom:1px dotted #b8ac97; color:#b8ac97; }
-.tag { display:inline-block; font-size:6.5pt; letter-spacing:.1em; padding:.4mm 1.4mm; border:1px solid #a8763e; color:#a8763e; vertical-align:.4mm; }
-.tag.k { background:#1a1a1a; border-color:#1a1a1a; color:#fff; }
-.note-off { margin-top:3mm; border-left:3px solid #d8d0c2; padding:2.5mm 4mm; font-size:8pt; color:#5a5044; line-height:1.6; }
-
-/* ---- rules page ---- */
-.rules3 { display:flex; gap:5mm; margin-top:6mm; }
-.rule-box { flex:1; border:1px solid #ddd5c6; padding:5mm; background:#fdfcf9; }
-.rule-box .n { font-size:22pt; color:#a8763e; line-height:1; font-weight:bold; }
-.rule-box .t { font-size:11pt; margin:2.5mm 0 1.5mm; line-height:1.4; }
-.rule-box .d { font-size:8.5pt; color:#4a4136; line-height:1.6; }
-table.disc { width:100%; border-collapse:collapse; margin-top:6mm; font-size:8.5pt; }
-table.disc th { text-align:left; font-size:7.5pt; letter-spacing:.12em; color:#8a7a63; border-bottom:1.5px solid #1a1a1a; padding:0 3mm 1.5mm 0; font-weight:normal; }
-table.disc td { border-bottom:1px solid #e6ded0; padding:2.6mm 3mm 2.6mm 0; vertical-align:top; line-height:1.6; }
-table.disc td:first-child { width:78mm; color:#5a5044; }
-.callout { margin-top:5mm; border-left:3px solid #a8763e; background:#faf6ee; padding:3.5mm 4mm; font-size:8.5pt; line-height:1.65; }
-.words { display:flex; gap:6mm; margin-top:4mm; font-size:8.5pt; }
-.words > div { flex:1; }
-.words .lbl { font-size:7.5pt; letter-spacing:.14em; color:#8a7a63; display:block; }
-
-/* ---- video page ---- */
-.vhead { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2px solid #1a1a1a; padding-bottom:3mm; }
+/* 各本ページ */
+.vhead { display:flex; justify-content:space-between; align-items:flex-end;
+         border-bottom:2px solid #1a1a1a; padding-bottom:2.6mm; }
 .vhead .l .no { font-size:7.5pt; letter-spacing:.16em; color:#a8763e; font-weight:bold; }
-.vhead .l h2 { font-size:18pt; letter-spacing:.03em; line-height:1.2; margin-top:1mm; }
-.vhead .r { text-align:right; font-size:8pt; color:#6b5f4d; line-height:1.75; }
+.vhead .l h2 { font-size:19pt; letter-spacing:.03em; line-height:1.15; margin-top:.8mm; }
+.vhead .l .enh { font-size:9pt; letter-spacing:.1em; color:#8a7a63; margin-top:.8mm; }
+.vhead .r { text-align:right; font-size:8pt; color:#6b5f4d; line-height:1.7; }
 .vhead .r b { color:#1a1a1a; font-size:9.5pt; }
-.vhead .r .lk { font-size:7.3pt; color:#8a7a63; }
-.toprow { display:flex; gap:5mm; margin-top:3mm; align-items:stretch; }
-.shotswrap { flex:0 0 auto; }
-.shots { display:flex; gap:3mm; }
-.shots figure { flex:0 0 auto; }
-.shots img { height:33mm; width:auto; display:block; border:1px solid #ddd5c6; }
-.shots figcaption { font-size:6.8pt; color:#8a7a63; margin-top:1.2mm; line-height:1.4; max-width:70mm; }
-.refnote { font-size:6.8pt; color:#a89b86; margin-top:1.5mm; line-height:1.5; }
-.aim { flex:1; padding:3.5mm 4mm; background:#f5f1e8; font-size:8.7pt; line-height:1.7; }
-.aim .lbl { font-size:7pt; letter-spacing:.14em; color:#8a7a63; display:block; margin-bottom:1.2mm; }
-.flow { display:flex; margin:3.5mm 0 2.5mm; }
-.flow div { flex:1; border-top:2px solid #1a1a1a; padding:2mm 3mm 0 0; }
-.flow div .k { font-size:7pt; letter-spacing:.14em; color:#a8763e; }
-.flow div .v { font-size:8pt; line-height:1.5; }
-table.sb { width:100%; border-collapse:collapse; font-size:8.3pt; }
-table.sb th { text-align:left; font-size:7pt; letter-spacing:.12em; color:#8a7a63; font-weight:normal; border-bottom:1.5px solid #1a1a1a; padding:0 2.5mm 1.5mm 0; }
-table.sb td { border-bottom:1px solid #e6ded0; padding:1.5mm 3mm 1.5mm 0; vertical-align:top; line-height:1.55; }
-table.sb td.c { width:8mm; color:#a8763e; font-weight:bold; }
-table.sb td.t { width:19mm; color:#6b5f4d; white-space:nowrap; }
-table.sb td.s { width:130mm; }
-table.sb tr.key td { background:#faf6ee; }
-table.sb b { border-bottom:1.5px solid #e0c9a4; }
-.telop { margin-top:3.5mm; background:#1a1a1a; color:#fff; padding:2.6mm 4mm; }
-.telop .lbl { font-size:7pt; letter-spacing:.16em; color:#c9b79a; }
-.telop .t { font-size:11.5pt; line-height:1.45; margin-top:1mm; }
-.telop .n { font-size:7.5pt; color:#b3a894; margin-top:1.5mm; line-height:1.5; }
+.vhead .r .lk { font-size:7.2pt; color:#8a7a63; }
 
-/* ---- 5-8 page ---- */
-.four { display:flex; gap:4mm; margin-top:5mm; }
-.four .b { flex:1; border:1px solid #ddd5c6; border-top:3px solid #a8763e; padding:4mm; background:#fdfcf9; display:flex; flex-direction:column; }
-.four .b .no { font-size:7.5pt; letter-spacing:.16em; color:#a8763e; font-weight:bold; }
-.four .b h3 { font-size:12pt; line-height:1.35; margin:1.5mm 0 1mm; }
-.four .b .len { font-size:8pt; color:#6b5f4d; padding-bottom:2.5mm; border-bottom:1px solid #e6ded0; }
-.four .b dt { font-size:7pt; letter-spacing:.12em; color:#9b8e79; margin-top:2.5mm; }
-.four .b dd { font-size:8.2pt; line-height:1.55; }
-.four .b .lkbox { margin-top:auto; padding-top:3mm; }
-.four .b .lkbox .lbl { font-size:7pt; letter-spacing:.12em; color:#9b8e79; }
-.four .b .lkbox .fill { display:block; margin-top:1mm; border-bottom:1px dotted #b8ac97; height:5mm; color:#b8ac97; font-size:7.5pt; }
-.next { margin-top:5mm; padding-top:4mm; border-top:1px solid #d8d0c2; font-size:8.5pt; line-height:1.65; color:#3a3226; }
-.next b { color:#1a1a1a; }
+.vbody { display:flex; gap:6mm; margin-top:4mm; }
+.col { flex:0 0 96mm; }
+.blk { margin-bottom:3.5mm; font-size:8.5pt; line-height:1.7; }
+.blk .lbl { display:block; font-size:7pt; letter-spacing:.14em; color:#8a7a63; margin-bottom:1mm; }
+.telop { background:#1a1a1a; color:#fff; padding:3mm 3.5mm; margin-bottom:3.5mm; }
+.telop .lbl { display:block; font-size:7pt; letter-spacing:.16em; color:#c9b79a; margin-bottom:1.2mm; }
+.telop .jp { font-size:11.5pt; line-height:1.4; }
+.telop .en { font-size:8.5pt; color:#c9b79a; margin-top:1mm; letter-spacing:.03em; }
+
+table.grid { flex:1; border-collapse:collapse; table-layout:fixed; }
+table.grid th { text-align:left; font-size:7pt; letter-spacing:.12em; color:#8a7a63; font-weight:normal;
+                border-bottom:1.5px solid #1a1a1a; padding:0 1.6mm 1.4mm 0; }
+table.grid td { border-bottom:1px solid #e6ded0; padding:1.8mm 1.6mm 2.4mm 0; vertical-align:top; }
+table.grid td.sc { width:25mm; font-size:8pt; line-height:1.45; color:#6b5f4d; }
+table.grid td.sc b { color:#1a1a1a; font-size:8.5pt; }
+table.grid img { width:100%; height:23mm; object-fit:cover; display:block; border:1px solid #ddd5c6; }
+table.grid .ph0 { height:23mm; border:1px dashed #c9bda6; background:#fbf9f4; color:#b3a894;
+                  font-size:6.8pt; display:flex; align-items:center; justify-content:center; }
+table.grid .cap { font-size:7.1pt; line-height:1.45; margin-top:1.2mm; color:#3a3226; }
+table.grid .cap b { border-bottom:1.2px solid #e0c9a4; }
 </style>
 </head>
 <body>
-
-
-<!-- ============ P1 表紙 ============ -->
 <div class="page cover">
-  <div class="cover-head">
-    <div>
-      <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
-      <h1>動画 8本<br>企画・構成・絵コンテ</h1>
-    </div>
-    <div class="meta">
-      2026年9月3日　第3版<br>
-      株式会社B supply　宮下 詩織<br>
-      <span style="color:#a89b86">6本＝参考動画あり（絵コンテ済）　／　2本＝企画のみ</span>
-    </div>
+  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
+  <div class="rule"></div>
+  <h1>動画 8本<br>企画・構成・絵コンテ</h1>
+  <div class="sub">Eight Films &nbsp;/&nbsp; Plan, Structure, Storyboard</div>
+  <div class="meta">
+    2026年9月3日　第4版<br>
+    株式会社B supply　宮下 詩織<br>
+    テロップはすべて日本語と英語の二本立てで記載しています。
   </div>
-
-  <p class="lede">
-    いただいた参考動画が、そのまま演出の指定になります。この資料は<b>「何を、どの順で撮るか」だけ</b>を書いています。
-    旧「工程ASMRショート7本シリーズ」は廃止しました。まず下の4本から撮ります。
-  </p>
-
-  <div class="cards">
-    <div class="card">
-      <div class="no">01</div>
-      <h2>今日の服に、<br>合う色。</h2>
-      <div class="len">20秒 ／ 6カット</div>
-      <dl>
-        <dt>演出</dt><dd>服装が変わると、革の色も変わる。日常をポップに</dd>
-        <dt>対象</dt><dd>新規・リピーター</dd>
-        <dt>参考</dt><dd>innovator SWEDEN</dd>
-      </dl>
-      <div class="punch">グリーンだけで、七十一色。</div>
-    </div>
-    <div class="card">
-      <div class="no">02</div>
-      <h2>作っている音。</h2>
-      <div class="len">40秒 ／ 8カット</div>
-      <dl>
-        <dt>演出</dt><dd>工程を音で。コバ塗りのワンカットと、職人の声を入れる</dd>
-        <dt>対象</dt><dd>新規（まだ知らない人）</dd>
-        <dt>参考</dt><dd>@kankula667／@blacktan_leather</dd>
-      </dl>
-      <div class="punch">一つの製品の、四割の時間は、この断面に使われます。</div>
-    </div>
-    <div class="card">
-      <div class="no">03</div>
-      <h2>BRILLANT.</h2>
-      <div class="len">28秒 ／ 6カット</div>
-      <dl>
-        <dt>演出</dt><dd>黒の中に手だけ。高貴なエレガンス</dd>
-        <dt>対象</dt><dd>メディア・ハイエンド層</dd>
-        <dt>参考</dt><dd>delvaux「le Brillant Tempo」</dd>
-      </dl>
-      <div class="punch">染めて、磨いて、乾かして、また染める。</div>
-    </div>
-    <div class="card">
-      <div class="no">04</div>
-      <h2>今日、<br>持って出るもの。</h2>
-      <div class="len">30秒 ／ 7カット</div>
-      <dl>
-        <dt>演出</dt><dd>鞄の中身。ドラマの1シーン</dd>
-        <dt>対象</dt><dd>仕事道具として買う人・贈る人</dd>
-        <dt>参考</dt><dd>parisawangny「Gabrielle Tote」</dd>
-      </dl>
-      <div class="punch">十三リットル。千百六十グラム。</div>
-    </div>
-  </div>
-
-  <div class="strip">
-    <div style="flex:1.5">
-      <h3>露 出 先</h3>
-      <p>草ヶ谷さんInstagram　／　BROOKLYN公式Instagram（後日 YouTube・X・TikTok）　／　永尾さんInstagram　／　B supply ホームページ　／　BROOKLYN ECサイト Promotionタブ（新設）</p>
-    </div>
-    <div style="flex:1.2">
-      <h3>Ｉ Ｎ Ｓ Ｔ Ａ Ｇ Ｒ Ａ Ｍ に 出 す 順 番</h3>
-      <div class="ord"><span>① 色</span><span>② 待てない</span><span>③ 中身</span><span>④ 音</span><span>⑤ 黒</span></div>
-      <p style="margin-top:1.5mm; font-size:8pt; color:#6b5f4d">売り込みのない「色」から。Instagram経由の購入率は0.011%。まず保存される状態を作る。7本目の実測はEC商品ページに常設するので、この順番の外です。</p>
-    </div>
-  </div>
-
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">1 / 10</div>
 </div>
 
-<!-- ============ P2 8本一覧 ============ -->
 <div class="page">
-  <div class="eyebrow">全 体 像</div>
-  <div class="h-sec">8本の一覧</div>
-  <div class="sub"><span class="tag k">絵コンテ済</span> ＝ 参考動画があり、演出まで決まっているもの（6本）　　<span class="tag">企画のみ</span> ＝ 参考動画が決まり次第、同じ形式で絵コンテを作成します（2本）</div>
-
-  <table class="all">
-    <tr><th>#</th><th>タイトル</th><th>尺・本数</th><th>対象</th><th>この1本で言うこと</th><th>主な露出先</th><th>参考動画リンク</th></tr>
-
-    <tr class="grp"><td colspan="7">新 規 ・ リ ピ ー タ ー に 向 け て　── 　先に撮る4本</td></tr>
-    <tr class="fixed">
-      <td class="n">1</td><td class="ti"><b>今日の服に、合う色。</b></td><td class="ln">20秒 ×1</td>
-      <td class="tg">新規・リピーター</td>
-      <td class="sy">服が変われば、合う革の色も変わる。同じ革・同じ色で財布からバッグまで揃う</td>
-      <td class="md">全媒体</td>
-      <td class="lk"><span class="blank">記入欄</span><br><span style="color:#a89b86">innovator SWEDEN（@__a.r10）</span></td>
-    </tr>
-    <tr class="fixed">
-      <td class="n">2</td><td class="ti"><b>作っている音。</b></td><td class="ln">40秒 ×1</td>
-      <td class="tg">新規（まだ知らない人）</td>
-      <td class="sy">ここで作っている。工程の四割はこの断面に使われている</td>
-      <td class="md">EC Promotionタブ<br>公式Instagram</td>
-      <td class="lk"><a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a><br><a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a> <span style="color:#a89b86">コバ塗り・477万</span></td>
-    </tr>
-    <tr class="fixed">
-      <td class="n">3</td><td class="ti"><b>BRILLANT.</b></td><td class="ln">28秒 ×1</td>
-      <td class="tg">メディア・ハイエンド層</td>
-      <td class="sy">工程が何度も繰り返されていること。商品は売らない</td>
-      <td class="md">公式Instagram<br>B supply HP</td>
-      <td class="lk"><a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a><br><span style="color:#a89b86">delvaux</span></td>
-    </tr>
-    <tr class="fixed">
-      <td class="n">4</td><td class="ti"><b>今日、持って出るもの。</b></td><td class="ln">30秒 ×1</td>
-      <td class="tg">仕事道具として買う人・贈る人</td>
-      <td class="sy">A4もノートPCも入る。十三リットル、千百六十グラム</td>
-      <td class="md">全媒体</td>
-      <td class="lk"><a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a><br><span style="color:#a89b86">parisawangny</span></td>
-    </tr>
-
-    <tr class="grp"><td colspan="7">新 規 の お 客 様 に 向 け て　── 　参考動画あり。続けて撮れます</td></tr>
-    <tr class="fixed">
-      <td class="n">7</td><td class="ti"><b>主要品番の実測動画</b></td><td class="ln">25秒 ×3品番</td>
-      <td class="tg">新規（買う直前の人）</td>
-      <td class="sy">朝、入れていくもの。入る量と重さを、動作だけで見せる</td>
-      <td class="md">EC商品ページ<br>カートボタン直下</td>
-      <td class="lk"><a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a> <span style="color:#a89b86">朝の出発前</span><br><a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a> <span style="color:#a89b86">ASMR実測</span></td>
-    </tr>
-    <tr class="fixed">
-      <td class="n">8</td><td class="ti"><b>認知動画</b><br><span style="color:#6b5f4d">家まで、待てなかった。</span></td><td class="ln">18秒 ×1</td>
-      <td class="tg">まだ名前を知らない人</td>
-      <td class="sy">商品説明をひとつもせずに、欲しくさせる。開ける前と後の顔だけ</td>
-      <td class="md">Instagram広告<br>全媒体</td>
-      <td class="lk"><a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a><br><span style="color:#a89b86">olga.loeffler・3.2万いいね</span></td>
-    </tr>
-
-    <tr class="grp"><td colspan="7">メ デ ィ ア 関 係 者 ・ Ｏ Ｅ Ｍ の 調 達 担 当 に 向 け て　── 　参考動画待ち</td></tr>
-    <tr>
-      <td class="n">5</td><td class="ti"><b>コーポレートムービー</b></td><td class="ln">2分 ×1<br>60秒短縮版 ×1</td>
-      <td class="tg">メディア・OEM・新規</td>
-      <td class="sy">何をしていて、誰がやっていて、何を大事にしている会社か。1979年からの実績</td>
-      <td class="md">コーポレートサイト<br>YouTube・商談</td>
-      <td class="lk"><span class="blank">記入欄</span></td>
-    </tr>
-    <tr>
-      <td class="n">6</td><td class="ti"><b>OEM工房案内</b></td><td class="ln">2分20秒 ×1<br>展示会用無音版 ×1</td>
-      <td class="tg">OEMの調達・生産担当</td>
-      <td class="sy">量産も少量生産もできる。検品まで自社で完結している</td>
-      <td class="md">商談・展示会<br>提案資料</td>
-      <td class="lk"><span class="blank">記入欄</span></td>
-    </tr>
+  <div class="eyebrow">目 次 　C O N T E N T S</div>
+  <div class="h-sec">8本の動画</div>
+  <div class="subline">1〜4本目と7・8本目は参考動画があり、絵コンテの写真もそこから抜いています。5・6本目は参考動画をいただき次第、同じ形式で写真を入れます。</div>
+  <table class="toc">
+    <tr><th>#</th><th>タイトル</th><th>尺・本数</th><th>届ける相手</th><th>参考動画</th><th></th></tr>
+    <tr><td class="n">1</td><td class="ti"><b>今日の服に、合う色。</b><br><span>A Colour for Every Outfit</span></td><td class="ln">20秒 ×1</td><td class="tg">新規・リピーター</td><td class="lk"><a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）</td><td class="pg">p.3</td></tr>
+<tr><td class="n">2</td><td class="ti"><b>この道、20年。</b><br><span>Twenty Years</span></td><td class="ln">40秒 ×1</td><td class="tg">新規（まだ知らない人）</td><td class="lk"><a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）</td><td class="pg">p.4</td></tr>
+<tr><td class="n">3</td><td class="ti"><b>The Making of the Royale M Tote</b><br><span>ロワイヤルMトートの作りかた</span></td><td class="ln">28秒 ×1</td><td class="tg">メディア関係者・ハイエンド層</td><td class="lk"><a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux）</td><td class="pg">p.5</td></tr>
+<tr><td class="n">4</td><td class="ti"><b>絵になる日常を。</b><br><span>Everyday, Worth a Frame</span></td><td class="ln">30秒 ×1</td><td class="tg">仕事道具として買う人・贈る人</td><td class="lk"><a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH）</td><td class="pg">p.6</td></tr>
+<tr><td class="n">5</td><td class="ti"><b>1979年から、東京で。</b><br><span>Since 1979, Tokyo</span></td><td class="ln">2分 ×1／60秒短縮版 ×1</td><td class="tg">メディア関係者・OEMの調達担当・新規</td><td class="lk"><span style="color:#b8ac97">参考動画：未定（年号で語る型を推奨）</span></td><td class="pg">p.7</td></tr>
+<tr><td class="n">6</td><td class="ti"><b>つくる、確かめる、包む。</b><br><span>Make. Check. Pack.</span></td><td class="ln">2分20秒 ×1／無音版 ×1</td><td class="tg">OEMの調達・生産担当</td><td class="lk"><span style="color:#b8ac97">参考動画：未定（工場見学ワンテイク型を推奨）</span></td><td class="pg">p.8</td></tr>
+<tr><td class="n">7</td><td class="ti"><b>HURRY UP.</b><br><span>急ぐ朝ほど、迷わない。</span></td><td class="ln">25秒 ×3品番</td><td class="tg">新規（買う直前の人）</td><td class="lk"><a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a></td><td class="pg">p.9</td></tr>
+<tr><td class="n">8</td><td class="ti"><b>がんばった自分に、ひとつ。</b><br><span>One Thing, For Getting Through</span></td><td class="ln">18秒 ×1</td><td class="tg">まだ名前を知らない人</td><td class="lk"><a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a></td><td class="pg">p.10</td></tr>
   </table>
-
-  <div class="note-off">
-    <b>今回は見送るもの（優先度が違うとのご判断）</b>　── 　店舗案内（表参道）／ 梱包から受け取りまで（贈る人向け）／ 採用ムービー。
-    ただし<b>梱包は8本目のなかに入ります</b>。開ける場面を撮るので、不織布・箱・リボンは自然に映ります。
-  </div>
-
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">2 / 10</div>
 </div>
 
-<!-- ============ P3 決めたこと ============ -->
 <div class="page">
-  <div class="eyebrow">議 論 の 結 果</div>
-  <div class="h-sec">6本を、同じブランドの動画に見せるために</div>
-  <div class="sub">映画監督／撮影監督／コピーライター／プロデューサー／宮下　の5名で確認しました。</div>
-
-  <div class="rules3">
-    <div class="rule-box">
-      <div class="n">1</div>
-      <div class="t">色を持つのは、革だけ。</div>
-      <div class="d">彩度があるのは革の色だけ。服・背景・小物の彩度は落とす。WBは4300Kで固定。オートにしない。</div>
-    </div>
-    <div class="rule-box">
-      <div class="n">2</div>
-      <div class="t">広角で撮らない。</div>
-      <div class="d">全カット50mm相当以上。広角は空間が歪んで安く見える。寄りたいときは足で寄る。24fps／シャッター1/48。</div>
-    </div>
-    <div class="rule-box">
-      <div class="n">3</div>
-      <div class="t">最後の2秒は、全部同じ。</div>
-      <div class="d">テロップ1.5秒 → ロゴ0.5秒。フェードは使わずカットで切り替える。並べて見たときに同じブランドだと分かる。</div>
-    </div>
+  <div class="vhead">
+    <div class="l"><div class="no">01</div><h2>今日の服に、合う色。</h2><div class="enh">A Colour for Every Outfit</div></div>
+    <div class="r"><b>20秒 ／ 12ショット</b><br>対象＝新規・リピーター　／　全媒体<br><span class="lk">参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">instagram.com/reels/DZG2DvMh-Ts</a>（innovator SWEDEN）</span></div>
   </div>
-
-  <table class="disc">
-    <tr><th>論点</th><th>結論</th></tr>
-    <tr>
-      <td>参考動画は演出言語がバラバラ（ポップ／音／高級／ドラマ／POV）。並べると誰の動画か分からなくなる</td>
-      <td>上の<b>3つだけを固定する</b>。演出は変えてよい。固定するのは色・レンズ・終わり方の3つに絞る</td>
-    </tr>
-    <tr>
-      <td>オチが弱いと保存されない</td>
-      <td>各本に<b>一般の人が知らない事実を1つだけ</b>置く。七十一色／四割／千百六十グラム。説明はしない</td>
-    </tr>
-    <tr>
-      <td>2本目が、これまでのASMR投稿とかぶるのでは</td>
-      <td>参考動画は<b>完成品が実際に使われている場所で終わる</b>。作業机で終わらせない。この型を守れば工程動画ではなくブランド動画になる</td>
-    </tr>
-    <tr>
-      <td>コバ塗りの参考動画が477万再生。2本目に足すか</td>
-      <td><b>足す。</b>塗った瞬間に断面の色が変わる ── <b>1カットの中でビフォーアフターが起きている</b>。これが477万回見られた理由。磨くカットの前に置く（実際の工程順）</td>
-    </tr>
-    <tr>
-      <td>8本目「認知動画」の方向</td>
-      <td>参考動画に合わせて<b>「家まで、待てなかった。」</b>に変更。前案（社名の由来）は取り下げ。<b>商品説明がひとつもないのに欲しくなる</b>ほうが、認知としては強い</td>
-    </tr>
-    <tr>
-      <td>4本目と7本目は同じ「鞄の中身」ではないか</td>
-      <td>役割が違う。4本目は<b>街・ドラマ</b>でInstagram向け。7本目は<b>白い台・正面固定・秤</b>でEC商品ページ向け。撮る場所も日も分ける</td>
-    </tr>
-  </table>
-
-  <div class="words">
-    <div><span class="lbl">使 わ な い 言 葉</span>丁寧　こだわり　職人技　本物　想い　── 言った時点で伝わらなくなる</div>
-    <div><span class="lbl">数 字 の 書 き 方</span>テロップの数字は漢数字（四割・七十一色・千百六十グラム）。読む速度が落ち、記憶に残る</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>家を出てから会社に着くまでの二十秒。<b>カメラは固定し、変わるのは服と革の色だけ。</b>車・電車・エスカレーターが視界を横切った瞬間に切り替える。売り込みはひとつも入れない。玄関一か所、通勤路二か所、会社前一か所で撮り切れる。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>服が変われば、合う革の色も変わる。同じ革・同じ色で、財布からバッグまで揃う。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">その日の服に、その日の色。</div><div class="en">A colour for every outfit.</div></div>
+      <div class="blk"><span class="lbl">ナ レ ー シ ョ ン</span>毎日をカラフルに<br><span style='color:#8a7a63'>Make every day colourful.</span></div>
+    </div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 支度</b><br>0-4秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">玄関。財布をポケットに入れる（寄り）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">ドアノブに手がかかる（超寄り）</div></td><td><img src="../assets/ref4/1_S1_03_玄関を出た引き.jpg"><div class="cap">ドアが開き、外へ出る（引き・逆光）</div></td></tr>
+<tr><td class="sc"><b>S2 変わる①</b><br>4-9秒</td><td><img src="../assets/ref4/1_S2_01_同じ画角で服が変わる.jpg"><div class="cap"><b>同じ画角のまま服が変わっている。</b>小物の色も変わる</div></td><td><img src="../assets/ref4/1_S2_02_通り過ぎてトランジション.jpg"><div class="cap">車が横切る → 抜けたら別の服・別の色</div></td><td><img src="../assets/ref4/1_S2_03_別の色の小物.jpg"><div class="cap">手元の小物だけに寄る（キャメル）</div></td></tr>
+<tr><td class="sc"><b>S3 変わる②</b><br>9-15秒</td><td><img src="../assets/ref4/1_S3_01_さらに別の色.jpg"><div class="cap">電車が通り過ぎる → 抜けたら変わっている</div></td><td><img src="../assets/ref4/1_S3_02_建物内で変わる.jpg"><div class="cap">エスカレーターを上がりきると変わっている</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">歩く足元（ロー）。手元の色だけが見える</div></td></tr>
+<tr><td class="sc"><b>S4 到着</b><br>15-20秒</td><td><img src="../assets/ref4/1_S4_01_到着.jpg"><div class="cap">会社のエントランス。ここが到着点</div></td><td><img src="../assets/ref4/1_S4_02_全色が並ぶ.jpg"><div class="cap"><b>真俯瞰。四色が並ぶ</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">テロップ 1.5秒 → ロゴ 0.5秒</div></td></tr>
+</table>
   </div>
-
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">3 / 10</div>
 </div>
 
-<!-- ============ P4 1本目 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">01</div><h2>今日の服に、合う色。</h2></div>
-    <div class="r"><b>20秒 ／ 6カット</b><br>対象＝新規・リピーター　／　全媒体<br>
-      <span class="lk">参考動画＝innovator SWEDEN（@__a.r10）　URL未取得</span></div>
+    <div class="l"><div class="no">02</div><h2>この道、20年。</h2><div class="enh">Twenty Years</div></div>
+    <div class="r"><b>40秒 ／ 12ショット</b><br>対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram<br><span class="lk">参考動画＝<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref2/1a_服装と色.jpg"><figcaption>服装と持ち物が対で変わる</figcaption></figure>
-        <figure><img src="../assets/ref2/1b_街を歩く.jpg"><figcaption>同じ構図・違う色</figcaption></figure>
-        <figure><img src="../assets/ref2/1c_全色が並ぶ.jpg"><figcaption>最後に全色が並ぶ</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>アングルは<b>真俯瞰と横の二つだけ</b>。音はカメラのマイクでは録れないので、スマホを手元三十センチに置いて別録りする。<b>S3のコバ塗りがこの一本の核。</b>塗料が乗った瞬間に断面の色が変わる ── 一カットの中でビフォーアフターが起きる。参考動画が四百七十七万回見られた理由がこれ。最後は作業机で終わらせず、使われている場所に置いて終える。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>ここで作っている。工程の四割は、この断面に使われている。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">神は細部に宿る。</div><div class="en">God is in the details.</div></div>
+      <div class="blk"><span class="lbl">コ バ 塗 り の カ ッ ト で 出 す テ ロ ッ プ</span>一つの製品の、四割の時間は、この断面に使われます。<br><span style='color:#8a7a63'>Forty percent of the making goes into this one edge.</span><br><span style='color:#a8763e'>コバの色はキャメル（生成りの断面）を推奨。差がいちばん出ます。</span></div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      売り込まない。保存されることだけを狙う。三脚を固定したまま<b>服だけを替える</b>ので、カメラは1ミリも動かさない。玄関1か所と街1か所で撮れる。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-4</div><div class="v">黒の服、黒の革</div></div>
-    <div><div class="k">承　4-14</div><div class="v">服が変わる。色も変わる</div></div>
-    <div><div class="k">転　14-17</div><div class="v">街に出る</div></div>
-    <div><div class="k">結　17-20</div><div class="v">全色が並ぶ</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr><td class="c">1</td><td class="t">0-4秒</td><td class="s">玄関。黒のコート。黒の財布をポケットに入れて出ていく</td><td>ドアの音。ここでBGMが入る</td></tr>
-    <tr><td class="c">2</td><td class="t">4-8秒</td><td class="s">同じ画角。ベージュのコート。キャメルの名刺入れ</td><td><b>服だけが変わる</b>。三脚は動かさない</td></tr>
-    <tr><td class="c">3</td><td class="t">8-11秒</td><td class="s">同じ画角。ネイビー。ネイビーのキーケース</td><td>3回目で「同じ場所だ」と気づかせる</td></tr>
-    <tr><td class="c">4</td><td class="t">11-14秒</td><td class="s">同じ画角。グリーン。グリーンの財布</td><td>ここに一番強い色を置く</td></tr>
-    <tr><td class="c">5</td><td class="t">14-17秒</td><td class="s">街を歩く。手元だけにピント。背景は流す</td><td>街の音。唯一カメラが動くカット</td></tr>
-    <tr class="key"><td class="c">6</td><td class="t">17-20秒</td><td class="s">真俯瞰。4色が並ぶ → テロップ → ロゴ</td><td>BGMが締まる</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">グリーンだけで、七十一色。</div>
-    <div class="n">同じ革・同じ色で財布・カードケース・キーケース・バッグが揃うことが、この1本の中身です。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 音</b><br>0-3秒</td><td><img src="../assets/ref4/2_S1_01_刃が革に入る.jpg"><div class="cap">超マクロ。刃が革に入る瞬間。何を見ているか分からない距離</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">「スッ」の一音だけ。BGMは鳴らさない</div></td><td></td></tr>
+<tr><td class="sc"><b>S2 切る</b><br>3-14秒</td><td><img src="../assets/ref4/2_S2_01_金属定規で直線.jpg"><div class="cap">真俯瞰。<b>金属定規</b>を当てて直線を一気に引く</div></td><td><img src="../assets/ref4/2_S2_02_角を丸く回す.jpg"><div class="cap">四十五度。角を丸く回して切る</div></td><td><img src="../assets/ref4/2_S2_03_作業台と職人.jpg"><div class="cap"><b>真俯瞰。作業台と職人の手全体</b>（引き）</div></td></tr>
+<tr><td class="sc"><b>S3 縫う・塗る</b><br>14-31秒</td><td><img src="../assets/ref4/2_S3_01_針と糸.jpg"><div class="cap">真俯瞰。針が革を抜ける</div></td><td><img src="../assets/ref4/2_S3_02_横から目のアップ.jpg"><div class="cap"><b>横から。目だけのアップ</b>。顔全体は入れない</div></td><td><img src="../assets/ref4/2_S3_03b_コバ塗り_ワンカット.jpg"><div class="cap"><b>コバ塗り ★核。</b>塗った側と塗っていない側が同じ画面に入る。長回し・カットを割らない</div></td></tr>
+<tr><td class="sc"><b>S4 磨く・終わり</b><br>31-40秒</td><td><img src="../assets/ref4/2_S4_01_仕上げ剤を取る.jpg"><div class="cap">超マクロ。コバを磨く。摩擦音</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">手が止まる。<b>職人の声が一言だけ入る</b>（台本なし）</div></td><td><img src="../assets/ref4/2_S4_03_使われる場所.jpg"><div class="cap"><b>使われている場所に置かれる</b> → テロップ → ロゴ</div></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">4 / 10</div>
 </div>
 
-<!-- ============ P5 2本目 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">02</div><h2>作っている音。</h2></div>
-    <div class="r"><b>40秒 ／ 8カット</b><br>対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式<br>
-      <span class="lk">参考動画＝<a href="http://youtube.com/shorts/c2mH8rStFCA">youtube.com/shorts/c2mH8rStFCA</a>（@kankula667）　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">instagram.com/reel/DbAniDDyF0U</a>（コバ塗り・477万再生）</span></div>
+    <div class="l"><div class="no">03</div><h2>The Making of the Royale M Tote</h2><div class="enh">ロワイヤルMトートの作りかた</div></div>
+    <div class="r"><b>28秒 ／ 9ショット</b><br>対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ<br><span class="lk">参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux「le Brillant Tempo」）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref2/2a_定規と刃.jpg"><figcaption>真俯瞰。金属定規と刃</figcaption></figure>
-        <figure><img src="../assets/ref3/2e_コバ塗り_ワンカット.jpg"><figcaption><b>C5 コバ塗り</b>。革と同色の塗料</figcaption></figure>
-        <figure><img src="../assets/ref2/2c_使われる場所で終わる.jpg"><figcaption>使われる場所で終わる</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>ブランドの格を上げる一本。<b>黒い布一枚とライト一灯</b>で撮れる。工房の蛍光灯は全部消す。<b>顔と工房は一切映さない。</b>映るのは手と、革と、金具だけ。この一本だけは商品を売らない。<br><br><b>6本目との違い</b>：背景（黒／実景）・光（一灯／自然光）・被写体（手だけ／人と機械）・カメラ（固定／歩く）・音（BGM／作業音）・終わり方（ロゴ／梱包と問い合わせ先）。<b>撮影日も分ける。</b></div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>一点の革製品が生まれるまでを、美しさだけで見せる。</div>
+      
+      <div class="blk"><span class="lbl">最 後 は ロ ゴ だ け</span>テロップは出さない。BGMが終わり、ロゴが0.5秒。それで終える。</div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      アングルは<b>真俯瞰と45度の2つだけ</b>。音はカメラのマイクでは録れないので、スマホを手元30cmに置いて別録りする。<br>
-      <b>C5のコバ塗りが、この1本の核。</b>塗料が乗った瞬間に断面の色が変わる ── 1カットの中でビフォーアフターが起きる。参考動画が477万回見られた理由がこれ。<b>カメラを止めて長回し</b>。<br>
-      最後は<b>作業机で終わらせない</b>。完成品が使われている場所に置いて終える。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-3</div><div class="v">何か分からない音</div></div>
-    <div><div class="k">承　3-19</div><div class="v">切る、縫う</div></div>
-    <div><div class="k">転　19-31</div><div class="v">塗る、磨く、声</div></div>
-    <div><div class="k">結　35-40</div><div class="v">使われる場所へ</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr><td class="c">1</td><td class="t">0-3秒</td><td class="s">超マクロ。革包丁が革に入る瞬間。何を見ているか分からない距離</td><td>「スッ」の一音だけ。BGMなし</td></tr>
-    <tr><td class="c">2</td><td class="t">3-9秒</td><td class="s">真俯瞰。金属定規を当てて直線を一気に引く</td><td>定規を置く音、刃の音。<b>定規は金属</b></td></tr>
-    <tr><td class="c">3</td><td class="t">9-14秒</td><td class="s">45度。角を丸く回して切る</td><td>ここからBGMが薄く入る</td></tr>
-    <tr><td class="c">4</td><td class="t">14-19秒</td><td class="s">真俯瞰。ミシン。針が上下する</td><td>ミシンの音が主役。BGMを下げる</td></tr>
-    <tr class="key"><td class="c">5</td><td class="t">19-26秒</td><td class="s"><b>コバ塗り。★核・7秒</b>　断面にアプリケーターを当て、一気に引く。革と同じ色の塗料。<b>塗った側と塗っていない側が同じ画面に入る</b></td><td>擦れる音だけ。<b>カメラを止めて長回し。カットを割らない</b></td></tr>
-    <tr><td class="c">6</td><td class="t">26-31秒</td><td class="s">超マクロ。コバを磨く</td><td>摩擦音。塗り → 磨きの順で見せる</td></tr>
-    <tr><td class="c">7</td><td class="t">31-35秒</td><td class="s">手が止まる</td><td><b>職人の声が一言だけ入る</b>。台本は作らず、その場の一言をそのまま使う</td></tr>
-    <tr class="key"><td class="c">8</td><td class="t">35-40秒</td><td class="s">完成品が、デスクの上か店の棚に置かれる → テロップ → ロゴ</td><td>置く音。工房の音が消える</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">一つの製品の、四割の時間は、この断面に使われます。</div>
-    <div class="n">切り目コバ磨きが全工程の40%を占めることは公式サイトに記載があります。ここでしか言えない事実です。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 闇</b><br>0-5秒</td><td><img src="../assets/ref4/3_S1_02_黒の中の光.jpg"><div class="cap">真っ黒。細い光の帯が、革の断面だけを照らす</div></td><td><img src="../assets/ref4/3_S1_01_道具が並ぶ.jpg"><div class="cap">黒の上に道具だけが並ぶ（真俯瞰）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">無音から、低いBGMが立ち上がる</div></td></tr>
+<tr><td class="sc"><b>S2 手</b><br>5-15秒</td><td><img src="../assets/ref4/3_S2_01_手で革を折る.jpg"><div class="cap">手だけ。革を折り、角を作る。<b>腕時計・指輪は外す</b></div></td><td><img src="../assets/ref4/3_S2_02_角を作る.jpg"><div class="cap">角が立ち上がる（超マクロ）</div></td><td><img src="../assets/ref4/3_S2_03_白手袋と金具.jpg"><div class="cap"><b>白手袋</b>で金具を持ち、取り付ける。金属が触れる音</div></td></tr>
+<tr><td class="sc"><b>S3 コバ</b><br>15-24秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">コバに染料を入れる（超マクロ）</div></td><td><img src="../assets/ref4/3_S3_02_磨く.jpg"><div class="cap">磨く。<b>光が断面に反射する角度</b>を探す</div></td><td><img src="../assets/ref4/3_S3_03_完成品.jpg"><div class="cap">完成品が黒の中に浮かぶ。上から一灯だけ</div></td></tr>
+<tr><td class="sc"><b>S4 締め</b><br>24-28秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">ロゴのみ。<b>テロップは出さない</b></div></td><td></td><td></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">5 / 10</div>
 </div>
 
-<!-- ============ P6 3本目 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">03</div><h2>BRILLANT.</h2></div>
-    <div class="r"><b>28秒 ／ 6カット</b><br>対象＝メディア・ハイエンド層　／　公式・B supply HP<br>
-      <span class="lk">参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">instagram.com/reels/DWiwFp5DED-</a>（delvaux）</span></div>
+    <div class="l"><div class="no">04</div><h2>絵になる日常を。</h2><div class="enh">Everyday, Worth a Frame</div></div>
+    <div class="r"><b>30秒 ／ 11ショット</b><br>対象＝仕事道具として買う人・贈る人　／　全媒体<br><span class="lk">参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">instagram.com/reel/DaxjHnkB62p</a>（yifan.liii × COACH・11.8万いいね）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref2/3a_道具が並ぶ.jpg"><figcaption>道具だけを並べる</figcaption></figure>
-        <figure><img src="../assets/ref2/3b_金具と白手袋.jpg"><figcaption>白手袋。金具に寄る</figcaption></figure>
-        <figure><img src="../assets/ref2/3c_完成品.jpg"><figcaption>完成品を1点だけ置く</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。</div>
+      
+      <div class="blk"><span class="lbl">壁 に 重 ね る 一 文</span>Everyday, worth a frame.<br><span style='color:#8a7a63'>街の白い壁に重ねる。画面の下にテロップは出さない。最後はロゴだけ。</span></div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      ブランドの格を上げる1本。<b>黒い布1枚とライト1灯</b>で撮れる。工房の蛍光灯は全部消す。<b>顔と工房は一切映さない</b>。映るのは手と、革と、金具だけ。この1本だけは商品を売らない。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-5</div><div class="v">黒の中の一筋の光</div></div>
-    <div><div class="k">承　5-20</div><div class="v">手だけが動く</div></div>
-    <div><div class="k">転　20-24</div><div class="v">完成品が浮かぶ</div></div>
-    <div><div class="k">結　24-28</div><div class="v">言葉とロゴ</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr><td class="c">1</td><td class="t">0-5秒</td><td class="s">真っ黒。細い光の帯が、革の断面だけを照らす</td><td>無音から、低いBGMが立ち上がる</td></tr>
-    <tr><td class="c">2</td><td class="t">5-10秒</td><td class="s">手だけ。革を折り、角を作る</td><td>背景は完全な黒。<b>腕時計・指輪は外す</b></td></tr>
-    <tr><td class="c">3</td><td class="t">10-15秒</td><td class="s">白手袋で金具を持ち、取り付ける</td><td>金属が触れる音</td></tr>
-    <tr class="key"><td class="c">4</td><td class="t">15-20秒</td><td class="s">超マクロ。コバに染料を入れ、磨く</td><td>光が断面に反射する角度を探す</td></tr>
-    <tr><td class="c">5</td><td class="t">20-24秒</td><td class="s">完成品が黒の中に置かれる。上から1灯だけ</td><td>置く音。BGMがピークへ</td></tr>
-    <tr><td class="c">6</td><td class="t">24-28秒</td><td class="s">テロップ → ロゴ</td><td>BGM終わり</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">染めて、磨いて、乾かして、また染める。</div>
-    <div class="n">この4語だけで、コバ磨きが何度も繰り返される工程だと伝わります。回数も時間も書きません。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 街に出る</b><br>0-8秒</td><td><img src="../assets/ref4/4_S1_01_ガラスの反射.jpg"><div class="cap">店のガラスの反射に映る（引き）</div></td><td><img src="../assets/ref4/4_S1_02_街を歩く.jpg"><div class="cap">街を歩く。横移動で追う</div></td><td><img src="../assets/ref4/4_S1_03_電車が通り過ぎる.jpg"><div class="cap"><b>電車が通り過ぎる（ブレ＝トランジション）</b></div></td></tr>
+<tr><td class="sc"><b>S2 中身</b><br>8-17秒</td><td><img src="../assets/ref4/4_S2_01_真俯瞰で入れる.jpg"><div class="cap">手すりに置き、真俯瞰でA4とノートPCを入れる</div></td><td><img src="../assets/ref4/4_S2_02_中身を並べる.jpg"><div class="cap">寄り。内ポケットに名刺入れ・鍵・携帯</div></td><td><img src="../assets/ref4/4_S2_03_財布に差し込む超マクロ.jpg"><div class="cap"><b>財布に何かを差し込む超マクロ</b></div></td></tr>
+<tr><td class="sc"><b>S3 一人の時間</b><br>17-25秒</td><td><img src="../assets/ref4/4_S3_01_カフェの窓際.jpg"><div class="cap">カフェの窓際。自然光・浅い被写界深度</div></td><td><img src="../assets/ref4/4_S3_02_金具のロゴに超マクロ.jpg"><div class="cap"><b>金具のロゴに超マクロ</b></div></td><td><img src="../assets/ref4/4_S3_03_高い場所に立つ.jpg"><div class="cap">高い場所に立つ（引き・映画的）</div></td></tr>
+<tr><td class="sc"><b>S4 締め</b><br>25-30秒</td><td><img src="../assets/ref4/4_S4_02_街に置く.jpg"><div class="cap">街に置く。背景をボカして流す</div></td><td><img src="../assets/ref4/4_S4_01_白い壁の前.jpg"><div class="cap">白い壁の前。正面。壁に英語一文を重ねる</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">ロゴのみ。<b>テロップは出さない</b></div></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">6 / 10</div>
 </div>
 
-<!-- ============ P7 4本目 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">04</div><h2>今日、持って出るもの。</h2></div>
-    <div class="r"><b>30秒 ／ 7カット</b><br>対象＝仕事道具として買う人・贈る人　／　全媒体<br>
-      <span class="lk">参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">instagram.com/reels/DcOkNyyoFFJ</a>（parisawangny）</span></div>
+    <div class="l"><div class="no">05</div><h2>1979年から、東京で。</h2><div class="enh">Since 1979, Tokyo</div></div>
+    <div class="r"><b>2分 ／ 12ショット（60秒短縮版 ×1）</b><br>対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談<br><span class="lk">参考動画＝未定。<b style="color:#a8763e">年号で語る型</b>を推奨（年表テロップ＋工房の現在＋二人の顔と声）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref2/4a_街に置く.jpg"><figcaption>街を背景に置く</figcaption></figure>
-        <figure><img src="../assets/ref2/4b_鞄の中身.jpg"><figcaption>手が入り、中身が見える</figcaption></figure>
-        <figure><img src="../assets/ref2/4c_フラットレイ.jpg"><figcaption>中身を全部並べる</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<b>年表で信用を作り、最後に二人の顔と声で締める。</b>これがいちばん低予算で、いちばんメディアに刺さる。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割。<br><b>先に要ること</b>：お二人の収録を三十分ずつ。使うのは各十秒ほどだが、<b>単独インタビュー動画にそのまま展開できる素材</b>になる。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>1979年から続く会社が、いま向島の工房と一つになった。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">作る場所は、変わっていません。</div><div class="en">The place has not changed.</div></div>
+      <div class="blk"><span class="lbl">年 表 テ ロ ッ プ</span>1979 創業　／　1980 SHIPS　／　1982 BEAMS　／　1990 UNITED ARROWS　／　1991 Paul Smith　／　2011 RALPH LAUREN 全直営店のカルトン</div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      買う前の不安を消す1本。レビューにも「PCが入るか気になった」とあります。スペックを読ませず、<b>入る動作だけで見せる</b>。<b>街で撮る</b>のがこの1本。白い台で撮る7本目とは、場所も日も分けます。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-9</div><div class="v">街と、大きさ</div></div>
-    <div><div class="k">承　9-18</div><div class="v">入っていく</div></div>
-    <div><div class="k">転　18-25</div><div class="v">中身が全部並ぶ</div></div>
-    <div><div class="k">結　25-30</div><div class="v">持って出る</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr><td class="c">1</td><td class="t">0-5秒</td><td class="s">手すりにバッグを置く。背景の街（車・人）をボカして流す</td><td>街の音。ここでBGMが入る</td></tr>
-    <tr class="key"><td class="c">2</td><td class="t">5-9秒</td><td class="s">人の隣に置き、肩にかける</td><td><b>人と並べないと大きさは伝わらない</b></td></tr>
-    <tr><td class="c">3</td><td class="t">9-13秒</td><td class="s">真俯瞰。開いた鞄に手が入り、A4とノートPCを入れる</td><td>入る瞬間を止めずに撮る。1カットで</td></tr>
-    <tr><td class="c">4</td><td class="t">13-18秒</td><td class="s">寄り。内ポケットに名刺入れ・鍵・携帯を入れる</td><td>整理された状態を見せる</td></tr>
-    <tr class="key"><td class="c">5</td><td class="t">18-25秒</td><td class="s">真俯瞰のフラットレイ。バッグと中身が全部並ぶ</td><td>置く音が続く。<b>ここが一番長い</b></td></tr>
-    <tr><td class="c">6</td><td class="t">25-28秒</td><td class="s">肩にかけて歩き出す。足元から見上げる</td><td>唯一カメラが動くカット</td></tr>
-    <tr><td class="c">7</td><td class="t">28-30秒</td><td class="s">テロップ → ロゴ</td><td>BGMが締まる</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">十三リットル。千百六十グラム。</div>
-    <div class="n">小さく添える　──　返品送料無料　／　分割払い可。最後に不安を消して終わります。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 刻印</b><br>0-25秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">黒。刻印が押され、ロゴが革に沈む（超マクロ）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">窪みに光が差す。そこに<b>年号テロップ</b>が重なる</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">引くと向島工房の全景になる（ハイアングル）</div></td></tr>
+<tr><td class="sc"><b>S2 二人</b><br>25-57秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">永尾社長。窓を背に座る（中景）。<b>顔が出るのはここだけ</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">佐藤さん。<b>同じ光・同じ画角</b>で撮る</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">打ち合わせ台を真俯瞰。図面・革見本・道具</div></td></tr>
+<tr><td class="sc"><b>S3 製造</b><br>57-96秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">原反が広げられる（真俯瞰）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">裁断 → 縫製 → コバ磨き。声が終わり工程の音だけになる</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">検品。<b>ここで一度、音を消す</b></div></td></tr>
+<tr><td class="sc"><b>S4 渡る</b><br>96-120秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">梱包され、箱が閉じる（真俯瞰）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">受け取る手。開けた瞬間</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">仕事で使われている → テロップ → ロゴ</div></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">7 / 10</div>
 </div>
 
-<!-- ============ P8 7本目 実測 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">07</div><h2>朝、入れていくもの。</h2><div style="font-size:8pt;color:#6b5f4d;margin-top:1mm">主要品番の実測動画</div></div>
-    <div class="r"><b>25秒 ／ 7カット ×3品番</b><br>対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下<br>
-      <span class="lk">参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>（ASMR実測）</span></div>
+    <div class="l"><div class="no">06</div><h2>つくる、確かめる、包む。</h2><div class="enh">Make. Check. Pack.</div></div>
+    <div class="r"><b>2分20秒 ／ 12ショット（展示会用の無音版 ×1）</b><br>対象＝OEMの調達・生産担当　／　商談・展示会・提案資料<br><span class="lk">参考動画＝未定。<b style="color:#a8763e">工場見学ワンテイク型</b>を推奨（入口から入り、工程順に歩き、梱包場で終わる）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref3/7a_質感マクロ.jpg"><figcaption>C1 モノクロの超マクロ</figcaption></figure>
-        <figure><img src="../assets/ref3/7c_荷物を入れる.jpg"><figcaption>正面固定。入れていく</figcaption></figure>
-        <figure><img src="../assets/ref3/7e_鞄だけが残る.jpg"><figcaption>人が出て、鞄だけ残る</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>OEMの粗利は36%。自社ブランドの財布・小物は76〜93%ある。訪問前に体制を伝えて、<b>価格ではなく品質で選ばれる状態</b>を作る。<br><br><b>3本目との違い</b>：3本目は黒背景・一灯・手だけ・固定・BGM・ロゴで終わる。<b>この6本目は工房の実景・自然光・人と機械・歩くカメラ・作業音・梱包と問い合わせ先で終わる。</b>同じ工程を撮っても別物になる。撮影日も分ける。<br><br>同じ素材から<b>展示会用の60秒無音版</b>を作る。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>量産も少量生産もできる。検品まで自社で完結し、この形で届く。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">つくる、確かめる、包む。</div><div class="en">Make. Check. Pack.</div></div>
+      <div class="blk"><span class="lbl">テ ロ ッ プ は 工 程 名 だ け</span>金型裁断 Die Cutting／手裁断 Hand Cutting／機械縫製 Machine Stitching／手縫い Hand Stitching／目止め Edge Sealing／コバ磨き Edge Burnishing／検品 Inspection／梱包 Packing</div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      購入転換率が0.263%。前年0.583%から半減しています。写真では入る量が伝わらない。<br>
-      <b>白い台の上、正面固定。カメラは一度も動かさない。</b>3品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かります。<br>
-      冒頭3秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。何の鞄か分からない状態から始めます。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-6</div><div class="v">何か分からない質感</div></div>
-    <div><div class="k">承　6-16</div><div class="v">入っていく</div></div>
-    <div><div class="k">転　16-20</div><div class="v">重さの数字</div></div>
-    <div><div class="k">結　20-25</div><div class="v">鞄だけが残る</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr class="key"><td class="c">1</td><td class="t">0-3秒</td><td class="s">超マクロ。ファスナーの歯、型押しのロゴ、ハンドルの付け根。<b>モノクロ</b></td><td>金具の音だけ。BGMなし</td></tr>
-    <tr><td class="c">2</td><td class="t">3-6秒</td><td class="s">引く。<b>カラーに変わる</b>。白い台の上に、鞄が1つだけ置かれている</td><td>ここでBGMが入る。品名テロップ</td></tr>
-    <tr><td class="c">3</td><td class="t">6-11秒</td><td class="s">正面固定。コートの人が入ってきて、A4書類とノートPCを入れる</td><td>朝の光。<b>顔は入れない</b>。肩から下だけ</td></tr>
-    <tr><td class="c">4</td><td class="t">11-16秒</td><td class="s">同じ画角のまま。手帳・鍵・サングラス・ペンが次々に入る</td><td>入れる音を1つずつ拾う</td></tr>
-    <tr class="key"><td class="c">5</td><td class="t">16-20秒</td><td class="s">秤に載せる。<b>千百六十グラムの数字が読める</b></td><td>表示にピント。数字が確定する音</td></tr>
-    <tr><td class="c">6</td><td class="t">20-23秒</td><td class="s">人がフレームから出る。<b>鞄だけが残る</b></td><td>足音が遠ざかる。台は動かさない</td></tr>
-    <tr><td class="c">7</td><td class="t">23-25秒</td><td class="s">テロップ → ロゴ</td><td>BGMが締まる</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">入れ終えて、千百六十グラム。</div>
-    <div class="n">小さく添える　──　A4・13インチPC対応　／　返品送料無料。3品番＝ロワイヤルMトート・ベルシートート・Lジップ。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 入る</b><br>0-25秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">工房の外観と看板（ローアングル）。街の音</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">中に入る。工房の全景（ハイアングル）。<b>規模が分かる画角</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">作業台に原反が広がる（真俯瞰）。扱える革の大きさを示す</div></td></tr>
+<tr><td class="sc"><b>S2 歩く</b><br>25-95秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">金型が置かれ、裁断機が下りる／革包丁で細部を切る</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">ミシンで縫う（横）／手縫い。二本の針が交差する（マクロ）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">目止め → コバ磨き。<b>全工程の四割</b>とテロップ</div></td></tr>
+<tr><td class="sc"><b>S3 検品 ★最重要</b><br>95-120秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">職人が縫い目と断面を目で確かめる（寄り）。<b>作業音が消える</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">検品済みの製品と道具が並ぶ（真俯瞰）</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">一点を手に取り、光にかざす</div></td></tr>
+<tr><td class="sc"><b>S4 包む</b><br>120-140秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">不織布で包み、角を折る（真俯瞰）。紙の音</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">箱に納め、テープで閉じる。<b>ここまで見せる</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">対応技法の一覧 → 問い合わせ先とURL</div></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">8 / 10</div>
 </div>
 
-<!-- ============ P9 8本目 認知 ============ -->
 <div class="page">
   <div class="vhead">
-    <div class="l"><div class="no">08</div><h2>家まで、待てなかった。</h2><div style="font-size:8pt;color:#6b5f4d;margin-top:1mm">認知動画</div></div>
-    <div class="r"><b>18秒 ／ 6カット</b><br>対象＝まだ名前を知らない人　／　Instagram広告・全媒体<br>
-      <span class="lk">参考動画＝<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>（olga.loeffler・3.2万いいね）</span></div>
+    <div class="l"><div class="no">07</div><h2>HURRY UP.</h2><div class="enh">急ぐ朝ほど、迷わない。</div></div>
+    <div class="r"><b>25秒 ×3品番 ／ 10ショット</b><br>対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下<br><span class="lk">参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>（ASMR実測）</span></div>
   </div>
-  <div class="toprow">
-    <div class="shotswrap">
-      <div class="shots">
-        <figure><img src="../assets/ref3/8a_袋を持ち上げる.jpg"><figcaption>車内。膝の上に紙袋</figcaption></figure>
-        <figure><img src="../assets/ref3/8b_箱を開ける.jpg"><figcaption>開けた瞬間の顔</figcaption></figure>
-        <figure><img src="../assets/ref3/8c_中身を掲げる.jpg"><figcaption>取り出して、光にかざす</figcaption></figure>
-      </div>
-      <div class="refnote">参考動画から抽出した静止画。アングル共有のための社内利用に限ります。</div>
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span>購入転換率が0.263%。前年0.583%から半減している。写真では入る量が伝わらない。<br><br><b>白い台の上、正面固定。カメラは一度も動かさない。</b>三品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かる。冒頭三秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。<br><br><b>秤のカットは使わない。</b>数字を読ませるかわりに、<b>片手で持ち上げる動作</b>で軽さを見せる。数字は小さくテロップで添えるだけ。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>A4もノートPCも入って、片手で持ち上がる。三品番の大きさの差が、並べれば分かる。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">CARRY YOUR DAY.</div><div class="en">今日を、持っていく。</div></div>
+      <div class="blk"><span class="lbl">小 さ く 添 え る</span>A4・13インチPC対応　／　千百六十グラム　／　返品送料無料<br><span style='color:#8a7a63'>三品番＝ロワイヤルMトート・ベルシートート・Lジップ</span></div>
     </div>
-    <div class="aim">
-      <span class="lbl">狙 い</span>
-      <b>商品説明をひとつもしない。</b>買った直後、家まで待てずに車の中で開けてしまう18秒。参考動画が3.2万いいねを取ったのは、説明ではなく<b>顔の変化</b>を見せているからです。<br>
-      <b>BGMを入れない。</b>車内の環境音と、紙・リボン・革の音だけ。BGMを足した瞬間に広告になります。<br>
-      8本のうち<b>顔を映す唯一の動画</b>。サングラスで目線を外せば、社内の方でも成立します。
-    </div>
-  </div>
-  <div class="flow">
-    <div><div class="k">起　0-6</div><div class="v">まだ開けていない</div></div>
-    <div><div class="k">承　6-9</div><div class="v">開けた顔</div></div>
-    <div><div class="k">転　9-16</div><div class="v">その場で使う</div></div>
-    <div><div class="k">結　16-18</div><div class="v">言葉とロゴ</div></div>
-  </div>
-  <table class="sb">
-    <tr><th>C</th><th>尺</th><th>画（何が映るか）</th><th>音・演出</th></tr>
-    <tr><td class="c">1</td><td class="t">0-3秒</td><td class="s">車の後部座席。膝の上にBROOKLYNの紙袋。窓の外が流れている</td><td>車内の環境音だけ。<b>BGMなし</b></td></tr>
-    <tr><td class="c">2</td><td class="t">3-6秒</td><td class="s">袋から箱を出し、リボンをほどく。ここは手だけ</td><td>紙の音、紐を引く音</td></tr>
-    <tr class="key"><td class="c">3</td><td class="t">6-9秒</td><td class="s"><b>蓋を開ける。開けた瞬間の顔。★核</b>　息を呑む。声は出さない</td><td>無音の一拍を作る。<b>ここだけ顔を映す</b></td></tr>
-    <tr><td class="c">4</td><td class="t">9-13秒</td><td class="s">財布を取り出し、窓の光にかざす。断面が光る</td><td>革がこすれる音</td></tr>
-    <tr class="key"><td class="c">5</td><td class="t">13-16秒</td><td class="s">その場でカードを差し込む。<b>もう使っている</b></td><td>カードが入る音。ここが落ち</td></tr>
-    <tr><td class="c">6</td><td class="t">16-18秒</td><td class="s">窓の外に目をやる → テロップ → ロゴ</td><td>環境音のまま終わる</td></tr>
-  </table>
-  <div class="telop">
-    <div class="lbl">テ ロ ッ プ</div>
-    <div class="t">家まで、待てなかった。</div>
-    <div class="n">この1本には不織布・箱・リボンが自然に映るので、見送った「梱包から受け取りまで」の役割も半分果たします。</div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 質感</b><br>0-6秒</td><td><img src="../assets/ref4/7_S1_01_モノクロのファスナー.jpg"><div class="cap">超マクロ・<b>モノクロ</b>。ファスナーの歯</div></td><td><img src="../assets/ref4/7_S1_02_型押しの質感.jpg"><div class="cap">型押しのロゴ、ハンドルの付け根</div></td><td><img src="../assets/ref4/7_S1_03_白い台に鞄.jpg"><div class="cap">引く。<b>カラーに変わる。</b>白い台に鞄が一つ</div></td></tr>
+<tr><td class="sc"><b>S2 入れる</b><br>6-16秒</td><td><img src="../assets/ref4/7_S2_03_PCを入れる.jpg"><div class="cap">正面固定。A4書類とノートPCを入れる</div></td><td><img src="../assets/ref4/7_S2_01_入れていく.jpg"><div class="cap">同じ画角。手帳・鍵・サングラス。<b>顔は入れない</b></div></td><td><img src="../assets/ref4/7_S2_02_小物を入れる.jpg"><div class="cap">同じ画角。ペン・小物。入れる音を一つずつ拾う</div></td></tr>
+<tr><td class="sc"><b>S3 持ち上げる</b><br>16-20秒</td><td><img src="../assets/ref4/7_S3_01_持ち上げる.jpg"><div class="cap"><b>片手で持ち上げる。</b>軽さを動作で見せる</div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">肩にかける。台は動かさない</div></td><td></td></tr>
+<tr><td class="sc"><b>S4 残る</b><br>20-25秒</td><td><img src="../assets/ref4/7_S4_01_鞄だけが残る.jpg"><div class="cap">人がフレームから出る。<b>鞄だけが残る</b></div></td><td><img src="../assets/ref4/7_S4_02_テロップ.jpg"><div class="cap">テロップ → ロゴ</div></td><td></td></tr>
+</table>
   </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">9 / 10</div>
 </div>
 
-<!-- ============ P10 5・6本目 ============ -->
-<div class="page plan48">
-  <div class="eyebrow">参 考 動 画 待 ち 　5 ・ 6 本 目</div>
-  <div class="h-sec">企画だけ、先に置いておくもの</div>
-  <div class="sub">参考動画をいただき次第、他の6本と同じ形式で絵コンテを作成します。<b>絵コンテの写真は、いただいた参考動画から抽出します。</b></div>
-
-  <div class="four">
-    <div class="b">
-      <div class="no">05</div>
-      <h3>コーポレートムービー</h3>
-      <div class="len">2分 ×1　／　60秒短縮版 ×1　　対象＝メディア関係者・OEMの調達担当・新規</div>
-      <dl>
-        <dt>なぜ要るか</dt><dd>会社を1本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されています（2026年8月時点）</dd>
-        <dt>入れるもの</dt><dd>1979年創業／SHIPS・BEAMS・UNITED ARROWS・Paul Smithのオリジナル商品を企画・生産／2011年ラルフローレン・ジャパン国内全直営店のカルトン／向島の工房と表参道の店舗／<b>永尾社長と佐藤さんの顔と声</b></dd>
-        <dt>入れないもの</dt><dd>工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割です</dd>
-        <dt>先に要ること</dt><dd>お二人の収録を30分ずつ。使うのは各10秒ほどですが、<b>単独インタビュー動画にそのまま展開できる素材</b>になります</dd>
-      </dl>
-      <div class="lkbox"><span class="lbl">参 考 動 画 リ ン ク</span><span class="fill"></span></div>
-    </div>
-
-    <div class="b">
-      <div class="no">06</div>
-      <h3>OEM工房案内</h3>
-      <div class="len">2分20秒 ×1　／　展示会用の無音版 ×1　　対象＝OEMの調達・生産担当</div>
-      <dl>
-        <dt>なぜ要るか</dt><dd>OEMの粗利は36%。自社ブランドの財布・小物は76〜93%あります。訪問前に体制を伝えて、<b>価格ではなく品質で選ばれる状態</b>を作ります</dd>
-        <dt>入れるもの</dt><dd>量産（金型裁断・ミシン）と少量生産（革包丁・手縫い）の両方に対応できること／漉き・貼り合わせ・目止め・コバ磨きまで自社で完結／<b>検品の場面を具体的に</b></dd>
-        <dt>いちばん重要なカット</dt><dd>職人が縫い目と断面を目で確かめる場面。ここで作業音を消します</dd>
-        <dt>先に要ること</dt><dd>工房の外観と全景。撮影して差し支えない範囲の確認</dd>
-      </dl>
-      <div class="lkbox"><span class="lbl">参 考 動 画 リ ン ク</span><span class="fill"></span></div>
-    </div>
-
-    <div class="b" style="border-top-color:#1a1a1a; background:#f5f1e8">
-      <div class="no" style="color:#1a1a1a">NEXT</div>
-      <h3>次にお願い<br>したいこと</h3>
-      <div class="len">これが揃えば、8本すべて絵コンテまで作れます</div>
-      <dl>
-        <dt>1</dt><dd><b>1本目の参考動画URL</b><br>innovator SWEDEN（@__a.r10）のリールです。動画は拝見しているので、URLだけあれば資料に載せられます</dd>
-        <dt>2</dt><dd><b>5・6本目の参考動画URL</b><br>方向が決まっていなければ、こちらから3案お出しします</dd>
-        <dt>3</dt><dd><b>8本目の出演者</b><br>顔が映る唯一の動画です。社内の方でよいか、外部にお願いするか</dd>
-        <dt>4</dt><dd><b>2本目のコバ塗りの色</b><br>参考動画は赤い革に赤い塗料。<b>どの色で撮るか</b>だけ決めてください</dd>
-      </dl>
-    </div>
+<div class="page">
+  <div class="vhead">
+    <div class="l"><div class="no">08</div><h2>がんばった自分に、ひとつ。</h2><div class="enh">One Thing, For Getting Through</div></div>
+    <div class="r"><b>18秒 ／ 10ショット</b><br>対象＝まだ名前を知らない人　／　Instagram広告・全媒体<br><span class="lk">参考動画＝<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili（5.7万いいね）　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a></span></div>
   </div>
-
+  <div class="vbody">
+    <div class="col">
+      <div class="blk"><span class="lbl">企 画</span><b>商品説明をひとつもしない。</b>買った直後、家まで待てずに車の中で開けてしまう十八秒。<br><br><b>パクリに見せない作り方</b>：参考動画はどれも<b>顔の反応が主役</b>。この一本は<b>手と、袋と、窓の外</b>を主役にして、顔は一瞬だけにする。さらに「店を出る → タクシー → 開ける」とつなぐと、どの一本とも似なくなる。<br><br><b>BGMを入れない。</b>車内の環境音と、紙・リボン・革の音だけ。足した瞬間に広告になる。</div>
+      <div class="blk"><span class="lbl">こ の 1 本 で 言 う こ と</span>誰かのためでなく、自分のために買っていい。八本のうち<b>顔を映す唯一の動画</b>。</div>
+      <div class="telop"><span class="lbl">テ ロ ッ プ</span><div class="jp">がんばった自分に、ひとつ。</div><div class="en">One thing, for getting through.</div></div>
+      <div class="blk"><span class="lbl">決 め る こ と</span>出演者は未定。社内の方でよいか、外部にお願いするか。<br><span style='color:#8a7a63'>不織布・箱・リボンが自然に映るので、見送った「梱包から受け取りまで」の役割も半分果たします。</span></div>
+    </div>
+    <table class="grid"><tr><th>シーン</th><th>ショット 1</th><th>ショット 2</th><th>ショット 3</th></tr>
+<tr><td class="sc"><b>S1 店を出る</b><br>0-4秒</td><td><img src="../assets/ref4/8_S1_01_店を出る.jpg"><div class="cap">表参道。紙袋を持って店から出てくる</div></td><td><img src="../assets/ref4/8_S1_02_袋を持って歩く.jpg"><div class="cap">歩きながら、袋だけに寄る</div></td><td><img src="../assets/ref4/8_S1_03_袋に寄る.jpg"><div class="cap">BROOKLYNのロゴが一瞬だけ読める</div></td></tr>
+<tr><td class="sc"><b>S2 タクシー</b><br>4-8秒</td><td><img src="../assets/ref4/8_S2_01_車内_膝の上に袋.jpg"><div class="cap">乗り込む。膝の上に袋（<b>手だけ</b>）</div></td><td><img src="../assets/ref4/8_S2_02_窓の外が流れる.jpg"><div class="cap">窓の外が流れる。車内の環境音だけ</div></td><td></td></tr>
+<tr><td class="sc"><b>S3 開ける</b><br>8-14秒</td><td><img src="../assets/ref4/8_S3_01_リボンをほどく.jpg"><div class="cap">リボンをほどく（手だけ）。紐を引く音</div></td><td><img src="../assets/ref4/8_S3_02_開けた瞬間.jpg"><div class="cap">蓋を開ける。<b>顔は一瞬だけ</b>。無音の一拍</div></td><td><img src="../assets/ref4/8_S3_03_光にかざす.jpg"><div class="cap">取り出し、窓の光にかざす。断面が光る</div></td></tr>
+<tr><td class="sc"><b>S4 使う</b><br>14-18秒</td><td><div class="ph0">撮影して差し替え</div><div class="cap">その場でカードを差し込む。<b>もう使っている</b></div></td><td><div class="ph0">撮影して差し替え</div><div class="cap">窓の外に目をやる → テロップ → ロゴ</div></td><td></td></tr>
+</table>
+  </div>
   <div class="foot">BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
   <div class="pagenum">10 / 10</div>
 </div>
-
 </body>
 </html>
