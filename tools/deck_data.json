@@ -53,7 +53,7 @@
       "en": "Everyday, Worth a Frame",
       "len": "30秒 ×1",
       "target": "仕事道具として買う人・贈る人",
-      "ref_html": "<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>　＋　<a href=\"https://www.instagram.com/reel/DaxjHnkB62p/\">Link</a>（yifan.liii × COACH）",
+      "ref_html": "<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>（parisawangny・メイン）　＋　<a href=\"https://www.instagram.com/reel/DaxjHnkB62p/\">Link</a>（yifan.liii × COACH）",
       "ref_url": "https://www.instagram.com/reels/DcOkNyyoFFJ/",
       "ref_text": "instagram.com/reels/DcOkNyyoFFJ ＋ instagram.com/reel/DaxjHnkB62p（yifan.liii × COACH）",
       "pg": "6"
@@ -386,7 +386,7 @@
       "en": "Everyday, Worth a Frame",
       "meta_len": "30秒 ／ 11ショット",
       "meta_target": "対象＝仕事道具として買う人・贈る人　／　全媒体",
-      "ref": "参考動画＝<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>　＋　<a href=\"https://www.instagram.com/reel/DaxjHnkB62p/\">Link</a>（yifan.liii × COACH・11.8万いいね）",
+      "ref": "参考動画＝<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>（parisawangny・メイン）　＋　<a href=\"https://www.instagram.com/reel/DaxjHnkB62p/\">Link</a>（yifan.liii × COACH）",
       "plan": "映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。",
       "says": "この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。",
       "telop_jp": "",
@@ -403,15 +403,15 @@
           "0-8秒",
           [
             [
-              "4_S1_01_ガラスの反射",
+              null,
               "店のガラスの反射に映る（引き）"
             ],
             [
-              "4_S1_02_街を歩く",
+              "4_S1_02_街を歩く_縦型",
               "街を歩く。横移動で追う"
             ],
             [
-              "4_S1_03_電車が通り過ぎる",
+              "4_S1_03_電車通過ブレ_縦型",
               "<b>電車が通り過ぎる（ブレ＝トランジション）</b>"
             ]
           ]
@@ -421,15 +421,15 @@
           "8-17秒",
           [
             [
-              "4_S2_01_真俯瞰で入れる",
+              "4_S2_01_真俯瞰で中身を入れる_縦型",
               "手すりに置き、真俯瞰でA4とノートPCを入れる"
             ],
             [
-              "4_S2_02_中身を並べる",
+              "4_S2_02_内ポケットに物を入れる_縦型",
               "寄り。内ポケットに名刺入れ・鍵・携帯"
             ],
             [
-              "4_S2_03_財布に差し込む超マクロ",
+              "4_S2_03_マクロで取り出す_縦型",
               "<b>財布に何かを差し込む超マクロ</b>"
             ]
           ]
@@ -439,15 +439,15 @@
           "17-25秒",
           [
             [
-              "4_S3_01_カフェの窓際",
+              null,
               "カフェの窓際。自然光・浅い被写界深度"
             ],
             [
-              "4_S3_02_金具のロゴに超マクロ",
+              "4_S3_02_金具マクロ_縦型",
               "<b>金具のロゴに超マクロ</b>"
             ],
             [
-              "4_S3_03_高い場所に立つ",
+              "4_S3_03_高い場所に立つ_縦型",
               "高い場所に立つ（引き・映画的）"
             ]
           ]
@@ -457,11 +457,11 @@
           "25-30秒",
           [
             [
-              "4_S4_02_街に置く",
+              "4_S4_01_街に置く_縦型",
               "街に置く。背景をボカして流す"
             ],
             [
-              "4_S4_01_白い壁の前",
+              null,
               "白い壁の前。正面。壁に英語一文を重ねる"
             ],
             [
