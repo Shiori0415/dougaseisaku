@@ -17,7 +17,7 @@ COVER = {
  "footer": "BROOKLYN MUSEUM ／ 向島工房　動画制作",
 }
 
-TOC_INTRO = "1〜4本目と7・8本目は参考動画があり、絵コンテの写真もそこから抜いています。5・6本目は参考動画をいただき次第、同じ形式で写真を入れます。"
+TOC_INTRO = "1〜4本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。5・6・8本目は参考動画・詳細をいただき次第、同じ形式で内容を確定します。"
 
 TOC = [
  {"n":"1","jp":"今日の服に、合う色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
@@ -41,9 +41,9 @@ TOC = [
  {"n":"7","jp":"HURRY UP.","en":"急ぐ朝ほど、迷わない。","len":"25秒 ×3品番","target":"新規（買う直前の人）",
   "ref_html":'<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>',
   "ref_url":"https://www.instagram.com/reel/DZE-_hZuwXb/", "ref_text":"instagram.com/reel/DZE-_hZuwXb ＋ instagram.com/reel/DaorwuKvWAj","pg":"9"},
- {"n":"8","jp":"がんばった自分に、ひとつ。","en":"One Thing, For Getting Through","len":"18秒 ×1","target":"まだ名前を知らない人",
-  "ref_html":'<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',
-  "ref_url":"https://www.instagram.com/reel/Dbi4WDONwhq/", "ref_text":"instagram.com/reel/Dbi4WDONwhq ＋ @cherifaakili ＋ instagram.com/reel/DEIijWmsN08","pg":"10"},
+ {"n":"8","jp":"購入者インタビュー（仮タイトル）","en":"Customer Interview (Title TBD)","len":"尺・ショット数＝未定","target":"購入を迷っている新規（仮）",
+  "ref_html":'<span style="color:#b8ac97">参考動画：未定（購入者インタビュー型を推奨）</span>',
+  "ref_url":"", "ref_text":"参考動画：未定（購入者インタビュー型を推奨）","pg":"10"},
 ]
 
 PAGES = [
@@ -235,7 +235,7 @@ PAGES = [
   ref='参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">instagram.com/reel/DZE-_hZuwXb</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">instagram.com/reel/DaorwuKvWAj</a>（ASMR実測）',
   plan="購入転換率が0.263%。前年0.583%から半減している。写真では入る量が伝わらない。<br><br><b>白い台の上、正面固定。カメラは一度も動かさない。</b>三品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かる。冒頭三秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。<br><br><b>秤のカットは使わない。</b>数字を読ませるかわりに、<b>片手で持ち上げる動作</b>で軽さを見せる。数字は小さくテロップで添えるだけ。",
   says="A4もノートPCも入って、片手で持ち上がる。三品番の大きさの差が、並べれば分かる。",
-  telop_jp="CARRY YOUR DAY.", telop_en="今日を、持っていく。",
+  telop_jp="かばんも、身支度のうち。", telop_en="THE BAG IS PART OF GETTING READY.",
   extra=("小 さ く 添 え る","A4・13インチPC対応　／　千百六十グラム　／　返品送料無料<br><span style='color:#8a7a63'>三品番＝ロワイヤルMトート・ベルシートート・Lジップ</span>"),
   rows=[
    ("S1 質感","0-6秒",[
@@ -260,32 +260,32 @@ PAGES = [
    ]),
   ], pn=9, total=T),
 
- dict(no="08", jp="がんばった自分に、ひとつ。", en="One Thing, For Getting Through",
-  meta_len="18秒 ／ 10ショット", meta_target="対象＝まだ名前を知らない人　／　Instagram広告・全媒体",
-  ref='参考動画＝<a href="https://www.instagram.com/reel/Dbi4WDONwhq/">instagram.com/reel/Dbi4WDONwhq</a>　＋　@cherifaakili（5.7万いいね）　＋　<a href="https://www.instagram.com/reel/DEIijWmsN08/">instagram.com/reel/DEIijWmsN08</a>',
-  plan="<b>商品説明をひとつもしない。</b>買った直後、家まで待てずに車の中で開けてしまう十八秒。<br><br><b>パクリに見せない作り方</b>：参考動画はどれも<b>顔の反応が主役</b>。この一本は<b>手と、袋と、窓の外</b>を主役にして、顔は一瞬だけにする。さらに「店を出る → タクシー → 開ける」とつなぐと、どの一本とも似なくなる。<br><br><b>BGMを入れない。</b>車内の環境音と、紙・リボン・革の音だけ。足した瞬間に広告になる。",
-  says="誰かのためでなく、自分のために買っていい。八本のうち<b>顔を映す唯一の動画</b>。",
-  telop_jp="がんばった自分に、ひとつ。", telop_en="One thing, for getting through.",
-  extra=("決 め る こ と","出演者は未定。社内の方でよいか、外部にお願いするか。<br><span style='color:#8a7a63'>不織布・箱・リボンが自然に映るので、見送った「梱包から受け取りまで」の役割も半分果たします。</span>"),
+ dict(no="08", jp="購入者インタビュー（仮タイトル）", en="Customer Interview (Title TBD)",
+  meta_len="尺・ショット数＝未定（インタビュー形式）", meta_target="対象＝購入を迷っている新規　／　EC商品ページ・レビュー欄・Instagram（仮）",
+  ref='参考動画＝未定。<b style="color:#a8763e">購入者インタビュー型</b>を推奨（顔出しの可否・質問内容は未定）',
+  plan="参考動画・具体的な演出はまだ未定。商品説明を人が語らない他の七本とは違い、<b>買った人自身の言葉で語ってもらう</b>唯一の一本になる見込み。<br><br><b>決めること</b>：誰に聞くか（既存の購入者にお願いするか、社内の方に使用者として話してもらうか）、顔出しの範囲、質問内容、撮影場所。これらが決まり次第、絵コンテを本設計に差し替える。",
+  says="他の七本が「見せる」動画なのに対し、これだけが「聞く」動画。買った人自身の言葉で語ってもらう。",
+  telop_jp="", telop_en="",
+  extra=("決 め る こ と","出演者・顔出しの範囲・質問内容・撮影場所。これらが決まり次第、絵コンテを本設計に差し替えます。"),
   rows=[
-   ("S1 店を出る","0-4秒",[
-     ("8_S1_01_店を出る","表参道。紙袋を持って店から出てくる"),
-     ("8_S1_02_袋を持って歩く","歩きながら、袋だけに寄る"),
-     ("8_S1_03_袋に寄る","BROOKLYNのロゴが一瞬だけ読める"),
+   ("S1 導入","秒数未定",[
+     (None,"日常の中で迎える（来店・使用シーンなど）"),
+     (None,"名前は出さず「使っている人」として自己紹介"),
+     (None,"手元のBROOKLYNの鞄が画面に入る"),
    ]),
-   ("S2 タクシー","4-8秒",[
-     ("8_S2_01_車内_膝の上に袋","乗り込む。膝の上に袋（<b>手だけ</b>）"),
-     ("8_S2_02_窓の外が流れる","窓の外が流れる。車内の環境音だけ"),
-     (None,"―"),
+   ("S2 質問","秒数未定",[
+     (None,"「なぜこれを選んだか」を聞く"),
+     (None,"実際に使っているシーンを見せながら答えてもらう"),
+     (None,"良かった点を具体的なエピソードで語ってもらう"),
    ]),
-   ("S3 開ける","8-14秒",[
-     ("8_S3_01_リボンをほどく","リボンをほどく（手だけ）。紐を引く音"),
-     ("8_S3_02_開けた瞬間","蓋を開ける。<b>顔は一瞬だけ</b>。無音の一拍"),
-     ("8_S3_03_光にかざす","取り出し、窓の光にかざす。断面が光る"),
+   ("S3 本音","秒数未定",[
+     (None,"購入前に迷っていた話"),
+     (None,"買ってから変わったことを一言で"),
+     (None,"表情のアップ。台本にない一言を拾う"),
    ]),
-   ("S4 使う","14-18秒",[
-     (None,"その場でカードを差し込む。<b>もう使っている</b>"),
-     (None,"窓の外に目をやる → テロップ → ロゴ"),
+   ("S4 締め","秒数未定",[
+     (None,"鞄を持って歩き出す後ろ姿"),
+     (None,"テロップ → ロゴ"),
      (None,"―"),
    ]),
   ], pn=10, total=T),
