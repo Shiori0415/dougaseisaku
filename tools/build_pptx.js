@@ -72,7 +72,8 @@ function parseRich(html, baseOpts) {
   while ((m = TAG_RE.exec(html))) {
     flush(html.slice(last, m.index));
     last = TAG_RE.lastIndex;
-    const tag = m[0].toLowerCase();
+    const raw = m[0];
+    const tag = raw.toLowerCase();
     const colorM = /color:#([0-9a-f]{6})/i.exec(tag);
     if (tag.startsWith("<br")) {
       runs.push({ text: "", options: Object.assign({}, baseOpts, { breakLine: true }) });
@@ -85,7 +86,7 @@ function parseRich(html, baseOpts) {
     } else if (tag === "</span>") {
       for (let i = stack.length - 1; i >= 0; i--) if (stack[i].kind === "span") { stack.splice(i, 1); break; }
     } else if (tag.startsWith("<a")) {
-      const url = /href=["']([^"']+)["']/i.exec(tag)[1];
+      const url = /href=["']([^"']+)["']/i.exec(raw)[1];
       stack.push({ kind: "a", url });
     } else if (tag === "</a>") {
       for (let i = stack.length - 1; i >= 0; i--) if (stack[i].kind === "a") { stack.splice(i, 1); break; }
