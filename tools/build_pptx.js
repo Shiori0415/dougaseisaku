@@ -232,7 +232,7 @@ DATA.pages.forEach((d) => {
 
   // 左カラムがBODY_Hに収まる最大のフォント倍率を探す（収まっていれば1.0のまま）
   let scale = 1.0;
-  for (let s = 1.0; s >= 0.72; s -= 0.02) {
+  for (let s = 1.0; s >= 0.6; s -= 0.02) {
     scale = s;
     if (textBlocksHeight(d, s) <= BODY_H) break;
   }
