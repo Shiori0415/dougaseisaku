@@ -207,7 +207,7 @@ const SHOT_GAP = 0.13;
 const SHOT_COL_W = (GRID_W - SCENE_W - SHOT_GAP * 3) / 3;
 const ROW_GAP = 0.10;
 const ROW_H = (BODY_H - ROW_GAP * 3) / 4;
-const PHOTO_H = ROW_H * 0.60;
+const PHOTO_H = ROW_H * 0.72;
 const CAP_H = ROW_H - PHOTO_H - 0.06;
 
 // 左カラム（企画／この1本で言うこと／テロップ／追加）の合計高さを見積もる。
@@ -303,9 +303,20 @@ DATA.pages.forEach((d) => {
       const sx = GRID_X + SCENE_W + SHOT_GAP + si * (SHOT_COL_W + SHOT_GAP);
       if (cap === "―") return; // 使わないマス
       if (photo) {
+        // pptxgenjsのsizing:{type:"contain"}はOOXMLのsrcRect+stretchで実装されており、
+        // 画像が箱より縦長（幅が余る）の場合に不正な負の値を生成してしまい正しく動かない。
+        // そのため、箱いっぱいの黒背景を敷いた上で、実寸から自前でレターボックス配置する。
         const imgPath = path.join(IMG_DIR, photo + ".jpg");
         const nat = getImgSize(imgPath);
-        slide.addImage({ path: imgPath, x: sx, y: ry, w: nat.width, h: nat.height, sizing: { type: "cover", w: SHOT_COL_W, h: PHOTO_H } });
+        slide.addShape("rect", { x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, fill: { color: "000000" }, line: { type: "none" } });
+        const imgRatio = nat.height / nat.width;
+        const boxRatio = PHOTO_H / SHOT_COL_W;
+        let dw, dh;
+        if (imgRatio > boxRatio) { dh = PHOTO_H; dw = PHOTO_H / imgRatio; }
+        else { dw = SHOT_COL_W; dh = SHOT_COL_W * imgRatio; }
+        const dx = sx + (SHOT_COL_W - dw) / 2;
+        const dy = ry + (PHOTO_H - dh) / 2;
+        slide.addImage({ path: imgPath, x: dx, y: dy, w: dw, h: dh });
         slide.addShape("rect", { x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
       } else if (cap) {
         slide.addShape("rect", { x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });

@@ -17,7 +17,7 @@ COVER = {
  "footer": "BROOKLYN MUSEUM ／ 向島工房　動画制作",
 }
 
-TOC_INTRO = "1〜4本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。5本目は参考動画が決まりました（写真はまだ抜いていません）。6・8本目は参考動画・詳細をいただき次第、同じ形式で内容を確定します。"
+TOC_INTRO = "1〜5本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。6・8本目は参考動画・詳細をいただき次第、同じ形式で内容を確定します。"
 
 TOC = [
  {"n":"1","jp":"今日の服に、合う色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
@@ -33,8 +33,8 @@ TOC = [
   "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">Link</a>（yifan.liii × COACH）',
   "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ ＋ instagram.com/reel/DaxjHnkB62p（yifan.liii × COACH）","pg":"6"},
  {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"2分 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
-  "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー・写真は未抽出）',
-  "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー・写真は未抽出）","pg":"7"},
+  "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
+  "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー）","pg":"7"},
  {"n":"6","jp":"つくる、確かめる、包む。","en":"Make. Check. Pack.","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
   "ref_html":'<span style="color:#b8ac97">参考動画：未定（工場見学ワンテイク型を推奨）</span>',
   "ref_url":"", "ref_text":"参考動画：未定（工場見学ワンテイク型を推奨）","pg":"8"},
@@ -170,27 +170,27 @@ PAGES = [
 
  dict(no="05", jp="1979年から、東京で。", en="Since 1979, Tokyo",
   meta_len="2分 ／ 12ショット（60秒短縮版 ×1）", meta_target="対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
-  ref='参考動画＝<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー・写真は未抽出）',
-  plan="会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<b>年表で信用を作り、最後に二人の顔と声で締める。</b>これがいちばん低予算で、いちばんメディアに刺さる。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割。<br><b>先に要ること</b>：お二人の収録を三十分ずつ。使うのは各十秒ほどだが、<b>単独インタビュー動画にそのまま展開できる素材</b>になる。",
+  ref='参考動画＝<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
+  plan="会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<b>年表で信用を作り、最後に二人の顔と声で締める。</b>これがいちばん低予算で、いちばんメディアに刺さる。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。それは他の動画の役割。<br><b>先に要ること</b>：お二人の収録を三十分ずつ。使うのは各十秒ほどだが、<b>単独インタビュー動画にそのまま展開できる素材</b>になる。<br><br><b>ナレーションは永尾社長の声。</b>台本を読み上げるのではなく、三十分の収録から経営方針についての本音の一言を拾う形にする（想定トピック：なぜ向島工房と一つになったか／変えないと決めていること／これから）。顔が映らないS1・S3・S4の上に重ねる。",
   says="1979年から続く会社が、いま向島の工房と一つになった。",
   telop_jp="作る場所は、変わっていません。", telop_en="The place has not changed.",
   extra=("年 表 テ ロ ッ プ",
    "1979 創業　／　1980 SHIPS　／　1982 BEAMS　／　1990 UNITED ARROWS　／　1991 Paul Smith　／　2011 RALPH LAUREN 全直営店のカルトン"),
   rows=[
    ("S1 刻印","0-25秒",[
-     (None,"黒。刻印が押され、ロゴが革に沈む（超マクロ）"),
-     (None,"窪みに光が差す。そこに<b>年号テロップ</b>が重なる"),
-     (None,"引くと向島工房の全景になる（ハイアングル）"),
+     ("5_S1_01_刻印風マクロ_金属に光る文字","黒。刻印が押され、ロゴが革に沈む（超マクロ）"),
+     ("5_S1_02_窪みに光が差す赤熱マクロ","窪みに光が差す。そこに<b>年号テロップ</b>が重なる"),
+     ("5_S1_03_工房の全景ハイアングル","引くと向島工房の全景になる（ハイアングル）"),
    ]),
    ("S2 二人","25-57秒",[
-     (None,"永尾社長。窓を背に座る（中景）。<b>顔が出るのはここだけ</b>"),
-     (None,"佐藤さん。<b>同じ光・同じ画角</b>で撮る"),
+     ("5_S2_01_社長ポートレート_工房背景","永尾社長。窓を背に座る（中景）。<b>顔が出るのはここだけ</b>"),
+     ("5_S2_02_二人目ポートレート_同じ画角","佐藤さん。<b>同じ光・同じ画角</b>で撮る"),
      (None,"打ち合わせ台を真俯瞰。図面・革見本・道具"),
    ]),
    ("S3 製造","57-96秒",[
-     (None,"原反が広げられる（真俯瞰）"),
-     (None,"裁断 → 縫製 → コバ磨き。声が終わり工程の音だけになる"),
-     (None,"検品。<b>ここで一度、音を消す</b>"),
+     ("5_S3_01_原反が広げられる","原反が広げられる（真俯瞰）"),
+     ("5_S3_02_手元での精密作業","裁断 → 縫製 → コバ磨き。声が終わり工程の音だけになる"),
+     ("5_S3_03_検品する横顔","検品。<b>ここで一度、音を消す</b>"),
    ]),
    ("S4 渡る","96-120秒",[
      (None,"梱包され、箱が閉じる（真俯瞰）"),
