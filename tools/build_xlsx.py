@@ -43,50 +43,55 @@ def header_row(ws, row, headers, widths):
 
 
 # ========================= 1. 撮影機材と費用 =========================
+"""GEAR の各行： (品目, 商品名, 価格, なぜ必要か, 評価・出どころ, URL, URLの確認結果)
+   URLはすべて、商品名で検索して amazon.co.jp のページが実在することを1件ずつ確認済み。
+   （この作業環境からは amazon.co.jp を直接開けないため、検索結果のタイトルとASINで照合している）"""
 GEAR = [
-    ("カメラ本体", "SONY ZV-E10 標準ズームレンズキット", 82800,
-     "8本すべての撮影本体。瞳AF・4K・外部マイク端子つき。動画向けの現行機では実売最安クラス",
-     "ソニー公式・国内正規品",
-     "https://www.amazon.co.jp/dp/B09BC33J91"),
-    ("スマホ", "手持ちのものを使用", 0,
-     "2台目のカメラとして別アングルの押さえ、作業音の別録りに使用",
-     "購入不要", ""),
     ("マクロレンズ", "SONY E 30mm F3.5 Macro（SEL30M35）", 27800,
      "刃が革に入る瞬間・コバ塗り・刻印の寄り。②③⑤の核になるカットはこのレンズがないと撮れない",
      "ソニー純正・等倍マクロ",
-     "https://www.amazon.co.jp/dp/B0055MFTHM"),
+     "https://www.amazon.co.jp/dp/B0055MFTHM",
+     "確認済（ソニー 単焦点レンズ APS-C専用 SEL30M35）※ソニーEマウント専用。お使いのカメラのマウント要確認"),
     ("三脚（雲台付き）", "Velbon EX-440", 3012,
      "③⑦の固定撮影と、①⑤⑥の真俯瞰。1人で撮るのでカメラを置ける三脚は必須",
      "国内カメラ用品の老舗メーカー・入門定番",
-     "https://www.amazon.co.jp/dp/B0053CEPQU"),
+     "https://www.amazon.co.jp/dp/B0053CEPQU",
+     "確認済（Velbon ファミリー三脚 EX-440 4段 全高153cm 3Way雲台付）"),
     ("音声レコーダー", "ZOOM H1essential", 12626,
      "永尾社長・佐藤さん・くさがやさん・購入者の4人分のインタビュー音声。⑤は社長の声だけで全編が進むため最重要",
      "ZOOM公式・評価4.5／5（32件）・32bitフロートで音割れしない",
-     "https://www.amazon.co.jp/s?k=ZOOM+H1essential"),
+     "https://www.amazon.co.jp/dp/B0CSL4PXDV",
+     "確認済（ZOOM 32bitフロートハンディレコーダー H1essential）※前回の検索リンクから商品ページに修正"),
     ("ガンマイク", "RODE VideoMic GO II", 16364,
      "カメラに載せる指向性マイク。工房の環境音の中から刃の音・ミシンの音・コバを磨く音だけを拾う。電池不要",
      "RODE公式・入門ガンマイクの定番機",
-     "https://www.amazon.co.jp/dp/B0D3QSNXW9"),
+     "https://www.amazon.co.jp/dp/B09MRLGL7G",
+     "修正（前回は米国Amazon由来のASINでした。実売16,364円の出どころもこの国内ページです）"),
     ("照明（LED1灯）", "Neewer 二色660 LEDビデオライト", 10949,
      "③「黒い布一枚とライト一灯」の要。工房の蛍光灯を全部消して撮るので、この1灯が画をつくる",
      "Neewer公式・レビュー多数の定番モデル",
-     "https://www.amazon.co.jp/dp/B077Z61TPN"),
-    ("レフ板", "5in1レフ板／ディフューザー 60cm", 1099,
+     "https://www.amazon.co.jp/dp/B077Z61TPN",
+     "確認済（Neewer 調光可能な二色660 LEDビデオライト・CRI96+）"),
+    ("レフ板", "EMART レフ板 60cm 丸レフ板 5in1", 1099,
      "1灯だけだと影が硬くなるので反対側から起こす。屋外（①④）でも手元に光を回せる",
      "レビュー件数の多い定番品",
-     "https://www.amazon.co.jp/dp/B0CHNY19K3"),
+     "https://www.amazon.co.jp/dp/B0CHNY19K3",
+     "確認済（EMART レフ板 60cm撮影用 丸レフ板 5in1）"),
     ("黒スチレンボード", "ブラックスチレンボード A2・5mm厚 ×2枚", 1122,
      "③の黒背景と、余計な光を止める遮光板。布より角が立つので黒の中に製品だけを浮かせられる",
      "看板・POP資材の定番（1枚561円）",
-     "https://www.signmall.jp/item/10899910261.html"),
+     "https://www.signmall.jp/item/10899910261.html",
+     "確認済（サインモール ブラックスチレンボード 5mm厚 A2・561円）"),
     ("アクリル板", "PULUZ アクリル反射板 40cm（黒）", 3000,
      "製品を映り込ませる台。③の完成品カットと⑦の白台に、鏡面のリフレクションが1枚入る",
-     "PULUZ公式ショップ／価格は購入時に要確認",
-     "https://www.amazon.co.jp/dp/B0C49DT18X"),
-    ("SDカード", "SanDisk Extreme 128GB（V30）", 2500,
-     "カメラに1枚も入っていないと撮影自体ができない。4K動画なので書き込み速度はV30以上",
-     "サンディスク正規品／価格は購入時に要確認",
-     "https://www.amazon.co.jp/s?k=SanDisk+Extreme+SD+128GB+V30"),
+     "PULUZ公式ショップ",
+     "https://www.amazon.co.jp/dp/B0C49DT18X",
+     "確認済（PULUZ アクリル反射板 40cm 黒）※価格は購入時に要確認"),
+    ("SDカード（任意）", "SanDisk Extreme 128GB（V30以上）", 2500,
+     "お使いのカメラのカードをそのまま使えるなら不要。4K動画を撮るので書き込み速度はV30以上のもの",
+     "型番はカメラのカード形式（SD／microSD）に合わせて選ぶ",
+     "https://www.amazon.co.jp/s?k=SanDisk+Extreme+SD+128GB+V30",
+     "商品ページ未特定のため検索リンク。カメラに合う形式を確認してから購入"),
 ]
 
 EXCLUDED = [
@@ -104,7 +109,7 @@ def build_gear(path):
     ws.sheet_view.showGridLines = False
 
     r = title_block(ws, "撮影機材と費用",
-                    "動画8本を1人で撮影する前提。機材は現在なにも所有していないため、ゼロから揃える場合の金額です。")
+                    "動画8本を1人で撮影する前提。カメラはお手持ちのものを使用し、それ以外に必要な機材の金額です。")
 
     ws.cell(row=r, column=1, value="編集のしかた").font = Font(name=JP, size=9, bold=True, color=ACCENT)
     ws.cell(row=r + 1, column=1,
@@ -112,18 +117,18 @@ def build_gear(path):
             ).font = Font(name=JP, size=9, color=MUTED)
     r += 3
 
-    headers = ["品目", "商品", "価格（円）", "なぜ必要か", "評価・出どころ", "商品ページ"]
-    widths = [16, 36, 12, 52, 34, 30]
+    headers = ["品目", "商品", "価格（円）", "なぜ必要か", "評価・出どころ", "商品ページ", "リンクの確認結果"]
+    widths = [18, 36, 12, 50, 32, 26, 44]
     header_row(ws, r, headers, widths)
     first = r + 1
 
-    for i, (item, name, price, why, trust, url) in enumerate(GEAR):
+    for i, (item, name, price, why, trust, url, verdict) in enumerate(GEAR):
         row = first + i
-        vals = [item, name, price, why, trust, url]
+        vals = [item, name, price, why, trust, url, verdict]
         for col, v in enumerate(vals, start=1):
             c = ws.cell(row=row, column=col, value=v)
             c.border = BORDER
-            c.alignment = Alignment(vertical="top", wrap_text=(col in (2, 4, 5, 6)))
+            c.alignment = Alignment(vertical="top", wrap_text=(col in (2, 4, 5, 6, 7)))
             c.font = Font(name=JP, size=10, color=INK)
         pc = ws.cell(row=row, column=3)
         pc.number_format = '#,##0;(#,##0);-'
@@ -133,7 +138,7 @@ def build_gear(path):
             lc = ws.cell(row=row, column=6)
             lc.hyperlink = url
             lc.font = Font(name=JP, size=9, color="0563C1", underline="single")
-        ws.row_dimensions[row].height = 42
+        ws.row_dimensions[row].height = 48
 
     last = first + len(GEAR) - 1
     total_row = last + 1
@@ -150,22 +155,22 @@ def build_gear(path):
                    value="アクリル板とSDカードは概算です。発注時に確定します。")
     note.font = Font(name=JP, size=9, color=MUTED)
     note.border = BORDER
-    for col in (5, 6):
+    for col in (5, 6, 7):
         ws.cell(row=total_row, column=col).border = BORDER
 
     r = total_row + 3
-    ws.cell(row=r, column=1, value="うちカメラ本体").font = Font(name=JP, size=10, color=MUTED)
-    c = ws.cell(row=r, column=3, value=f"=C{first}")
+    ws.cell(row=r, column=1, value="うちSDカード（任意）").font = Font(name=JP, size=10, color=MUTED)
+    c = ws.cell(row=r, column=3, value=f"=C{last}")
     c.number_format = '#,##0'
     c.font = Font(name=JP, size=10, color=INK)
     c.alignment = Alignment(horizontal="right")
-    ws.cell(row=r + 1, column=1, value="カメラを除いた小計").font = Font(name=JP, size=10, color=MUTED)
-    c = ws.cell(row=r + 1, column=3, value=f"=C{total_row}-C{first}")
+    ws.cell(row=r + 1, column=1, value="SDカードを買わない場合").font = Font(name=JP, size=10, bold=True, color=INK)
+    c = ws.cell(row=r + 1, column=3, value=f"=C{total_row}-C{last}")
     c.number_format = '#,##0'
-    c.font = Font(name=JP, size=10, color=INK)
+    c.font = Font(name=JP, size=11, bold=True, color=INK)
     c.alignment = Alignment(horizontal="right")
     ws.cell(row=r + 1, column=4,
-            value="カメラを社内から借りられる場合はこの金額").font = Font(name=JP, size=9, color=MUTED)
+            value="お使いのカメラのSDカードをそのまま使える場合はこの金額").font = Font(name=JP, size=9, color=MUTED)
 
     r += 4
     ws.cell(row=r, column=1, value="今回は買わないもの").font = Font(name=JP, size=12, bold=True, color=INK)
@@ -201,7 +206,13 @@ def build_gear(path):
         "　メーカー公式ページであること、レビュー件数と評価を根拠にしています。",
         "・発注前に、商品ページのURLをサクラチェッカーに貼り付けてご自身でもご確認ください（数秒で判定が出ます）。",
         "",
-        "将来の余地：カメラ本体をSONY ZV-E10 II（約140,000円）に替えると合計は約219,000円。暗い工房での画質に差が出ます。",
+        "商品ページのリンクについて",
+        "・全リンクを商品名で検索し直し、amazon.co.jpに実在するページかを1件ずつ照合しました（結果は右端の列）。",
+        "・ガンマイクのリンクが米国Amazon由来のASINになっていたため、国内ページに差し替えました。",
+        "・音声レコーダーは検索リンクだったため、商品ページに差し替えました。",
+        "・この環境からはamazon.co.jpを直接開けないため、検索結果のタイトルとASINでの照合です。購入前に商品名をご確認ください。",
+        "",
+        "注意：マクロレンズはソニーEマウント専用です。お使いのカメラが別マウントの場合は、同じ焦点距離帯のマクロレンズに置き換えてください（金額はおおむね2〜4万円）。",
         "撮影するカットの一覧は別ファイル「02_場面別ショットリスト.xlsx」にあります。",
         "価格は2026年9月時点の実売価格です。",
     ]:
