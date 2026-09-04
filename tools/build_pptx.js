@@ -128,21 +128,20 @@ function estimateHeight(html, widthIn, fontPt, opts) {
 }
 
 // ---------- キャンバス ----------
-// Instagramの縦型動画の絵コンテなので、スライドの用紙自体をスマホと同じ9:16の縦長にする。
-const SW = 7.5, SH = 13.333;
-const MARGIN = 0.42;
-const CONTENT_W = SW - MARGIN * 2;
-// 1本＝1スライドではなく1本＝2スライド（シーン2つずつ）に分け、写真1枚を大きく見せる。
+const SW = 13.333, SH = 7.5;
+const MARGIN = 0.45;
+// 縦型（Instagram）動画の絵コンテなので、1本＝1スライドではなく1本＝2スライド
+// （シーン2つずつ）に分け、写真1枚あたりの表示を大きく・縦長寄りにする。
 const TOTAL_SLIDES = 2 + DATA.pages.length * 2;
 
 const pres = new pptxgen();
-pres.defineLayout({ name: "PHONE916", width: SW, height: SH });
-pres.layout = "PHONE916";
+pres.defineLayout({ name: "WIDE169", width: SW, height: SH });
+pres.layout = "WIDE169";
 pres.theme = { headFontFace: "Meiryo", bodyFontFace: "Meiryo" };
 
 function footerAndPage(slide, footer, pn, total) {
-  slide.addText(footer, { x: MARGIN, y: SH - 0.42, w: CONTENT_W - 1.2, h: 0.3, fontFace: "Meiryo", fontSize: 7.5, color: FAINT, margin: 0 });
-  slide.addText(`${pn} / ${total}`, { x: SW - MARGIN - 1.2, y: SH - 0.42, w: 1.2, h: 0.3, align: "right", fontFace: "Meiryo", fontSize: 7.5, color: FAINT, margin: 0 });
+  slide.addText(footer, { x: MARGIN, y: SH - 0.42, w: 5, h: 0.3, fontFace: "Meiryo", fontSize: 8, color: FAINT, margin: 0 });
+  slide.addText(`${pn} / ${total}`, { x: SW - MARGIN - 1.5, y: SH - 0.42, w: 1.5, h: 0.3, align: "right", fontFace: "Meiryo", fontSize: 8, color: FAINT, margin: 0 });
 }
 
 // ================= 表紙 =================
@@ -150,13 +149,13 @@ function footerAndPage(slide, footer, pn, total) {
   const slide = pres.addSlide();
   slide.background = { color: "FFFFFF" };
   const c = DATA.cover;
-  slide.addText(c.eyebrow, { x: MARGIN, y: 3.1, w: CONTENT_W, h: 0.3, fontFace: "Meiryo", fontSize: 10, color: FAINT, charSpacing: 2, margin: 0 });
-  slide.addShape("line", { x: MARGIN, y: 3.5, w: 1.5, h: 0, line: { color: INK, width: 2.2 } });
-  slide.addText(c.title_jp_plain, { x: MARGIN, y: 3.72, w: CONTENT_W, h: 2.1, fontFace: "Meiryo", fontSize: 32, bold: true, color: INK, lineSpacingMultiple: 1.28, valign: "top", margin: 0 });
-  slide.addText(c.subtitle_en, { x: MARGIN, y: 5.95, w: CONTENT_W, h: 0.45, fontFace: "Meiryo", fontSize: 13, color: MUTED, charSpacing: 1.2, margin: 0 });
+  slide.addText(c.eyebrow, { x: MARGIN, y: 1.5, w: 8, h: 0.3, fontFace: "Meiryo", fontSize: 10, color: FAINT, charSpacing: 2, margin: 0 });
+  slide.addShape("line", { x: MARGIN, y: 1.9, w: 1.5, h: 0, line: { color: INK, width: 2.2 } });
+  slide.addText(c.title_jp_plain, { x: MARGIN, y: 2.1, w: 10, h: 1.6, fontFace: "Meiryo", fontSize: 40, bold: true, color: INK, lineSpacingMultiple: 1.25, margin: 0 });
+  slide.addText(c.subtitle_en, { x: MARGIN, y: 3.75, w: 10, h: 0.5, fontFace: "Meiryo", fontSize: 15, color: MUTED, charSpacing: 1.5, margin: 0 });
 
-  slide.addShape("line", { x: MARGIN, y: 11.15, w: CONTENT_W, h: 0, line: { color: LINE, width: 1 } });
-  slide.addText(c.meta_lines.join("\n"), { x: MARGIN, y: 11.3, w: CONTENT_W, h: 1.1, fontFace: "Meiryo", fontSize: 10, color: MUTED, lineSpacingMultiple: 1.5, valign: "top", margin: 0 });
+  slide.addShape("line", { x: MARGIN, y: 6.0, w: SW - MARGIN * 2, h: 0, line: { color: LINE, width: 1 } });
+  slide.addText(c.meta_lines.join("\n"), { x: MARGIN, y: 6.14, w: 9, h: 0.85, fontFace: "Meiryo", fontSize: 11, color: MUTED, lineSpacingMultiple: 1.5, margin: 0 });
   footerAndPage(slide, c.footer, 1, TOTAL_SLIDES);
 }
 
@@ -164,87 +163,89 @@ function footerAndPage(slide, footer, pn, total) {
 {
   const slide = pres.addSlide();
   const c = DATA.cover;
-  slide.addText("目 次　CONTENTS", { x: MARGIN, y: 0.42, w: CONTENT_W, h: 0.3, fontFace: "Meiryo", fontSize: 10, color: FAINT, charSpacing: 2, margin: 0 });
-  slide.addText("8本の動画", { x: MARGIN, y: 0.72, w: CONTENT_W, h: 0.55, fontFace: "Meiryo", fontSize: 22, bold: true, color: INK, margin: 0 });
-  slide.addText(c.toc_intro, { x: MARGIN, y: 1.32, w: CONTENT_W, h: 0.7, fontFace: "Meiryo", fontSize: 9, color: MUTED, lineSpacingMultiple: 1.35, valign: "top", margin: 0 });
+  slide.addText("目 次　CONTENTS", { x: MARGIN, y: 0.4, w: 8, h: 0.3, fontFace: "Meiryo", fontSize: 10, color: FAINT, charSpacing: 2, margin: 0 });
+  slide.addText("8本の動画", { x: MARGIN, y: 0.68, w: 8, h: 0.55, fontFace: "Meiryo", fontSize: 24, bold: true, color: INK, margin: 0 });
+  slide.addText(c.toc_intro, { x: MARGIN, y: 1.28, w: SW - MARGIN * 2, h: 0.4, fontFace: "Meiryo", fontSize: 10, color: MUTED, margin: 0 });
 
-  const colW = [0.32, 1.85, 0.92, 1.55, 2.02];
-  const header = ["#", "タイトル", "尺・本数", "届ける相手", "参考動画"].map((t) => ({
-    text: t, options: { fontFace: "Meiryo", fontSize: 8, color: FAINT, bold: false, fill: { color: "FFFFFF" }, border: { pt: 0 } },
+  const colW = [0.55, 3.3, 1.55, 2.85, 4.2];
+  const header = ["#", "タイトル", "尺・本数", "届ける相手", "参考動画"].map((t, i) => ({
+    text: t, options: { fontFace: "Meiryo", fontSize: 9, color: FAINT, bold: false, fill: { color: "FFFFFF" }, border: { pt: 0 } },
   }));
   const rows = [header];
   DATA.toc.forEach((r) => {
     rows.push([
-      { text: r.n, options: { fontFace: "Meiryo", fontSize: 11, bold: true, color: GOLD, valign: "top" } },
-      { text: [{ text: r.jp, options: { fontFace: "Meiryo", fontSize: 10, bold: true, color: INK, breakLine: true } },
-                { text: r.en, options: { fontFace: "Meiryo", fontSize: 7.5, color: FAINT } }], options: { valign: "top" } },
-      { text: r.len, options: { fontFace: "Meiryo", fontSize: 8.5, color: MUTED, valign: "top" } },
-      { text: r.target, options: { fontFace: "Meiryo", fontSize: 8.5, color: INK, valign: "top" } },
-      { text: parseRich(r.ref_html, { fontFace: "Meiryo", fontSize: 7.5, color: FAINT }), options: { valign: "top" } },
+      { text: r.n, options: { fontFace: "Meiryo", fontSize: 12, bold: true, color: GOLD, valign: "top" } },
+      { text: [{ text: r.jp, options: { fontFace: "Meiryo", fontSize: 12, bold: true, color: INK, breakLine: true } },
+                { text: r.en, options: { fontFace: "Meiryo", fontSize: 9, color: FAINT } }], options: { valign: "top" } },
+      { text: r.len, options: { fontFace: "Meiryo", fontSize: 10, color: MUTED, valign: "top" } },
+      { text: r.target, options: { fontFace: "Meiryo", fontSize: 10, color: INK, valign: "top" } },
+      { text: parseRich(r.ref_html, { fontFace: "Meiryo", fontSize: 9, color: FAINT }), options: { valign: "top" } },
     ]);
   });
   slide.addTable(rows, {
-    x: MARGIN, y: 2.12, w: CONTENT_W, colW,
+    x: MARGIN, y: 1.85, w: SW - MARGIN * 2, colW,
     border: { type: "solid", color: LINE, pt: 0.75 },
     autoPage: false, valign: "top",
-    margin: [0.06, 0.07, 0.06, 0.07],
-    rowH: [0.3, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15],
+    margin: [0.06, 0.08, 0.06, 0.08],
+    rowH: [0.32, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62],
   });
   footerAndPage(slide, c.footer, 2, TOTAL_SLIDES);
 }
 
-// ================= 8本の各ページ（縦型スライド。1本＝2スライド、シーン2つずつ） =================
-// 用紙が縦長になったので、横並び（左＝文章／右＝格子）をやめ、上から
-// ヘッダー → 文章 → シーンの格子、の縦積みにする。
-// 文章は2枚に振り分ける（1枚目＝企画とこの1本で言うこと／2枚目＝テロップと追加ブロック）。
-// 1枚に全部を載せると文章だけで紙の半分を使ってしまい、肝心の写真が潰れるため。
-const HEADER_TOP = 0.40;
-const RULE_Y = 2.28;
-const BODY_Y = 2.42;
-const BODY_BOTTOM = SH - 0.55;
-const BODY_H = BODY_BOTTOM - BODY_Y;
+// ================= 8本の各ページ（用紙は16:9のまま。1本＝2スライド、シーン2つずつ） =================
+// 絵コンテの写真はInstagramのリールと同じ9:16の縦長にする。そのぶん横に細くなるので、
+// シーンを縦に積まず「シーン2つを左右に並べ、写真6枚を一列」にして、1枚あたりを大きく取る。
+// 文章は写真の上に2段組で置く（左＝企画／右＝この1本で言うこと・テロップ・追加）。
+const HEADER_TOP = 0.35;
+const TITLE_W = 6.4;
+const RULE_Y = 1.40;
+const BODY_Y = 1.54;
+const CONTENT_W = SW - MARGIN * 2;
+const GRID_BOTTOM = SH - 0.52;
 
-const TEXT_W = CONTENT_W;
+const TEXT_COL_GAP = 0.5;
+const TEXT_COL_W = (CONTENT_W - TEXT_COL_GAP) / 2;
 
 const SCENES_PER_SLIDE = 2;
-const ROW_GAP = 0.22;
-const LABEL_H = 0.30;          // シーン名（S1 支度 0-4秒）の帯
+const LABEL_H = 0.28;          // シーン名（S1 支度 0-4秒）
 const CAP_H = 0.62;            // 写真の下のキャプション
-const SHOT_GAP = 0.14;
-const SHOT_COL_W = (CONTENT_W - SHOT_GAP * 2) / 3;
-const MAX_PHOTO_H = SHOT_COL_W * 16 / 9;   // 9:16（スマホの画面）より縦長にはしない
-const MIN_PHOTO_H = 1.55;
-// 文章に使ってよい高さの上限。これを超える場合はフォントを縮めて格子の場所を確保する。
-const TEXT_MAX_H = BODY_H - (2 * (LABEL_H + MIN_PHOTO_H + CAP_H) + ROW_GAP);
+const SHOT_GAP = 0.10;         // 同じシーン内の写真どうしの間
+const GROUP_GAP = 0.45;        // シーンとシーンの間
+const REEL = 9 / 16;           // 写真の縦横比（リールと同じ）
+// 横幅から決まる写真の上限。6枚＋余白が用紙に収まる幅を超えないようにする。
+const MAX_PHOTO_W = (CONTENT_W - SHOT_GAP * 4 - GROUP_GAP) / 6;
+const MAX_PHOTO_H = MAX_PHOTO_W / REEL;
+const MIN_PHOTO_H = 2.25;
+// 文章に使ってよい高さの上限。これを超える場合はフォントを縮めて写真の場所を確保する。
+const TEXT_MAX_H = GRID_BOTTOM - (LABEL_H + MIN_PHOTO_H + CAP_H) - BODY_Y - 0.22;
 
-// そのスライドに載せる文章ブロックを返す
-function textBlocksFor(d, partIdx) {
-  if (partIdx === 0) {
-    return [
-      { kind: "text", label: "企　画", html: d.plan, fontPt: 9.5 },
-      { kind: "text", label: "こ の 1 本 で 言 う こ と", html: d.says, fontPt: 10 },
-    ];
-  }
-  const blocks = [];
-  if (d.telop_jp) blocks.push({ kind: "telop" });
-  if (d.extra) blocks.push({ kind: "text", label: d.extra[0], html: d.extra[1], fontPt: 8.7 });
-  return blocks;
+// 文章は2段組。左段＝企画、右段＝この1本で言うこと／テロップ／追加ブロック。
+function textColumns(d) {
+  const right = [{ kind: "text", label: "こ の 1 本 で 言 う こ と", html: d.says, fontPt: 9.5 }];
+  if (d.telop_jp) right.push({ kind: "telop" });
+  if (d.extra) right.push({ kind: "text", label: d.extra[0], html: d.extra[1], fontPt: 8.5 });
+  return [[{ kind: "text", label: "企　画", html: d.plan, fontPt: 9.5 }], right];
 }
 
-// 文章ブロックの合計高さを、フォントを scale 倍したときの値で見積もる
-function textBlocksHeight(d, partIdx, scale) {
-  const gap = Math.max(0.12, 0.20 * scale);
+function columnHeight(d, blocks, scale) {
+  const gap = Math.max(0.12, 0.18 * scale);
   let h = 0;
-  for (const b of textBlocksFor(d, partIdx)) {
+  for (const b of blocks) {
     if (b.kind === "telop") {
-      const enH = d.telop_en ? estimateHeight(d.telop_en, TEXT_W - 0.4, 9.5 * scale) : 0;
-      const jpH = estimateHeight(d.telop_jp, TEXT_W - 0.4, 15 * scale);
-      h += 0.34 + jpH + (enH ? enH + 0.06 : 0) + 0.18 + gap;
+      const enH = d.telop_en ? estimateHeight(d.telop_en, TEXT_COL_W - 0.4, 9 * scale) : 0;
+      const jpH = estimateHeight(d.telop_jp, TEXT_COL_W - 0.4, 14 * scale);
+      h += 0.32 + jpH + (enH ? enH + 0.05 : 0) + 0.16 + gap;
     } else {
-      h += estimateHeight(b.html, TEXT_W, b.fontPt * scale) + 0.28 + gap;
+      h += estimateHeight(b.html, TEXT_COL_W, b.fontPt * scale) + 0.26 + gap;
     }
   }
   return h;
+}
+
+// 2段のうち高いほうが TEXT_MAX_H に収まる倍率を探す
+function textBandHeight(d, scale) {
+  const cols = textColumns(d);
+  return Math.max(columnHeight(d, cols[0], scale), columnHeight(d, cols[1], scale));
 }
 
 // pptx内の通し番号（表紙1・目次2の次から）。data_pdf.py由来のd.pn/d.totalはPDF（1本＝1ページ）の
@@ -252,6 +253,13 @@ function textBlocksHeight(d, partIdx, scale) {
 let pageCounter = 3;
 
 DATA.pages.forEach((d) => {
+  let scale = 1.0;
+  for (let s = 1.0; s >= 0.6; s -= 0.02) {
+    scale = s;
+    if (textBandHeight(d, s) <= TEXT_MAX_H) break;
+  }
+  const gap = Math.max(0.12, 0.18 * scale);
+
   // シーンを2つずつに分け、1本＝複数スライドにする（通常は4シーン→2スライド）
   const sceneChunks = [];
   for (let i = 0; i < d.rows.length; i += SCENES_PER_SLIDE) {
@@ -262,80 +270,76 @@ DATA.pages.forEach((d) => {
     const slide = pres.addSlide();
     const partLabel = sceneChunks.length > 1 ? `${partIdx + 1} / ${sceneChunks.length}` : "";
 
-    // このスライドの文章がTEXT_MAX_Hに収まる最大のフォント倍率を探す
-    let scale = 1.0;
-    for (let s = 1.0; s >= 0.6; s -= 0.02) {
-      scale = s;
-      if (textBlocksHeight(d, partIdx, s) <= TEXT_MAX_H) break;
-    }
-    const gap = Math.max(0.12, 0.20 * scale);
-
     // ---- ヘッダー ----
     slide.addText(d.no, { x: MARGIN, y: HEADER_TOP, w: 0.55, h: 0.22, fontFace: "Meiryo", fontSize: 9, bold: true, color: GOLD, charSpacing: 2, margin: 0 });
     if (partLabel) {
-      slide.addText(partLabel, { x: MARGIN + 0.6, y: HEADER_TOP, w: 1.0, h: 0.22, fontFace: "Meiryo", fontSize: 8, color: FAINT, margin: 0 });
+      slide.addText(partLabel, { x: MARGIN + 0.62, y: HEADER_TOP, w: 1.0, h: 0.22, fontFace: "Meiryo", fontSize: 8, color: FAINT, margin: 0 });
     }
-    slide.addText(d.jp, { x: MARGIN, y: HEADER_TOP + 0.24, w: CONTENT_W, h: 0.46, fontFace: "Meiryo", fontSize: 21, bold: true, color: INK, valign: "top", margin: 0 });
-    slide.addText(d.en, { x: MARGIN, y: HEADER_TOP + 0.74, w: CONTENT_W, h: 0.28, fontFace: "Meiryo", fontSize: 11, color: FAINT, charSpacing: 1, margin: 0 });
+    slide.addText(d.jp, { x: MARGIN, y: HEADER_TOP + 0.22, w: TITLE_W, h: 0.44, fontFace: "Meiryo", fontSize: 22, bold: true, color: INK, valign: "top", margin: 0 });
+    slide.addText(d.en, { x: MARGIN, y: HEADER_TOP + 0.68, w: TITLE_W, h: 0.28, fontFace: "Meiryo", fontSize: 11, color: FAINT, charSpacing: 1, margin: 0 });
 
+    const metaW = SW - MARGIN - (MARGIN + TITLE_W + 0.2);
     const metaRuns = [
-      { text: d.meta_len, options: { fontFace: "Meiryo", fontSize: 10.5, bold: true, color: INK, breakLine: true } },
+      { text: d.meta_len, options: { fontFace: "Meiryo", fontSize: 11, bold: true, color: INK, breakLine: true } },
       { text: d.meta_target, options: { fontFace: "Meiryo", fontSize: 8.5, color: MUTED, breakLine: true } },
     ].concat(parseRich(d.ref, { fontFace: "Meiryo", fontSize: 7.5, color: FAINT }));
-    slide.addText(metaRuns, { x: MARGIN, y: HEADER_TOP + 1.06, w: CONTENT_W, h: 0.80, valign: "top", lineSpacingMultiple: 1.32, margin: 0 });
+    slide.addText(metaRuns, { x: SW - MARGIN - metaW, y: HEADER_TOP, w: metaW, h: 1.0, align: "right", valign: "top", lineSpacingMultiple: 1.32, margin: 0 });
 
     slide.addShape("line", { x: MARGIN, y: RULE_Y, w: CONTENT_W, h: 0, line: { color: INK, width: 1.5 } });
 
-    // ---- 文章 ----
-    let y = BODY_Y;
-    for (const b of textBlocksFor(d, partIdx)) {
-      if (b.kind === "telop") {
-        const fpJp = 15 * scale, fpEn = 9.5 * scale;
-        const enH = d.telop_en ? estimateHeight(d.telop_en, TEXT_W - 0.4, fpEn) : 0;
-        const jpH = estimateHeight(d.telop_jp, TEXT_W - 0.4, fpJp);
-        const boxH = 0.34 + jpH + (enH ? enH + 0.06 : 0) + 0.18;
-        slide.addShape("rect", { x: MARGIN, y, w: TEXT_W, h: boxH, fill: { color: INK }, line: { type: "none" } });
-        slide.addText("テ ロ ッ プ", { x: MARGIN + 0.2, y: y + 0.12, w: TEXT_W - 0.4, h: 0.2, fontFace: "Meiryo", fontSize: 7, color: "C9B79A", charSpacing: 1.5, margin: 0 });
-        slide.addText(d.telop_jp, { x: MARGIN + 0.2, y: y + 0.34, w: TEXT_W - 0.4, h: jpH, fontFace: "Meiryo", fontSize: fpJp, bold: true, color: "FFFFFF", lineSpacingMultiple: 1.3, valign: "top", margin: 0 });
-        if (d.telop_en) {
-          slide.addText(d.telop_en, { x: MARGIN + 0.2, y: y + 0.34 + jpH + 0.06, w: TEXT_W - 0.4, h: enH, fontFace: "Meiryo", fontSize: fpEn, color: "C9B79A", valign: "top", margin: 0 });
+    // ---- 文章（2段組。両方のスライドに同じ内容を出す） ----
+    const cols = textColumns(d);
+    cols.forEach((blocks, ci) => {
+      const cx = MARGIN + ci * (TEXT_COL_W + TEXT_COL_GAP);
+      let y = BODY_Y;
+      for (const b of blocks) {
+        if (b.kind === "telop") {
+          const fpJp = 14 * scale, fpEn = 9 * scale;
+          const enH = d.telop_en ? estimateHeight(d.telop_en, TEXT_COL_W - 0.4, fpEn) : 0;
+          const jpH = estimateHeight(d.telop_jp, TEXT_COL_W - 0.4, fpJp);
+          const boxH = 0.32 + jpH + (enH ? enH + 0.05 : 0) + 0.16;
+          slide.addShape("rect", { x: cx, y, w: TEXT_COL_W, h: boxH, fill: { color: INK }, line: { type: "none" } });
+          slide.addText("テ ロ ッ プ", { x: cx + 0.18, y: y + 0.10, w: TEXT_COL_W - 0.36, h: 0.2, fontFace: "Meiryo", fontSize: 7, color: "C9B79A", charSpacing: 1.5, margin: 0 });
+          slide.addText(d.telop_jp, { x: cx + 0.18, y: y + 0.32, w: TEXT_COL_W - 0.36, h: jpH, fontFace: "Meiryo", fontSize: fpJp, bold: true, color: "FFFFFF", lineSpacingMultiple: 1.3, valign: "top", margin: 0 });
+          if (d.telop_en) {
+            slide.addText(d.telop_en, { x: cx + 0.18, y: y + 0.32 + jpH + 0.05, w: TEXT_COL_W - 0.36, h: enH, fontFace: "Meiryo", fontSize: fpEn, color: "C9B79A", valign: "top", margin: 0 });
+          }
+          y += boxH + gap;
+        } else {
+          const fontPt = b.fontPt * scale;
+          const h = estimateHeight(b.html, TEXT_COL_W, fontPt) + 0.26;
+          slide.addText(b.label, { x: cx, y, w: TEXT_COL_W, h: 0.20, fontFace: "Meiryo", fontSize: 7.5, color: FAINT, charSpacing: 1.5, margin: 0 });
+          slide.addText(parseRich(b.html, { fontFace: "Meiryo", fontSize: fontPt, color: INK }), {
+            x: cx, y: y + 0.20, w: TEXT_COL_W, h: h - 0.20, fontFace: "Meiryo", fontSize: fontPt, color: INK, lineSpacingMultiple: 1.34, valign: "top", margin: 0,
+          });
+          y += h + gap;
         }
-        y += boxH + gap;
-      } else {
-        const fontPt = b.fontPt * scale;
-        const h = estimateHeight(b.html, TEXT_W, fontPt) + 0.28;
-        slide.addText(b.label, { x: MARGIN, y, w: TEXT_W, h: 0.20, fontFace: "Meiryo", fontSize: 7.5, color: FAINT, charSpacing: 1.5, margin: 0 });
-        slide.addText(parseRich(b.html, { fontFace: "Meiryo", fontSize: fontPt, color: INK }), {
-          x: MARGIN, y: y + 0.20, w: TEXT_W, h: h - 0.20, fontFace: "Meiryo", fontSize: fontPt, color: INK, lineSpacingMultiple: 1.34, valign: "top", margin: 0,
-        });
-        y += h + gap;
       }
-    }
+    });
 
-    // ---- シーンの格子（このスライド分の2シーン）。文章の下に、残りの高さいっぱいに置く ----
-    const gridTop = Math.max(y + 0.12, BODY_Y);
-    const gridH = BODY_BOTTOM - gridTop;
-    let photoH = (gridH - ROW_GAP) / SCENES_PER_SLIDE - LABEL_H - CAP_H;
-    photoH = Math.max(MIN_PHOTO_H, Math.min(photoH, MAX_PHOTO_H));
-    const rowH = LABEL_H + photoH + CAP_H;
-    // 9:16で頭打ちになって余った高さは、格子全体を少し下げて中央寄せにする
-    const slack = Math.max(0, gridH - (rowH * SCENES_PER_SLIDE + ROW_GAP));
-    const gridY = gridTop + slack / 2;
+    // ---- 絵コンテ：シーン2つ分の写真6枚を、9:16の縦長で一列に並べる ----
+    const gridTop = BODY_Y + textBandHeight(d, scale) + 0.22;
+    const avail = GRID_BOTTOM - gridTop;
+    const photoH = Math.max(MIN_PHOTO_H, Math.min(avail - LABEL_H - CAP_H, MAX_PHOTO_H));
+    const photoW = photoH * REEL;
+    const groupW = photoW * 3 + SHOT_GAP * 2;
+    const totalW = groupW * SCENES_PER_SLIDE + GROUP_GAP;
+    const gridX = MARGIN + (CONTENT_W - totalW) / 2;
 
     rowsChunk.forEach((row, ri) => {
       const [sceneName, sceneTime, shots] = row;
-      const ry = gridY + ri * (rowH + ROW_GAP);
+      const gx = gridX + ri * (groupW + GROUP_GAP);
       slide.addText(
         [
-          { text: sceneName, options: { fontFace: "Meiryo", fontSize: 12, bold: true, color: INK } },
-          { text: "　" + sceneTime, options: { fontFace: "Meiryo", fontSize: 9.5, color: MUTED } },
+          { text: sceneName, options: { fontFace: "Meiryo", fontSize: 11.5, bold: true, color: INK } },
+          { text: "　" + sceneTime, options: { fontFace: "Meiryo", fontSize: 9, color: MUTED } },
         ],
-        { x: MARGIN, y: ry, w: CONTENT_W, h: LABEL_H, valign: "top", margin: 0 }
+        { x: gx, y: gridTop, w: groupW, h: LABEL_H, valign: "top", margin: 0 }
       );
-      const py = ry + LABEL_H;
+      const py = gridTop + LABEL_H;
       shots.forEach((shot, si) => {
         const [photo, cap] = shot;
-        const sx = MARGIN + si * (SHOT_COL_W + SHOT_GAP);
+        const sx = gx + si * (photoW + SHOT_GAP);
         if (cap === "―") return; // 使わないマス
         if (photo) {
           // pptxgenjsのsizing:{type:"contain"}はOOXMLのsrcRect+stretchで実装されており、
@@ -343,21 +347,21 @@ DATA.pages.forEach((d) => {
           // そのため、箱いっぱいの黒背景を敷いた上で、実寸から自前でレターボックス配置する。
           const imgPath = path.join(IMG_DIR, photo + ".jpg");
           const nat = getImgSize(imgPath);
-          slide.addShape("rect", { x: sx, y: py, w: SHOT_COL_W, h: photoH, fill: { color: "000000" }, line: { type: "none" } });
+          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { color: "000000" }, line: { type: "none" } });
           const imgRatio = nat.height / nat.width;
-          const boxRatio = photoH / SHOT_COL_W;
+          const boxRatio = photoH / photoW;
           let dw, dh;
           if (imgRatio > boxRatio) { dh = photoH; dw = photoH / imgRatio; }
-          else { dw = SHOT_COL_W; dh = SHOT_COL_W * imgRatio; }
-          slide.addImage({ path: imgPath, x: sx + (SHOT_COL_W - dw) / 2, y: py + (photoH - dh) / 2, w: dw, h: dh });
-          slide.addShape("rect", { x: sx, y: py, w: SHOT_COL_W, h: photoH, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
+          else { dw = photoW; dh = photoW * imgRatio; }
+          slide.addImage({ path: imgPath, x: sx + (photoW - dw) / 2, y: py + (photoH - dh) / 2, w: dw, h: dh });
+          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
         } else if (cap) {
-          slide.addShape("rect", { x: sx, y: py, w: SHOT_COL_W, h: photoH, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });
-          slide.addText("撮影して差し替え", { x: sx, y: py, w: SHOT_COL_W, h: photoH, align: "center", valign: "middle", fontFace: "Meiryo", fontSize: 7.5, color: "B3A894", margin: 0 });
+          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });
+          slide.addText("撮影して\n差し替え", { x: sx, y: py, w: photoW, h: photoH, align: "center", valign: "middle", fontFace: "Meiryo", fontSize: 7.5, color: "B3A894", margin: 0 });
         }
         if (cap) {
-          slide.addText(parseRich(cap, { fontFace: "Meiryo", fontSize: 7.8, color: "3A3226" }), {
-            x: sx, y: py + photoH + 0.04, w: SHOT_COL_W, h: CAP_H, fontFace: "Meiryo", fontSize: 7.8, color: "3A3226", lineSpacingMultiple: 1.26, valign: "top", margin: 0,
+          slide.addText(parseRich(cap, { fontFace: "Meiryo", fontSize: 7.2, color: "3A3226" }), {
+            x: sx, y: py + photoH + 0.04, w: photoW, h: CAP_H, fontFace: "Meiryo", fontSize: 7.2, color: "3A3226", lineSpacingMultiple: 1.24, valign: "top", margin: 0,
           });
         }
       });
