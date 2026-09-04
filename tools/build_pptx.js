@@ -9,6 +9,29 @@ const DATA = JSON.parse(fs.readFileSync(path.join(__dirname, "deck_data.json"), 
 const OUT = path.join(ROOT, "pdf", "00_動画8本_企画と絵コンテ.pptx");
 const IMG_DIR = path.join(ROOT, "assets", "ref4");
 
+// pptxgenjsのsizing:{type:"cover"}は実画像の縦横比を自分では読み取らず、箱のサイズをそのまま
+// 画像サイズとして扱ってしまうため（縦横比が常に1:1と誤認され、srcRectが0になり、結果的に画像が
+// 箱いっぱいに引き伸ばされる＝ご指摘の「画像が伸びきっている」の原因）。JPEGのSOFセグメントから
+// 実際のピクセル寸法を読み、addImageのw/hに渡して正しい縦横比でクロップさせる。
+const imgSizeCache = {};
+function jpegSize(filePath) {
+  const buf = fs.readFileSync(filePath);
+  let i = 2;
+  while (i < buf.length - 9) {
+    if (buf[i] !== 0xff) break;
+    const marker = buf[i + 1];
+    if (marker >= 0xc0 && marker <= 0xc3) {
+      return { width: buf.readUInt16BE(i + 7), height: buf.readUInt16BE(i + 5) };
+    }
+    i += 2 + buf.readUInt16BE(i + 2);
+  }
+  return null;
+}
+function getImgSize(imgPath) {
+  if (!(imgPath in imgSizeCache)) imgSizeCache[imgPath] = jpegSize(imgPath) || { width: 1, height: 1 };
+  return imgSizeCache[imgPath];
+}
+
 // ---------- 色 ----------
 const INK = "1A1A1A";
 const MUTED = "6B5F4D";
@@ -280,7 +303,8 @@ DATA.pages.forEach((d) => {
       if (cap === "―") return; // 使わないマス
       if (photo) {
         const imgPath = path.join(IMG_DIR, photo + ".jpg");
-        slide.addImage({ path: imgPath, x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, sizing: { type: "cover", w: SHOT_COL_W, h: PHOTO_H } });
+        const nat = getImgSize(imgPath);
+        slide.addImage({ path: imgPath, x: sx, y: ry, w: nat.width, h: nat.height, sizing: { type: "cover", w: SHOT_COL_W, h: PHOTO_H } });
         slide.addShape("rect", { x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
       } else if (cap) {
         slide.addShape("rect", { x: sx, y: ry, w: SHOT_COL_W, h: PHOTO_H, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });
