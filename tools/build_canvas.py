@@ -18,11 +18,21 @@ SLUG = {"01": "Main", "02": "Video02", "03": "Video03", "04": "Video04",
         "05": "Video05", "06": "Video06", "07": "Video07", "08": "Video08"}
 
 # 縦型シート／横型シートの寸法（CSS px・96dpiで印刷1枚）
+# 高さはシーン数から計算する（シーンは2列に並ぶので、4シーン＝2段、6シーン＝3段）
 SPEC = {
-    "v": dict(page_w=1180, page_h=1060, cell_w=170, cell_h=302),
-    "h": dict(page_w=1540, page_h=760,  cell_w=230, cell_h=129),
+    "v": dict(page_w=1180, cell_w=170, cell_h=302, header_h=200),
+    "h": dict(page_w=1540, cell_w=230, cell_h=129, header_h=170),
 }
 MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 10, 44, 30
+BLOCK_COLS = 2
+
+
+def page_height(page):
+    sp = SPEC[ORIENT[page["no"]]]
+    band = (len(page["rows"]) + BLOCK_COLS - 1) // BLOCK_COLS
+    block_h = LABEL_H + 4 + sp["cell_h"] + 6 + CAP_H
+    grid_h = band * block_h + (band - 1) * BLOCK_GAP_Y
+    return MARGIN * 2 + sp["header_h"] + 20 + grid_h + 24
 
 INK, MUTED, FAINT = "#15191c", "#5b6266", "#8a8f92"
 GOLD, LINE, PAPER, FRAME_BG = "#a8672a", "#ded9d0", "#fbfaf7", "#0f0f0f"
@@ -150,14 +160,14 @@ def artboard(page, imgmap):
     a {{ color: {GOLD}; }} a:hover {{ color: #7d4c1e; }}
   </style>
 </helmet>
-<div style="width: {sp["page_w"]}px; height: {sp["page_h"]}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+<div style="width: {sp["page_w"]}px; height: {page_height(page)}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
   {header}
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: {BLOCK_GAP_Y}px {BLOCK_GAP_X}px; justify-items: start">
+  <div style="display: grid; grid-template-columns: repeat({BLOCK_COLS}, minmax(0, 1fr)); gap: {BLOCK_GAP_Y}px {BLOCK_GAP_X}px; justify-items: start">
     {blocks}
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: {FAINT}">
     <div>BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
-    <div>ワンシーン3枚 ／ 全12コマ</div>
+    <div>ワンシーン3枚 ／ 全{sum(1 for r in page["rows"] for x in r[2] if x[1] != "―")}コマ</div>
   </div>
 </div>
 </x-dc>
@@ -208,10 +218,11 @@ def main(outdir):
         if i % 3 == 0 and i:
             x, y = 0, y + row_h + 160
             row_h = 0
+        ph = page_height(page)
         boards.append({"file": f"{name}.dc.html", "x": x, "y": y,
-                       "w": sp["page_w"], "h": sp["page_h"]})
+                       "w": sp["page_w"], "h": ph})
         x += sp["page_w"] + 120
-        row_h = max(row_h, sp["page_h"])
+        row_h = max(row_h, ph)
     canvas = {"artboards": boards, "launch": {"view": "canvas"}}
     with open(os.path.join(outdir, "canvas.json"), "w", encoding="utf-8") as f:
         json.dump(canvas, f, ensure_ascii=False, indent=2)

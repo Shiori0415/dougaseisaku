@@ -132,7 +132,10 @@ const SW = 13.333, SH = 7.5;
 const MARGIN = 0.45;
 // 縦型（Instagram）動画の絵コンテなので、1本＝1スライドではなく1本＝2スライド
 // （シーン2つずつ）に分け、写真1枚あたりの表示を大きく・縦長寄りにする。
-const TOTAL_SLIDES = 2 + DATA.pages.length * 2;
+// シーン数は本によって違う（②は6シーン）ので、2シーンごとに1枚として数える
+const SCENES_PER_SLIDE = 2;
+const TOTAL_SLIDES = 2 + DATA.pages.reduce(
+  (n, p) => n + Math.ceil(p.rows.length / SCENES_PER_SLIDE), 0);
 
 const pres = new pptxgen();
 pres.defineLayout({ name: "WIDE169", width: SW, height: SH });
@@ -206,7 +209,6 @@ const GRID_BOTTOM = SH - 0.52;
 const TEXT_COL_GAP = 0.5;
 const TEXT_COL_W = (CONTENT_W - TEXT_COL_GAP) / 2;
 
-const SCENES_PER_SLIDE = 2;
 const LABEL_H = 0.28;          // シーン名（S1 支度 0-4秒）
 const CAP_H = 0.62;            // 写真の下のキャプション
 const SHOT_GAP = 0.10;         // 同じシーン内の写真どうしの間
