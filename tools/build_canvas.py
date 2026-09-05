@@ -131,7 +131,7 @@ def artboard(page, imgmap):
         <div>{esc(plain(page["meta_target"]))}</div>
       </div>
       <div style="font-size: 12.5px; line-height: 1.7; color: {INK}; max-width: 900px">{esc(plan_summary(page))}</div>
-      <div style="font-size: 10.5px; color: {FAINT}">参考動画：{esc(ref)}</div>
+      <div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">参考動画：{esc(ref)}<br />{rich(page.get("ref_detail") or "")}</div>
     </div>'''
 
     return f'''<!doctype html>

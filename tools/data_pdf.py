@@ -17,7 +17,7 @@ COVER = {
  "footer": "BROOKLYN MUSEUM ／ 向島工房　動画制作",
 }
 
-TOC_INTRO = "1〜5本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。6・8本目は参考動画・詳細をいただき次第、同じ形式で内容を確定します。"
+TOC_INTRO = "1〜5本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。いただいた録画は2倍速再生だったため、参考動画の秒数はすべて1倍速に換算した値です（録画は動画の一部を切り取ったものなので、動画そのものの全長とは異なる場合があります）。6本目は参考動画をいただき次第、内容を確定します。"
 
 TOC = [
  {"n":"1","jp":"今日の服に、合う色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
@@ -32,7 +32,7 @@ TOC = [
  {"n":"4","jp":"絵になる日常を。","en":"Everyday, Worth a Frame","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
   "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny・メイン）　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">Link</a>（yifan.liii × COACH）',
   "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ ＋ instagram.com/reel/DaxjHnkB62p（yifan.liii × COACH）","pg":"6"},
- {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"2分 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
+ {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"75秒 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
   "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
   "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー）","pg":"7"},
  {"n":"6","jp":"つくる、確かめる、包む。","en":"Make. Check. Pack.","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
@@ -50,6 +50,7 @@ PAGES = [
  dict(no="01", jp="今日の服に、合う色。", en="A Colour for Every Outfit",
   meta_len="20秒 ／ 12ショット", meta_target="対象＝新規・リピーター　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">Link</a>（innovator SWEDEN）',
+  ref_detail="Instagramリール1本（録画では@__a_r10のアカウントで再生）。<b>1倍速換算 約35秒</b>。公園・駅・車内を人物が歩き、同じ画角のまま服と小物の色が切り替わる。",
   plan="家を出てから会社に着くまでの二十秒。<b>カメラは固定し、変わるのは服と革の色だけ。</b>車・電車・エスカレーターが視界を横切った瞬間に切り替える。売り込みはひとつも入れない。玄関一か所、通勤路二か所、会社前一か所で撮り切れる。",
   says="服が変われば、合う革の色も変わる。同じ革・同じ色で、財布からバッグまで揃う。",
   telop_jp="その日の服に、その日の色。", telop_en="A colour for every outfit.",
@@ -78,8 +79,9 @@ PAGES = [
   ], pn=3, total=T),
 
  dict(no="02", jp="この道、20年。", en="Twenty Years",
-  meta_len="40秒 ／ 12ショット", meta_target="対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
+  meta_len="40秒 ／ 11ショット", meta_target="対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
   ref='参考動画＝<a href="http://youtube.com/shorts/c2mH8rStFCA">Link</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">Link</a>（コバ塗り・477万再生）',
+  ref_detail="2本。@kankula667「レザークラフト作ってみた #asmr」＝<b>1倍速換算 約60秒</b>、革を裁つ・縫う手元を真俯瞰と横で。コバ塗り（477万再生）＝<b>約19秒</b>、赤い財布の断面に塗料を入れる寄り一本。",
   plan="アングルは<b>真俯瞰と横の二つだけ</b>。音はカメラのマイクでは録れないので、スマホを手元三十センチに置いて別録りする。<b>S3のコバ塗りがこの一本の核。</b>塗料が乗った瞬間に断面の色が変わる ── 一カットの中でビフォーアフターが起きる。参考動画が四百七十七万回見られた理由がこれ。最後は作業机で終わらせず、使われている場所に置いて終える。",
   says="ここで作っている。工程の四割は、この断面に使われている。",
   telop_jp="神は細部に宿る。", telop_en="God is in the details.",
@@ -109,8 +111,9 @@ PAGES = [
   ], pn=4, total=T),
 
  dict(no="03", jp="The Making of the Royale M Tote", en="ロワイヤルMトートの作りかた",
-  meta_len="28秒 ／ 9ショット", meta_target="対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
+  meta_len="28秒 ／ 10ショット", meta_target="対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux「le Brillant Tempo」）',
+  ref_detail="Instagramリール1本／delvaux「The Making of le Brillant Tempo」。<b>1倍速換算 約19秒</b>。黒背景に道具と手だけ、顔と工房は映さない。",
   plan="ブランドの格を上げる一本。<b>黒い布一枚とライト一灯</b>で撮れる。工房の蛍光灯は全部消す。<b>顔と工房は一切映さない。</b>映るのは手と、革と、金具だけ。この一本だけは商品を売らない。<br><br><b>6本目との違い</b>：背景（黒／実景）・光（一灯／自然光）・被写体（手だけ／人と機械）・カメラ（固定／歩く）・音（BGM／作業音）・終わり方（ロゴ／梱包と問い合わせ先）。<b>撮影日も分ける。</b>",
   says="一点の革製品が生まれるまでを、美しさだけで見せる。",
   telop_jp="", telop_en="",
@@ -139,8 +142,9 @@ PAGES = [
   ], pn=5, total=T),
 
  dict(no="04", jp="絵になる日常を。", en="Everyday, Worth a Frame",
-  meta_len="30秒 ／ 11ショット", meta_target="対象＝仕事道具として買う人・贈る人　／　全媒体",
+  meta_len="30秒 ／ 12ショット", meta_target="対象＝仕事道具として買う人・贈る人　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny・メイン）　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">Link</a>（yifan.liii × COACH）',
+  ref_detail="2本。parisawangny（メイン）＝<b>1倍速換算 約30秒</b>、ニューヨークの街とバッグ「designed to carry your everyday」。yifan.liii × COACH＝<b>約42秒</b>、地下道を歩く引きと財布の手元。",
   plan="映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。",
   says="この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。",
   telop_jp="", telop_en="",
@@ -169,9 +173,10 @@ PAGES = [
   ], pn=6, total=T),
 
  dict(no="05", jp="1979年から、東京で。", en="Since 1979, Tokyo",
-  meta_len="六十秒（収まらなければ九十秒まで） ／ 12ショット", meta_target="対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
+  meta_len="七十五秒（最長でも九十秒まで） ／ 12ショット", meta_target="対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
   ref='参考動画＝<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>（鍛治島工業・メイン）　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
-  plan="会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<br><br><b>ナレーションは永尾社長の声だけ。</b>画には映らず、三十分の収録から経営方針についての本音を拾う（台本の読み上げではない）。<br><br>製造パートは<b>鍛治島工業の参考動画をメインに</b>、特定の一人ではなく<b>向島工房の職人全員</b>を映す。Brooklyn店舗・企画中の商品・草ヶ谷さんの手元・購入されるシーンまで、会社の全体像を満遍なく差し込む。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。<br><br><b>想定ナレーション（仮の言葉）</b>：「革一枚から」（S1）→「変えていないのは革を見る目」（S2）→「これから」（S3）→「作る場所は変わっていません」（S4）",
+  ref_detail="3本。鍛治島工業 企業PV「造る を創る。」＝<b>1倍速換算 約2分3秒</b>、工場の全景・図面・数値制御画面・職人の作業・代表インタビュー・締めのロゴまで。ほかに工場のプロモーション映像＝<b>約36秒</b>、Kawazen Leather Image PV＝<b>約49秒</b>。",
+  plan="会社を一本で説明できる映像がない。公式サイトのHISTORYページは中身が作られないまま公開されている。<br><br><b>ナレーションは永尾社長の声だけ。</b>画には映らず、三十分の収録から経営方針についての本音を拾う（台本の読み上げではない）。<br><br>製造パートは<b>鍛治島工業の参考動画をメインに</b>、特定の一人ではなく<b>向島工房の職人全員</b>を映す。BROOKLYN MUSEUM 店舗・企画中の商品・草ヶ谷さんの手元・購入されるシーンまで、会社の全体像を満遍なく差し込む。<br><br><b>入れないもの</b>：工程の詳しい説明、技術の解説、商品スペック。<br><br><b>想定ナレーション（仮の言葉）</b>：「革一枚から」（S1）→「変えていないのは革を見る目」（S2）→「これから」（S3）→「作る場所は変わっていません」（S4）",
   says="1979年から続く会社が、いま向島の工房と一つになった。永尾社長の声だけが、全編に流れる。",
   telop_jp="作る場所は、変わっていません。", telop_en="The place has not changed.",
   extra=("年 表 テ ロ ッ プ",
@@ -188,7 +193,7 @@ PAGES = [
      ("5_ref_10_机に向かう職人の横顔","検品。<span style='color:#a8763e'>ナレーション一度止まる</span>"),
    ]),
    ("S3 会社の姿","40-60秒",[
-     (None,"Brooklyn店舗の外観・店内（撮影して差し替え）"),
+     (None,"BROOKLYN MUSEUM 店舗の外観・店内（撮影して差し替え）"),
      ("5_ref_06_図面と眼鏡_引き","企画中の新作サンプルが並ぶ<br><span style='color:#a8763e'>ナレーション再開</span>"),
      ("5_ref_07_図面をなぞる指_作業着","<b>草ヶ谷さん</b>が革を漉く・仕上げる手元"),
    ]),
@@ -202,6 +207,7 @@ PAGES = [
  dict(no="06", jp="つくる、確かめる、包む。", en="Make. Check. Pack.",
   meta_len="2分20秒 ／ 12ショット（展示会用の無音版 ×1）", meta_target="対象＝OEMの調達・生産担当　／　商談・展示会・提案資料",
   ref='参考動画＝未定。<b style="color:#a8763e">工場見学ワンテイク型</b>を推奨（入口から入り、工程順に歩き、梱包場で終わる）',
+  ref_detail="参考動画なし。<b>工場見学ワンテイク型</b>を推奨（入口から入り、工程順に歩き、梱包場で終わる）。絵コンテの写真は⑤の鍛治島工業の映像から画角の参考として当てている。",
   plan="OEMの粗利は36%。自社ブランドの財布・小物は76〜93%ある。訪問前に体制を伝えて、<b>価格ではなく品質で選ばれる状態</b>を作る。<br><br><b>3本目との違い</b>：3本目は黒背景・一灯・手だけ・固定・BGM・ロゴで終わる。<b>この6本目は工房の実景・自然光・人と機械・歩くカメラ・作業音・梱包と問い合わせ先で終わる。</b>同じ工程を撮っても別物になる。撮影日も分ける。<br><br>同じ素材から<b>展示会用の60秒無音版</b>を作る。",
   says="量産も少量生産もできる。検品まで自社で完結し、この形で届く。",
   telop_jp="つくる、確かめる、包む。", telop_en="Make. Check. Pack.",
@@ -216,7 +222,7 @@ PAGES = [
    ("S2 歩く","25-95秒",[
      ("5_ref_09_ロボット装置と作業者二人","金型が置かれ、裁断機が下りる／革包丁で細部を切る"),
      ("5_S3_02_手元での精密作業","ミシンで縫う（横）／手縫い。二本の針が交差する（マクロ）"),
-     ("5_ref_02_暗がりの腕_オレンジの光","目止め → コバ磨き。<b>全工程の四割</b>とテロップ"),
+     ("5_ref_02_暗がりの腕_オレンジの光","目止め → コバ磨き。<b>ここが全工程の四割</b>。テロップは工程名だけ"),
    ]),
    ("S3 検品 ★最重要","95-120秒",[
      ("5_S3_03_検品する横顔","職人が縫い目と断面を目で確かめる（寄り）。<b>作業音が消える</b>"),
@@ -233,6 +239,7 @@ PAGES = [
  dict(no="07", jp="HURRY UP.", en="急ぐ朝ほど、迷わない。",
   meta_len="25秒 ×3品番 ／ 10ショット", meta_target="対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下",
   ref='参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">Link</a>（朝の出発前）　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">Link</a>（ASMR実測）',
+  ref_detail="Instagramリール2本／selentether_japan「CARRY YOUR PASSION」。<b>1倍速換算 約65秒</b>。白背景・正面固定のまま鞄に物を入れていく。冒頭はモノクロ。",
   plan="購入転換率が0.263%。前年0.583%から半減している。写真では入る量が伝わらない。<br><br><b>白い台の上、正面固定。カメラは一度も動かさない。</b>三品番を<b>同じ画角・同じ小物</b>で撮るので、並べたときに大きさの差がそのまま分かる。冒頭三秒は<b>モノクロ</b>で入り、引いた瞬間にカラーへ。<br><br><b>秤のカットは使わない。</b>数字を読ませるかわりに、<b>片手で持ち上げる動作</b>で軽さを見せる。数字は小さくテロップで添えるだけ。",
   says="A4もノートPCも入って、片手で持ち上がる。三品番の大きさの差が、並べれば分かる。",
   telop_jp="かばんも、身支度のうち。", telop_en="THE BAG IS PART OF GETTING READY.",
@@ -263,6 +270,7 @@ PAGES = [
  dict(no="08", jp="購入者インタビュー（仮タイトル）", en="Customer Interview (Title TBD)",
   meta_len="尺・ショット数＝未定（インタビュー形式）", meta_target="対象＝購入を迷っている新規　／　EC商品ページ・レビュー欄・Instagram（仮）",
   ref='参考動画＝未定。<b style="color:#a8763e">購入者インタビュー型</b>を推奨（顔出しの可否・質問内容は未定）',
+  ref_detail="2本。olga.loeffler＝<b>1倍速換算 約40秒</b>、車内で箱を開ける一連。cherifaakili＝<b>約20秒</b>、ショッパーを持って歩く。どちらも開封・受け取りの画で、インタビュー本編の参考はまだない。",
   plan="参考動画・具体的な演出はまだ未定。商品説明を人が語らない他の七本とは違い、<b>買った人自身の言葉で語ってもらう</b>唯一の一本になる見込み。<br><br><b>決めること</b>：誰に聞くか（既存の購入者にお願いするか、社内の方に使用者として話してもらうか）、顔出しの範囲、質問内容、撮影場所。これらが決まり次第、絵コンテを本設計に差し替える。",
   says="他の七本が「見せる」動画なのに対し、これだけが「聞く」動画。買った人自身の言葉で語ってもらう。",
   telop_jp="", telop_en="",
