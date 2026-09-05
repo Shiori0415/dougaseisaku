@@ -20,7 +20,7 @@ COVER = {
 TOC_INTRO = "1〜5本目と7本目は参考動画があり、絵コンテの写真もそこから抜いています。いただいた録画は2倍速再生だったため、参考動画の秒数はすべて1倍速に換算した値です（録画は動画の一部を切り取ったものなので、動画そのものの全長とは異なる場合があります）。6本目は参考動画をいただき次第、内容を確定します。"
 
 TOC = [
- {"n":"1","jp":"今日の服に、合う色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
+ {"n":"1","jp":"その日の服に、その日の色。","en":"A Colour for Every Outfit","len":"20秒 ×1","target":"新規・リピーター",
   "ref_html":'<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">Link</a>（innovator SWEDEN）',
   "ref_url":"https://www.instagram.com/reels/DZG2DvMh-Ts/", "ref_text":"instagram.com/reels/DZG2DvMh-Ts（innovator SWEDEN）","pg":"3"},
  {"n":"2","jp":"この道、20年。","en":"Twenty Years","len":"40秒 ×1","target":"新規（まだ知らない人）",
@@ -30,8 +30,8 @@ TOC = [
   "ref_html":'<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   "ref_url":"https://www.instagram.com/reels/DWiwFp5DED-/", "ref_text":"instagram.com/reels/DWiwFp5DED-（delvaux）","pg":"5"},
  {"n":"4","jp":"絵になる日常を。","en":"Everyday, Worth a Frame","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
-  "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny・メイン）　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">Link</a>（yifan.liii × COACH）',
-  "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ ＋ instagram.com/reel/DaxjHnkB62p（yifan.liii × COACH）","pg":"6"},
+  "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny）',
+  "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ（parisawangny）","pg":"6"},
  {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"75秒 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
   "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
   "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー）","pg":"7"},
@@ -47,16 +47,17 @@ TOC = [
 ]
 
 PAGES = [
- dict(no="01", jp="今日の服に、合う色。", en="A Colour for Every Outfit",
+ dict(no="01", jp="その日の服に、その日の色。", en="A Colour for Every Outfit",
   meta_len="20秒 ／ 17ショット", meta_target="対象＝新規・リピーター　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">Link</a>（innovator SWEDEN）',
   ref_detail="Instagramリール1本（録画では@__a_r10のアカウントで再生）。<b>1倍速換算 約35秒</b>。公園・駅・車内を人物が歩き、同じ画角のまま服と小物の色が切り替わる。",
   plan="家を出てから会社に着くまでの二十秒。<b>カメラは固定し、変わるのは服と革の色だけ。</b>車・電車・エスカレーターが視界を横切った瞬間に切り替える。売り込みはひとつも入れない。玄関一か所、通勤路二か所、会社前一か所で撮り切れる。",
   says="服が変われば、合う革の色も変わる。同じ革・同じ色で、財布からバッグまで揃う。",
-  telop_jp="", telop_en="",
-  extra=("ナ レ ー シ ョ ン （ 締 め の テ ロ ッ プ は 出 さ な い ）",
-   "毎日をカラフルに<br><span style='color:#8a7a63'>Make every day colourful.</span><br>"
-   "<span style='color:#a8763e'>四色が並ぶ画のまま一言だけ入れて、そのままロゴで終える。画面の下にテロップは出さない。</span>"),
+  telop_jp="同じ道を、違う私で。", telop_en="THE SAME ROUTE, A DIFFERENT ME.",
+  extra=("締 め の 一 カ ッ ト に 重 ね る",
+   "テロップ　同じ道を、違う私で。<br><span style='color:#8a7a63'>THE SAME ROUTE, A DIFFERENT ME.</span><br>"
+   "ナレーション　毎日をカラフルに<br><span style='color:#8a7a63'>Make every day colourful.</span><br>"
+   "<span style='color:#a8763e'>四色が並ぶ画の上にテロップを重ね、そこにナレーションを一言だけ入れて、そのままロゴで終える。</span>"),
   rows=[
    ("S1 支度","0-3秒",[
      (None,"玄関。財布をポケットに入れる（寄り）"),
@@ -84,7 +85,7 @@ PAGES = [
      ("1_S4_01_到着","会社のエントランス。ここが到着点"),
    ]),
    ("S6 並べて終わる","17-20秒",[
-     ("1_S4_02_全色が並ぶ","<b>真俯瞰。四色が並ぶ。</b>この画のまま、ナレーション「毎日をカラフルに」が一言だけ入る"),
+     ("1_S4_02_全色が並ぶ","<b>真俯瞰。四色が並ぶ。</b>この画にテロップ「同じ道を、違う私で。」を重ね、ナレーション「毎日をカラフルに」が一言だけ入る"),
      ("共通_ロゴのみ","そのままロゴ。<b>テロップは出さない</b>"),
      (None,"―"),
    ]),
@@ -175,42 +176,43 @@ PAGES = [
 
  dict(no="04", jp="絵になる日常を。", en="Everyday, Worth a Frame",
   meta_len="30秒 ／ 18ショット", meta_target="対象＝仕事道具として買う人・贈る人　／　全媒体",
-  ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny・メイン）　＋　<a href="https://www.instagram.com/reel/DaxjHnkB62p/">Link</a>（yifan.liii × COACH）',
-  ref_detail="2本。parisawangny（メイン）＝<b>1倍速換算 約30秒</b>、ニューヨークの街とバッグ「designed to carry your everyday」。yifan.liii × COACH＝<b>約42秒</b>、地下道を歩く引きと財布の手元。",
-  plan="映画×vlogの参考から三つを取る。①<b>電車・看板・柱をトランジションに使う</b>（1本目と同じ手法）②街の引きの間に<b>金具や財布の超マクロを差し込む</b>③テロップは<b>英語一文を街の壁に重ねるだけ</b>、画面の下に出さない。<br><br>自然光のみ。夕方の斜光。手持ちの揺れを少しだけ残すが、引きの構図はきっちり止める。<b>一人で完結させる。</b>誰とも話さない。",
-  says="この鞄を持った日常は、そのまま絵になる。A4もノートPCも入る。",
+  ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny「Gabrielle East-West Tote」）',
+  ref_detail="Instagramリール1本／parisawangny「Gabrielle East-West Tote」。<b>1倍速換算 約30秒</b>。ニューヨークの街のフェンス・柱・手すりに鞄を置き、カメラは止めたまま背景の車と人が流れる。真俯瞰で中身と持ち物を見せ、最初と同じ画角に戻って終わる。<b>画面にテロップは出ない。</b>",
+  plan="参考は一本だけ。<b>鞄を街に置いて撮る</b>という作り方をそのまま借りる。<br><br>①<b>カメラは止める。動くのは背景だけ。</b>フェンスや手すりに鞄を掛け、後ろを車と人が流れていく。②<b>顔を主役にしない。</b>人物は全身の引きと、肩に掛かった鞄の寄りだけ。③<b>真俯瞰の中身カットを二回入れる。</b>口を開けるところと、持ち物を並べた置き画。④<b>始まりと終わりを同じ画角にする。</b>一周して戻ってきたことが分かる。<br><br>自然光のみ。曇りの日でよい。三脚で完全に止める。<b>一人で完結させる。</b>誰とも話さない。",
+  says="鞄を街に置くだけで絵になる。中身も、持った姿も、同じ一本で見せる。",
   telop_jp="", telop_en="",
-  extra=("壁 に 重 ね る 一 文","Everyday, worth a frame.<br><span style='color:#8a7a63'>街の白い壁に重ねる。画面の下にテロップは出さない。最後はロゴだけ。</span>"),
+  extra=("画 面 に テ ロ ッ プ は 出 さ な い",
+   "言葉は投稿の本文に置く。<br><span style='color:#8a7a63'>例：毎日のための鞄です。／ Made for your every day.</span><br><span style='color:#a8763e'>参考動画のキャプションの言い回し（New York polish, designed to carry your everyday）は使わない。</span>"),
   rows=[
-   ("S1 街に出る","0-6秒",[
-     ("4_S1_01_ガラスの反射に映る","店のガラスの反射に映る（引き）"),
-     ("4_S1_02_街を歩く_縦型","街を歩く。横移動で追う"),
-     ("4_S1_04_信号待ち_鞄に寄る","信号待ち。手元の鞄だけに寄る"),
+   ("S1 街に置く","0-6秒",[
+     ("4_S1_01_フェンスに掛ける_引き","フェンスに掛ける（引き・三脚で固定）。<b>背景に街が流れる</b>"),
+     ("4_S1_02_背景を車が横切る","<b>同じ画角のまま</b>、背景を車が横切る"),
+     ("4_S1_03_鞄だけに寄る","鞄だけに寄る。革の面と持ち手"),
    ]),
-   ("S2 つなぐ","6-11秒",[
-     ("4_S1_03_電車通過ブレ_縦型","<b>電車が通り過ぎる（ブレ＝トランジション）</b>"),
-     ("4_S2_02_抜けたら別の場所","抜けたら、別の場所を歩いている"),
-     ("4_S2_03_柱が横切る_店内","看板・柱がフレームを横切る（二度目のつなぎ）"),
+   ("S2 持って立つ","6-11秒",[
+     ("4_S2_01_柱の前で持って立つ","建物の柱の前。鞄を持って立つ（引き）"),
+     ("4_S2_02_全身の引き","全身の引き。<b>顔は主役にしない</b>"),
+     ("4_S2_03_肩の鞄に寄る","肩に掛かった鞄だけに寄る"),
    ]),
-   ("S3 中身","11-18秒",[
-     ("4_S2_01_真俯瞰で中身を入れる_縦型","手すりに置き、真俯瞰でA4とノートPCを入れる"),
-     ("4_S2_02_内ポケットに物を入れる_縦型","寄り。内ポケットに名刺入れ・鍵・携帯"),
-     ("4_S2_03_マクロで取り出す_縦型","<b>財布に何かを差し込む超マクロ</b>"),
+   ("S3 中を見せる","11-18秒",[
+     ("4_S3_01_真俯瞰_口を開ける","<b>真俯瞰。</b>鞄の口を開ける"),
+     ("4_S3_02_真俯瞰_中身を整える","真俯瞰。中身を整える手（寄り）"),
+     ("4_S3_03_真俯瞰_持ち物を並べる","<b>真俯瞰。鞄と持ち物を並べた置き画</b>"),
    ]),
-   ("S4 一人の時間","18-23秒",[
-     ("4_S4_01_カフェの窓際","カフェの窓際。自然光・浅い被写界深度"),
-     ("4_S3_02_金具マクロ_縦型","<b>金具のロゴに超マクロ</b>"),
-     ("4_S4_03_真俯瞰_鞄に手を入れる","珈琲を置く手と鞄が、同じ画面に入る"),
+   ("S4 街を歩く","18-24秒",[
+     ("4_S4_01_手すりの前ボケ","手前に手すり。奥を歩く（<b>前ボケでつなぐ</b>）"),
+     ("4_S4_02_高架を歩く_引き","高い場所を歩く（引き・映画的）"),
+     ("4_S4_03_鞄と脚だけ","鞄と脚だけ（寄り・歩く）"),
    ]),
-   ("S5 引きで見せる","23-27秒",[
-     ("4_S3_03_高い場所に立つ_縦型","高い場所に立つ（引き・映画的）"),
-     ("4_S4_01_街に置く_縦型","街に置く。背景をボカして流す"),
-     ("4_S5_03_夕方の斜光_後ろ姿","夕方の斜光。歩く後ろ姿（引き）"),
+   ("S5 立ち止まる","24-27秒",[
+     ("4_S5_01_立ち止まる","手すりの前で立ち止まる"),
+     ("4_S5_02_白い服の寄り","白い服の寄り。革の色との対比"),
+     ("4_S5_03_真俯瞰_付属品を並べる","真俯瞰。保存袋・靴・小物まで並べる"),
    ]),
-   ("S6 締め","27-30秒",[
-     ("4_S6_01_白い壁の前","白い壁の前。正面。<b>壁に英語一文を重ねる</b>"),
-     ("4_S6_02_一文が消える","一文が消える"),
-     ("4_S6_03_ロゴのみ","ロゴのみ。<b>テロップは出さない</b>"),
+   ("S6 同じ画角に戻る","27-30秒",[
+     ("4_S6_01_最初と同じ画角に戻る","<b>最初と同じフェンスの画角に戻る</b>"),
+     ("4_S6_02_背景の街だけが動く","背景の街だけが動いている"),
+     ("共通_ロゴのみ","ロゴのみ。<b>テロップは出さない</b>"),
    ]),
   ], pn=6, total=T),
 
