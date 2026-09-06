@@ -41,7 +41,7 @@ TOC = [
  {"n":"7","jp":"支度も、仕事も、スマートに。","en":"Smart from Morning to Work","len":"25秒 ×3品番","target":"新規（買う直前の人）",
   "ref_html":'<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">Link</a>　＋　<a href="https://www.instagram.com/reel/DaorwuKvWAj/">Link</a>',
   "ref_url":"https://www.instagram.com/reel/DZE-_hZuwXb/", "ref_text":"instagram.com/reel/DZE-_hZuwXb ＋ instagram.com/reel/DaorwuKvWAj","pg":"9"},
- {"n":"8","jp":"購入者インタビュー（仮タイトル）","en":"Customer Interview (Title TBD)","len":"60秒 ×1（仮）","target":"購入を迷っている新規",
+ {"n":"8","jp":"購入者インタビュー","en":"Customer Interview","len":"60秒 ×1（仮）","target":"購入を迷っている新規",
   "ref_html":'店舗紹介インタビュー（lit DINNING BAR &amp; CAFE）　＋　撮り方の解説動画',
   "ref_url":"", "ref_text":"店舗紹介インタビュー（lit DINNING BAR & CAFE）＋ インタビュー動画の撮り方の解説","pg":"10"},
 ]
@@ -382,7 +382,7 @@ PAGES = [
    ]),
   ], pn=9, total=T),
 
- dict(no="08", jp="購入者インタビュー（仮タイトル）", en="Customer Interview (Title TBD)",
+ dict(no="08", jp="購入者インタビュー", en="Customer Interview",
   meta_len="60秒 ／ 22ショット（仮）", meta_target="対象＝購入を迷っている新規　／　EC商品ページ・レビュー欄・Instagram",
   ref='参考動画＝店舗紹介インタビュー（lit DINNING BAR &amp; CAFE）　＋　インタビュー動画の撮り方の解説（@yota.naruse）',
   ref_detail="3本。<b>店舗紹介インタビュー</b>＝<b>外観・調理・商品・空間を七カット並べてから</b>話し手のバストショットに入り、<b>話している内容に合わせたBロールを音声の上に重ね</b>、インタビューに戻り、<b>最後は店の前でスタッフが手を振って見送り、画面の中央にロゴが重なって、映像が白に抜けてロゴだけが残る</b>。<b>話した言葉はすべてテロップで出している。</b>もう1本は撮り方の解説で、要点は<b>「Bロールを必ず多めに撮る。インタビューの間や繋ぎに使う」</b>。",
