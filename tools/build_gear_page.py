@@ -5,7 +5,7 @@
 """
 import os, sys, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_xlsx_gear import GEAR
+from build_xlsx_gear import GEAR, sakura
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
@@ -17,6 +17,24 @@ UP   = sum(g[6] for g in GEAR)
 ADIF = sum(g[6] - g[3] for g in GEAR if g[0] == "A")
 MID  = LO + ADIF
 SOUND = sum(g[3] for g in GEAR if g[1] in ("音声レコーダー", "ガンマイク"))
+
+def sk_rows_html():
+    out = []
+    for pri, item, lo, lop, lou, up, upp, upu, why, conf in GEAR:
+        for label, name, url in (("低価格版", lo, lou), ("アップグレード版", up, upu)):
+            if name in ("同じもので十分",) or name.startswith("買わない"):
+                continue
+            link = sakura(url)
+            cell = (f'<a href="{esc(link)}" target="_blank" rel="noopener">サクラ度を見る →</a>'
+                    if link else '<span class="na">Amazon以外のため対象外</span>')
+            out.append(f'<li><span class="sk-tag">{label}</span>'
+                       f'<span class="sk-name">{esc(item)}　{esc(name)}</span>{cell}</li>')
+    seen, uniq = set(), []
+    for row in out:
+        if row not in seen:
+            seen.add(row); uniq.append(row)
+    return "".join(uniq)
+
 
 PRI_LABEL = {"A": "いちばん効く", "B": "画づくりが変わる", "—": "据え置き"}
 
@@ -155,6 +173,15 @@ PAGE = f"""<title>撮影機材　低価格版とアップグレード版</title>
   .panel p:last-child{{margin-bottom:0}}
   .panel b{{color:var(--ink)}}
   .two-col{{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}}
+  ul.sk-list{{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}}
+  ul.sk-list li{{display:grid;grid-template-columns:104px 1fr auto;gap:14px;align-items:baseline;
+    padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}}
+  ul.sk-list li:last-child{{border-bottom:none}}
+  .sk-tag{{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--faint)}}
+  .sk-name{{color:var(--ink)}}
+  ul.sk-list a{{font-family:var(--mono);font-size:12px;text-decoration:none;white-space:nowrap}}
+  ul.sk-list a:hover{{text-decoration:underline}}
+  .na{{font-family:var(--mono);font-size:11.5px;color:var(--faint);white-space:nowrap}}
   dl.conf-list{{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:baseline}}
   dl.conf-list dt{{margin:0}}
   dl.conf-list dd{{margin:0;color:var(--muted);font-size:13.5px}}
@@ -254,6 +281,15 @@ PAGE = f"""<title>撮影機材　低価格版とアップグレード版</title>
 </section>
 
 <section class="block">
+  <div class="block-head"><h2>サクラチェッカーで確かめる</h2><span class="idx">CHECK IT YOURSELF</span></div>
+  <p class="block-lede">この資料を作った環境からは <b>サクラチェッカー（sakura-checker.jp）への接続が遮断されており、こちらで判定を実行できませんでした。</b>代わりに、商品ごとの判定ページへのリンクを用意しました。クリックすれば数秒で結果が出ます。<b>発注前にご確認ください。</b></p>
+  <div class="panel">
+    <ul class="sk-list">{sk_rows_html()}</ul>
+    <p style="margin-top:16px">Amazon以外の販売ページ（サインモール・銀一・楽天・価格.com）は、サクラチェッカーの対象外です。これらは販売店の実在と価格をリンク先でご確認ください。</p>
+  </div>
+</section>
+
+<section class="block">
   <div class="block-head"><h2>音声にいちばんお金をかけています</h2><span class="idx">WHY</span></div>
   <p class="block-lede">低価格版 {yen(LO)} のうち、音声だけで {yen(SOUND)}（レコーダー＋ガンマイク）を占めます。理由は三つです。</p>
   <div class="two-col">
@@ -277,7 +313,7 @@ PAGE = f"""<title>撮影機材　低価格版とアップグレード版</title>
   <div class="panel">
     <p><b>選び方：</b>カメラ用品はソニー純正、音声はZOOM・RODE・DJIという実績のあるメーカーの製品から選びました。無名ブランドの安価な音声機材は、レビューが操作されている可能性があるため外しています（前回案のワイヤレスピンマイク13,999円もこれに該当するため差し替えました）。</p>
     <p><b>評価の出どころ：</b>ZOOM H1essentialの評価（4.53／5・32件）は<b>Yahoo!ショッピングの掲載値</b>です。リンク先のAmazonの評価ではありません。</p>
-    <p><b>サクラチェック：</b>この環境からはサクラチェッカーを開けないため、自動判定はできていません。発注前に、表のURLを貼り付けてご自身でご確認ください（数秒で判定が出ます）。</p>
+    <p><b>サクラチェック：</b>サクラチェッカーへの接続がこの環境から遮断されているため、判定を実行できませんでした。上の「サクラチェッカーで確かめる」の各リンクから、発注前にご確認ください。</p>
     <p><b>マウントの確認：</b>マクロレンズはソニーEマウント専用です。お使いのカメラが別マウントの場合は、同じ焦点距離帯のものに読み替えてください（低価格版で二〜四万円、アップグレード版で五〜七万円が目安）。カメラの機種を教えていただければ、こちらで合うものを調べ直します。</p>
     <p><b>中古について：</b>アップグレード版のマクロレンズは中古価格です。新品にする場合は金額が上がります。</p>
   </div>

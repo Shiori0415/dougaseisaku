@@ -87,6 +87,20 @@ GEAR = [
   "低＝0円／上＝前回調査時の値（商品ページ未特定）"),
 ]
 
+
+def asin(url):
+    """amazon.co.jp の商品ページURLからASINを取り出す。商品ページでなければ None"""
+    import re
+    m = re.search(r"amazon\.co\.jp/(?:.*/)?dp/([A-Z0-9]{10})", url or "")
+    return m.group(1) if m else None
+
+
+def sakura(url):
+    """サクラチェッカーの判定ページURL。Amazonの商品ページでなければ空"""
+    a = asin(url)
+    return f"https://sakura-checker.jp/search/{a}/" if a else ""
+
+
 NOTES = [
  ("価格について（必ずお読みください）", WARN, True),
  ("・この資料を作った作業環境からは、Amazon・価格.com・楽天・サインモール・サクラチェッカーのいずれにも接続できません。", MUTED, False),
@@ -105,7 +119,9 @@ NOTES = [
  ("・カメラ用品はソニー純正、音声はZOOM・RODE・DJIという実績あるメーカーの製品から選びました。", MUTED, False),
  ("・無名ブランドの安価な音声機材は、レビューが操作されている可能性があるため外しています。", MUTED, False),
  ("・ZOOM H1essentialの評価（4.53／5・32件）はYahoo!ショッピングの掲載値です。リンク先のAmazonの評価ではありません。", MUTED, False),
- ("・この環境からはサクラチェッカーを開けないため、自動判定はできていません。発注前にURLを貼って判定してください。", MUTED, False),
+ ("・サクラチェッカー（sakura-checker.jp）はこの環境から接続が遮断されており、こちらで判定を実行できませんでした。", MUTED, False),
+ ("　代わりに「サクラチェッカー」列に、商品ごとの判定ページへのリンクを入れてあります。クリックすれば数秒で判定が出ます。", MUTED, False),
+ ("　Amazon以外の販売ページ（サインモール・銀一・楽天・価格.com）はサクラチェッカーの対象外です。", MUTED, False),
  ("", MUTED, False),
  ("注意", ACCENT, True),
  ("・マクロレンズはソニーEマウント専用です。お使いのカメラが別マウントの場合は、同じ焦点距離帯のものに読み替えてください。", MUTED, False),
@@ -132,8 +148,8 @@ def build(path):
     headers = ["優先度", "品目",
                "低価格版　商品", "低価格版　価格", "低価格版　商品ページ",
                "アップグレード版　商品", "アップグレード版　価格", "アップグレード版　商品ページ",
-               "差額", "何が変わるか", "価格の確度"]
-    widths = [8, 20, 34, 13, 24, 38, 15, 24, 11, 54, 40]
+               "差額", "何が変わるか", "価格の確度", "サクラチェッカー"]
+    widths = [8, 20, 34, 13, 24, 38, 15, 24, 11, 54, 40, 34]
     for i, (h, w) in enumerate(zip(headers, widths), start=1):
         c = ws.cell(row=hr, column=i, value=h)
         c.font = Font(name=JP, size=9, bold=True, color=MUTED)
@@ -146,7 +162,9 @@ def build(path):
     first = hr + 1
     for i, (pri, item, lo, lop, lou, up, upp, upu, why, conf) in enumerate(GEAR):
         row = first + i
-        for col, v in enumerate([pri, item, lo, lop, lou, up, upp, upu, None, why, conf], start=1):
+        sk = sakura(lou) or sakura(upu)
+        for col, v in enumerate([pri, item, lo, lop, lou, up, upp, upu, None, why, conf,
+                                 (sk or "Amazon以外のため対象外")], start=1):
             c = ws.cell(row=row, column=col, value=v)
             c.border = BORDER
             c.font = Font(name=JP, size=10, color=INK)
@@ -161,6 +179,12 @@ def build(path):
         fill = UP_FILL if pri in ("A", "B") else KEEP_FILL
         ws.cell(row=row, column=1).fill = PatternFill("solid", fgColor=fill)
         ws.cell(row=row, column=1).font = Font(name=JP, size=10, bold=(pri in ("A", "B")), color=INK)
+        if sk:
+            sc = ws.cell(row=row, column=12)
+            sc.hyperlink = sk
+            sc.font = Font(name=JP, size=9, color="0563C1", underline="single")
+        else:
+            ws.cell(row=row, column=12).font = Font(name=JP, size=9, color=MUTED)
         for col, u in ((5, lou), (8, upu)):
             if u:
                 lc = ws.cell(row=row, column=col)
@@ -173,7 +197,7 @@ def build(path):
     # ---- 合計 ----
     tr = last + 1
     ws.cell(row=tr, column=2, value="合計").font = Font(name=JP, size=12, bold=True, color=INK)
-    for col in range(1, 12):
+    for col in range(1, 13):
         ws.cell(row=tr, column=col).border = BORDER
     for col, formula in ((4, f"=SUM(D{first}:D{last})"), (7, f"=SUM(G{first}:G{last})"), (9, f"=G{tr}-D{tr}")):
         c = ws.cell(row=tr, column=col, value=formula)
