@@ -176,6 +176,9 @@ def artboard(page, imgmap):
     sp = SPEC[o]
     blocks = "".join(scene_block(r, sp, imgmap) for r in page["rows"])
     ref = ref_line(page)
+    detail = rich(page.get("ref_detail") or "")
+    ref_block = (f'<div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">'
+                 f'参考動画：{ref}<br />{detail}</div>') if (ref.strip() or detail.strip()) else ""
     orient_label = "縦型 9:16" if o == "v" else "横型 16:9"
 
     header = f'''<div style="display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid {INK}; padding-bottom: 14px">
@@ -190,7 +193,7 @@ def artboard(page, imgmap):
         <div>{esc(plain(page["meta_target"]))}</div>
       </div>
       <div style="font-size: 12.5px; line-height: 1.7; color: {INK}; max-width: 900px">{esc(plan_summary(page))}</div>
-      <div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">参考動画：{ref}<br />{rich(page.get("ref_detail") or "")}</div>
+      {ref_block}
     </div>'''
 
     return f'''<!doctype html>
