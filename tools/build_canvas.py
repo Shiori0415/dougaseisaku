@@ -24,14 +24,34 @@ SPEC = {
     "h": dict(page_w=1540, cell_w=230, cell_h=129, header_h=170),
 }
 MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 10, 44, 30
+CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
+CAP_MAX_LINES = 9                    # 念のための上限
 BLOCK_COLS = 2
+
+
+def cap_height(shots, cell_w):
+    """コマの説明が何行になるかを文字数から見積もり、切れない高さを返す"""
+    per_line = max(6, int(cell_w / CAP_FS))
+    lines = 1
+    for sh in shots:
+        text = plain(sh[1])
+        if text and text != "―":
+            lines = max(lines, min(CAP_MAX_LINES, -(-len(text) // per_line)))
+    return int(round(lines * CAP_FS * CAP_LH)) + 4
+
+
+def block_height(page, row):
+    sp = SPEC[ORIENT[page["no"]]]
+    w, h = cell_size(sp, len(row[2]))
+    return LABEL_H + 4 + h + 6 + cap_height(row[2], w)
 
 
 def page_height(page):
     sp = SPEC[ORIENT[page["no"]]]
-    band = (len(page["rows"]) + BLOCK_COLS - 1) // BLOCK_COLS
-    block_h = LABEL_H + 4 + sp["cell_h"] + 6 + CAP_H
-    grid_h = band * block_h + (band - 1) * BLOCK_GAP_Y
+    rows = page["rows"]
+    bands = [rows[i:i + BLOCK_COLS] for i in range(0, len(rows), BLOCK_COLS)]
+    grid_h = sum(max(block_height(page, r) for r in b) for b in bands)
+    grid_h += (len(bands) - 1) * BLOCK_GAP_Y
     return MARGIN * 2 + sp["header_h"] + 20 + grid_h + 24
 
 INK, MUTED, FAINT = "#15191c", "#5b6266", "#8a8f92"
@@ -101,7 +121,7 @@ def cell_size(sp, n):
     return w, round(sp["cell_h"] * w / sp["cell_w"])
 
 
-def frame(shot, sp, imgmap, size=None):
+def frame(shot, sp, imgmap, size=None, cap_h=CAP_H):
     photo, cap = imgmap.get(id(shot)) or shot[0], shot[1]
     w, h = size if size else (sp["cell_w"], sp["cell_h"])
     if cap == "―":
@@ -118,8 +138,8 @@ def frame(shot, sp, imgmap, size=None):
                f'border: 1px dashed #c9c2b6; display: flex; align-items: center; '
                f'justify-content: center; color: #b3a894; font-size: 11px; text-align: center">'
                f'撮影して<br />差し替え</div>')
-    cap_html = (f'<div style="width: {w}px; height: {CAP_H}px; font-size: 10.5px; '
-                f'line-height: 1.45; color: #3a3226; overflow: hidden">{rich(cap)}</div>')
+    cap_html = (f'<div style="width: {w}px; min-height: {cap_h}px; font-size: {CAP_FS}px; '
+                f'line-height: {CAP_LH}; color: #3a3226">{rich(cap)}</div>')
     return (f'<div style="display: flex; flex-direction: column; gap: 6px; width: {w}px">'
             f'{box}{cap_html}</div>')
 
@@ -127,7 +147,8 @@ def frame(shot, sp, imgmap, size=None):
 def scene_block(row, sp, imgmap):
     name, time, shots = row[0], row[1], row[2]
     size = cell_size(sp, len(shots))
-    frames = "".join(frame(s, sp, imgmap, size) for s in shots)
+    ch = cap_height(shots, size[0])
+    frames = "".join(frame(s, sp, imgmap, size, ch) for s in shots)
     label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {LABEL_H}px">'
              f'<div style="font-size: 14px; font-weight: 700; color: {INK}">{esc(name)}</div>'
              f'<div style="font-size: 11px; color: {MUTED}">{esc(time)}</div></div>')
@@ -135,11 +156,26 @@ def scene_block(row, sp, imgmap):
             f'<div style="display: flex; gap: {SHOT_GAP}px">{frames}</div></div>')
 
 
+def ref_line(page):
+    """参考動画の行。<a> を本物のリンクとして残し、URLをそのまま出す（紙でも確認できるように）"""
+    src = re.sub(r"<br\s*/?>", " ", page["ref"]).replace("参考動画＝", "")
+    out, pos = [], 0
+    for m in re.finditer(r'<a\s+href="([^"]+)">(.*?)</a>', src):
+        out.append(esc(re.sub(r"<[^>]+>", "", src[pos:m.start()])))
+        url = m.group(1)
+        label = re.sub(r"^https?://(www\.)?", "", url).rstrip("/")
+        out.append(f'<a href="{esc(url)}" target="_blank" rel="noopener" '
+                   f'style="color: {GOLD}; text-decoration: underline">{esc(label)}</a>')
+        pos = m.end()
+    out.append(esc(re.sub(r"<[^>]+>", "", src[pos:])))
+    return "".join(out)
+
+
 def artboard(page, imgmap):
     o = ORIENT[page["no"]]
     sp = SPEC[o]
     blocks = "".join(scene_block(r, sp, imgmap) for r in page["rows"])
-    ref = plain(page["ref"]).replace("参考動画＝", "")
+    ref = ref_line(page)
     orient_label = "縦型 9:16" if o == "v" else "横型 16:9"
 
     header = f'''<div style="display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid {INK}; padding-bottom: 14px">
@@ -154,7 +190,7 @@ def artboard(page, imgmap):
         <div>{esc(plain(page["meta_target"]))}</div>
       </div>
       <div style="font-size: 12.5px; line-height: 1.7; color: {INK}; max-width: 900px">{esc(plan_summary(page))}</div>
-      <div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">参考動画：{esc(ref)}<br />{rich(page.get("ref_detail") or "")}</div>
+      <div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">参考動画：{ref}<br />{rich(page.get("ref_detail") or "")}</div>
     </div>'''
 
     return f'''<!doctype html>
