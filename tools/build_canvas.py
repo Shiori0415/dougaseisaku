@@ -3,7 +3,7 @@
    実行: python3 tools/build_canvas.py <出力ディレクトリ>
 
    ・1シートに「企画の要約（上部）＋絵コンテ12コマ」を収める
-   ・ワンシーン3枚、4シーンを2×2に並べる
+   ・ワンシーンは2〜4枚。1列に収まらない本数のときは、その行だけコマを小さくして収める
    ・コマの縦横は動画に合わせる（Instagram/EC向けの①②③④⑦⑧は9:16、
      コーポレート/商談向けの⑤⑥は16:9）
    ・この1本で言うこと／テロップ／追加ブロックは載せない（絵コンテ主体にするため）
@@ -89,9 +89,21 @@ def rich(s):
     return "".join(buf)
 
 
-def frame(shot, sp, imgmap):
+def col_w(sp):
+    return (sp["page_w"] - MARGIN * 2 - BLOCK_GAP_X * (BLOCK_COLS - 1)) // BLOCK_COLS
+
+
+def cell_size(sp, n):
+    """1シーンのコマ数に合わせた寸法。3枚までは既定、4枚以上は列幅に収まるまで縮める"""
+    if n <= 3:
+        return sp["cell_w"], sp["cell_h"]
+    w = (col_w(sp) - SHOT_GAP * (n - 1)) // n
+    return w, round(sp["cell_h"] * w / sp["cell_w"])
+
+
+def frame(shot, sp, imgmap, size=None):
     photo, cap = imgmap.get(id(shot)) or shot[0], shot[1]
-    w, h = sp["cell_w"], sp["cell_h"]
+    w, h = size if size else (sp["cell_w"], sp["cell_h"])
     if cap == "―":
         inner = f'<div style="width: {w}px; height: {h}px"></div>'
         return f'<div style="display: flex; flex-direction: column; gap: 6px; width: {w}px">{inner}</div>'
@@ -114,7 +126,8 @@ def frame(shot, sp, imgmap):
 
 def scene_block(row, sp, imgmap):
     name, time, shots = row[0], row[1], row[2]
-    frames = "".join(frame(s, sp, imgmap) for s in shots)
+    size = cell_size(sp, len(shots))
+    frames = "".join(frame(s, sp, imgmap, size) for s in shots)
     label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {LABEL_H}px">'
              f'<div style="font-size: 14px; font-weight: 700; color: {INK}">{esc(name)}</div>'
              f'<div style="font-size: 11px; color: {MUTED}">{esc(time)}</div></div>')
@@ -167,7 +180,7 @@ def artboard(page, imgmap):
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: {FAINT}">
     <div>BROOKLYN MUSEUM ／ 向島工房　動画制作</div>
-    <div>ワンシーン3枚 ／ 全{sum(1 for r in page["rows"] for x in r[2] if x[1] != "―")}コマ</div>
+    <div>全{sum(1 for r in page["rows"] for x in r[2] if x[1] != "―")}コマ</div>
   </div>
 </div>
 </x-dc>
