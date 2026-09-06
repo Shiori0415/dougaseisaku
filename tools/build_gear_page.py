@@ -166,6 +166,15 @@ PAGE = f"""<title>撮影機材　低価格版とアップグレード版</title>
   table.cmp tfoot td{{padding:15px 12px;border-top:2px solid var(--line-strong);font-weight:600}}
   table.cmp tfoot .price{{font-size:16px}}
 
+  table.cmp.spec{{min-width:900px}}
+  table.cmp.spec thead th{{text-align:left;padding:12px;font-family:var(--sans);font-size:13px;
+    font-weight:600;color:var(--ink);text-transform:none;letter-spacing:0;white-space:normal;width:26%}}
+  table.cmp.spec thead th:first-child{{width:14%;background:var(--surface)}}
+  .th-sub{{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;
+    color:var(--faint);margin-top:3px}}
+  td.sp-k{{font-size:12px;color:var(--faint);white-space:nowrap;background:#f7f8f8}}
+  td.sp-v{{font-size:13px}}
+  .note-line{{margin-top:16px;font-size:13px;color:var(--muted)}}
   .panel{{border:1px solid var(--line);border-radius:12px;background:var(--surface);
     box-shadow:var(--shadow);padding:22px 24px}}
   .panel h3{{font-size:15px;font-weight:600;margin-bottom:10px;font-family:var(--sans)}}
@@ -263,6 +272,43 @@ PAGE = f"""<title>撮影機材　低価格版とアップグレード版</title>
       </tfoot>
     </table>
   </div>
+</section>
+
+<section class="block">
+  <div class="block-head"><h2>三脚のアップグレード候補</h2><span class="idx">TWO AT THE SAME PRICE</span></div>
+  <p class="block-lede">同じ二万五千円台で、性格の違う二つがあります。<b>ベルボン シェルパ635III N</b>（表に入れているのはこちら）と、<b>NEEWER LL27</b>です。決め手は「据えて撮るか、動かして撮るか」です。</p>
+  <div class="table-shell">
+    <table class="cmp spec">
+      <thead>
+        <tr><th></th>
+          <th class="g-lo">Velbon EX-440<br /><span class="th-sub">低価格版・いま入っているもの</span></th>
+          <th class="g-up">Velbon シェルパ 635III N<br /><span class="th-sub">アップグレード版・表に採用</span></th>
+          <th>NEEWER LL27<br /><span class="th-sub">もう一つの候補</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="sp-k">価格</td><td class="sp-v num">¥3,012</td><td class="sp-v num">約¥25,000</td><td class="sp-v num">¥24,999</td></tr>
+        <tr><td class="sp-k">雲台</td><td class="sp-v">3ウェイ</td><td class="sp-v">3ウェイ（マグネシウム・クイックシュー）</td><td class="sp-v"><b>フルード（ビデオ雲台）</b></td></tr>
+        <tr><td class="sp-k">段数・脚径</td><td class="sp-v">4段・細い</td><td class="sp-v"><b>3段・脚径29mm</b></td><td class="sp-v">—</td></tr>
+        <tr><td class="sp-k">全高</td><td class="sp-v">153cm</td><td class="sp-v">179cm（EV含む）／139cm（EV無し）</td><td class="sp-v">89.4〜192cm</td></tr>
+        <tr><td class="sp-k">縮長</td><td class="sp-v">—</td><td class="sp-v">67cm</td><td class="sp-v">—</td></tr>
+        <tr><td class="sp-k">質量</td><td class="sp-v">—</td><td class="sp-v"><b>2.43kg</b></td><td class="sp-v">4.0kg</td></tr>
+        <tr><td class="sp-k">耐荷重</td><td class="sp-v">2kg</td><td class="sp-v">3kg（脚は最大8kg）</td><td class="sp-v"><b>8kg</b></td></tr>
+        <tr><td class="sp-k">得意なこと</td><td class="sp-v">置いて固定するだけ</td><td class="sp-v">据えて撮る画。揺れが止まるまでが速い。軽くて持ち運べる</td><td class="sp-v">動かして撮る画。パン・ティルトがなめらかに止まる</td></tr>
+        <tr><td class="sp-k">弱いところ</td><td class="sp-v">伸ばすと揺れる。録画の頭に微振動が乗る</td><td class="sp-v">なめらかなパンは苦手（ビデオ雲台ではない）</td><td class="sp-v">4kgあり、一人で毎回持ち運ぶには重い</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two-col" style="margin-top:18px">
+    <div class="panel">
+      <h3>シェルパを選ぶなら</h3>
+      <p><b>③⑦の固定撮影と、①⑤⑥の真俯瞰</b>が中心。カメラを据えて回すカットが多く、機材を一人で毎回運ぶことを考えると、2.43kgという軽さが効きます。国内メーカーで品質のばらつきも少ない。</p>
+    </div>
+    <div class="panel">
+      <h3>LL27を選ぶなら</h3>
+      <p><b>⑥の「工房を歩くカメラ」や①の横移動</b>でパンを使うなら、フルード雲台のこちら。三ウェイ雲台は動かすとカクつくので、この差は編集で埋められません。ただし4kgあります。</p>
+    </div>
+  </div>
+  <div class="note-line">NEEWERは照明でも採用しているブランドですが、メーカー公式ではない量販ブランドです。<a href="https://sakura-checker.jp/search/" target="_blank" rel="noopener">サクラチェッカー</a>で確認してから発注してください。</div>
 </section>
 
 <section class="block">
