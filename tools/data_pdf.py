@@ -29,7 +29,7 @@ TOC = [
  {"n":"3","jp":"The Making of the Royale M Tote","en":"ロワイヤルMトートの作りかた","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
   "ref_html":'<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   "ref_url":"https://www.instagram.com/reels/DWiwFp5DED-/", "ref_text":"instagram.com/reels/DWiwFp5DED-（delvaux）","pg":"5"},
- {"n":"4","jp":"絵になる日常を。","en":"Everyday, Worth a Frame","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
+ {"n":"4","jp":"持ち歩くものが、その人をつくる。","en":"What You Carry Makes You","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
   "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny）',
   "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ（parisawangny）","pg":"6"},
  {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"75秒 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
@@ -189,7 +189,7 @@ PAGES = [
    ]),
   ], pn=5, total=T),
 
- dict(no="04", jp="絵になる日常を。", en="Everyday, Worth a Frame",
+ dict(no="04", jp="持ち歩くものが、その人をつくる。", en="What You Carry Makes You",
   meta_len="30秒 ／ 15ショット", meta_target="対象＝仕事道具として買う人・贈る人　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny「Gabrielle East-West Tote」）',
   ref_detail="Instagramリール1本／parisawangny「Gabrielle East-West Tote」。<b>約30秒</b>。ニューヨークの街のフェンス・柱・手すりに鞄を置き、カメラは止めたまま背景の車と人が流れる。真俯瞰で中身と持ち物を見せ、最初と同じ画角に戻って終わる。<b>画面にテロップは出ない。</b>",
@@ -197,7 +197,7 @@ PAGES = [
   says="鞄を街に置くだけで絵になる。中身も、持った姿も、同じ一本で見せる。",
   telop_jp="", telop_en="",
   extra=("画 面 に テ ロ ッ プ は 出 さ な い",
-   "言葉は投稿の本文に置く。<br><span style='color:#8a7a63'>例：毎日のための鞄です。／ Made for your every day.</span><br><span style='color:#a8763e'>参考動画のキャプションの言い回し（New York polish, designed to carry your everyday）は使わない。</span>"),
+   "言葉は投稿の本文に置く。<br><span style='color:#8a7a63'>例：持ち歩くものが、その人をつくる。／ What you carry makes you.</span><br><span style='color:#a8763e'>参考動画のキャプションの言い回し（New York polish, designed to carry your everyday）は使わない。</span>"),
   rows=[
    ("S1 街に置く","0-6秒",[
      ("4_S1_01_フェンスに掛ける_引き","フェンスに掛ける（引き・三脚で固定）。<b>背景に街が流れる</b>"),
