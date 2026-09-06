@@ -32,7 +32,7 @@ TOC = [
  {"n":"4","jp":"持ち歩くものが、その人をつくる。","en":"What You Carry Makes You","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
   "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny）',
   "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ（parisawangny）","pg":"6"},
- {"n":"5","jp":"1979年から、東京で。","en":"Since 1979, Tokyo","len":"75秒 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
+ {"n":"5","jp":"コーポレートムービー","en":"Corporate Film","len":"75秒 ×1／60秒短縮版 ×1","target":"メディア関係者・OEMの調達担当・新規",
   "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
   "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー）","pg":"7"},
  {"n":"6","jp":"選ばれる理由。","en":"Why Brands Choose Us","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
@@ -226,7 +226,7 @@ PAGES = [
    ]),
   ], pn=6, total=T),
 
- dict(no="05", jp="1979年から、東京で。", en="Since 1979, Tokyo",
+ dict(no="05", jp="コーポレートムービー", en="Corporate Film",
   meta_len="七十五秒（最長でも九十秒まで） ／ 23ショット", meta_target="対象＝メディア関係者・OEMの調達担当・新規　／　コーポレートサイト・YouTube・商談",
   ref='参考動画＝<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>（鍛治島工業）　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（Kawazen Leather）　＋　インタビュー動画',
   ref_detail="4本。<b>Kawazen Leather Image PV</b>＝<b>約49秒</b>、色ごとに並ぶ革・工房・大型設備・代表インタビューまで。<b>工場のプロモーション映像</b>＝<b>約36秒</b>、<b>空撮から入り</b>手元の精密作業と検査へ。<b>鍛治島工業 企業PV</b>＝<b>約2分3秒</b>、図面・職人の作業・代表インタビュー。<b>社長インタビュー動画</b>＝三画角の撮り分け。<span style='color:#a8763e'>S3の写真はインタビュー動画から。ぼかしてある部分は参考動画側の社名・氏名・見出しで、テロップを置く位置の参考です。</span>",
