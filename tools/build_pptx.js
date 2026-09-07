@@ -349,7 +349,9 @@ DATA.pages.forEach((d) => {
     const photoW = photoH * reel;
     const groupW = photoW * 3 + SHOT_GAP * 2;
     const totalW = groupW * SCENES_PER_SLIDE + GROUP_GAP;
-    const gridX = MARGIN + (CONTENT_W - totalW) / 2;
+    // 左そろえにする。コマ数の少ないシーンがあっても、シーンの頭の位置が
+    // どのページでも同じになり、上の文章の左端ともそろう。
+    const gridX = MARGIN;
 
     rowsChunk.forEach((row, ri) => {
       const [sceneName, sceneTime, shots] = row;
