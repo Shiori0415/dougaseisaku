@@ -168,7 +168,7 @@ function footerAndPage(slide, footer, pn, total) {
   const c = DATA.cover;
   slide.addText("目 次　CONTENTS", { x: MARGIN, y: 0.4, w: 8, h: 0.3, fontFace: "Meiryo", fontSize: 10, color: FAINT, charSpacing: 2, margin: 0 });
   slide.addText("8本の動画", { x: MARGIN, y: 0.68, w: 8, h: 0.55, fontFace: "Meiryo", fontSize: 24, bold: true, color: INK, margin: 0 });
-  slide.addText(c.toc_intro, { x: MARGIN, y: 1.28, w: SW - MARGIN * 2, h: 0.4, fontFace: "Meiryo", fontSize: 10, color: MUTED, margin: 0 });
+  slide.addText(plainText(c.toc_intro), { x: MARGIN, y: 1.28, w: SW - MARGIN * 2, h: 0.4, fontFace: "Meiryo", fontSize: 10, color: MUTED, margin: 0 });
 
   const colW = [0.55, 3.3, 1.55, 2.85, 4.2];
   const header = ["#", "タイトル", "尺・本数", "届ける相手", "参考動画"].map((t, i) => ({
@@ -256,7 +256,7 @@ let pageCounter = 3;
 
 DATA.pages.forEach((d) => {
   let scale = 1.0;
-  for (let s = 1.0; s >= 0.6; s -= 0.02) {
+  for (let s = 1.0; s >= 0.5; s -= 0.02) {
     scale = s;
     if (textBandHeight(d, s) <= TEXT_MAX_H) break;
   }
@@ -322,7 +322,23 @@ DATA.pages.forEach((d) => {
     // ---- 絵コンテ：シーン2つ分の写真6枚を、9:16の縦長で一列に並べる ----
     const gridTop = BODY_Y + textBandHeight(d, scale) + 0.22;
     const avail = GRID_BOTTOM - gridTop;
-    const photoH = Math.max(MIN_PHOTO_H, Math.min(avail - LABEL_H - CAP_H, MAX_PHOTO_H));
+    // このスライドでいちばん長いキャプションが必要とする高さ。写真はその分だけ場所を譲る
+    // （そうしないと文章がフッターより下にはみ出す）。
+    // シーン名＋秒数が1行に収まらないときは、その分だけ見出しの高さを増やす
+    // （そのままだと2行目が写真に重なる）。
+    let labelH = LABEL_H;
+    const labelRefW = MIN_PHOTO_H * REEL * 3 + SHOT_GAP * 2;
+    rowsChunk.forEach((row) => {
+      labelH = Math.max(labelH, estimateHeight(row[0] + "　" + row[1], labelRefW, 11, { lineMult: 1.2, pad: 0 }));
+    });
+    labelH = Math.min(labelH, 0.62);
+    let capNeed = CAP_H;
+    rowsChunk.forEach((row) => row[2].forEach((sh) => {
+      if (!sh[1] || sh[1] === "―") return;
+      capNeed = Math.max(capNeed, estimateHeight(sh[1], MIN_PHOTO_H * REEL, 7.2, { lineMult: 1.24, pad: 0 }) + 0.06);
+    }));
+    capNeed = Math.min(capNeed, 0.9);
+    const photoH = Math.min(MAX_PHOTO_H, Math.max(1.55, avail - labelH - capNeed));
     const photoW = photoH * REEL;
     const groupW = photoW * 3 + SHOT_GAP * 2;
     const totalW = groupW * SCENES_PER_SLIDE + GROUP_GAP;
@@ -336,12 +352,17 @@ DATA.pages.forEach((d) => {
           { text: sceneName, options: { fontFace: "Meiryo", fontSize: 11.5, bold: true, color: INK } },
           { text: "　" + sceneTime, options: { fontFace: "Meiryo", fontSize: 9, color: MUTED } },
         ],
-        { x: gx, y: gridTop, w: groupW, h: LABEL_H, valign: "top", margin: 0 }
+        { x: gx, y: gridTop, w: groupW, h: labelH, valign: "top", margin: 0 }
       );
-      const py = gridTop + LABEL_H;
+      const py = gridTop + labelH;
+      // 1シーンに4コマ以上あるときは、シーンの幅は変えずにコマを小さくして収める
+      // （そのままだと隣のシーンに重なってしまう）。
+      const nShots = shots.length;
+      const pw = nShots <= 3 ? photoW : (groupW - SHOT_GAP * (nShots - 1)) / nShots;
+      const ph = nShots <= 3 ? photoH : pw / REEL;
       shots.forEach((shot, si) => {
         const [photo, cap] = shot;
-        const sx = gx + si * (photoW + SHOT_GAP);
+        const sx = gx + si * (pw + SHOT_GAP);
         if (cap === "―") return; // 使わないマス
         if (photo) {
           // pptxgenjsのsizing:{type:"contain"}はOOXMLのsrcRect+stretchで実装されており、
@@ -349,21 +370,26 @@ DATA.pages.forEach((d) => {
           // そのため、箱いっぱいの黒背景を敷いた上で、実寸から自前でレターボックス配置する。
           const imgPath = path.join(IMG_DIR, photo + ".jpg");
           const nat = getImgSize(imgPath);
-          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { color: "000000" }, line: { type: "none" } });
+          slide.addShape("rect", { x: sx, y: py, w: pw, h: ph, fill: { color: "000000" }, line: { type: "none" } });
           const imgRatio = nat.height / nat.width;
-          const boxRatio = photoH / photoW;
+          const boxRatio = ph / pw;
           let dw, dh;
-          if (imgRatio > boxRatio) { dh = photoH; dw = photoH / imgRatio; }
-          else { dw = photoW; dh = photoW * imgRatio; }
-          slide.addImage({ path: imgPath, x: sx + (photoW - dw) / 2, y: py + (photoH - dh) / 2, w: dw, h: dh });
-          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
+          if (imgRatio > boxRatio) { dh = ph; dw = ph / imgRatio; }
+          else { dw = pw; dh = pw * imgRatio; }
+          slide.addImage({ path: imgPath, x: sx + (pw - dw) / 2, y: py + (ph - dh) / 2, w: dw, h: dh });
+          slide.addShape("rect", { x: sx, y: py, w: pw, h: ph, fill: { type: "none" }, line: { color: "DDD5C6", width: 0.75 } });
         } else if (cap) {
-          slide.addShape("rect", { x: sx, y: py, w: photoW, h: photoH, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });
-          slide.addText("撮影して\n差し替え", { x: sx, y: py, w: photoW, h: photoH, align: "center", valign: "middle", fontFace: "Meiryo", fontSize: 7.5, color: "B3A894", margin: 0 });
+          slide.addShape("rect", { x: sx, y: py, w: pw, h: ph, fill: { color: "FBF9F4" }, line: { color: DASH, width: 0.75, dashType: "dash" } });
+          slide.addText("撮影して\n差し替え", { x: sx, y: py, w: pw, h: ph, align: "center", valign: "middle", fontFace: "Meiryo", fontSize: 7.5, color: "B3A894", margin: 0 });
         }
         if (cap) {
-          slide.addText(parseRich(cap, { fontFace: "Meiryo", fontSize: 7.2, color: "3A3226" }), {
-            x: sx, y: py + photoH + 0.04, w: photoW, h: CAP_H, fontFace: "Meiryo", fontSize: 7.2, color: "3A3226", lineSpacingMultiple: 1.24, valign: "top", margin: 0,
+          // キャプションが用紙の下端（フッター）にかからないよう、収まらないときだけ文字を縮める。
+          const capY = py + ph + 0.04;
+          const capSpace = GRID_BOTTOM - capY;
+          let capPt = 7.2;
+          while (capPt > 5.4 && estimateHeight(cap, pw, capPt, { lineMult: 1.24, pad: 0 }) > capSpace) capPt -= 0.2;
+          slide.addText(parseRich(cap, { fontFace: "Meiryo", fontSize: capPt, color: "3A3226" }), {
+            x: sx, y: capY, w: pw, h: Math.max(CAP_H, capSpace), fontFace: "Meiryo", fontSize: capPt, color: "3A3226", lineSpacingMultiple: 1.24, valign: "top", margin: 0,
           });
         }
       });
