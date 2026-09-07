@@ -213,7 +213,11 @@ const LABEL_H = 0.28;          // シーン名（S1 支度 0-4秒）
 const CAP_H = 0.62;            // 写真の下のキャプション
 const SHOT_GAP = 0.10;         // 同じシーン内の写真どうしの間
 const GROUP_GAP = 0.45;        // シーンとシーンの間
-const REEL = 9 / 16;           // 写真の縦横比（リールと同じ）
+// 写真の縦横比。①②③④⑦⑧は縦型（リール）、⑤⑥は横型なのでコマも横長にする。
+const REEL_V = 9 / 16;
+const REEL_H = 16 / 9;
+const LANDSCAPE = new Set(["05", "06"]);
+const REEL = REEL_V;          // 幅の上限を出すときの基準（縦型でいちばん幅が要る）
 // 横幅から決まる写真の上限。6枚＋余白が用紙に収まる幅を超えないようにする。
 const MAX_PHOTO_W = (CONTENT_W - SHOT_GAP * 4 - GROUP_GAP) / 6;
 const MAX_PHOTO_H = MAX_PHOTO_W / REEL;
@@ -327,7 +331,10 @@ DATA.pages.forEach((d) => {
     // シーン名＋秒数が1行に収まらないときは、その分だけ見出しの高さを増やす
     // （そのままだと2行目が写真に重なる）。
     let labelH = LABEL_H;
-    const labelRefW = MIN_PHOTO_H * REEL * 3 + SHOT_GAP * 2;
+    const reel = LANDSCAPE.has(d.no) ? REEL_H : REEL_V;
+    const maxPhotoH = MAX_PHOTO_W / reel;
+    const minPhotoH = Math.min(1.55, maxPhotoH);
+    const labelRefW = MIN_PHOTO_H * REEL_V * 3 + SHOT_GAP * 2;
     rowsChunk.forEach((row) => {
       labelH = Math.max(labelH, estimateHeight(row[0] + "　" + row[1], labelRefW, 11, { lineMult: 1.2, pad: 0 }));
     });
@@ -335,11 +342,11 @@ DATA.pages.forEach((d) => {
     let capNeed = CAP_H;
     rowsChunk.forEach((row) => row[2].forEach((sh) => {
       if (!sh[1] || sh[1] === "―") return;
-      capNeed = Math.max(capNeed, estimateHeight(sh[1], MIN_PHOTO_H * REEL, 7.2, { lineMult: 1.24, pad: 0 }) + 0.06);
+      capNeed = Math.max(capNeed, estimateHeight(sh[1], MIN_PHOTO_H * REEL_V, 7.2, { lineMult: 1.24, pad: 0 }) + 0.06);
     }));
     capNeed = Math.min(capNeed, 0.9);
-    const photoH = Math.min(MAX_PHOTO_H, Math.max(1.55, avail - labelH - capNeed));
-    const photoW = photoH * REEL;
+    const photoH = Math.min(maxPhotoH, Math.max(minPhotoH, avail - labelH - capNeed));
+    const photoW = photoH * reel;
     const groupW = photoW * 3 + SHOT_GAP * 2;
     const totalW = groupW * SCENES_PER_SLIDE + GROUP_GAP;
     const gridX = MARGIN + (CONTENT_W - totalW) / 2;
@@ -359,7 +366,7 @@ DATA.pages.forEach((d) => {
       // （そのままだと隣のシーンに重なってしまう）。
       const nShots = shots.length;
       const pw = nShots <= 3 ? photoW : (groupW - SHOT_GAP * (nShots - 1)) / nShots;
-      const ph = nShots <= 3 ? photoH : pw / REEL;
+      const ph = nShots <= 3 ? photoH : pw / reel;
       shots.forEach((shot, si) => {
         const [photo, cap] = shot;
         const sx = gx + si * (pw + SHOT_GAP);
