@@ -10,7 +10,7 @@ MARGIN = 40
 PAGE_W = 1640
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
-HEIGHT = {"A": 934, "B": 800}
+HEIGHT = {"A": 1091, "B": 1257}
 
 
 def esc(s):
@@ -74,34 +74,51 @@ MUSIC = [
 ]
 
 SHOPS = [
- ("DOVA-SYNDROME（日本）", "無料", "商用利用可。<b>クレジット表示は原則不要</b>（作曲者が個別に条件を付けている曲もある）。",
-  "<b>まずはここ。</b>曲数が多く、<b>作曲者のページから同じ人の曲を辿れる</b>ので、八本を一人の作曲者で揃えられる。"
-  "規約が日本語で読める。2026年3月から株式会社TRACKSが運営。",
+ ("無料", "DOVA-SYNDROME（日本）", "商用利用可。クレジット表示は原則不要（作曲者が個別に条件を付けている曲もある）。",
+  "<b>まずはここ。</b>曲数がいちばん多く、<b>作曲者のページから同じ人の曲を辿れる</b>ので、"
+  "八本を一人の作曲者で揃えられる。規約が日本語。2026年3月から株式会社TRACKSが運営。",
   "https://dova-s.jp/"),
- ("甘茶の音楽工房（日本）", "無料", "商用利用可。クレジット表示不要。",
+ ("無料", "甘茶の音楽工房（日本）", "商用利用可。クレジット表示不要。",
   "落ち着いたピアノとアコースティックが多く、<b>この八本の方向にいちばん近い。</b>"
-  "曲数はDOVAより少ないので、DOVAと二つ見て決めるとよい。",
+  "曲数はDOVAより少ないので、二つ見て決めるとよい。",
   "https://amachamusic.chagasi.com/"),
- ("Pixabay Music", "無料", "商用利用可。クレジット表示不要。",
+ ("無料", "MusMus（日本）", "商用利用可。クレジット表示不要。",
+  "静かな曲・アンビエントが多い。<b>②③⑧のような、音楽を前に出したくない本に向く。</b>",
+  "https://musmus.main.jp/"),
+ ("無料", "魔王魂（日本）", "商用利用可（規約は必ず確認）。",
+  "日本でいちばん名前が知られている。<b>曲がかぶりやすい</b>ので、"
+  "ブランド映像で使うなら他と比べてから決める。",
+  "https://maou.audio/"),
+ ("無料", "Pixabay Music", "商用利用可。クレジット表示不要。",
   "海外の曲。<b>左の表の英語キーワードがそのまま使える。</b>ピアノ・アンビエントの層が厚い。",
   "https://pixabay.com/music/"),
- ("YouTube オーディオ ライブラリ", "無料", "商用利用可。<b>ただし曲ごとに条件が違う</b>（クレジット必須の曲がある）。",
+ ("無料", "YouTube オーディオ ライブラリ", "商用利用可。<b>ただし曲ごとに条件が違う</b>（クレジット必須の曲がある）。",
   "YouTube以外でも使える。曲を選ぶたびにライセンス欄を確認すること。YouTubeのアカウントが必要。",
   "https://studio.youtube.com/"),
- ("Uppbeat", "無料プランあり", "商用利用可。<b>無料プランはクレジット表示が必要。</b>",
-  "曲の質は無料の中でいちばん高い。<b>クレジットを出したくない場合だけ月額（数百円台）にする。</b>",
+ ("無料〜", "Uppbeat", "商用利用可。<b>無料プランはクレジット表示が必要。</b>有料にすると不要。",
+  "曲の質は無料の中でいちばん高い。<b>クレジットを出したくないときだけ月額（数百円台）にする。</b>",
   "https://uppbeat.io/"),
- ("有料にするなら（参考）", "年 $299 前後", "商用・放送まで。クレジット不要。",
-  "Artlist ／ Epidemic Sound ／ Audiostock（日本・買い切り）。"
-  "<b>八本すべてを有料にする必要はない。</b>③だけ有料にして格を上げる、という使い分けもできる。"
-  "<span style='color:#a8763e'>金額は外部の記事に出ている目安で、こちらでは確認できていません。</span>",
+ ("有料", "Artlist", "商用・放送まで。クレジット不要。使えるアカウント数に制限なし。",
+  "<b>八本まとめて有料にするならこれ。</b>曲の質がそろっていて、同じ作曲家で八本を統一しやすい。"
+  "<span style='color:#a8763e'>年 $299 前後（目安）</span>",
   "https://artlist.io/pricing"),
+ ("有料", "Epidemic Sound", "商用可。Instagram・TikTokでの著作権の申し立てから守られる。",
+  "安く始められる。<b>リール中心ならこれで足りる。</b>アカウント数に上限がある。"
+  "<span style='color:#a8763e'>月 $25 ／ 年 $300 前後（目安）</span>",
+  "https://www.epidemicsound.com/pricing/"),
+ ("有料", "Audiostock（日本）", "商用可。<b>1曲ごとの買い切り</b>で、継続課金なしで使い続けられる。",
+  "<b>日本語でサポートが受けられる。</b>月額を持ちたくない場合はこれ。曲ごとに探す手間はかかる。",
+  "https://audiostock.jp/"),
+ ("有料", "Musicbed", "商用・ブランド映像向け。クレジット不要。",
+  "曲の格はいちばん高いが、単価も高い。<b>③のような一本だけに使うなら検討の価値あり。</b>",
+  "https://www.musicbed.com/pricing"),
 ]
 
 NOTES = [
- ("無 料 で も 八 本 の 統 一 感 は 作 れ る",
-  "<b>同じ作曲者の曲を八本ぶん選べばよい。</b>DOVA-SYNDROMEも甘茶の音楽工房も、"
-  "作曲者のページから同じ人の他の曲を辿れます。一人決めて、そこから八曲選ぶのがいちばん早い。"),
+ ("ま ず は 無 料 で 十 分",
+  "<b>八本とも無料で揃えられます。</b>上の七つはいずれも商用利用が認められています。"
+  "<b>同じ作曲者の曲を八本ぶん選べば、無料でも統一感は作れます。</b>"
+  "DOVA-SYNDROMEも甘茶の音楽工房も、作曲者のページから同じ人の他の曲を辿れます。"),
  ("規 約 は 曲 ご と に 違 う",
   "<b>「商用利用可」のサイトでも、作曲者が個別の条件を付けていることがあります</b>"
   "（クレジット表示が必要、改変禁止、など）。"
@@ -110,11 +127,12 @@ NOTES = [
   "曲名・作曲者名・ダウンロードしたURL・取得日を一覧にして、"
   "<b>そのときの規約ページをスクリーンショットで保存しておく。</b>"
   "規約はあとから変わることがあり、使った時点の規約が証拠になります。"),
- ("無 料 の 弱 点 は 「 か ぶ る 」 こ と",
-  "他社の動画と同じ曲になることがあります。八本のうち<b>③だけは有料を検討する価値あり</b>"
-  "（黒背景・一灯で音楽だけで持たせる一本なので、曲の格がそのまま作品の格になる）。<br>"
+ ("有 料 を 検 討 す る な ら ③ だ け",
+  "無料の弱点は<b>他社の動画と曲がかぶること。</b>八本のうち<b>③（The Making of the Voyage）だけは"
+  "音楽だけで持たせる一本</b>なので、曲の格がそのまま作品の格になります。ここだけ有料、という使い分けが現実的です。<br>"
   "また、<b>Instagramの編集画面から選べる内蔵音源は使わない。</b>"
-  "ビジネスアカウントでは使えない曲が多く、あとから音だけ消されることがあります。"),
+  "ビジネスアカウントでは使えない曲が多く、あとから音だけ消されることがあります。<br>"
+  "<span style='color:#a8763e'>有料の金額は外部の記事に出ている目安で、こちらでは確認できていません。契約前に公式ページで確認を。</span>"),
 ]
 
 
@@ -160,24 +178,24 @@ def page(inner, h):
 
 
 def sheet_a():
-    th = ("text-align: left; font-size: 10.5px; font-weight: 400; color: " + FAINT +
+    th = ("text-align: left; font-size: 12px; font-weight: 400; color: " + FAINT +
           "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK)
     rows = "".join(f'''<tr>
       <td style="padding: 13px 12px 13px 0; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11px; color: {GOLD}; font-weight: 700">{esc(no)}</div>
-        <div style="font-size: 12.5px; font-weight: 700; color: {INK}; margin-top: 3px">{esc(jp)}</div>
-        <div style="font-size: 10.5px; color: {MUTED}; margin-top: 3px">{esc(ln)}</div></td>
+        <div style="font-size: 12px; color: {GOLD}; font-weight: 700">{esc(no)}</div>
+        <div style="font-size: 14px; font-weight: 700; color: {INK}; margin-top: 3px">{esc(jp)}</div>
+        <div style="font-size: 12px; color: {MUTED}; margin-top: 3px">{esc(ln)}</div></td>
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top; background: {PAPER}">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{role}</div></td>
+        <div style="font-size: 13px; line-height: 1.8; color: {INK}">{role}</div></td>
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{tempo}</div></td>
+        <div style="font-size: 13px; line-height: 1.8; color: {INK}">{tempo}</div></td>
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{arc}</div></td>
+        <div style="font-size: 13px; line-height: 1.8; color: {INK}">{arc}</div></td>
       <td style="padding: 13px 0 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11px; line-height: 1.75; color: {GOLD}">{esc(kw)}</div></td>
+        <div style="font-size: 12.5px; line-height: 1.85; color: {GOLD}">{esc(kw)}</div></td>
     </tr>''' for no, jp, ln, role, tempo, arc, kw in MUSIC)
     inner = f'''{head("別紙", "八本の音楽の方向", "Music Direction", "BGM")}
-    <div style="font-size: 12.5px; line-height: 1.75; color: {INK}; max-width: 1300px">{INTRO_A}</div>
+    <div style="font-size: 14px; line-height: 1.85; color: {INK}; max-width: 1400px">{INTRO_A}</div>
   </div>
   <table>
     <colgroup><col style="width: 190px"><col style="width: 300px"><col style="width: 300px"><col style="width: 360px"><col></colgroup>
@@ -194,40 +212,39 @@ def sheet_a():
 
 
 def sheet_b():
-    th = ("text-align: left; font-size: 10.5px; font-weight: 400; color: " + FAINT +
+    th = ("text-align: left; font-size: 12px; font-weight: 400; color: " + FAINT +
           "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK)
-    rows = "".join(f'''<tr>
-      <td style="padding: 13px 12px 13px 0; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 12.5px; font-weight: 700; color: {INK}">{esc(name)}</div>
-        {'<div style="font-size: 10px; margin-top: 4px"><a href="' + esc(url) + '" target="_blank" rel="noopener" style="color: ' + GOLD + '; text-decoration: underline">' + esc(url.replace("https://", "").rstrip("/")) + "</a></div>" if url else ""}</td>
+    rows = "".join(f"""<tr>
+      <td style="padding: 13px 10px 13px 0; border-bottom: 1px solid {LINE}; vertical-align: top">
+        <div style="font-size: 12px; font-weight: 700; color: {'#15191c' if kind.startswith('有料') else GOLD}">{esc(kind)}</div></td>
+      <td style="padding: 13px 14px 13px 0; border-bottom: 1px solid {LINE}; vertical-align: top">
+        <div style="font-size: 14px; font-weight: 700; color: {INK}">{esc(name)}</div>
+        {'<div style="font-size: 11px; margin-top: 4px"><a href="' + esc(url) + '" target="_blank" rel="noopener" style="color: ' + GOLD + '; text-decoration: underline">' + esc(url.replace("https://", "").rstrip("/")) + "</a></div>" if url else ""}</td>
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top; background: {PAPER}">
-        <div style="font-size: 12px; font-weight: 700; color: {INK}">{esc(price)}</div></td>
-      <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{scope}</div></td>
+        <div style="font-size: 13px; line-height: 1.75; color: {INK}">{scope}</div></td>
       <td style="padding: 13px 0 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{note}</div></td>
-    </tr>''' for name, price, scope, note, url in SHOPS)
-    notes = "".join(f'''<div style="flex: 1; min-width: 0">
-        <div style="font-size: 10.5px; color: {FAINT}; letter-spacing: 0.1em; margin-bottom: 5px">{esc(t)}</div>
-        <div style="font-size: 11.5px; line-height: 1.75; color: {INK}">{b}</div>
-      </div>''' for t, b in NOTES)
+        <div style="font-size: 13px; line-height: 1.75; color: {INK}">{note}</div></td>
+    </tr>""" for kind, name, scope, note, url in SHOPS)
+    notes = "".join(f"""<div style="flex: 1; min-width: 0">
+        <div style="font-size: 11.5px; color: {FAINT}; letter-spacing: 0.1em; margin-bottom: 6px">{esc(t)}</div>
+        <div style="font-size: 13px; line-height: 1.8; color: {INK}">{b}</div>
+      </div>""" for t, b in NOTES)
     inner = f'''{head("別紙", "どこで手に入れるか", "Where to Get the Music", "BGM")}
-    <div style="font-size: 12.5px; line-height: 1.75; color: {INK}; max-width: 1300px">
-      <b>八本とも無料で揃えられます。</b>下の五つはいずれも<b>商用利用（EC・Instagram・商談・展示会）が認められている無料のサイト</b>です。
-      八本とも商用で使うので、規約に「商用利用可」と書かれているものだけを使ってください。
-      <b>一つに決めて、八本ともそこから選ぶ。</b></div>
+    <div style="font-size: 14px; line-height: 1.8; color: {INK}; max-width: 1400px">
+      八本とも商用（EC・Instagram・商談・展示会）で使うので、<b>規約に「商用利用可」と書かれている音源だけを使ってください。</b>
+      下は<b>よく使われている無料・有料のサイトをまとめたもの</b>です。<b>一つに決めて、八本ともそこから選ぶ。</b></div>
   </div>
   <table>
-    <colgroup><col style="width: 260px"><col style="width: 200px"><col style="width: 420px"><col></colgroup>
+    <colgroup><col style="width: 76px"><col style="width: 250px"><col style="width: 430px"><col></colgroup>
     <tr>
-      <th style="{th}; padding: 0 12px 7px 0">サ ー ビ ス</th>
-      <th style="{th}; padding: 0 14px 7px">料 金 の 目 安</th>
-      <th style="{th}; padding: 0 14px 7px">使 え る 範 囲</th>
-      <th style="{th}; padding: 0 0 7px 14px">向 い て い る 点</th>
+      <th style="{th}; padding: 0 10px 8px 0">区 分</th>
+      <th style="{th}; padding: 0 14px 8px 0">サ ー ビ ス</th>
+      <th style="{th}; padding: 0 14px 8px">使 え る 範 囲</th>
+      <th style="{th}; padding: 0 0 8px 14px">向 い て い る 点</th>
     </tr>
     {rows}
   </table>
-  <div style="display: flex; gap: 30px; margin-top: 6px">{notes}</div>'''
+  <div style="display: flex; gap: 30px; margin-top: 8px">{notes}</div>'''
     return page(inner, HEIGHT["B"])
 
 
