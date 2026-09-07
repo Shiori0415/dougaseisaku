@@ -26,7 +26,7 @@ TOC = [
  {"n":"2","jp":"この道、20年。","en":"Twenty Years","len":"40秒 ×1","target":"新規（まだ知らない人）",
   "ref_html":'<a href="http://youtube.com/shorts/c2mH8rStFCA">Link</a>　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">Link</a>（コバ塗り・477万再生）',
   "ref_url":"http://youtube.com/shorts/c2mH8rStFCA", "ref_text":"youtube.com/shorts/c2mH8rStFCA ＋ instagram.com/reel/DbAniDDyF0U（コバ塗り・477万再生）","pg":"4"},
- {"n":"3","jp":"The Making of the Royale M Tote","en":"ロワイヤルMトートの作りかた","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
+ {"n":"3","jp":"The Making of the Voyage","en":"Voyageの作り方","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
   "ref_html":'<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   "ref_url":"https://www.instagram.com/reels/DWiwFp5DED-/", "ref_text":"instagram.com/reels/DWiwFp5DED-（delvaux）","pg":"5"},
  {"n":"4","jp":"持ち歩くものが、その人をつくる。","en":"What You Carry Makes You","len":"30秒 ×1","target":"仕事道具として買う人・贈る人",
@@ -143,7 +143,7 @@ PAGES = [
    ]),
   ], pn=4, total=T),
 
- dict(no="03", jp="The Making of the Royale M Tote", en="ロワイヤルMトートの作りかた",
+ dict(no="03", jp="The Making of the Voyage", en="Voyageの作り方",
   meta_len="28秒 ／ 15ショット", meta_target="対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   ref_detail="Instagramリール1本／delvaux。<b>約19秒</b>。暗い作業台に光を一筋だけ入れ、手が黄色い革を折って形を作り、<b>白手袋で金具を取り付けて完成品になる</b>まで。顔は映さない。<b>最後だけ、完成品が明るい工房の作業台に立つ画になる。</b><span style='color:#a8763e'>コバを塗る・磨く工程は参考動画に映っていないため、この一本には入れない（コバは2本目で見せる）。</span>",
