@@ -10,7 +10,7 @@ MARGIN = 40
 PAGE_W = 1640
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
-HEIGHT = {"A": 940, "B": 640}
+HEIGHT = {"A": 934, "B": 800}
 
 
 def esc(s):
@@ -74,37 +74,47 @@ MUSIC = [
 ]
 
 SHOPS = [
- ("Artlist（Commercial）", "年 約$299", "商用・放送まで。使えるアカウント数に制限なし。",
-  "<b>八本まとめて使うならこれ。</b>曲の質がそろっていて、同じ作曲家で八本を統一しやすい。",
+ ("DOVA-SYNDROME（日本）", "無料", "商用利用可。<b>クレジット表示は原則不要</b>（作曲者が個別に条件を付けている曲もある）。",
+  "<b>まずはここ。</b>曲数が多く、<b>作曲者のページから同じ人の曲を辿れる</b>ので、八本を一人の作曲者で揃えられる。"
+  "規約が日本語で読める。2026年3月から株式会社TRACKSが運営。",
+  "https://dova-s.jp/"),
+ ("甘茶の音楽工房（日本）", "無料", "商用利用可。クレジット表示不要。",
+  "落ち着いたピアノとアコースティックが多く、<b>この八本の方向にいちばん近い。</b>"
+  "曲数はDOVAより少ないので、DOVAと二つ見て決めるとよい。",
+  "https://amachamusic.chagasi.com/"),
+ ("Pixabay Music", "無料", "商用利用可。クレジット表示不要。",
+  "海外の曲。<b>左の表の英語キーワードがそのまま使える。</b>ピアノ・アンビエントの層が厚い。",
+  "https://pixabay.com/music/"),
+ ("YouTube オーディオ ライブラリ", "無料", "商用利用可。<b>ただし曲ごとに条件が違う</b>（クレジット必須の曲がある）。",
+  "YouTube以外でも使える。曲を選ぶたびにライセンス欄を確認すること。YouTubeのアカウントが必要。",
+  "https://studio.youtube.com/"),
+ ("Uppbeat", "無料プランあり", "商用利用可。<b>無料プランはクレジット表示が必要。</b>",
+  "曲の質は無料の中でいちばん高い。<b>クレジットを出したくない場合だけ月額（数百円台）にする。</b>",
+  "https://uppbeat.io/"),
+ ("有料にするなら（参考）", "年 $299 前後", "商用・放送まで。クレジット不要。",
+  "Artlist ／ Epidemic Sound ／ Audiostock（日本・買い切り）。"
+  "<b>八本すべてを有料にする必要はない。</b>③だけ有料にして格を上げる、という使い分けもできる。"
+  "<span style='color:#a8763e'>金額は外部の記事に出ている目安で、こちらでは確認できていません。</span>",
   "https://artlist.io/pricing"),
- ("Epidemic Sound（Commercial）", "月 約$25 ／ 年 約$300", "商用可。Instagram・TikTokでの著作権の申し立てから守られる。",
-  "安く始められる。<b>リール中心ならこれで足りる。</b>アカウント数に上限（プラットフォームごと3つ）がある。",
-  "https://www.epidemicsound.com/pricing/"),
- ("Audiostock（日本）", "1曲ごとの買い切り", "商用可。購入した曲は継続課金なしで使い続けられる。",
-  "<b>日本語でサポートが受けられる。</b>月額を持ちたくない場合はこれ。ただし曲ごとに探す手間がかかる。",
-  "https://audiostock.jp/"),
- ("Musicbed", "プランによる（高め）", "商用・ブランド映像向け。",
-  "曲の格はいちばん高い。<b>③のような一本だけに使うなら検討の価値あり。</b>",
-  "https://www.musicbed.com/pricing"),
- ("無料（YouTube Audio Library ほか）", "無料", "商用可のものが多いが、規約は曲ごとに違う。",
-  "<span style='color:#a8763e'>ブランド映像には勧めない。</span>他社の動画と曲がかぶる。八本の統一感も作りにくい。",
-  ""),
 ]
 
 NOTES = [
- ("料 金 は 目 安 で す",
-  "上の金額は2026年9月時点で外部の比較記事に出ている<b>目安</b>です。"
-  "<span style='color:#a8763e'>この環境から各社の料金ページに接続できないため、金額そのものは確認できていません。"
-  "契約前に必ず公式ページで確かめてください。</span>"),
- ("八 本 と も 同 じ サ ー ビ ス で 揃 え る",
-  "混ぜるとライセンスの管理が煩雑になり、あとで「どの曲がどの契約だったか」が分からなくなります。"
-  "<b>一つに決めて、八本ともそこから選ぶ。</b>"),
- ("Instagram の 内 蔵 音 源 は 使 わ な い",
-  "リールの編集画面から選べる音楽は、<b>ビジネスアカウントでは使えない曲が多く、"
-  "あとから音だけ消されることがあります。</b>必ずライセンスを買った音源を、書き出す前の動画に埋め込む。"),
- ("曲 は 動 画 よ り 長 い も の を 選 ぶ",
-  "尺の足りない曲を伸ばすと不自然になります。<b>長い曲を買って、編集で切る。</b>"
-  "曲の終わりに合わせて動画を伸ばさない。"),
+ ("無 料 で も 八 本 の 統 一 感 は 作 れ る",
+  "<b>同じ作曲者の曲を八本ぶん選べばよい。</b>DOVA-SYNDROMEも甘茶の音楽工房も、"
+  "作曲者のページから同じ人の他の曲を辿れます。一人決めて、そこから八曲選ぶのがいちばん早い。"),
+ ("規 約 は 曲 ご と に 違 う",
+  "<b>「商用利用可」のサイトでも、作曲者が個別の条件を付けていることがあります</b>"
+  "（クレジット表示が必要、改変禁止、など）。"
+  "<span style='color:#a8763e'>使う前に、その曲のページを必ず最後まで読む。</span>"),
+ ("使 っ た 曲 の 記 録 を 残 す",
+  "曲名・作曲者名・ダウンロードしたURL・取得日を一覧にして、"
+  "<b>そのときの規約ページをスクリーンショットで保存しておく。</b>"
+  "規約はあとから変わることがあり、使った時点の規約が証拠になります。"),
+ ("無 料 の 弱 点 は 「 か ぶ る 」 こ と",
+  "他社の動画と同じ曲になることがあります。八本のうち<b>③だけは有料を検討する価値あり</b>"
+  "（黒背景・一灯で音楽だけで持たせる一本なので、曲の格がそのまま作品の格になる）。<br>"
+  "また、<b>Instagramの編集画面から選べる内蔵音源は使わない。</b>"
+  "ビジネスアカウントでは使えない曲が多く、あとから音だけ消されることがあります。"),
 ]
 
 
@@ -140,7 +150,7 @@ def page(inner, h):
 {inner}
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: {FAINT}">
     <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　BGM</div>
-    <div>音楽の方向と買い方</div>
+    <div>音楽の方向と、無料で揃える手順</div>
   </div>
 </div>
 </x-dc>
@@ -193,7 +203,7 @@ def sheet_b():
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top; background: {PAPER}">
         <div style="font-size: 12px; font-weight: 700; color: {INK}">{esc(price)}</div></td>
       <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{esc(scope)}</div></td>
+        <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{scope}</div></td>
       <td style="padding: 13px 0 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
         <div style="font-size: 11.5px; line-height: 1.7; color: {INK}">{note}</div></td>
     </tr>''' for name, price, scope, note, url in SHOPS)
@@ -201,10 +211,11 @@ def sheet_b():
         <div style="font-size: 10.5px; color: {FAINT}; letter-spacing: 0.1em; margin-bottom: 5px">{esc(t)}</div>
         <div style="font-size: 11.5px; line-height: 1.75; color: {INK}">{b}</div>
       </div>''' for t, b in NOTES)
-    inner = f'''{head("別紙", "どこで買うか", "Where to License", "BGM")}
+    inner = f'''{head("別紙", "どこで手に入れるか", "Where to Get the Music", "BGM")}
     <div style="font-size: 12.5px; line-height: 1.75; color: {INK}; max-width: 1300px">
-      八本とも商用（EC・Instagram・商談・展示会）で使うので、<b>ライセンスを買った音源を使う。</b>
-      下の四つはいずれも商用で使えるサービス。<b>一つに決めて、八本ともそこから選ぶ。</b></div>
+      <b>八本とも無料で揃えられます。</b>下の五つはいずれも<b>商用利用（EC・Instagram・商談・展示会）が認められている無料のサイト</b>です。
+      八本とも商用で使うので、規約に「商用利用可」と書かれているものだけを使ってください。
+      <b>一つに決めて、八本ともそこから選ぶ。</b></div>
   </div>
   <table>
     <colgroup><col style="width: 260px"><col style="width: 200px"><col style="width: 420px"><col></colgroup>
