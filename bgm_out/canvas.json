@@ -1,0 +1,21 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1640,
+      "h": 940
+    },
+    {
+      "file": "Video02.dc.html",
+      "x": 1760,
+      "y": 0,
+      "w": 1640,
+      "h": 640
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}
