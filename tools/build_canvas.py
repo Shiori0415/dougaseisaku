@@ -28,7 +28,7 @@ CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
 CAP_MAX_LINES = 9                    # 念のための上限
 LABEL_FS, LABEL_LH = 14, 1.25        # シーン名の文字サイズと行間
 BLOCK_COLS = 2
-SHOT_MIN_SPLIT = 6   # 折り返してよいのは6コマ以上のシーンだけ。5コマまでは横一列のまま
+SHOT_MIN_SPLIT = 5   # 折り返してよいのは5コマ以上のシーンだけ。4コマまでは横一列のまま
 SPLIT_MIN_COLS = 3   # 折り返すときも、上の段には最低3コマ置く
 
 
