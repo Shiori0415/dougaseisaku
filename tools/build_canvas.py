@@ -23,7 +23,7 @@ SPEC = {
     "v": dict(page_w=1180, cell_w=170, cell_h=302, header_h=200),
     "h": dict(page_w=1540, cell_w=230, cell_h=129, header_h=170),
 }
-MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 10, 44, 30
+MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 8, 26, 30
 CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
 CAP_MAX_LINES = 9                    # 念のための上限
 BLOCK_COLS = 2
@@ -46,10 +46,36 @@ def block_height(page, row):
     return LABEL_H + 4 + h + 6 + cap_height(row[2], w)
 
 
+def block_width(page, row):
+    """1シーンの横幅（コマの幅×枚数＋すき間）"""
+    sp = SPEC[ORIENT[page["no"]]]
+    n = len(row[2])
+    w, _ = cell_size(sp, n)
+    return w * n + SHOT_GAP * (n - 1)
+
+
+def pack(page):
+    """シーンを横に詰めて、入らなくなったら折り返す（すき間を作らない）"""
+    sp = SPEC[ORIENT[page["no"]]]
+    inner = sp["page_w"] - MARGIN * 2
+    bands, cur, used = [], [], 0
+    for r in page["rows"]:
+        w = block_width(page, r)
+        add = w if not cur else BLOCK_GAP_X + w
+        if cur and used + add > inner:
+            bands.append(cur)
+            cur, used = [r], w
+        else:
+            cur.append(r)
+            used += add
+    if cur:
+        bands.append(cur)
+    return bands
+
+
 def page_height(page):
     sp = SPEC[ORIENT[page["no"]]]
-    rows = page["rows"]
-    bands = [rows[i:i + BLOCK_COLS] for i in range(0, len(rows), BLOCK_COLS)]
+    bands = pack(page)
     grid_h = sum(max(block_height(page, r) for r in b) for b in bands)
     grid_h += (len(bands) - 1) * BLOCK_GAP_Y
     return MARGIN * 2 + sp["header_h"] + 20 + grid_h + 24
@@ -214,7 +240,7 @@ def artboard(page, imgmap):
 </helmet>
 <div style="width: {sp["page_w"]}px; height: {page_height(page)}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
   {header}
-  <div style="display: grid; grid-template-columns: repeat({BLOCK_COLS}, minmax(0, 1fr)); gap: {BLOCK_GAP_Y}px {BLOCK_GAP_X}px; justify-items: start">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: {BLOCK_GAP_Y}px {BLOCK_GAP_X}px">
     {blocks}
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: {FAINT}">
