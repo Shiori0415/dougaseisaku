@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""撮影の順番（ショットリスト）を、1日＝1シートの .dc.html で書き出す。
+"""香盤表を、1日＝1シートの .dc.html で書き出す。
    実行: python3 tools/build_shotlist_canvas.py <出力ディレクトリ>
 
    ・何を撮るかは tools/deck_data.json（絵コンテ）から
@@ -45,20 +45,22 @@ DAYS = [
       blocks=[("03", [1, 2, 3, 4, 5])]),
 
  dict(key="d3", no="三日目", place="向島工房・店舗", theme="三人の話を録る日",
-      lead="⑤と⑥の語りを、この日に全部録り切る。四日目からは、録れた声に画を当てていく。声が先にあると、どの画を何秒使うかが決まるので、撮る量に無駄が出ない。",
+      lead="⑤と⑥の語りを、この日に全部録り切る。一人三十分。四日目からは、録れた声に画を当てていく。声が先にあると、どの画を何秒使うかが決まるので、撮る量に無駄が出ない。",
       gear="カメラ／三脚／ピンマイク 三本／白い板／予備の電池とカード",
       keys=["窓を横に置く。背にすると顔が黒くつぶれ、向くと目が細くなる。",
             "カメラは目の高さ、バストショットで固定。話が長くなっても画角は変えない。",
             "質問者はカメラのすぐ横に座る。カメラを直接見てもらわない。",
-            "話し終わって三秒待ってから止める。録った音は、その日のうちに一度通して聞く。"],
-      talks=[("9:30〜11:00", "永尾社長", "向島工房のインタビューの一角（窓を横に）",
-              "⑤の語りを全部（七十五秒ぶん）。<br>画は <b>S1③</b>（バストショット）と <b>S8</b>（締めの一言）。",
-              "S1③とS8は同じ画角のまま続けて撮る。締めの一言は、収録の最後に一本言い切ってもらう。"),
-             ("11:15〜12:45", "佐藤さん", "向島工房（梱包の台の横・窓を横に）",
+            "話し終わって三秒待ってから止める。",
+            "シーンごとに区切って録る。三十分に収めるには、通しで話さず、言い直したところだけ録り直す。",
+            "録った音は、その場で聞き返す。聞き取れないところは、その人がいるうちに録り直す。"],
+      talks=[("9:30〜10:00", "永尾社長", "向島工房のインタビューの一角（窓を横に）",
+              "⑤の語りを全部（七十五秒ぶん・八シーン）。<br>画は <b>S1③</b>（バストショット）と <b>S8</b>（締めの一言）。",
+              "シーンごとに区切って録る。S1③とS8は同じ画角のまま続けて撮る。"),
+             ("10:15〜10:45", "佐藤さん", "向島工房（梱包の台の横・窓を横に）",
               "⑥の語りを全部（二分二十秒ぶん・九工程）。<br>画は <b>S2③</b>（引き）と <b>S8③</b>（バストショット）。",
-              "工程の順に話してもらう。あとで画を当てやすい。機械の名前は言わない。"),
-             ("14:30〜15:00", "くさがやさん", "店内（窓を横に）",
-              "⑤の語りのうち、店のところ。<br>画は <b>S6①</b>（横顔）。",
+              "工程ごとに区切って録る。話す順は工程の順。機械の名前は言わない。"),
+             ("11:30〜12:00", "くさがやさん", "店内（窓を横に）",
+              "⑤の語りのうち、店のところ（二シーン）。<br>画は <b>S6①</b>（横顔）。",
               "空いた側に見出しテロップが入るので、画面の片側を空けて撮る。")]),
 
  dict(key="d4", no="四日目", place="向島工房", theme="順路どおりに歩いて撮る日",
@@ -299,7 +301,7 @@ def day_artboard(day):
     </div>
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
-    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　撮影の順番</div>
+    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　香盤表</div>
     <div>{esc(day["no"])}</div>
   </div>
 </div>
@@ -355,8 +357,8 @@ def cover_artboard():
   <div style="border-bottom: 2px solid {INK}; padding-bottom: 16px">
     <div style="font-size: 15px; font-weight: 700; color: {GOLD}; letter-spacing: 0.14em">BROOKLYN MUSEUM ／ 向島工房</div>
     <div style="display: flex; align-items: baseline; gap: 18px; margin-top: 10px">
-      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　撮影の順番</div>
-      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Order</div>
+      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　香盤表</div>
+      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Schedule</div>
       <div style="margin-left: auto; font-size: 18px; font-weight: 700; color: {INK}">全八本　{tot_s + tot_e}カット　／　撮影 九日</div>
     </div>
   </div>
@@ -401,7 +403,7 @@ def cover_artboard():
     </div>
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
-    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　撮影の順番</div>
+    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　香盤表</div>
     <div>表紙</div>
   </div>
 </div>
@@ -412,26 +414,26 @@ def cover_artboard():
 
 
 CAST = [
- ("①", "その日の服に、その日の色。", "九日目", "映る（腰より上の寄りがある）",
-  "<b>要る。</b>四回の着替えごとに髪と肌を直す。<br>屋内の混合光で肌の色が転びやすい。",
-  "四色ぶんの服と鞄。<b>鞄の色と喧嘩しない服</b>を選ぶ。<br>服を決めて用意する人（スタイリスト）も要る。",
+ ("①", "01", "九日目", "映る（腰より上の寄りがある）",
+  "鏡だけ。四回の着替えのあと、髪の乱れを直す。",
+  "四色ぶんの服と鞄。<b>鞄の色と喧嘩しない服</b>を選ぶ。<br>ヘアメイクを付けないので、<b>髪型が崩れない服</b>にする ──<br>前開きの上着なら、着替えで髪が乱れない。",
   "着替え場所と荷物置き場。四回の着替えを見込んで、<br>会場の使用時間を長めに申請する。"),
- ("④", "What You Carry Makes You", "八日目", "主役にしない（引きと後ろ姿）",
-  "<b>髪を整える程度でよい。</b><br>ただし手が寄りで映るので、爪は切りそろえる。",
+ ("④", "04", "八日目", "主役にしない（引きと後ろ姿）",
+  "爪を切りそろえる。<b>手が寄りで映る。</b>",
   "一そろい。街に馴染む色。<br>鞄より目立つ柄は避ける。",
   "時計・指輪は外す。<br>歩く距離があるので、履き慣れた靴で。"),
- ("⑦", "朝も仕事も、スマートに。", "七日目", "映らない（手と肩だけ）",
-  "<b>要らない。</b><br>手元だけ整える ── 爪を切り、手を洗っておく。",
+ ("⑦", "07", "七日目", "映らない（手と肩だけ）",
+  "爪を切り、手を洗っておく。<br>時計・指輪は外す。",
   "袖口の見える無地の上着。<br>柄物だと、手の動きより袖に目が行く。",
-  "時計・指輪は外す。<br>物を置く速さが一定にできる方を選ぶ。"),
- ("⑧", "購入者インタビュー", "六日目", "映る（バストショット）",
-  "<b>要らない。</b>テカリ止めのパウダーだけ用意する。<br>窓の光で額と鼻が光る。",
+  "物を置く速さが一定にできる方を選ぶ。<br>一度通してもらってから本番。"),
+ ("⑧", "08", "六日目", "映る（バストショット）",
+  "テカリ止めのパウダーだけ用意する。<br>窓の光で額と鼻が光る。",
   "本人のふだんの服。<br>細かい柄は画面で目がちらつくので避ける。",
   "顔出しの範囲を、撮る前に本人へ確認する。<br>名前は出さず「購入者Aさん」とだけ出す。"),
- ("⑤⑥", "永尾社長・佐藤さん・くさがやさん", "三日目", "映る（バストショット・横顔）",
-  "<b>要らない。</b>パウダーと、直せる鏡があればよい。",
+ ("⑤⑥", None, "三日目", "映る（バストショット・横顔）",
+  "襟元と髪だけ、撮る直前に鏡で見る。",
   "ふだんの仕事着。<br>三人とも同じ日に撮るので、その日の服で揃う。",
-  "襟元と髪だけ、撮る直前に鏡で見る。"),
+  "永尾社長・佐藤さん・くさがやさん。<br>三人とも三十分ずつ。"),
 ]
 
 
@@ -440,7 +442,8 @@ def cast_artboard():
           "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 11px")
     td = f"padding: 20px 16px; border-bottom: 1px solid {LINE}; vertical-align: top"
     rows = []
-    for maru, name, day, face, hm, cloth, other in CAST:
+    for maru, no, day, face, hm, cloth, other in CAST:
+        name = PG[no]["jp"] if no else "永尾社長・佐藤さん・くさがやさん"
         rows.append(f'''<tr>
       <td style="{td}; padding-left: 0">
         <div style="font-size: 21px; font-weight: 700; color: {GOLD}">{maru}</div>
@@ -472,10 +475,10 @@ def cast_artboard():
   <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid {INK}; padding-bottom: 14px">
     <div style="font-size: 32px; font-weight: 700; color: {INK}">出演者と支度</div>
     <div style="font-size: 16px; color: {FAINT}; letter-spacing: 0.06em">Cast &amp; Preparation</div>
-    <div style="margin-left: auto; font-size: 17px; color: {MUTED}">顔が寄りで映るのは①と⑧だけ</div>
+    <div style="margin-left: auto; font-size: 17px; color: {MUTED}">ヘアメイクは付けない</div>
   </div>
   <div style="font-size: 17px; line-height: 1.8; color: {MUTED}">
-    ヘアメイクが要るのは①だけです。④は髪を整える程度、⑦は顔が映らないので支度は手元だけ、⑧はテカリ止めのパウダーで足ります。
+    ヘアメイクは付けません。当日の支度は、鏡・テカリ止めのパウダー・爪の手入れだけです。顔が寄りで映るのは①と⑧の二本だけで、ほかは顔を主役にしないか、まったく映しません。
   </div>
   <table>
     <colgroup>
@@ -484,7 +487,7 @@ def cast_artboard():
     <tr>
       <th style="{th}; padding-left: 0">本　／　撮 影 日</th>
       <th style="{th}; padding-left: 16px">顔 が 映 る か</th>
-      <th style="{th}; padding-left: 16px">ヘ ア メ イ ク</th>
+      <th style="{th}; padding-left: 16px">当 日 の 支 度</th>
       <th style="{th}; padding-left: 16px">衣 装</th>
       <th style="{th}; padding-left: 16px">そ の ほ か</th>
     </tr>
@@ -497,7 +500,7 @@ def cast_artboard():
     体調不良に備えて、①と④は予備日を一日置く。
   </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
-    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　撮影の順番</div>
+    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　香盤表</div>
     <div>出演者と支度</div>
   </div>
 </div>
@@ -507,8 +510,8 @@ def cast_artboard():
 '''
 
 # 実際に描かせて測った高さ
-HEIGHT = {"cover": 1458, "d1": 1277, "d2": 960, "d3": 788,
-          "d4": 1347, "d5": 858, "d6": 1513, "d7": 937, "d8": 859, "d9": 1011, "cast": 989}
+HEIGHT = {"cover": 1458, "d1": 1277, "d2": 960, "d3": 864,
+          "d4": 1347, "d5": 858, "d6": 1513, "d7": 937, "d8": 859, "d9": 1011, "cast": 1062}
 
 
 def main(outdir):

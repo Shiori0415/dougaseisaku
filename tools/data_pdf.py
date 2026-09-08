@@ -20,25 +20,25 @@ COVER = {
 TOC_INTRO = "6本目・8本目以外は参考動画があり、絵コンテの写真もそこから抜いています。6本目は、いただいた写真と、5本目・2本目の映像から画角の参考として写真を当てています。8本目は、いただいた店舗紹介の録画から写真を当てています。参考動画の秒数は、いただいた録画から測った目安です。"
 
 TOC = [
- {"n":"1","jp":"その日の服に、その日の色。","en":"A Colour for Every Outfit","len":"25秒 ×1","target":"新規・リピーター",
+ {"n":"1","jp":"服装ごとに画が変わる","en":"A Colour for Every Outfit","len":"25秒 ×1","target":"新規・リピーター",
   "ref_html":'<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">Link</a>（innovator SWEDEN）',
   "ref_url":"https://www.instagram.com/reels/DZG2DvMh-Ts/", "ref_text":"instagram.com/reels/DZG2DvMh-Ts（innovator SWEDEN）","pg":"3"},
- {"n":"2","jp":"この道、20年。","en":"Twenty Years","len":"40秒 ×1","target":"新規（まだ知らない人）",
+ {"n":"2","jp":"ASMRで製造の姿を撮る","en":"Twenty Years","len":"40秒 ×1","target":"新規（まだ知らない人）",
   "ref_html":'いただいた録画2本　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">Link</a>（コバ塗り・477万再生）',
   "ref_url":"https://www.instagram.com/reel/DbAniDDyF0U/", "ref_text":"いただいた録画2本 ＋ instagram.com/reel/DbAniDDyF0U（コバ塗り・477万再生）","pg":"4"},
- {"n":"3","jp":"The Making of the Voyage","en":"Voyageの作り方","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
+ {"n":"3","jp":"暗めでエレガントにブランドを映す","en":"The Making of the Voyage","len":"28秒 ×1","target":"メディア関係者・ハイエンド層",
   "ref_html":'<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   "ref_url":"https://www.instagram.com/reels/DWiwFp5DED-/", "ref_text":"instagram.com/reels/DWiwFp5DED-（delvaux）","pg":"5"},
- {"n":"4","jp":"What You Carry Makes You","en":"","len":"30秒 ×1","target":"新規・リピーター",
+ {"n":"4","jp":"鞄を持って街を歩く（海外ドラマ風）","en":"What You Carry Makes You","len":"30秒 ×1","target":"新規・リピーター",
   "ref_html":'<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny）',
   "ref_url":"https://www.instagram.com/reels/DcOkNyyoFFJ/", "ref_text":"instagram.com/reels/DcOkNyyoFFJ（parisawangny）","pg":"6"},
  {"n":"5","jp":"コーポレートムービー","en":"Corporate Film","len":"75秒 ×1","target":"メディア関係者・OEMの調達担当・新規",
   "ref_html":'<a href="https://www.youtube.com/watch?v=4DEy0CAg43s">Link</a>　＋　<a href="https://youtu.be/OU-qyAcn2YM">Link</a>　＋　<a href="https://youtu.be/OPDWrOeD-gU">Link</a>（コーポレートムービー）',
   "ref_url":"https://www.youtube.com/watch?v=4DEy0CAg43s", "ref_text":"youtube.com/watch?v=4DEy0CAg43s ＋ youtu.be/OU-qyAcn2YM ＋ youtu.be/OPDWrOeD-gU（コーポレートムービー）","pg":"7"},
- {"n":"6","jp":"選ばれる理由。","en":"Why Brands Choose Us","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
+ {"n":"6","jp":"OEM工房案内","en":"Why Brands Choose Us","len":"2分20秒 ×1／無音版 ×1","target":"OEMの調達・生産担当",
   "ref_html":'<span style="color:#b8ac97">いただいた録画1本（工場案内）＋⑤と同様</span>',
   "ref_url":"", "ref_text":"いただいた録画1本（工場案内）＋⑤と同様","pg":"8"},
- {"n":"7","jp":"朝も仕事も、スマートに。","en":"Smart from Morning to Work","len":"25秒","target":"新規（買う直前の人）",
+ {"n":"7","jp":"製品の中身と使い勝手","en":"Smart from Morning to Work","len":"25秒","target":"新規（買う直前の人）",
   "ref_html":'<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">Link</a>',
   "ref_url":"https://www.instagram.com/reel/DZE-_hZuwXb/", "ref_text":"instagram.com/reel/DZE-_hZuwXb","pg":"9"},
  {"n":"8","jp":"購入者インタビュー","en":"Customer Interview","len":"60秒 ×1（仮）","target":"購入を迷っている新規",
@@ -46,7 +46,7 @@ TOC = [
 ]
 
 PAGES = [
-  dict(no="01", jp="その日の服に、その日の色。", en="A Colour for Every Outfit",
+  dict(no="01", jp="服装ごとに画が変わる", en="A Colour for Every Outfit",
   meta_len="25秒 ／ 13ショット（一場面につき全体と腰より上の二枚）", meta_target="対象＝新規・リピーター　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DZG2DvMh-Ts/">Link</a>（innovator SWEDEN）',
   ref_detail="Instagramリール1本／innovator SWEDEN（スーツケースの広告）。<b>約35秒</b>。<b>同じ場所で、人物ごとに服とスーツケースの色が変わる。</b>手前を何かが横切る前ボケでつなぎ、最後は人がフレームから出てケースだけが残り、四色が並んで終わる。<span style='color:#a8763e'>写真は画角と切り替わりの参考です。場所は使いません ── 参考動画はキャリーケースの広告で、舞台が空港になっているため。巻き戻す作りは参考動画にはないので、絵コンテの写真は進む側のものを当てています。</span>",
@@ -84,7 +84,7 @@ PAGES = [
      ("共通_ロゴのみ","そのままロゴ。<b>締めのテロップは出さない。</b>"),
    ]),
   ], pn=3, total=T),
- dict(no="02", jp="この道、20年。", en="Twenty Years",
+ dict(no="02", jp="ASMRで製造の姿を撮る", en="Twenty Years",
   meta_len="40秒 ／ 25ショット", meta_target="対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
   ref='参考動画＝いただいた録画2本（1本の作品の前半・後半）　＋　<a href="https://www.instagram.com/reel/DbAniDDyF0U/">Link</a>（コバ塗り・477万再生）',
   ref_detail="いただいた録画2本＝1本の作品を前半・後半に分けたもの。合わせて<b>約42秒</b>。<b>革を選ぶ → 抜き型で裁つ → 二枚を貼り合わせる → 型に当てて形を出す → ミシンで縫う → 手縫いで締める → 縁に切り込みを入れる → 縁を整える → 完成</b>まで、工程を順番どおりに見せ、画面の下に一行の英文テロップを重ねている。作業音はそのまま入っていて、ナレーションはない。コバ塗り（477万再生）＝<b>約19秒</b>、<b>赤い財布</b>の断面に道具の先を当てて塗っていく寄り一本。<span style='color:#a8763e'>S7の一コマだけがコバ塗りの参考動画から、ほかの二十四コマはいただいた録画2本から抜いています。人が広角に映る三枚は、参考動画に出てくる順に並べています。</span>",
@@ -139,7 +139,7 @@ PAGES = [
   ]),
   ], pn=4, total=T),
 
- dict(no="03", jp="The Making of the Voyage", en="Voyageの作り方",
+ dict(no="03", jp="暗めでエレガントにブランドを映す", en="The Making of the Voyage",
   meta_len="28秒 ／ 15ショット", meta_target="対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DWiwFp5DED-/">Link</a>（delvaux）',
   ref_detail="Instagramリール1本／delvaux。<b>約19秒</b>。暗い作業台に光を一筋だけ入れ、手が黄色い革を折って形を作り、<b>白手袋で金具を取り付けて完成品になる</b>まで。顔は映さない。<b>最後だけ、完成品が明るい工房の作業台に立つ画になる。</b>",
@@ -175,7 +175,7 @@ PAGES = [
    ]),
   ], pn=5, total=T),
 
- dict(no="04", jp="What You Carry Makes You", en="",
+ dict(no="04", jp="鞄を持って街を歩く（海外ドラマ風）", en="What You Carry Makes You",
   meta_len="30秒 ／ 11ショット", meta_target="対象＝新規・リピーター　／　全媒体",
   ref='参考動画＝<a href="https://www.instagram.com/reels/DcOkNyyoFFJ/">Link</a>（parisawangny）',
   ref_detail="Instagramリール1本／parisawangny。<b>約30秒</b>。<b>画面にテロップは出ない。</b>",
@@ -261,7 +261,7 @@ PAGES = [
    ]),
   ], pn=7, total=T),
 
-  dict(no="06", jp="選ばれる理由。", en="Why Brands Choose Us",
+  dict(no="06", jp="OEM工房案内", en="Why Brands Choose Us",
   meta_len="2分20秒 ／ 28ショット（展示会用の無音版 ×1）", meta_target="対象＝OEMの調達・生産担当　／　商談・展示会・提案資料",
   ref='参考動画＝いただいた録画1本（工場案内）　＋　⑤と同様。<b style="color:#a8763e">工場を歩いて見せる案内型</b>（入口から通路を奥へ、工程順に歩き、梱包場で終わる）',
   ref_detail="いただいた録画1本＝工場を歩いて見せる案内映像（横型）。<b>通路を奥へ進むトラッキング → 見たことのない機械の寄り → 材料が壁一面に並ぶ画 → 人は引きの中に小さく</b>、という順で工場の中を見せ、<b>そのあとで話し手が画に出てくる。</b>暗めの画で、素材の色だけを立てている。<b>S1・S2はこの撮り方をそのまま借り、S3から先は工程どおりに戻す。</b><br><b>工場を歩いて見せる案内型</b>（入口→通路→工程順に歩く→梱包場）。<span style='color:#a8763e'>空撮は5本目に入れてあるので、この6本目では使わない。</span><span style='color:#a8763e'>絵コンテの写真は、S1・S2の3コマが工場案内の録画、縫製の3コマがいただいた写真、コバ塗りが2本目の参考動画、それ以外は⑤の3本から画角の参考として当てている。梱包の3コマも⑤の映像から当てている。<b>締めの一カットに使っている写真は⑤で永尾社長に当てているものと同じで、佐藤さんのバストショットの画角の見本です。</b></span>",
@@ -321,7 +321,7 @@ PAGES = [
    ]),
   ], pn=8, total=T),
 
- dict(no="07", jp="朝も仕事も、スマートに。", en="Smart from Morning to Work",
+ dict(no="07", jp="製品の中身と使い勝手", en="Smart from Morning to Work",
   meta_len="25秒 ／ 14ショット", meta_target="対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下",
   ref='参考動画＝<a href="https://www.instagram.com/reel/DZE-_hZuwXb/">Link</a>（朝の出発前）',
   ref_detail="Instagramリール1本／selentether_japan。<b>約35秒</b>。<b>正面固定のまま一度も動かない。</b>机に鞄が一つ置いてあるところから始まり、人が入ってきて口を開け、書類・ノートPC・小物を順に入れ、持ち上げて肩に掛け、<b>人も鞄もフレームから出ていく。</b>最後は<b>何も乗っていない机だけが残り</b>、その画にテロップ、そのままロゴで終わる。",

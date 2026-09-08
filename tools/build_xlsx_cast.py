@@ -63,9 +63,9 @@ def title_block(ws, title, lead, widths):
 # ────────────────────────────────────────────────────────────────
 HEADS = [
     "項　目",
-    "①　その日の服に、その日の色。",
-    "④　What You Carry Makes You",
-    "⑦　朝も仕事も、スマートに。",
+    "①　服装ごとに画が変わる",
+    "④　鞄を持って街を歩く（海外ドラマ風）",
+    "⑦　製品の中身と使い勝手",
 ]
 
 # (項目, ①, ④, ⑦, 目立たせるか)
@@ -300,11 +300,11 @@ def main():
     wb = Workbook()
     wb.remove(wb.active)
     sheet_matrix(wb)
-    sheet_detail(wb, "①の細かいところ", "①　その日の服に、その日の色。",
+    sheet_detail(wb, "①の細かいところ", "①　服装ごとに画が変わる",
                  "三本のなかで唯一、人選が結果を決める一本。顔よりも歩き方で選ぶ。", "1", DETAIL1)
-    sheet_detail(wb, "④の細かいところ", "④　What You Carry Makes You",
+    sheet_detail(wb, "④の細かいところ", "④　鞄を持って街を歩く（海外ドラマ風）",
                  "顔を主役にしない。選ぶのは立ち姿と手だけ。知人に頼めば足りる。", "4", DETAIL4)
-    sheet_detail(wb, "⑦の細かいところ", "⑦　朝も仕事も、スマートに。",
+    sheet_detail(wb, "⑦の細かいところ", "⑦　製品の中身と使い勝手",
                  "顔は入らない。実質ハンドモデル。宮下さんご自身の手でも撮れる。", "7", DETAIL7)
     sheet_check(wb)
     out = os.path.join(ROOT, "pdf", "05_出演者_モデル像.xlsx")

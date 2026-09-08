@@ -16,7 +16,7 @@
   "toc": [
     {
       "n": "1",
-      "jp": "その日の服に、その日の色。",
+      "jp": "服装ごとに画が変わる",
       "en": "A Colour for Every Outfit",
       "len": "25秒 ×1",
       "target": "新規・リピーター",
@@ -27,7 +27,7 @@
     },
     {
       "n": "2",
-      "jp": "この道、20年。",
+      "jp": "ASMRで製造の姿を撮る",
       "en": "Twenty Years",
       "len": "40秒 ×1",
       "target": "新規（まだ知らない人）",
@@ -38,8 +38,8 @@
     },
     {
       "n": "3",
-      "jp": "The Making of the Voyage",
-      "en": "Voyageの作り方",
+      "jp": "暗めでエレガントにブランドを映す",
+      "en": "The Making of the Voyage",
       "len": "28秒 ×1",
       "target": "メディア関係者・ハイエンド層",
       "ref_html": "<a href=\"https://www.instagram.com/reels/DWiwFp5DED-/\">Link</a>（delvaux）",
@@ -49,8 +49,8 @@
     },
     {
       "n": "4",
-      "jp": "What You Carry Makes You",
-      "en": "",
+      "jp": "鞄を持って街を歩く（海外ドラマ風）",
+      "en": "What You Carry Makes You",
       "len": "30秒 ×1",
       "target": "新規・リピーター",
       "ref_html": "<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>（parisawangny）",
@@ -71,7 +71,7 @@
     },
     {
       "n": "6",
-      "jp": "選ばれる理由。",
+      "jp": "OEM工房案内",
       "en": "Why Brands Choose Us",
       "len": "2分20秒 ×1／無音版 ×1",
       "target": "OEMの調達・生産担当",
@@ -82,7 +82,7 @@
     },
     {
       "n": "7",
-      "jp": "朝も仕事も、スマートに。",
+      "jp": "製品の中身と使い勝手",
       "en": "Smart from Morning to Work",
       "len": "25秒",
       "target": "新規（買う直前の人）",
@@ -106,7 +106,7 @@
   "pages": [
     {
       "no": "01",
-      "jp": "その日の服に、その日の色。",
+      "jp": "服装ごとに画が変わる",
       "en": "A Colour for Every Outfit",
       "meta_len": "25秒 ／ 13ショット（一場面につき全体と腰より上の二枚）",
       "meta_target": "対象＝新規・リピーター　／　全媒体",
@@ -215,7 +215,7 @@
     },
     {
       "no": "02",
-      "jp": "この道、20年。",
+      "jp": "ASMRで製造の姿を撮る",
       "en": "Twenty Years",
       "meta_len": "40秒 ／ 25ショット",
       "meta_target": "対象＝新規（まだ知らない人）　／　EC Promotionタブ・公式Instagram",
@@ -390,8 +390,8 @@
     },
     {
       "no": "03",
-      "jp": "The Making of the Voyage",
-      "en": "Voyageの作り方",
+      "jp": "暗めでエレガントにブランドを映す",
+      "en": "The Making of the Voyage",
       "meta_len": "28秒 ／ 15ショット",
       "meta_target": "対象＝メディア関係者・ハイエンド層　／　公式Instagram・B supply ホームページ",
       "ref": "参考動画＝<a href=\"https://www.instagram.com/reels/DWiwFp5DED-/\">Link</a>（delvaux）",
@@ -501,8 +501,8 @@
     },
     {
       "no": "04",
-      "jp": "What You Carry Makes You",
-      "en": "",
+      "jp": "鞄を持って街を歩く（海外ドラマ風）",
+      "en": "What You Carry Makes You",
       "meta_len": "30秒 ／ 11ショット",
       "meta_target": "対象＝新規・リピーター　／　全媒体",
       "ref": "参考動画＝<a href=\"https://www.instagram.com/reels/DcOkNyyoFFJ/\">Link</a>（parisawangny）",
@@ -751,7 +751,7 @@
     },
     {
       "no": "06",
-      "jp": "選ばれる理由。",
+      "jp": "OEM工房案内",
       "en": "Why Brands Choose Us",
       "meta_len": "2分20秒 ／ 28ショット（展示会用の無音版 ×1）",
       "meta_target": "対象＝OEMの調達・生産担当　／　商談・展示会・提案資料",
@@ -938,7 +938,7 @@
     },
     {
       "no": "07",
-      "jp": "朝も仕事も、スマートに。",
+      "jp": "製品の中身と使い勝手",
       "en": "Smart from Morning to Work",
       "meta_len": "25秒 ／ 14ショット",
       "meta_target": "対象＝新規（買う直前の人）　／　EC商品ページ カートボタン直下",
