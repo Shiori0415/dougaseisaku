@@ -21,7 +21,7 @@ SLUG = {"01": "Main", "02": "Video02", "03": "Video03", "04": "Video04",
         "05": "Video05", "06": "Video06", "07": "Video07", "08": "Video08"}
 
 # 実際に描かせて測った高さ（内容を足したら測り直して入れ替える）
-HEIGHT = {"01": 1467, "02": 1591, "03": 924, "04": 1017, "05": 1498, "06": 1778, "07": 1035, "08": 1469}
+HEIGHT = {"01": 1468, "02": 1890, "03": 1020, "04": 959, "05": 1670, "06": 2122, "07": 1169, "08": 1585}
 
 
 def esc(s):
@@ -395,67 +395,143 @@ LOC = {
 }
 
 
-LOCSCENE = {
-"05": {1:"店舗の外観・ショーウィンドウ越し", 2:"店舗（歴史の資料・什器）", 3:"向島工房", 4:"向島工房",
-       5:"向島工房", 6:"店舗（店内）", 7:"店舗（レジまわり）・街", 8:"向島工房（インタビューの一角）"},
-"06": {1:"工房の入口", 2:"通路・材料棚", 3:"革の棚・金型", 4:"裁断機のまわり", 5:"下仕事の台",
-       6:"ミシンのまわり", 7:"検品の台", 8:"梱包の台", 9:"インタビューの一角"},
-"08": {1:"店の前", 2:"店内（ロゴ）", 3:"店舗の窓辺", 4:"店舗の窓辺", 5:"屋上・街",
-       6:"店舗の窓辺", 7:"店の前", 8:"白バック"},
+# シーンごとの（場所, 地図に出す名前, 時刻）。場所が前と同じときは "同じ"
+SPOT = {
+"01": {
+ 1: ("ガラス棟ロビー 北端（地上広場側の入口）", "東京国際フォーラム ガラス棟", "9:00〜9:30"),
+ 2: ("ロビー中ほど・柱の列（柱が横切る位置）", None, "9:30〜10:00"),
+ 3: ("ガラス棟とホール棟をつなぐガラスの扉", None, "10:00〜10:30"),
+ 4: ("ロビー中央のまっすぐな通路（キャスターが十メートル走れるところ）", None, "10:30〜11:15"),
+ 5: ("ロビー南端の階段前", None, "11:15〜11:45"),
+ 6: ("ロビーのベンチ（真俯瞰で並べる）", None, "11:45〜12:00"),
+},
+"02": {
+ 1: ("工房の作業台（窓ぎわ）", "向島工房", "9:00〜9:30"),
+ 2: ("革のロールが並ぶ棚", None, "9:30〜10:00"),
+ 3: ("裁断機のまわり", None, "10:00〜11:00"),
+ 4: ("作業台（真俯瞰の三脚が組める台）", None, "11:00〜11:40"),
+ 5: ("ミシンのまわり", None, "13:00〜14:00"),
+ 6: ("下仕事の台", None, "14:00〜14:40"),
+ 7: ("コバ塗りの台（超マクロが組める台）", None, "14:40〜15:30"),
+ 8: ("作業台（引きが撮れる位置まで下がれるところ）", None, "15:30〜16:10"),
+ 9: ("工房の作業台（S1と同じ場所・同じ画角）", None, "16:10〜16:30"),
+},
+"03": {
+ 1: ("工房の隅。窓を段ボールと黒い布で塞いだ台", "向島工房", "17:00〜17:40"),
+ 2: ("同じ", None, "17:40〜18:20"),
+ 3: ("同じ", None, "18:20〜19:00"),
+ 4: ("同じ", None, "19:00〜19:30"),
+ 5: ("同じ", None, "19:30〜20:00"),
+},
+"04": {
+ 1: ("すみだリバーウォーク（鉄のフェンス）", "すみだリバーウォーク", "10:00〜11:00"),
+ 2: ("隅田公園の護岸（真俯瞰が組める石の段）", "隅田公園 墨田区向島", "11:00〜11:40"),
+ 3: ("東京ミズマチ 高架下の通路", "東京ミズマチ", "11:40〜12:30"),
+ 4: ("すみだリバーウォーク（S1と同じフェンス）", None, "12:30〜13:10"),
+},
+"05": {
+ 1: ("店舗の外観（向かいの歩道から）", "BROOKLYN MUSEUM 店舗", "9:00〜9:30"),
+ 2: ("店内（歴史の資料・什器）", None, "9:30〜10:30"),
+ 3: ("向島工房（打ち合わせの机）", "向島工房", "11:00〜11:40"),
+ 4: ("向島工房（型紙の台）", None, "11:40〜12:20"),
+ 5: ("向島工房（機械のまわり）", None, "13:30〜14:30"),
+ 6: ("店内（ショーウィンドウ越し）", "BROOKLYN MUSEUM 店舗", "15:00〜15:40　※曇りの日に"),
+ 7: ("店内のレジまわり → 店の前の街", None, "15:40〜16:20"),
+ 8: ("向島工房（窓を横に置ける一角）", "向島工房", "16:30〜17:30　※二人つづけて"),
+},
+"06": {
+ 1: ("工房の入口", "向島工房", "9:00〜9:30"),
+ 2: ("通路・材料棚", None, "9:30〜10:10"),
+ 3: ("革の棚・金型の棚", None, "10:10〜10:50"),
+ 4: ("裁断機のまわり", None, "10:50〜11:40"),
+ 5: ("下仕事の台", None, "13:00〜13:50"),
+ 6: ("ミシンのまわり", None, "13:50〜14:40"),
+ 7: ("検品の台", None, "14:40〜15:20"),
+ 8: ("梱包の台 ＋ インタビューの一角（窓を横に）", None, "15:20〜16:20"),
+ 9: ("白バック（撮影せず、編集で作る）", None, "―"),
+},
+"07": {
+ 1: ("窓のある部屋の机。窓を机の横に置く", "向島工房", "10:00〜10:30"),
+ 2: ("同じ", None, "10:30〜11:00"),
+ 3: ("同じ", None, "11:00〜11:30"),
+ 4: ("同じ", None, "11:30〜11:50"),
+ 5: ("同じ", None, "11:50〜12:00"),
+},
+"08": {
+ 1: ("店の前（歩道から）", "BROOKLYN MUSEUM 店舗", "13:00〜13:20"),
+ 2: ("店内（ロゴの壁）", None, "13:20〜13:50"),
+ 3: ("店舗の窓辺。窓を横に、手前に植物を置く", None, "14:00〜15:00"),
+ 4: ("同じ", None, "S3から続けて撮る"),
+ 5: ("屋上、または見晴らしのよい場所", "東京スカイツリータウン 屋上", "15:30〜16:30　※斜光"),
+ 6: ("店舗の窓辺（S3と同じ画角）", "BROOKLYN MUSEUM 店舗", "16:30〜17:00"),
+ 7: ("店の前", None, "17:00〜17:20"),
+ 8: ("白バック（撮影せず、編集で作る）", None, "―"),
+},
+}
+
+# 撮り方の手順を、どのシーンの欄に載せるか（LOC[no]["how"] と同じ並び）
+HOW_AT = {
+"01": [1, 1, 1, 2, 4],
+"02": [1, 1, 1, 2, 3, 7, 2],
+"03": [1, 1, 2, 1, 3],
+"04": [1, 1, 2, 2, 1],
+"05": [8, 8, 8, 8, 8],
+"06": [1, 1, 2, 2, 9],
+"07": [1, 1, 1, 2, 2, 5],
+"08": [3, 3, 3, 4, 4, 5],
 }
 
 
 def loc_cell(pg, si):
-    """ロケ地の欄。1行目は場所・リンク・時間帯・光。以降は変わったときだけ書く"""
-    d = LOC[pg["no"]]
-    if si == 0:
-        spots = "".join(
-            f'<div style="margin-bottom: 6px">'
-            f'<span style="font-weight: 700">{esc(name)}</span>'
-            f'　<a href="{_maps(name)}" target="_blank" rel="noopener" style="font-size: 11px; color: {GOLD}; text-decoration: underline">地図</a>'
-            f'　<a href="{_earth(name)}" target="_blank" rel="noopener" style="font-size: 11px; color: {GOLD}; text-decoration: underline">アース</a>'
-            f'<div style="font-size: 11.5px; color: {MUTED}; margin-top: 1px">{note}</div></div>'
-            for name, note in d["spots"])
-        return (f'<div style="margin-bottom: 8px">{d["place"]}</div>{spots}'
-                f'<div style="margin-top: 8px; color: {MUTED}"><b>時間帯</b>　{d["when"]}</div>'
-                f'<div style="margin-top: 5px; color: {MUTED}"><b>光</b>　{d["light"]}</div>')
-    here = LOCSCENE.get(pg["no"], {}).get(si)
-    prev = LOCSCENE.get(pg["no"], {}).get(si - 1)
-    if here and here != prev:
-        return here
-    return f'<span style="color: {FAINT}">〃</span>'
+    """ロケ地の欄。場所が前のシーンと同じときは「同じ」"""
+    place, query, _ = SPOT[pg["no"]][si]
+    link = ""
+    if query:
+        link = (f'<div style="margin-top: 5px; font-size: 12.5px">'
+                f'<a href="{_maps(query)}" target="_blank" rel="noopener" style="color: {GOLD}; text-decoration: underline">地図</a>'
+                f'　<a href="{_earth(query)}" target="_blank" rel="noopener" style="color: {GOLD}; text-decoration: underline">アース</a>'
+                f'　<span style="color: {FAINT}">{esc(query)}</span></div>')
+    if place == "同じ":
+        return f'<span style="color: {MUTED}">同じ</span>{link}'
+    head = f'<div style="font-weight: 700">{place}</div>'
+    if si == 1 and LOC[pg["no"]].get("spots"):
+        alts = [n for n, _ in LOC[pg["no"]]["spots"]][1:]
+        if alts:
+            head += (f'<div style="margin-top: 6px; font-size: 12.5px; color: {MUTED}">'
+                     f'ほかの候補：{"／".join(alts)}</div>')
+    return head + link
+
+
+def cam_cell(pg, si, cam):
+    """時間とカメラの欄。時刻を先に出し、そのシーンに当てた撮り方を下に足す"""
+    _, _, when = SPOT[pg["no"]][si]
+    head = (f'<div style="font-size: 14px; font-weight: 700; color: {GOLD}; margin-bottom: 6px">{esc(when)}</div>')
+    light = ""
+    if si == 1:
+        light = (f'<div style="margin-top: 8px; font-size: 13px; color: {MUTED}">'
+                 f'<b>光</b>　{LOC[pg["no"]]["light"]}</div>')
+    hows = [t for k, t in zip(HOW_AT[pg["no"]], LOC[pg["no"]]["how"]) if k == si]
+    how = "".join(
+        f'<div style="display: flex; gap: 8px; margin-top: 6px; font-size: 13px; color: {MUTED}">'
+        f'<div style="flex: 0 0 12px; color: {GOLD}">・</div><div>{t}</div></div>' for t in hows)
+    return head + f'<div>{cam}</div>' + light + how
 
 
 def scene_rows(pg):
     out = []
-    td = f'padding: 12px 14px; border-bottom: 1px solid {LINE}; vertical-align: top'
-    body = f'font-size: 13px; line-height: 1.75; color: {INK}'
-    # 共通の行
-    how = "".join(
-        f'<div style="display: flex; gap: 8px; margin-bottom: 5px">'
-        f'<div style="flex: 0 0 15px; color: {GOLD}; font-weight: 700">{i}</div><div>{t}</div></div>'
-        for i, t in enumerate(LOC[pg["no"]]["how"], 1))
-    out.append(f'''<tr>
-      <td style="{td}; padding-left: 0; background: {PAPER}">
-        <div style="font-size: 14px; font-weight: 700; color: {GOLD}">共　通</div>
-        <div style="font-size: 11.5px; color: {MUTED}; margin-top: 3px">全シーン</div>
-      </td>
-      <td style="{td}; background: {PAPER}"><div style="{body}">{loc_cell(pg, 0)}</div></td>
-      <td style="{td}; background: {PAPER}"><div style="{body}">{how}</div></td>
-      <td style="{td}; background: {PAPER}"><div style="{body}; color: {MUTED}">各シーンに記載</div></td>
-      <td style="{td}; padding-right: 0; background: {PAPER}"><div style="{body}; color: {MUTED}">各シーンに記載</div></td>
-    </tr>''')
+    td = f'padding: 14px 14px; border-bottom: 1px solid {LINE}; vertical-align: top'
+    body = f'font-size: 15px; line-height: 1.75; color: {INK}'
     for si, (nm, tm, shots) in enumerate(pg["rows"], 1):
         cuts = [sh for sh in shots if sh[1] != "―"]
         cam, snd, tel = D[pg["no"]].get(si, ("", "", ""))
         out.append(f'''<tr>
       <td style="{td}; padding-left: 0">
-        <div style="font-size: 15px; font-weight: 700; color: {INK}">{esc(nm)}</div>
-        <div style="font-size: 12px; color: {MUTED}; margin-top: 3px">{esc(re.sub(r"　｜.*", "", tm))}</div>
-        <div style="font-size: 11.5px; color: {FAINT}; margin-top: 2px">{len(cuts)}カット</div>
+        <div style="font-size: 17px; font-weight: 700; color: {INK}">{esc(nm)}</div>
+        <div style="font-size: 13px; color: {MUTED}; margin-top: 4px">{esc(re.sub(r"　｜.*", "", tm))}</div>
+        <div style="font-size: 12.5px; color: {FAINT}; margin-top: 2px">{len(cuts)}カット</div>
       </td>
       <td style="{td}"><div style="{body}">{loc_cell(pg, si)}</div></td>
-      <td style="{td}"><div style="{body}">{cam}</div></td>
+      <td style="{td}"><div style="{body}">{cam_cell(pg, si, cam)}</div></td>
       <td style="{td}"><div style="{body}">{snd}</div></td>
       <td style="{td}; padding-right: 0"><div style="{body}">{tel}</div></td>
     </tr>''')
@@ -464,8 +540,8 @@ def scene_rows(pg):
 
 def artboard(pg):
     n = sum(1 for _, _, sh in pg["rows"] for s in sh if s[1] != "―")
-    th = ("text-align: left; font-size: 11.5px; font-weight: 400; color: " + FAINT +
-          "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 8px")
+    th = ("text-align: left; font-size: 13px; font-weight: 400; color: " + FAINT +
+          "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 9px")
     return f'''<!doctype html>
 <html>
 <head>
@@ -492,7 +568,7 @@ def artboard(pg):
   </div>
   <table>
     <colgroup>
-      <col style="width: 140px"><col style="width: 380px"><col style="width: 430px"><col style="width: 250px"><col>
+      <col style="width: 152px"><col style="width: 330px"><col style="width: 460px"><col style="width: 250px"><col>
     </colgroup>
     <tr>
       <th style="{th}; padding-left: 0">シ ー ン</th>
