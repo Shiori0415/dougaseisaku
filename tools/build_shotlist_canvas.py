@@ -357,8 +357,8 @@ def cover_artboard():
   <div style="border-bottom: 2px solid {INK}; padding-bottom: 16px">
     <div style="font-size: 15px; font-weight: 700; color: {GOLD}; letter-spacing: 0.14em">BROOKLYN MUSEUM ／ 向島工房</div>
     <div style="display: flex; align-items: baseline; gap: 18px; margin-top: 10px">
-      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　香盤表</div>
-      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Schedule</div>
+      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　香盤表とショットリスト</div>
+      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Schedule &amp; Shot List</div>
       <div style="margin-left: auto; font-size: 18px; font-weight: 700; color: {INK}">全八本　{tot_s + tot_e}カット　／　撮影 九日</div>
     </div>
   </div>
@@ -366,7 +366,8 @@ def cover_artboard():
     はじめの二日で短い二本（②③）を撮り、編集まで一度通します。<b>三日目に三人の語りを全部録り、四日目からは、<br>
     録れた声に画を当てていきます。</b>声が先にあると、どの画を何秒使うかが決まるので、撮る量に無駄が出ません。<br>
     出演者の手配が要る⑧⑦④①は、支度の重い順に、あとの四日へ置いています。<br>
-    {tot_s}カットを撮影し、残りの{tot_e}カット（白バックと文字だけの画面）は編集で作ります。
+    {tot_s}カットを撮影し、残りの{tot_e}カット（白バックと文字だけの画面）は編集で作ります。<br>
+    日ごとの香盤表のあとに、<b>本ごとのショットリスト</b>を八枚付けています ── 一カット一行、画角と尺の目安、済のチェック欄つき。
   </div>
   <table>
     <colgroup>
@@ -412,6 +413,135 @@ def cover_artboard():
 </html>
 '''
 
+
+# ── ショットリスト（一カット一行） ──────────────────────────
+CIR = "①②③④⑤⑥⑦⑧⑨"
+SHOT_ORDER = ["02", "03", "06", "05", "08", "07", "04", "01"]
+
+
+def shot_angles(no, si):
+    """カメラの一文を①②③…で割って、カットごとの画角にする"""
+    cam, _ = split_cam(S.D[no][si][0])
+    idx = [(cam.index(c), c) for c in CIR if c in cam]
+    idx.sort()
+    out = []
+    for k, (pos, _) in enumerate(idx):
+        end = idx[k + 1][0] if k + 1 < len(idx) else len(cam)
+        t = cam[pos + 1:end].strip()
+        t = re.sub(r"^(→|、|・)\s*", "", t)
+        t = re.sub(r"\s*(→|。)\s*$", "", t)
+        out.append(t)
+    return out
+
+
+def sec_span(tm):
+    m = re.match(r"\s*(\d+)-(\d+)秒", tm)
+    if m:
+        return int(m.group(1)), int(m.group(2))
+    m = re.match(r"\s*(\d+)秒", tm)
+    if m:
+        return int(m.group(1)), int(m.group(1))
+    return None
+
+
+def shot_rows(no):
+    pg = PG[no]
+    rows, n = [], 0
+    for si in range(1, len(pg["rows"]) + 1):
+        nm, tm, shots = pg["rows"][si - 1]
+        cuts = [sh for sh in shots if sh[1] != "―"]
+        angles = shot_angles(no, si)
+        place, _, day, when = S.SPOT[no][si]
+        span = sec_span(tm)
+        each = (span[1] - span[0]) / len(cuts) if span and len(cuts) else None
+        mv = MOVED.get((no, si), [])
+        rows.append(f'''<tr>
+      <td colspan="5" style="background: {BAND}; padding: 11px 0; border-bottom: 1px solid {LINE}">
+        <div style="display: flex; align-items: baseline; gap: 14px; padding: 0 4px">
+          <div style="font-size: 18px; font-weight: 700; color: {INK}">{esc(nm)}</div>
+          <div style="font-size: 15px; color: {MUTED}">{esc(re.sub(r"　｜.*", "", tm))}</div>
+          <div style="font-size: 15px; color: {MUTED}">{place if place != "同じ" else "同じ場所"}</div>
+          <div style="margin-left: auto; font-size: 15px; color: {GOLD}; font-weight: 700; padding-right: 4px">{esc(day)}　{esc(when)}</div>
+        </div>
+      </td>
+    </tr>''')
+        for k, sh in enumerate(cuts):
+            n += 1
+            td = f"padding: 11px 14px; border-bottom: 1px solid {LINE}; vertical-align: top"
+            sec = ""
+            if each:
+                sec = f"{span[0] + each * k:.1f}〜{span[0] + each * (k + 1):.1f}秒"
+            tag = ""
+            if k + 1 in mv:
+                tag = f'<div style="font-size: 14px; color: {GOLD}; margin-top: 3px">{TALK_DAY}に撮影</div>'
+            rows.append(f'''<tr>
+      <td style="{td}; padding-left: 0; white-space: nowrap">
+        <span style="font-size: 17px; font-weight: 700; color: {INK}">{n:02d}</span>
+        <span style="font-size: 15px; color: {FAINT}">　S{si}-{CIR[k]}</span></td>
+      <td style="{td}; font-size: 16px; line-height: 1.6; color: {INK}">{angles[k] if k < len(angles) else ""}{tag}</td>
+      <td style="{td}; font-size: 16px; line-height: 1.7; color: {INK}">{sh[1]}</td>
+      <td style="{td}; font-size: 15px; color: {MUTED}; white-space: nowrap">{sec}</td>
+      <td style="{td}; padding-right: 0"><div style="width: 22px; height: 22px; border: 1px solid {LINE}; border-radius: 3px"></div></td>
+    </tr>''')
+    return "".join(rows), n
+
+
+def shotlist_artboard(no):
+    pg = PG[no]
+    body, n = shot_rows(no)
+    th = ("text-align: left; font-size: 15px; font-weight: 400; color: " + FAINT +
+          "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 11px")
+    days = []
+    for si in sorted(S.SPOT[no]):
+        d = S.SPOT[no][si][2]
+        if d != "―" and d not in days:
+            days.append(d)
+    return f'''<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <style>
+    body {{ margin: 0; background: #ffffff;
+      font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', sans-serif; }}
+    table {{ border-collapse: collapse; width: 100%; table-layout: fixed; }}
+  </style>
+</helmet>
+<div style="width: {PAGE_W}px; height: {HEIGHT["sl" + no]}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+  <div style="display: flex; align-items: baseline; gap: 14px; border-bottom: 2px solid {INK}; padding-bottom: 13px">
+    <div style="font-size: 26px; font-weight: 700; color: {GOLD}">{MARU[no]}</div>
+    <div style="font-size: 28px; font-weight: 700; color: {INK}">{esc(pg["jp"])}</div>
+    <div style="font-size: 15px; color: {FAINT}">{esc(pg["en"])}</div>
+    <div style="font-size: 16px; font-weight: 700; color: {INK}; margin-left: 16px">{esc(plain(pg["meta_len"]))}</div>
+    <div style="margin-left: auto; font-size: 16px; font-weight: 700; color: {GOLD}">{"・".join(days)}</div>
+  </div>
+  <table>
+    <colgroup>
+      <col style="width: 150px"><col style="width: 430px"><col><col style="width: 150px"><col style="width: 60px">
+    </colgroup>
+    <tr>
+      <th style="{th}; padding-left: 0">№　／　カット</th>
+      <th style="{th}; padding-left: 14px">画 角</th>
+      <th style="{th}; padding-left: 14px">撮 る も の</th>
+      <th style="{th}; padding-left: 14px">尺 の 目 安</th>
+      <th style="{th}; padding-left: 14px">済</th>
+    </tr>
+    {body}
+  </table>
+  <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
+    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　ショットリスト</div>
+    <div>{MARU[no]}　全{n}カット</div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
+'''
 
 CAST = [
  ("①", "01", "九日目", "映る（腰より上の寄りがある）",
@@ -510,8 +640,10 @@ def cast_artboard():
 '''
 
 # 実際に描かせて測った高さ
-HEIGHT = {"cover": 1458, "d1": 1277, "d2": 960, "d3": 864,
-          "d4": 1347, "d5": 858, "d6": 1513, "d7": 937, "d8": 859, "d9": 1011, "cast": 1062}
+HEIGHT = {"cover": 1492, "d1": 1277, "d2": 960, "d3": 864,
+          "d4": 1347, "d5": 858, "d6": 1513, "d7": 937, "d8": 859, "d9": 1011, "cast": 1062,
+          "sl01": 1149, "sl02": 1847, "sl03": 1181, "sl04": 939,
+          "sl05": 1855, "sl06": 2075, "sl07": 1131, "sl08": 1710}
 
 
 def main(outdir):
@@ -519,6 +651,7 @@ def main(outdir):
     arts, x, y, col = [], 0, 0, 0
     items = ([("Main", "cover", cover_artboard)] +
              [(d["key"].upper(), d["key"], (lambda dd: (lambda: day_artboard(dd)))(d)) for d in DAYS] +
+             [("Shot" + no, "sl" + no, (lambda n: (lambda: shotlist_artboard(n)))(no)) for no in SHOT_ORDER] +
              [("Cast", "cast", cast_artboard)])
     for name, key, fn in items:
         f = name + ".dc.html"
