@@ -27,6 +27,7 @@ MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 8, 26, 
 CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
 CAP_MAX_LINES = 9                    # 念のための上限
 BLOCK_COLS = 2
+SHOT_COLS = 3        # 1シーンは1行3コマまで。4コマ以上は次の行に折り返す（コマは縮めない）
 
 
 def cap_height(shots, cell_w):
@@ -40,17 +41,24 @@ def cap_height(shots, cell_w):
     return int(round(lines * CAP_FS * CAP_LH)) + 4
 
 
+def shot_lines(n):
+    """1シーンのコマが何行になるか"""
+    return -(-n // SHOT_COLS)
+
+
 def block_height(page, row):
     sp = SPEC[ORIENT[page["no"]]]
     w, h = cell_size(sp, len(row[2]))
-    return LABEL_H + 4 + h + 6 + cap_height(row[2], w)
+    line = h + 6 + cap_height(row[2], w)
+    k = shot_lines(len(row[2]))
+    return LABEL_H + 4 + line * k + SHOT_GAP * (k - 1)
 
 
 def block_width(page, row):
     """1シーンの横幅（コマの幅×枚数＋すき間）"""
     sp = SPEC[ORIENT[page["no"]]]
-    n = len(row[2])
-    w, _ = cell_size(sp, n)
+    n = min(len(row[2]), SHOT_COLS)
+    w, _ = cell_size(sp, len(row[2]))
     return w * n + SHOT_GAP * (n - 1)
 
 
@@ -73,12 +81,27 @@ def pack(page):
     return bands
 
 
+def header_height(page):
+    """上部（見出し・尺・企画の要約・参考動画）の高さを、文字数から見積もる"""
+    sp = SPEC[ORIENT[page["no"]]]
+    inner = sp["page_w"] - MARGIN * 2
+    h = 36 + 20                                   # 見出しの行／尺・対象の行
+    h += -(-max(1, len(plan_summary(page))) // 70) * 22   # 企画の要約（12.5px・幅900px）
+    ref = plain(re.sub(r"<[^>]+>", "", page.get("ref") or ""))
+    detail = plain(re.sub(r"<[^>]+>", "", page.get("ref_detail") or ""))
+    if ref.strip() or detail.strip():
+        per = max(20, int(inner / 10.8))
+        h += -(-max(1, len(ref) + 6) // per) * 18
+        h += -(-max(1, len(detail)) // per) * 18
+    return h + 30 + 14 + 2                        # すき間・下の余白・下線
+
+
 def page_height(page):
     sp = SPEC[ORIENT[page["no"]]]
     bands = pack(page)
     grid_h = sum(max(block_height(page, r) for r in b) for b in bands)
     grid_h += (len(bands) - 1) * BLOCK_GAP_Y
-    return MARGIN * 2 + sp["header_h"] + 20 + grid_h + 24
+    return MARGIN * 2 + header_height(page) + 20 + grid_h + 40
 
 INK, MUTED, FAINT = "#15191c", "#5b6266", "#8a8f92"
 GOLD, LINE, PAPER, FRAME_BG = "#a8672a", "#ded9d0", "#fbfaf7", "#0f0f0f"
@@ -140,11 +163,8 @@ def col_w(sp):
 
 
 def cell_size(sp, n):
-    """1シーンのコマ数に合わせた寸法。3枚までは既定、4枚以上は列幅に収まるまで縮める"""
-    if n <= 3:
-        return sp["cell_w"], sp["cell_h"]
-    w = (col_w(sp) - SHOT_GAP * (n - 1)) // n
-    return w, round(sp["cell_h"] * w / sp["cell_w"])
+    """コマの寸法。どのシーンも同じ大きさで、4コマ以上は行を折り返して収める"""
+    return sp["cell_w"], sp["cell_h"]
 
 
 def frame(shot, sp, imgmap, size=None, cap_h=CAP_H):
@@ -175,11 +195,13 @@ def scene_block(row, sp, imgmap):
     size = cell_size(sp, len(shots))
     ch = cap_height(shots, size[0])
     frames = "".join(frame(s, sp, imgmap, size, ch) for s in shots)
-    label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {LABEL_H}px">'
+    bw = size[0] * min(len(shots), SHOT_COLS) + SHOT_GAP * (min(len(shots), SHOT_COLS) - 1)
+    label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {LABEL_H}px; width: {bw}px">'
              f'<div style="font-size: 14px; font-weight: 700; color: {INK}">{esc(name)}</div>'
              f'<div style="font-size: 11px; color: {MUTED}">{esc(time)}</div></div>')
-    return (f'<div style="display: flex; flex-direction: column; gap: 4px">{label}'
-            f'<div style="display: flex; gap: {SHOT_GAP}px">{frames}</div></div>')
+    return (f'<div style="display: flex; flex-direction: column; gap: 4px; width: {bw}px">{label}'
+            f'<div style="display: flex; flex-wrap: wrap; align-items: flex-start; '
+            f'gap: {SHOT_GAP}px; width: {bw}px">{frames}</div></div>')
 
 
 def ref_line(page):

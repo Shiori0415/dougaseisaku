@@ -134,8 +134,23 @@ const MARGIN = 0.45;
 // （シーン2つずつ）に分け、写真1枚あたりの表示を大きく・縦長寄りにする。
 // シーン数は本によって違う（②は6シーン）ので、2シーンごとに1枚として数える
 const SCENES_PER_SLIDE = 2;
-const TOTAL_SLIDES = 2 + DATA.pages.reduce(
-  (n, p) => n + Math.ceil(p.rows.length / SCENES_PER_SLIDE), 0);
+const SHOTS_PER_SLIDE = 6;     // 1枚に並べる写真は6コマまで（それ以上はコマが小さくなる）
+// 1枚に入れるシーンを決める。シーンは2つまで、写真は合わせて6コマまで。
+// コマ数の多いシーンは1枚を丸ごと使うので、どのページでもコマの大きさが変わらない。
+function chunkScenes(rows) {
+  const out = [];
+  let cur = [], n = 0;
+  rows.forEach((r) => {
+    const k = r[2].length;
+    if (cur.length && (cur.length >= SCENES_PER_SLIDE || n + k > SHOTS_PER_SLIDE)) {
+      out.push(cur); cur = []; n = 0;
+    }
+    cur.push(r); n += k;
+  });
+  if (cur.length) out.push(cur);
+  return out;
+}
+const TOTAL_SLIDES = 2 + DATA.pages.reduce((n, p) => n + chunkScenes(p.rows).length, 0);
 
 const pres = new pptxgen();
 pres.defineLayout({ name: "WIDE169", width: SW, height: SH });
@@ -267,10 +282,7 @@ DATA.pages.forEach((d) => {
   const gap = Math.max(0.12, 0.18 * scale);
 
   // シーンを2つずつに分け、1本＝複数スライドにする（通常は4シーン→2スライド）
-  const sceneChunks = [];
-  for (let i = 0; i < d.rows.length; i += SCENES_PER_SLIDE) {
-    sceneChunks.push(d.rows.slice(i, i + SCENES_PER_SLIDE));
-  }
+  const sceneChunks = chunkScenes(d.rows);
 
   sceneChunks.forEach((rowsChunk, partIdx) => {
     const slide = pres.addSlide();
@@ -334,11 +346,17 @@ DATA.pages.forEach((d) => {
     const reel = LANDSCAPE.has(d.no) ? REEL_H : REEL_V;
     const maxPhotoH = MAX_PHOTO_W / reel;
     const minPhotoH = Math.min(1.55, maxPhotoH);
-    const labelRefW = MIN_PHOTO_H * REEL_V * 3 + SHOT_GAP * 2;
-    rowsChunk.forEach((row) => {
-      labelH = Math.max(labelH, estimateHeight(row[0] + "　" + row[1], labelRefW, 11, { lineMult: 1.2, pad: 0 }));
+    // 見出しの幅は、そのシーンが使える横幅（次のシーンの手前まで）。
+    // コマが1枚しかないシーンは見出しが2行になるので、その分だけ高さを取る。
+    const refPhotoW = minPhotoH * reel;   // 実際に使われる最小のコマ幅。これで見積もると足りなくならない
+    const labelWs = rowsChunk.map((row, i) =>
+      i < rowsChunk.length - 1
+        ? refPhotoW * row[2].length + SHOT_GAP * (row[2].length - 1) + GROUP_GAP - 0.06
+        : CONTENT_W - rowsChunk.slice(0, i).reduce((a, r) => a + refPhotoW * r[2].length + SHOT_GAP * (r[2].length - 1) + GROUP_GAP, 0));
+    rowsChunk.forEach((row, i) => {
+      labelH = Math.max(labelH, estimateHeight(row[0] + "　" + row[1], Math.max(0.9, labelWs[i]), 11, { lineMult: 1.2, pad: 0 }));
     });
-    labelH = Math.min(labelH, 0.62);
+    labelH = Math.min(labelH, 0.8);
     let capNeed = CAP_H;
     rowsChunk.forEach((row) => row[2].forEach((sh) => {
       if (!sh[1] || sh[1] === "―") return;
@@ -347,28 +365,34 @@ DATA.pages.forEach((d) => {
     capNeed = Math.min(capNeed, 0.9);
     const photoH = Math.min(maxPhotoH, Math.max(minPhotoH, avail - labelH - capNeed));
     const photoW = photoH * reel;
+    // シーンの幅は、そのシーンのコマ数ぶんだけ取る。コマの大きさはどのシーンでも同じ。
+    const blockW = (n) => photoW * n + SHOT_GAP * (n - 1);
     const groupW = photoW * 3 + SHOT_GAP * 2;
-    const totalW = groupW * SCENES_PER_SLIDE + GROUP_GAP;
     // 左そろえにする。コマ数の少ないシーンがあっても、シーンの頭の位置が
     // どのページでも同じになり、上の文章の左端ともそろう。
     const gridX = MARGIN;
 
+    const gxs = [];
+    let gxCursor = gridX;
+    rowsChunk.forEach((row) => { gxs.push(gxCursor); gxCursor += blockW(row[2].length) + GROUP_GAP; });
     rowsChunk.forEach((row, ri) => {
       const [sceneName, sceneTime, shots] = row;
-      const gx = gridX + ri * (groupW + GROUP_GAP);
+      const gx = gxs[ri];
+      // 見出しは次のシーンの手前まで。最後のシーンだけ紙の右端まで使ってよい。
+      const labelW = ri < rowsChunk.length - 1
+        ? gxs[ri + 1] - gx - 0.06
+        : MARGIN + CONTENT_W - gx;
       slide.addText(
         [
           { text: sceneName, options: { fontFace: "Meiryo", fontSize: 11.5, bold: true, color: INK } },
           { text: "　" + sceneTime, options: { fontFace: "Meiryo", fontSize: 9, color: MUTED } },
         ],
-        { x: gx, y: gridTop, w: groupW, h: labelH, valign: "top", margin: 0 }
+        { x: gx, y: gridTop, w: labelW, h: labelH, valign: "top", margin: 0 }
       );
       const py = gridTop + labelH;
-      // 1シーンに4コマ以上あるときは、シーンの幅は変えずにコマを小さくして収める
-      // （そのままだと隣のシーンに重なってしまう）。
-      const nShots = shots.length;
-      const pw = nShots <= 3 ? photoW : (groupW - SHOT_GAP * (nShots - 1)) / nShots;
-      const ph = nShots <= 3 ? photoH : pw / reel;
+      // コマの大きさはシーンによらず同じ。1枚あたり6コマまでに収めてあるので縮めなくてよい。
+      const pw = photoW;
+      const ph = photoH;
       shots.forEach((shot, si) => {
         const [photo, cap] = shot;
         const sx = gx + si * (pw + SHOT_GAP);
