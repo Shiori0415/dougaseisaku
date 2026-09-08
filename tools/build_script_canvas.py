@@ -21,7 +21,7 @@ SLUG = {"01": "Main", "02": "Video02", "03": "Video03", "04": "Video04",
         "05": "Video05", "06": "Video06", "07": "Video07", "08": "Video08"}
 
 # 実際に描かせて測った高さ（内容を足したら測り直して入れ替える）
-HEIGHT = {"01": 1361, "02": 1780, "03": 1075, "04": 970, "05": 1816, "06": 1946, "07": 1093, "08": 1528}
+HEIGHT = {"01": 1467, "02": 1591, "03": 924, "04": 1017, "05": 1498, "06": 1778, "07": 1035, "08": 1469}
 
 
 def esc(s):
@@ -36,39 +36,6 @@ def plain(s):
 # ─────────────────────────────────────────────────────────────
 # 本ごとの前書き
 # ─────────────────────────────────────────────────────────────
-LEAD = {
-"01": ("音楽で持たせる二十五秒。セリフはなく、最後にナレーションが一言だけ入る。"
-       "<b>前半は一色目から三色目まで進み、後半は人とすれ違うたびに一つ前の服装へ巻き戻る。</b>"
-       "巻き戻りきったところで、まだ見せていない四色目になって着く。全部で四種類。"
-       "<b>進むとき＝柱・扉。戻るとき＝人とすれ違う。合図を分ける。一か所で撮り切る。</b>"),
-
-"02": ("作業音だけで持たせる四十秒。ナレーションは入れない。<b>画面の下に工程名を一行だけ日英で出す。</b>"
-       "完成形を最初に一度見せてから工程の頭に戻り、最後にもう一度同じ鞄で閉じる。"
-       "<b>S6のコバ塗りだけカットを割らず、七秒そのまま回す。</b>"),
-"03": ("黒い布一枚とライト一灯で撮る二十八秒。<b>工房の蛍光灯は全部消す。</b>手だけ、三脚固定、BGMのみ。"
-       "作業音もテロップも入れない。<b>最後の一カットだけ、明るい工房の作業台に置いて実景に戻す。</b>"),
-"04": ("カメラを一度も動かさない三十秒。<b>動くのは背景だけ。</b>自然光のみ、曇りの日でよい。"
-       "テロップは画面に出さず、言葉は投稿の本文に置く。"),
-"05": ("語り手は二人。永尾社長（冒頭から製造まで、そして締め）とくさがやさん（店舗と購入）。"
-       "<b>台本は読み上げず、自分の言葉で言い直してもらう。</b>言い回しは変えてよいが、秒数と各シーンで触れることは変えない。"
-       "<b>つなぎはJカット。</b>次に話す人の声を、画が切り替わる前から流しはじめる。"),
-"06": ("語り手は佐藤さん一人。画に映るのは<b>S2の終わり</b>と<b>S8の終わり</b>の二カットだけで、"
-       "あとは声だけが全編に流れ続ける。<b>工房を歩きながら、自分の言葉で言い直してもらう。</b>"
-       "<b>S1・S2では人の顔を出さず、まず工房の中を歩いて見せる</b>（参考動画と同じ順番）。"
-       "この一本で言うのは三つ ── ①小ロットから量産まで同じ場所でできる ②裁断から梱包まで社内でひととおりできる ③誰が作っているか顔が見える。<span style='color:#a8763e'>ものによっては外に出してお願いすることもあるので、「全部この中でやっている」とは言い切らない。</span>"),
-"07": ("正面固定、カメラは一度も動かさない二十五秒。<b>机に置かれた鞄から始める。</b>"
-       "入る量と、入れ終わってそのまま持って出られることだけを見せる。"
-       "<b>人も鞄もフレームから出て、何も乗っていない机だけが残る。</b>"),
-"08": ("八本のうち、これだけが「聞く」動画。<b>買った人自身の言葉で語ってもらう。</b>"
-       "<b>質問は画の中で聞かず、テロップで出す。</b>各シーンの頭に質問のテロップを出し、"
-       "<b>Jカットで答えの声が先に入る。</b>ただし<b>最初の一問だけは質問を出さず、答えから始める。</b>"
-       "人物の右下に「購入者 Aさん」のテロップ。話した言葉はすべてテロップで出す（音を出さずに見る人が多いため）。<br><br>"
-       "<span style='color:#a8763e'>下の四つの質問は、ネット上に出ている購入者のレビューでくり返し語られている点から作りました ── "
-       "①十年使っても丈夫 ②コバ（革の切り口）の仕上げがきれい ③修理に出すとコバ磨きまでして返ってくる "
-       "④手入れは乾拭き程度でよい。<b>答えは仮の文です。</b>出演者が決まり次第、実際に話してもらった言葉に差し替えます。"
-       "（ブランドの公式レビューページはこちらの環境から開けなかったため、外部のレビュー記事を参照しています）</span>"),
-}
-
 # ─────────────────────────────────────────────────────────────
 # シーンごとの演出（カメラ ／ 音 ／ テロップ・セリフ）
 #   キーは 本番号 → シーン番号（1始まり）
@@ -285,48 +252,6 @@ D = {
 }
 
 
-def split_times(tm, n):
-    """シーンの秒数をカット数で割って、カットごとの秒を出す"""
-    m = re.match(r"(\d+)-(\d+)秒", tm)
-    if not m or n <= 0:
-        return [""] * n
-    a, b = int(m.group(1)), int(m.group(2))
-    step = (b - a) / n
-
-    def f(x):
-        return str(int(round(x))) if abs(x - round(x)) < 0.05 else f"{x:.1f}"
-
-    return [f"{f(a + step * i)}-{f(a + step * (i + 1))}秒" for i in range(n)]
-
-
-def scene_rows(pg):
-    out = []
-    for si, (nm, tm, shots) in enumerate(pg["rows"], 1):
-        cuts = [s for s in shots if s[1] != "―"]
-        times = split_times(tm, len(cuts))
-        cam, snd, tel = D[pg["no"]].get(si, ("", "", ""))
-        picture = "".join(
-            f'<div style="display: flex; gap: 8px; margin-bottom: 5px">'
-            f'<div style="flex: 0 0 62px; font-size: 10px; color: {GOLD}; padding-top: 2px">{esc(times[i])}</div>'
-            f'<div style="font-size: 11.5px; line-height: 1.6; color: {INK}">{esc(plain(sh[1]))}</div></div>'
-            for i, sh in enumerate(cuts))
-        out.append(f'''<tr>
-      <td style="padding: 13px 12px 13px 0; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 12.5px; font-weight: 700; color: {INK}">{esc(nm)}</div>
-        <div style="font-size: 10.5px; color: {MUTED}; margin-top: 3px">{esc(re.sub(r"　｜.*", "", tm))}</div>
-        <div style="font-size: 10px; color: {FAINT}; margin-top: 3px">{len(cuts)}カット</div>
-      </td>
-      <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top; background: {PAPER}">{picture}</td>
-      <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11px; line-height: 1.65; color: {INK}">{cam}</div></td>
-      <td style="padding: 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11px; line-height: 1.65; color: {INK}">{snd}</div></td>
-      <td style="padding: 13px 0 13px 14px; border-bottom: 1px solid {LINE}; vertical-align: top">
-        <div style="font-size: 11px; line-height: 1.7; color: {INK}">{tel}</div></td>
-    </tr>''')
-    return "\n".join(out)
-
-
 # ─────────────────────────────────────────────────────────────
 # ロケ地・時間帯・光・撮り方
 #   地図とアースのリンクは検索URLで作っている（場所の名前で開く）。
@@ -470,45 +395,77 @@ LOC = {
 }
 
 
-def loc_band(pg):
-    """ロケ地・時間帯・光・撮り方の帯。表の上に置く"""
+LOCSCENE = {
+"05": {1:"店舗の外観・ショーウィンドウ越し", 2:"店舗（歴史の資料・什器）", 3:"向島工房", 4:"向島工房",
+       5:"向島工房", 6:"店舗（店内）", 7:"店舗（レジまわり）・街", 8:"向島工房（インタビューの一角）"},
+"06": {1:"工房の入口", 2:"通路・材料棚", 3:"革の棚・金型", 4:"裁断機のまわり", 5:"下仕事の台",
+       6:"ミシンのまわり", 7:"検品の台", 8:"梱包の台", 9:"インタビューの一角"},
+"08": {1:"店の前", 2:"店内（ロゴ）", 3:"店舗の窓辺", 4:"店舗の窓辺", 5:"屋上・街",
+       6:"店舗の窓辺", 7:"店の前", 8:"白バック"},
+}
+
+
+def loc_cell(pg, si):
+    """ロケ地の欄。1行目は場所・リンク・時間帯・光。以降は変わったときだけ書く"""
     d = LOC[pg["no"]]
-    spots = "".join(
-        f'<div style="margin-bottom: 7px">'
-        f'<div style="font-size: 12px; font-weight: 700; color: {INK}">{esc(name)}'
-        f'　<a href="{_maps(name)}" target="_blank" rel="noopener" style="font-size: 10.5px; font-weight: 400; color: {GOLD}; text-decoration: underline">地図</a>'
-        f'　<a href="{_earth(name)}" target="_blank" rel="noopener" style="font-size: 10.5px; font-weight: 400; color: {GOLD}; text-decoration: underline">アース</a></div>'
-        f'<div style="font-size: 11px; line-height: 1.6; color: {MUTED}; margin-top: 2px">{note}</div></div>'
-        for name, note in d["spots"])
+    if si == 0:
+        spots = "".join(
+            f'<div style="margin-bottom: 6px">'
+            f'<span style="font-weight: 700">{esc(name)}</span>'
+            f'　<a href="{_maps(name)}" target="_blank" rel="noopener" style="font-size: 11px; color: {GOLD}; text-decoration: underline">地図</a>'
+            f'　<a href="{_earth(name)}" target="_blank" rel="noopener" style="font-size: 11px; color: {GOLD}; text-decoration: underline">アース</a>'
+            f'<div style="font-size: 11.5px; color: {MUTED}; margin-top: 1px">{note}</div></div>'
+            for name, note in d["spots"])
+        return (f'<div style="margin-bottom: 8px">{d["place"]}</div>{spots}'
+                f'<div style="margin-top: 8px; color: {MUTED}"><b>時間帯</b>　{d["when"]}</div>'
+                f'<div style="margin-top: 5px; color: {MUTED}"><b>光</b>　{d["light"]}</div>')
+    here = LOCSCENE.get(pg["no"], {}).get(si)
+    prev = LOCSCENE.get(pg["no"], {}).get(si - 1)
+    if here and here != prev:
+        return here
+    return f'<span style="color: {FAINT}">〃</span>'
+
+
+def scene_rows(pg):
+    out = []
+    td = f'padding: 12px 14px; border-bottom: 1px solid {LINE}; vertical-align: top'
+    body = f'font-size: 13px; line-height: 1.75; color: {INK}'
+    # 共通の行
     how = "".join(
         f'<div style="display: flex; gap: 8px; margin-bottom: 5px">'
-        f'<div style="flex: 0 0 16px; font-size: 11px; color: {GOLD}; font-weight: 700">{i}</div>'
-        f'<div style="font-size: 11.5px; line-height: 1.65; color: {INK}">{t}</div></div>'
-        for i, t in enumerate(d["how"], 1))
-    lab = ("font-size: 10px; color: " + FAINT + "; letter-spacing: 0.1em; margin-bottom: 5px")
-    return f'''<div style="display: flex; gap: 26px; border: 1px solid {LINE}; background: {PAPER}; padding: 14px 16px">
-    <div style="flex: 0 0 520px">
-      <div style="{lab}">ロ ケ 地</div>
-      <div style="font-size: 11.5px; line-height: 1.6; color: {INK}; margin-bottom: 9px">{d["place"]}</div>
-      {spots}
-    </div>
-    <div style="flex: 0 0 300px">
-      <div style="{lab}">時 間 帯</div>
-      <div style="font-size: 11.5px; line-height: 1.65; color: {INK}; margin-bottom: 11px">{d["when"]}</div>
-      <div style="{lab}">光</div>
-      <div style="font-size: 11.5px; line-height: 1.65; color: {INK}">{d["light"]}</div>
-    </div>
-    <div style="flex: 1">
-      <div style="{lab}">撮 り 方 （ は じ め て で も 撮 れ る 手 順 ）</div>
-      {how}
-    </div>
-  </div>'''
+        f'<div style="flex: 0 0 15px; color: {GOLD}; font-weight: 700">{i}</div><div>{t}</div></div>'
+        for i, t in enumerate(LOC[pg["no"]]["how"], 1))
+    out.append(f'''<tr>
+      <td style="{td}; padding-left: 0; background: {PAPER}">
+        <div style="font-size: 14px; font-weight: 700; color: {GOLD}">共　通</div>
+        <div style="font-size: 11.5px; color: {MUTED}; margin-top: 3px">全シーン</div>
+      </td>
+      <td style="{td}; background: {PAPER}"><div style="{body}">{loc_cell(pg, 0)}</div></td>
+      <td style="{td}; background: {PAPER}"><div style="{body}">{how}</div></td>
+      <td style="{td}; background: {PAPER}"><div style="{body}; color: {MUTED}">各シーンに記載</div></td>
+      <td style="{td}; padding-right: 0; background: {PAPER}"><div style="{body}; color: {MUTED}">各シーンに記載</div></td>
+    </tr>''')
+    for si, (nm, tm, shots) in enumerate(pg["rows"], 1):
+        cuts = [sh for sh in shots if sh[1] != "―"]
+        cam, snd, tel = D[pg["no"]].get(si, ("", "", ""))
+        out.append(f'''<tr>
+      <td style="{td}; padding-left: 0">
+        <div style="font-size: 15px; font-weight: 700; color: {INK}">{esc(nm)}</div>
+        <div style="font-size: 12px; color: {MUTED}; margin-top: 3px">{esc(re.sub(r"　｜.*", "", tm))}</div>
+        <div style="font-size: 11.5px; color: {FAINT}; margin-top: 2px">{len(cuts)}カット</div>
+      </td>
+      <td style="{td}"><div style="{body}">{loc_cell(pg, si)}</div></td>
+      <td style="{td}"><div style="{body}">{cam}</div></td>
+      <td style="{td}"><div style="{body}">{snd}</div></td>
+      <td style="{td}; padding-right: 0"><div style="{body}">{tel}</div></td>
+    </tr>''')
+    return "\n".join(out)
 
 
 def artboard(pg):
     n = sum(1 for _, _, sh in pg["rows"] for s in sh if s[1] != "―")
-    th = ("text-align: left; font-size: 10.5px; font-weight: 400; color: " + FAINT +
-          "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK)
+    th = ("text-align: left; font-size: 11.5px; font-weight: 400; color: " + FAINT +
+          "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 8px")
     return f'''<!doctype html>
 <html>
 <head>
@@ -525,32 +482,28 @@ def artboard(pg):
     table {{ border-collapse: collapse; width: 100%; table-layout: fixed; }}
   </style>
 </helmet>
-<div style="width: {PAGE_W}px; height: {HEIGHT[pg["no"]]}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
-  <div style="display: flex; flex-direction: column; gap: 9px; border-bottom: 2px solid {INK}; padding-bottom: 13px">
-    <div style="display: flex; align-items: baseline; gap: 14px">
-      <div style="font-size: 12px; font-weight: 700; color: {GOLD}; letter-spacing: 0.12em">{esc(pg["no"])}</div>
-      <div style="font-size: 25px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">{esc(pg["jp"])}</div>
-      <div style="font-size: 13px; color: {FAINT}; letter-spacing: 0.06em">{esc(pg["en"])}</div>
-      <div style="margin-left: auto; font-size: 11px; color: {GOLD}; border: 1px solid {LINE}; border-radius: 20px; padding: 3px 12px">{"台本（話す言葉あり）" if pg["no"] in TALK else "撮影メモ（セリフなし）"}</div>
-    </div>
-    <div style="font-size: 11.5px; font-weight: 700; color: {INK}">{esc(plain(pg["meta_len"]))}　／　{esc(plain(pg["meta_target"]))}</div>
-    <div style="font-size: 12.5px; line-height: 1.7; color: {INK}; max-width: 1240px">{LEAD[pg["no"]]}</div>
+<div style="width: {PAGE_W}px; height: {HEIGHT[pg["no"]]}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+  <div style="display: flex; align-items: baseline; gap: 14px; border-bottom: 2px solid {INK}; padding-bottom: 12px">
+    <div style="font-size: 13px; font-weight: 700; color: {GOLD}; letter-spacing: 0.12em">{esc(pg["no"])}</div>
+    <div style="font-size: 27px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">{esc(pg["jp"])}</div>
+    <div style="font-size: 14px; color: {FAINT}; letter-spacing: 0.06em">{esc(pg["en"])}</div>
+    <div style="font-size: 13px; font-weight: 700; color: {INK}; margin-left: 18px">{esc(plain(pg["meta_len"]))}</div>
+    <div style="margin-left: auto; font-size: 12px; color: {GOLD}; border: 1px solid {LINE}; border-radius: 20px; padding: 4px 14px">{"台本（話す言葉あり）" if pg["no"] in TALK else "撮影メモ（セリフなし）"}</div>
   </div>
-  {loc_band(pg)}
   <table>
     <colgroup>
-      <col style="width: 128px"><col style="width: 396px"><col style="width: 292px"><col style="width: 186px"><col>
+      <col style="width: 140px"><col style="width: 380px"><col style="width: 430px"><col style="width: 250px"><col>
     </colgroup>
     <tr>
-      <th style="{th}; padding: 0 12px 7px 0">シ ー ン</th>
-      <th style="{th}; padding: 0 14px 7px">画 （ 何 を 撮 る か ）</th>
-      <th style="{th}; padding: 0 14px 7px">カ メ ラ</th>
-      <th style="{th}; padding: 0 14px 7px">音</th>
-      <th style="{th}; padding: 0 0 7px 14px">{"セ リ フ ／ テ ロ ッ プ" if pg["no"] in TALK else "テ ロ ッ プ"}</th>
+      <th style="{th}; padding-left: 0">シ ー ン</th>
+      <th style="{th}; padding-left: 14px">ロ ケ 地</th>
+      <th style="{th}; padding-left: 14px">時 間 ・ カ メ ラ （ 撮 り 方 ）</th>
+      <th style="{th}; padding-left: 14px">音</th>
+      <th style="{th}; padding-left: 14px">{"セ リ フ ／ テ ロ ッ プ" if pg["no"] in TALK else "テ ロ ッ プ"}</th>
     </tr>
     {scene_rows(pg)}
   </table>
-  <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: {FAINT}">
+  <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 11px; color: {FAINT}">
     <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　{"台本" if pg["no"] in TALK else "撮影メモ"}</div>
     <div>{esc(pg["no"])} ／ 全{n}カット</div>
   </div>
