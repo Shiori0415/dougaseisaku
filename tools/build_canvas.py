@@ -28,7 +28,8 @@ CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
 CAP_MAX_LINES = 9                    # 念のための上限
 LABEL_FS, LABEL_LH = 14, 1.25        # シーン名の文字サイズと行間
 BLOCK_COLS = 2
-SHOT_COLS = 99       # 1シーンのコマは横一列に並べる（紙の幅に収まらないときだけ縮める）
+SHOT_MIN_SPLIT = 6   # 折り返してよいのは6コマ以上のシーンだけ。5コマまでは横一列のまま
+SPLIT_MIN_COLS = 3   # 折り返すときも、上の段には最低3コマ置く
 
 
 def cap_height(shots, cell_w):
@@ -42,11 +43,6 @@ def cap_height(shots, cell_w):
     return int(round(lines * CAP_FS * CAP_LH)) + 4
 
 
-def shot_lines(n):
-    """1シーンのコマが何行になるか"""
-    return -(-n // SHOT_COLS)
-
-
 def label_height(row, bw):
     """シーン名＋秒数が何行になるか。2行になるぶんだけ高さを増やす
        （そのままだと2行目が写真に重なる）"""
@@ -56,39 +52,67 @@ def label_height(row, bw):
     return max(LABEL_H, int(round(lines * LABEL_FS * LABEL_LH)) + 4)
 
 
-def block_height(page, row):
+def block_height(page, row, cols=None):
     sp = SPEC[ORIENT[page["no"]]]
-    w, h = cell_size(sp, len(row[2]))
+    n = len(row[2])
+    cols = cols or n
+    w, h = cell_size(sp, n)
     line = h + 6 + cap_height(row[2], w)
-    k = shot_lines(len(row[2]))
-    return label_height(row, block_width(page, row)) + 4 + line * k + SHOT_GAP * (k - 1)
+    k = -(-n // cols)
+    return label_height(row, block_width(page, row, cols)) + 4 + line * k + SHOT_GAP * (k - 1)
 
 
-def block_width(page, row):
-    """1シーンの横幅（コマの幅×枚数＋すき間）"""
+def cells_w(sp, k, n):
+    """k コマ並べたときの横幅"""
+    w, _ = cell_size(sp, n)
+    return w * k + SHOT_GAP * (k - 1)
+
+
+def fits(sp, avail, n):
+    """avail の幅に何コマ置けるか（最大 n コマ）"""
+    k = n
+    while k > 0 and cells_w(sp, k, n) > avail:
+        k -= 1
+    return k
+
+
+def block_width(page, row, cols=None):
+    """1シーンの横幅。cols は上の段に並べるコマ数（省略時は全コマ）"""
     sp = SPEC[ORIENT[page["no"]]]
-    n = min(len(row[2]), SHOT_COLS)
-    w, _ = cell_size(sp, len(row[2]))
-    return w * n + SHOT_GAP * (n - 1)
+    n = len(row[2])
+    return cells_w(sp, cols or n, n)
 
 
-def pack(page):
-    """シーンを横に詰めて、入らなくなったら折り返す（すき間を作らない）"""
+def layout(page):
+    """シーンを横に詰める。段に入りきらないときは、
+       6コマ以上のシーンだけ残り幅ぶんを上の段に置き、あふれたコマを下の行に折り返す。
+       返すのは [(シーン, 上の段に並べるコマ数), ...] の段のリスト"""
     sp = SPEC[ORIENT[page["no"]]]
     inner = sp["page_w"] - MARGIN * 2
     bands, cur, used = [], [], 0
     for r in page["rows"]:
-        w = block_width(page, r)
-        add = w if not cur else BLOCK_GAP_X + w
-        if cur and used + add > inner:
+        n = len(r[2])
+        gap = 0 if not cur else BLOCK_GAP_X
+        avail = inner - used - gap
+        if cells_w(sp, n, n) <= avail:          # そのまま入る
+            cur.append((r, n))
+            used += gap + cells_w(sp, n, n)
+            continue
+        k = fits(sp, avail, n) if cur else n
+        if cur and n >= SHOT_MIN_SPLIT and k >= SPLIT_MIN_COLS:
+            cur.append((r, k))                  # 入るぶんだけ置いて、残りは折り返す
+            used += gap + cells_w(sp, k, n)
+            continue
+        if cur:
             bands.append(cur)
-            cur, used = [r], w
-        else:
-            cur.append(r)
-            used += add
+        cur, used = [(r, n)], cells_w(sp, n, n)
     if cur:
         bands.append(cur)
     return bands
+
+
+def pack(page):
+    return [[r for r, _ in b] for b in layout(page)]
 
 
 def header_height(page):
@@ -108,8 +132,8 @@ def header_height(page):
 
 def page_height(page):
     sp = SPEC[ORIENT[page["no"]]]
-    bands = pack(page)
-    grid_h = sum(max(block_height(page, r) for r in b) for b in bands)
+    bands = layout(page)
+    grid_h = sum(max(block_height(page, r, c) for r, c in b) for b in bands)
     grid_h += (len(bands) - 1) * BLOCK_GAP_Y
     return MARGIN * 2 + header_height(page) + 20 + grid_h + 40
 
@@ -206,12 +230,13 @@ def frame(shot, sp, imgmap, size=None, cap_h=CAP_H):
             f'{box}{cap_html}</div>')
 
 
-def scene_block(row, sp, imgmap):
+def scene_block(row, sp, imgmap, cols=None):
     name, time, shots = row[0], row[1], row[2]
+    cols = cols or len(shots)
     size = cell_size(sp, len(shots))
     ch = cap_height(shots, size[0])
     frames = "".join(frame(s, sp, imgmap, size, ch) for s in shots)
-    bw = size[0] * min(len(shots), SHOT_COLS) + SHOT_GAP * (min(len(shots), SHOT_COLS) - 1)
+    bw = size[0] * cols + SHOT_GAP * (cols - 1)
     lh = label_height(row, bw)
     label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {lh}px; width: {bw}px">'
              f'<div style="font-size: {LABEL_FS}px; font-weight: 700; color: {INK}">{esc(name)}</div>'
@@ -239,7 +264,7 @@ def ref_line(page):
 def artboard(page, imgmap):
     o = ORIENT[page["no"]]
     sp = SPEC[o]
-    blocks = "".join(scene_block(r, sp, imgmap) for r in page["rows"])
+    blocks = "".join(scene_block(r, sp, imgmap, c) for b in layout(page) for r, c in b)
     ref = ref_line(page)
     detail = rich(page.get("ref_detail") or "")
     ref_block = (f'<div style="font-size: 10.5px; line-height: 1.6; color: {FAINT}">'
