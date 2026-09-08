@@ -26,8 +26,9 @@ SPEC = {
 MARGIN, CAP_H, LABEL_H, SHOT_GAP, BLOCK_GAP_X, BLOCK_GAP_Y = 40, 46, 28, 8, 26, 30
 CAP_FS, CAP_LH = 10.5, 1.45          # 説明文の文字サイズと行間
 CAP_MAX_LINES = 9                    # 念のための上限
+LABEL_FS, LABEL_LH = 14, 1.25        # シーン名の文字サイズと行間
 BLOCK_COLS = 2
-SHOT_COLS = 3        # 1シーンは1行3コマまで。4コマ以上は次の行に折り返す（コマは縮めない）
+SHOT_COLS = 99       # 1シーンのコマは横一列に並べる（紙の幅に収まらないときだけ縮める）
 
 
 def cap_height(shots, cell_w):
@@ -46,12 +47,21 @@ def shot_lines(n):
     return -(-n // SHOT_COLS)
 
 
+def label_height(row, bw):
+    """シーン名＋秒数が何行になるか。2行になるぶんだけ高さを増やす
+       （そのままだと2行目が写真に重なる）"""
+    text = f'{row[0]}　{row[1]}'
+    per = max(8, int(bw / 12.0))
+    lines = max(1, -(-len(text) // per))
+    return max(LABEL_H, int(round(lines * LABEL_FS * LABEL_LH)) + 4)
+
+
 def block_height(page, row):
     sp = SPEC[ORIENT[page["no"]]]
     w, h = cell_size(sp, len(row[2]))
     line = h + 6 + cap_height(row[2], w)
     k = shot_lines(len(row[2]))
-    return LABEL_H + 4 + line * k + SHOT_GAP * (k - 1)
+    return label_height(row, block_width(page, row)) + 4 + line * k + SHOT_GAP * (k - 1)
 
 
 def block_width(page, row):
@@ -163,8 +173,14 @@ def col_w(sp):
 
 
 def cell_size(sp, n):
-    """コマの寸法。どのシーンも同じ大きさで、4コマ以上は行を折り返して収める"""
-    return sp["cell_w"], sp["cell_h"]
+    """コマの寸法。どのシーンも同じ大きさ。
+       一列が紙の幅に収まらないときだけ、そのシーンのコマを収まるまで縮める"""
+    inner = sp["page_w"] - MARGIN * 2
+    need = sp["cell_w"] * n + SHOT_GAP * (n - 1)
+    if need <= inner:
+        return sp["cell_w"], sp["cell_h"]
+    w = (inner - SHOT_GAP * (n - 1)) // n
+    return w, round(sp["cell_h"] * w / sp["cell_w"])
 
 
 def frame(shot, sp, imgmap, size=None, cap_h=CAP_H):
@@ -196,8 +212,9 @@ def scene_block(row, sp, imgmap):
     ch = cap_height(shots, size[0])
     frames = "".join(frame(s, sp, imgmap, size, ch) for s in shots)
     bw = size[0] * min(len(shots), SHOT_COLS) + SHOT_GAP * (min(len(shots), SHOT_COLS) - 1)
-    label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {LABEL_H}px; width: {bw}px">'
-             f'<div style="font-size: 14px; font-weight: 700; color: {INK}">{esc(name)}</div>'
+    lh = label_height(row, bw)
+    label = (f'<div style="display: flex; align-items: baseline; gap: 10px; height: {lh}px; width: {bw}px">'
+             f'<div style="font-size: {LABEL_FS}px; font-weight: 700; color: {INK}">{esc(name)}</div>'
              f'<div style="font-size: 11px; color: {MUTED}">{esc(time)}</div></div>')
     return (f'<div style="display: flex; flex-direction: column; gap: 4px; width: {bw}px">{label}'
             f'<div style="display: flex; flex-wrap: wrap; align-items: flex-start; '
