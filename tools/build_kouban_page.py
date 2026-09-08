@@ -20,104 +20,7 @@ def plain(s):
     return re.sub(r"<[^>]+>", "", re.sub(r"<br\s*/?>", " ", s or "")).strip()
 
 
-CSS = """
-:root {
-  --ground: #f7f5f1; --surface: #ffffff; --band: #f1ece4;
-  --ink: #15191c; --prose: #3d4448; --muted: #5b6266; --faint: #8a8f92;
-  --gold: #a8672a; --gold-soft: #f0e3d5; --line: #ddd7cd; --hair: #ebe6dd;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #14161a; --surface: #1b1f23; --band: #232830;
-    --ink: #eceae5; --prose: #cbc8c2; --muted: #a5a49f; --faint: #7f8285;
-    --gold: #d79a5e; --gold-soft: #33261a; --line: #333a41; --hair: #262c33;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #14161a; --surface: #1b1f23; --band: #232830;
-  --ink: #eceae5; --prose: #cbc8c2; --muted: #a5a49f; --faint: #7f8285;
-  --gold: #d79a5e; --gold-soft: #33261a; --line: #333a41; --hair: #262c33;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0; background: var(--ground); color: var(--ink);
-  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
-  font-size: 15px; line-height: 1.75;
-  font-feature-settings: "palt";
-}
-b, strong { font-weight: 700; }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; }
-
-/* ── 目次バー ─────────────────────────────── */
-nav {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--ground) 92%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-}
-.navin { max-width: 1180px; margin: 0 auto; padding: 10px 24px;
-  display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.navlab { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-right: 4px; }
-nav a {
-  font-size: 13px; color: var(--muted); text-decoration: none;
-  padding: 3px 9px; border-radius: 999px; border: 1px solid transparent;
-  white-space: nowrap;
-}
-nav a:hover, nav a:focus-visible { color: var(--gold); border-color: var(--line); background: var(--surface); }
-nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
-.navsep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; }
-
-/* ── 表紙 ─────────────────────────────────── */
-header.top { padding: 52px 0 26px; border-bottom: 2px solid var(--ink); }
-.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--gold); }
-h1 { font-size: clamp(30px, 4.4vw, 44px); font-weight: 700; letter-spacing: -.02em;
-  margin: 12px 0 6px; text-wrap: balance; }
-.en { font-size: 14px; letter-spacing: .08em; color: var(--faint); }
-.count { margin-top: 14px; font-size: 15px; font-weight: 700; }
-.lead { margin: 22px 0 0; color: var(--prose); max-width: 74ch; }
-
-/* ── 節 ───────────────────────────────────── */
-section { scroll-margin-top: 62px; padding-top: 44px; }
-.shead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
-  border-bottom: 1px solid var(--ink); padding-bottom: 12px; }
-.daynum { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
-.place { font-size: 17px; font-weight: 700; color: var(--gold); }
-.theme { font-size: 14px; color: var(--muted); }
-.when { margin-left: auto; font-size: 14px; font-weight: 700;
-  font-variant-numeric: tabular-nums; white-space: nowrap; }
-.cuts { font-size: 13px; color: var(--faint); white-space: nowrap; }
-.note { margin: 16px 0 0; color: var(--prose); max-width: 78ch; }
-
-/* ── 表 ───────────────────────────────────── */
-.scroll { overflow-x: auto; margin-top: 18px; }
-table { width: 100%; border-collapse: collapse; min-width: 880px; }
-th { text-align: left; font-size: 12px; font-weight: 400; letter-spacing: .1em;
-  color: var(--faint); border-bottom: 1px solid var(--line); padding: 0 14px 9px 0; }
-td { padding: 14px 14px 14px 0; border-bottom: 1px solid var(--hair);
-  vertical-align: top; }
-tr.band td { background: var(--band); padding: 9px 12px; border-bottom: 1px solid var(--line); }
-.tm { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.sc { font-weight: 700; font-size: 16px; }
-.sub { color: var(--faint); font-size: 13px; }
-.dim { color: var(--muted); }
-.no { font-weight: 700; font-variant-numeric: tabular-nums; }
-.box { display: inline-block; width: 17px; height: 17px; border: 1px solid var(--line);
-  border-radius: 3px; }
-.pin { color: var(--gold); font-size: 13px; }
-
-/* ── 足もと ───────────────────────────────── */
-.foot { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
-.cap { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-bottom: 8px; }
-.foot ul { margin: 0; padding-left: 18px; }
-.foot li { margin-bottom: 6px; }
-.foot .body { color: var(--prose); }
-@media (max-width: 640px) {
-  .wrap { padding: 0 16px 72px; }
-  .navin { padding: 8px 16px; }
-  body { font-size: 14px; }
-}
-"""
+from page_style import CSS, FONT
 
 
 def nav():
@@ -315,10 +218,8 @@ def main():
             "".join(day_section(d) for d in L.DAYS) +
             "".join(shot_section(no) for no in L.SHOT_ORDER) +
             cast_section() + "</div>")
-    out = ('<title>動画八本 香盤表とショットリスト</title>\n'
-           '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
-           'family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">\n'
-           '<style>%s</style>\n%s\n' % (CSS, body))
+    out = ('<title>動画八本 香盤表とショットリスト</title>\n%s\n'
+           '<style>%s</style>\n%s\n' % (FONT, CSS, body))
     p = os.path.join(ROOT, "kouban.html")
     open(p, "w", encoding="utf-8").write(out)
     print(p, len(out), "バイト")
