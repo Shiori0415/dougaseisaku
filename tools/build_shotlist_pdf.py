@@ -72,10 +72,7 @@ def cover():
       <b>店の日</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方、購入者と顔出しの範囲。<br>
       <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
       ④は曇りの日に合わせるので、モデルの日の前後に予備日を一日置く。</div>
-    <div><div class="cap">全日に共通すること</div>
-      明るさとホワイトバランスはマニュアルで固定する。<br>
-      一カットは十秒回す。使うのは一〜二秒でも、前後に余裕がないとつながらない。<br>
-      同じ動作は三回撮る ── 手が入る前、動作中、手が抜けたあと。</div>
+    <div>
   </div>
 </section>'''
 
@@ -139,7 +136,7 @@ def day_page(d):
       <div class="right">{esc(L.day_span(d))}　／　撮るカット {shoot}{"（ほかに編集で作る %d）" % edit if edit else ""}</div>
     </div>
   </div>
-  <p class="lead">{d["lead"]}<br><span style="color:{GOLD}">日付が決まる条件 ── {d["cond"]}</span></p>
+  <p class="lead" style="color:{GOLD}">{d["cond"]}</p>
   <table>
     <colgroup><col style="width:10%"><col style="width:14%"><col style="width:20%"><col style="width:30%"><col></colgroup>
     <thead><tr>{"".join('<th style="%s">%s</th>' % (th(), h) for h in head)}</tr></thead>

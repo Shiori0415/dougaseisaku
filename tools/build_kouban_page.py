@@ -57,10 +57,7 @@ def cover():
   <h1>動画八本　香盤表とショットリスト</h1>
   <div class="en">Shooting Schedule &amp; Shot List</div>
   <div class="count">全八本　{ts + te}カット　／　撮影 四日</div>
-  <p class="lead">四日で撮り切る組み方です。<b>本ごとに撮らず、同じ場所で撮るものを本をまたいでまとめました</b> ── 裁断機の前なら②の裁つと⑥の裁断、店の前なら⑤の歴史と⑧のつかみ、というふうに。設営が一度で済み、同じ画を二度撮らずにすみます。<br>
-  <b>インタビューの日と店の日は、ブルックリンの製作日を待たずに押さえられます</b>（画に入るのは自社の品だけ）。<b>工房の日だけ、ブルックリンを作っている日に合わせます</b> ── 佐藤さんに製作日を確認してから決めます。<br>
-  ⑤の製造シーンは撮らず、⑥から引っ張ります。ぜんぶで{ts}カットを撮影し、残りの{te}カット（白バックと文字だけの画面、⑤の製造）は編集と流用でまかないます。<br>
-  <b>日付はすべて未定です。</b>決まった日から順に、この表に入れていきます。</p>
+
 </header>
 <section id="schedule">
   <div class="scroll"><table>
@@ -75,10 +72,7 @@ def cover():
       <b>店の日</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方（手と肩だけ）、購入者と顔出しの範囲。<br>
       <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
       ④は曇りの日に合わせるので、モデルの日の前後に予備日を一日置く。</div></div>
-    <div><div class="cap">全日に共通すること</div><div class="body">
-      明るさとホワイトバランスはマニュアルで固定する。<br>
-      一カットは十秒回す。使うのは一〜二秒でも、前後に余裕がないとつながらない。<br>
-      同じ動作は三回撮る ── 手が入る前、動作中、手が抜けたあと。</div></div>
+    <div>
   </div>
 </section>'''
 
@@ -152,7 +146,7 @@ def day_section(d):
     <div class="when">{esc(L.day_span(d))}</div>
     <div class="cuts">撮るカット {shoot}{"（ほかに編集で作る %d）" % edit if edit else ""}</div>
   </div>
-  <p class="note">{d["lead"]}<br><span style="color:var(--gold)">日付が決まる条件 ── {d["cond"]}</span></p>
+  <p class="note" style="color:var(--gold)">{d["cond"]}</p>
   <div class="scroll"><table>
     <colgroup><col style="width:9%"><col style="width:13%"><col style="width:17%"><col style="width:16%"><col style="width:25%"><col></colgroup>
     <thead><tr>{"".join("<th>%s</th>" % h for h in head)}</tr></thead>
