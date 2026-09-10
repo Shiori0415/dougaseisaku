@@ -473,8 +473,7 @@ def cover_artboard():
             f'<span style="color: {MUTED}">　── {t}</span></div>'
             for no, t in d["toc"])
         rows.append(f'''<tr>
-      <td style="{td}; padding-left: 0"><div style="font-size: 21px; font-weight: 700; color: {INK}">{esc(d["no"])}</div></td>
-      <td style="{td}; font-size: 19px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(d["date"])}</td>
+      <td style="{td}; padding-left: 0; font-size: 21px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(d["date"])}</td>
       <td style="{td}; font-size: 18px; font-weight: 700; color: {INK}">{esc(d["place"])}</td>
       <td style="{td}; font-size: 18px; color: {INK}">{books}</td>
       <td style="{td}; font-size: 18px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(day_span(d))}</td>
@@ -515,13 +514,12 @@ def cover_artboard():
   </div>
   <table>
     <colgroup>
-      <col style="width: 170px"><col style="width: 110px"><col style="width: 250px"><col><col style="width: 180px"><col style="width: 130px">
+      <col style="width: 130px"><col style="width: 270px"><col><col style="width: 190px"><col style="width: 140px">
     </colgroup>
     <tr>
-      <th style="{th}; padding-left: 0">日</th>
-      <th style="{th}; padding-left: 16px">日 付</th>
+      <th style="{th}; padding-left: 0">日 付</th>
       <th style="{th}; padding-left: 16px">場 所</th>
-      <th style="{th}; padding-left: 16px">撮 る も の</th>
+      <th style="{th}; padding-left: 16px">内 容</th>
       <th style="{th}; padding-left: 16px">時 間</th>
       <th style="{th}; padding-left: 16px">カ ッ ト</th>
     </tr>
@@ -787,7 +785,7 @@ def cast_artboard():
 '''
 
 # 実際に描かせて測った高さ
-HEIGHT = {"cover": 1334, "d1": 1043, "d2": 3006, "d3": 3068, "d4": 1893, "cast": 1062,
+HEIGHT = {"cover": 1305, "d1": 1043, "d2": 3006, "d3": 3068, "d4": 1893, "cast": 1062,
           "sl01": 1203, "sl02": 2173, "sl03": 1235, "sl04": 993,
           "sl05": 2297, "sl06": 2595, "sl07": 1185, "sl08": 1845}
 

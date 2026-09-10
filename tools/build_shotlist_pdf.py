@@ -40,11 +40,10 @@ def cover():
             % (GOLD, L.MARU[no], esc(L.PG[no]["jp"]), MUTED, tx) for no, tx in d["toc"])
         rows.append(
             '<tr>'
-            '<td class="c"><b style="font-size:12pt">%s</b></td>'
             '<td class="c" style="color:%s;font-weight:700">%s</td><td class="c"><b>%s</b></td><td class="c">%s</td>'
             '<td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
             '<td class="c" style="white-space:nowrap">%dカット</td></tr>'
-            % (esc(d["no"]), GOLD, esc(d["date"]), esc(d["place"]), books, GOLD,
+            % (GOLD, esc(d["date"]), esc(d["place"]), books, GOLD,
                esc(L.day_span(d)), a))
     return f'''<section class="page">
   <div class="head">
@@ -61,8 +60,8 @@ def cover():
     {ts}カットを撮影し、残りの{te}カット（白バックと文字だけの画面）は編集で作ります。日ごとの香盤表のあとに、<b>本ごとのショットリスト</b>を八枚付けています。
   </p>
   <table>
-    <colgroup><col style="width:10%"><col style="width:6%"><col style="width:15%"><col><col style="width:10%"><col style="width:7%"></colgroup>
-    <thead><tr><th style="{th()}">日</th><th style="{th()}">日付</th><th style="{th()}">場所</th><th style="{th()}">撮るもの</th>
+    <colgroup><col style="width:7%"><col style="width:16%"><col><col style="width:10%"><col style="width:7%"></colgroup>
+    <thead><tr><th style="{th()}">日付</th><th style="{th()}">場所</th><th style="{th()}">内容</th>
     <th style="{th()}">時間</th><th style="{th()}">カット</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>

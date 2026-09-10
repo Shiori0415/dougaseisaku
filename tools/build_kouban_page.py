@@ -46,11 +46,11 @@ def cover():
             '　<b>%s</b><span class="dim">　── %s</span></div>'
             % (L.MARU[no], esc(L.PG[no]["jp"]), tx) for no, tx in d["toc"])
         rows.append(
-            '<tr><td><a href="#%s" style="color:inherit;text-decoration:none">'
-            '<span class="sc">%s</span></a></td>'
-            '<td class="tm">%s</td><td><b>%s</b></td><td>%s</td>'
+            '<tr><td><a href="#%s" style="text-decoration:none">'
+            '<span class="tm" style="font-size:17px">%s</span></a></td>'
+            '<td><b>%s</b></td><td>%s</td>'
             '<td class="tm">%s</td><td class="no">%dカット</td></tr>'
-            % (d["key"], esc(d["no"]), esc(d["date"]), esc(d["place"]), books,
+            % (d["key"], esc(d["date"]), esc(d["place"]), books,
                esc(L.day_span(d)), a))
     return f'''<header class="top">
   <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
@@ -64,8 +64,8 @@ def cover():
 </header>
 <section id="schedule">
   <div class="scroll"><table>
-    <colgroup><col style="width:11%"><col style="width:7%"><col style="width:16%"><col><col style="width:11%"><col style="width:8%"></colgroup>
-    <thead><tr><th>日</th><th>日付</th><th>場所</th><th>撮るもの</th><th>時間</th><th>カット</th></tr></thead>
+    <colgroup><col style="width:8%"><col style="width:17%"><col><col style="width:11%"><col style="width:8%"></colgroup>
+    <thead><tr><th>日付</th><th>場所</th><th>内容</th><th>時間</th><th>カット</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table></div>
   <div class="foot">
