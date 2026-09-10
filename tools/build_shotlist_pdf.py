@@ -43,21 +43,20 @@ def cover():
             '<td class="c" style="color:%s;font-weight:700">%s</td><td class="c"><b>%s</b></td><td class="c">%s</td>'
             '<td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
             '<td class="c" style="white-space:nowrap">%dカット</td></tr>'
-            % (GOLD, esc(d["date"]), esc(d["place"]), books, GOLD,
+            % (GOLD, esc(d["date"].split("　※")[0]), esc(d["place"]), books, GOLD,
                esc(L.day_span(d)), a))
     return f'''<section class="page">
   <div class="head">
     <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
     <div class="titlerow">
-      <div class="title">動画八本　香盤表とショットリスト</div>
-      <div class="sub">Shooting Schedule &amp; Shot List</div>
-      <div class="right">全八本　{ts + te}カット　／　撮影 四日</div>
+      <div class="title">動画八本　香盤表</div>
+      <div class="sub">Shooting Schedule</div>
+      <div class="right">全八本　{ts}カット　／　撮影 四日　／　日付はすべて仮</div>
     </div>
   </div>
   <p class="lead">
-    はじめの二日で短い二本（②③）を撮り、編集まで一度通します。<b>三日目に三人のインタビューを全部録り、四日目からは、録れた声に画を当てていきます。</b>
-    声が先にあると、どの画を何秒使うかが決まるので、撮る量に無駄が出ません。出演者の手配が要る⑧⑦④①は、支度の重い順に、あとの四日へ置いています。<br>
-    {ts}カットを撮影し、残りの{te}カット（白バックと文字だけの画面）は編集で作ります。日ごとの香盤表のあとに、<b>本ごとのショットリスト</b>を八枚付けています。
+    四日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
+    <b>⑧は開店前、③は終業後か休日。②と⑥は、ブルックリンの品を作っている日に合わせて動かします。</b>
   </p>
   <table>
     <colgroup><col style="width:7%"><col style="width:16%"><col><col style="width:10%"><col style="width:7%"></colgroup>
@@ -67,11 +66,11 @@ def cover():
   </table>
   <div class="two">
     <div><div class="cap">先に決めておくこと</div>
-      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房の日が決まる）と、終業後に工房を使えるか（③の日が決まる）。<br>
-      <b>インタビューの日</b>── 永尾社長・佐藤さんの予定。工房が動いていない日でも撮れる。<br>
-      <b>店の日</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方、購入者と顔出しの範囲。<br>
-      <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
-      ④は曇りの日に合わせるので、モデルの日の前後に予備日を一日置く。</div>
+      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
+      <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
+      <b>10月1日（木）</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方、購入者と顔出しの範囲。<br>
+      <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
+      ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div>
     <div>
   </div>
 </section>'''
@@ -79,66 +78,74 @@ def cover():
 
 def day_page(d):
     shoot, edit = L.day_counts(d)
-    rows = []
-    head = ("時刻", "話す人 ／ 本・シーン", "場所（セット）", "録ること ／ 画角の並び", "気をつけること")
-    if d.get("talks"):
-        rows.append('<tr><td colspan="5" style="padding:2mm 0 1mm"><b>イ ン タ ビ ュ ー の 収 録</b></td></tr>')
-        for tk in d["talks"]:
-            when, who, place, what, note = tk[:5]
-            rows.append('<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
-                        '<td class="c"><b style="font-size:11pt">%s</b></td>'
-                        '<td class="c">%s</td><td class="c">%s</td>'
-                        '<td class="c" style="color:%s">%s</td></tr>'
-                        % (GOLD, esc(when), esc(who), place, what, MUTED, note))
-        rows.append('<tr><td colspan="5" style="padding:4mm 0 1mm"><b>セ ッ ト ご と の 撮 影</b></td></tr>')
+    blocks = []
+    head = ("時刻", "場所の詳細", "登場人物", "シーン内容詳細", "尺", "備考")
+    for tk in d.get("talks", []):
+        when, who, place, what, note = tk[:5]
+        blocks.append((L.start_min(when),
+            '<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
+            '<td class="c">%s</td><td class="c">%s<br><span style="color:%s">椅子、ピンマイク</span></td>'
+            '<td class="c"><b>%s</b><br>%s</td>'
+            '<td class="c" style="color:%s;white-space:nowrap">三十分</td>'
+            '<td class="c" style="color:%s">%s</td></tr>'
+            % (GOLD, esc(when), place, esc(who), MUTED,
+               esc(tk[6] if len(tk) > 6 else "インタビュー"), what, MUTED, MUTED, note)))
     for when, place, sc, note in d.get("setups", []):
-        books = "　".join(
-            L.MARU[no] + " " + "・".join(re.sub(r"^S\\d+\\s*", "", L.cuts_of(no, si)[0])
-                                        for n2, si in sc if n2 == no)
-            for no in dict.fromkeys(n for n, _ in sc))
-        rows.append('<tr class="band"><td colspan="5"><span style="color:%s;font-weight:700">%s</span>'
-                    '　<b>%s</b>　<span style="color:%s">%s</span>'
-                    '<span style="float:right;color:%s">%s</span></td></tr>'
-                    % (GOLD, esc(when), esc(place), MUTED, books, MUTED, note))
-        for no, si in sc:
+        if not sc:
+            a, b = [int(x.split(":")[0]) * 60 + int(x.split(":")[1]) for x in when.split("〜")]
+            blocks.append((L.start_min(when),
+                '<tr class="band"><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
+                '<td class="c"><b>%s</b></td><td class="c">―</td><td class="c">―</td>'
+                '<td class="c" style="color:%s;white-space:nowrap">%d分</td>'
+                '<td class="c" style="color:%s">%s</td></tr>'
+                % (GOLD, esc(when), esc(place), MUTED, b - a, MUTED, note)))
+            continue
+        for k, (no, si) in enumerate(sc):
             nm, cuts = L.cuts_of(no, si)
             pl_, _, _, wh = S.SPOT[no][si]
             cam, cnote = L.split_cam(S.D[no][si][0])
+            who, prop = L.CASTPROP.get((no, si), ("―", "―"))
             mv, mvday = L.MOVED.get((no, si), ([], ""))
+            memo = []
+            if k == 0 and note:
+                memo.append(note)
             if mv and len(mv) == len(cuts):
-                cnt = "%dカット<br><span style='color:%s'>インタビューの収録で撮る</span>" % (len(cuts), GOLD)
+                memo.append('%dカット。<span style="color:%s">インタビューの収録で撮る</span>' % (len(cuts), GOLD))
             else:
-                cnt = "%dカット" % (len(cuts) - len(mv))
+                m = "%dカット" % (len(cuts) - len(mv))
                 if mv:
-                    cnt += '<br><span style="color:%s">%sは%s</span>' % (
-                        GOLD, "".join(L.CIR[k - 1] for k in mv), mvday)
-            if (no, si) in L.REUSE:
-                tc = '<span style="color:%s">撮影しない<br>%s</span>' % (GOLD, L.REUSE[(no, si)])
-            elif L.is_edit_only(no, si):
-                tc = '<span style="color:%s">撮影しない</span>' % FAINT
-            else:
-                tc = '<span style="color:%s;font-weight:700">%s</span>' % (GOLD, esc(wh))
-            rows.append('<tr><td class="c" style="white-space:nowrap">%s</td>'
-                        '<td class="c"><b><span style="color:%s">%s</span> %s</b><br>'
-                        '<span style="color:%s;font-size:8.5pt">%s</span></td>'
-                        '<td class="c">%s</td><td class="c">%s</td>'
-                        '<td class="c" style="color:%s">%s</td></tr>'
-                        % (tc, GOLD, L.MARU[no], esc(nm), FAINT, cnt,
-                           pl_ if pl_ != "同じ" else '<span style="color:%s">同じ</span>' % MUTED,
-                           cam, MUTED, cnote))
+                    where = "インタビューの収録で撮る" if mvday == S.SPOT[no][si][2] else "%sに撮る" % mvday
+                    m += '（<span style="color:%s">%sは%s</span>）' % (
+                        GOLD, "・".join("%d枚目" % j for j in mv), where)
+                memo.append(m)
+            if cnote:
+                memo.append(cnote)
+            t = S.SPOT[no][si][3]
+            blocks.append((L.start_min(t if t != "―" else when),
+                '<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
+                '<td class="c">%s</td>'
+                '<td class="c">%s<br><span style="color:%s">%s</span></td>'
+                '<td class="c"><b><span style="color:%s">%s</span> %s</b><br>%s</td>'
+                '<td class="c" style="color:%s;white-space:nowrap">%s</td>'
+                '<td class="c" style="color:%s">%s</td></tr>'
+                % (GOLD, esc(wh),
+                   pl_ if pl_ != "同じ" else '<span style="color:%s">同じ</span>' % MUTED,
+                   esc(who), MUTED, esc(prop), GOLD, L.MARU[no], esc(nm), cam,
+                   MUTED, L.scene_len(no, si), MUTED, "<br>".join(memo))))
+    blocks.sort(key=lambda x: x[0])
+    rows = [x for _, x in blocks]
     keys = "".join("<li>%s</li>" % k for k in d["keys"])
     return f'''<section class="page">
-  <div class="head">
-    <div class="titlerow">
-      <div class="title" style="font-size:20pt">{esc(d["no"])}</div>
-      <div class="sub" style="color:{GOLD};font-size:13pt;font-weight:700">{esc(d["place"])}</div>
-      <div class="sub">{esc(d["theme"])}</div>
-      <div class="right">{esc(L.day_span(d))}　／　撮るカット {shoot}{"（ほかに編集で作る %d）" % edit if edit else ""}</div>
-    </div>
-  </div>
-  <p class="lead" style="color:{GOLD}">{d["cond"]}</p>
+  <table class="dhead">
+    <tr><td>タイトル</td><td><b style="font-size:13pt">{L.day_titles(d)}</b></td></tr>
+    <tr><td>撮影日</td><td><b style="font-size:11.5pt">{esc(d["date2"])}</b></td></tr>
+    <tr><td>場所</td><td>{esc(d["place"])}</td></tr>
+    <tr><td>時間</td><td>{esc(L.day_span(d))}　<span style="color:{FAINT}">撮るカット {shoot}</span></td></tr>
+    <tr><td>緊急時連絡先</td><td>&nbsp;</td></tr>
+    <tr><td>注意事項</td><td>{d["cond"]}</td></tr>
+  </table>
   <table>
-    <colgroup><col style="width:10%"><col style="width:14%"><col style="width:20%"><col style="width:30%"><col></colgroup>
+    <colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%"><col><col style="width:5%"><col style="width:19%"></colgroup>
     <thead><tr>{"".join('<th style="%s">%s</th>' % (th(), h) for h in head)}</tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
@@ -160,7 +167,7 @@ def shot_page(no):
         sp = L.sec_span(tm)
         each = (sp[1] - sp[0]) / len(cuts) if sp and cuts else None
         mv, mvday = L.MOVED.get((no, si), ([], ""))
-        rows.append('<tr class="band"><td colspan="5"><b>%s</b>　<span style="color:%s">%s　%s</span>'
+        rows.append('<tr class="band"><td colspan="4"><b>%s</b>　<span style="color:%s">%s　%s</span>'
                     '<span style="float:right;color:%s;font-weight:700">%s　%s</span></td></tr>'
                     % (esc(nm), MUTED, esc(re.sub(r"　｜.*", "", tm)),
                        esc(place if place != "同じ" else "同じ場所"), GOLD, esc(day), esc(when)))
@@ -171,11 +178,11 @@ def shot_page(no):
             if (no, si) in L.REUSE:
                 tag = '<br><span style="color:%s">撮影しない ── %s</span>' % (GOLD, L.REUSE[(no, si)])
             rows.append('<tr><td class="c" style="white-space:nowrap"><b>%02d</b>'
-                        '<span style="color:%s">　S%d-%s</span></td>'
+                        '<span style="color:%s">　S%d %d枚目</span></td>'
                         '<td class="c">%s%s</td><td class="c">%s</td>'
                         '<td class="c" style="color:%s;white-space:nowrap">%s</td>'
-                        '<td class="c"><span class="box"></span></td></tr>'
-                        % (n, FAINT, si, L.CIR[k], ang[k] if k < len(ang) else "", tag,
+                        '</tr>'
+                        % (n, FAINT, si, k + 1, ang[k] if k < len(ang) else "", tag,
                            sh[1], MUTED, sec))
     return f'''<section class="page">
   <div class="head">
@@ -253,16 +260,18 @@ tr.band td {{ background: {BAND}; padding: 1.6mm 2mm; border-bottom: .5pt solid 
 .cap {{ font-size: 8pt; color: {FAINT}; letter-spacing: .08em; margin-bottom: 1.5mm; }}
 ul {{ margin: 0; padding-left: 4mm; }}
 li {{ margin-bottom: 1mm; }}
-.box {{ display: inline-block; width: 3.5mm; height: 3.5mm; border: .5pt solid {LINE}; border-radius: .5mm; }}
+.dhead {{ width:100%; border-collapse:collapse; margin:0 0 3mm; border-bottom:.8pt solid {INK}; }}
+.dhead td {{ padding:1.4mm 0; border-bottom:.4pt solid {LINE}; vertical-align:top; font-size:9.5pt; line-height:1.55; }}
+.dhead td:first-child {{ width:26mm; color:{FAINT}; font-size:8.5pt; letter-spacing:.06em; white-space:nowrap; }}
 b {{ font-weight: 700; }}
 '''
 
 
 def main():
     parts = [cover()] + [day_page(d) for d in L.DAYS] + \
-            [shot_page(no) for no in L.SHOT_ORDER] + [cast_page()]
+            [cast_page()]
     out = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
-           '<title>動画八本 香盤表とショットリスト</title><style>%s</style></head><body>%s</body></html>'
+           '<title>動画八本 香盤表</title><style>%s</style></head><body>%s</body></html>'
            % (CSS, "".join(parts)))
     p = os.path.join(ROOT, "pdf", "kouban.html")
     os.makedirs(os.path.dirname(p), exist_ok=True)

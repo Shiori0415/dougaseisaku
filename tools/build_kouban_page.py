@@ -22,15 +22,20 @@ def plain(s):
 
 from page_style import CSS, FONT
 
+DHEAD = """
+.dhead { width:100%; border-collapse:collapse; margin:0 0 18px; border-bottom:2px solid var(--ink); }
+.dhead td { padding:9px 0; border-bottom:1px solid var(--hair); vertical-align:top; font-size:15px; line-height:1.7; }
+.dhead td:first-child { width:130px; color:var(--faint); font-size:13px; letter-spacing:.08em; white-space:nowrap; }
+.dhead .dt { font-size:19px; }
+"""
+
 
 def nav():
     days = "".join('<a href="#%s">%s</a>' % (d["key"], d["no"][:-2] if d["no"].endswith("日目") else d["no"])
                    for d in L.DAYS)
-    shots = "".join('<a href="#sl%s">%s</a>' % (no, L.MARU[no]) for no in L.SHOT_ORDER)
     return ('<nav><div class="navin"><span class="navlab">香盤表</span>%s'
-            '<span class="navsep"></span><span class="navlab">ショットリスト</span>%s'
             '<span class="navsep"></span><a href="#cast">出演者と支度</a>'
-            '</div></nav>' % (days, shots))
+            '</div></nav>' % days)
 
 
 def cover():
@@ -50,13 +55,13 @@ def cover():
             '<span class="tm" style="font-size:17px">%s</span></a></td>'
             '<td><b>%s</b></td><td>%s</td>'
             '<td class="tm">%s</td><td class="no">%dカット</td></tr>'
-            % (d["key"], esc(d["date"]), esc(d["place"]), books,
+            % (d["key"], esc(d["date"].split("　※")[0]), esc(d["place"]), books,
                esc(L.day_span(d)), a))
     return f'''<header class="top">
   <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
-  <h1>動画八本　香盤表とショットリスト</h1>
-  <div class="en">Shooting Schedule &amp; Shot List</div>
-  <div class="count">全八本　{ts + te}カット　／　撮影 四日</div>
+  <h1>動画八本　香盤表</h1>
+  <div class="en">Shooting Schedule</div>
+  <div class="count">全八本　{ts}カット　／　撮影 四日　<span style="color:var(--gold)">日付はすべて仮</span></div>
 
 </header>
 <section id="schedule">
@@ -67,88 +72,84 @@ def cover():
   </table></div>
   <div class="foot">
     <div><div class="cap">先に決めておくこと</div><div class="body">
-      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房の日が決まる）と、終業後に工房を使えるか（③の日が決まる）。<br>
-      <b>インタビューの日</b>── 永尾社長・佐藤さんの予定。工房が動いていない日でも撮れる。<br>
-      <b>店の日</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方（手と肩だけ）、購入者と顔出しの範囲。<br>
-      <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
-      ④は曇りの日に合わせるので、モデルの日の前後に予備日を一日置く。</div></div>
+      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
+      <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
+      <b>10月1日（木）</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方（手と肩だけ）、購入者と顔出しの範囲。<br>
+      <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
+      ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div></div>
     <div>
   </div>
 </section>'''
 
 
-def scene_line(no, si):
+def scene_line(no, si, extra=""):
     nm, cuts = L.cuts_of(no, si)
     pl_, _, _, wh = S.SPOT[no][si]
     cam, cnote = L.split_cam(S.D[no][si][0])
     who, prop = L.CASTPROP.get((no, si), ("―", "―"))
     mv, mvday = L.MOVED.get((no, si), ([], ""))
+    memo = []
+    if extra:
+        memo.append(extra)
     if mv and len(mv) == len(cuts):
-        cnt = '%dカット<br><span class="pin">インタビューの収録で撮る</span>' % len(cuts)
+        memo.append('%dカット。<span class="pin">インタビューの収録で撮る</span>' % len(cuts))
     else:
-        cnt = "%dカット" % (len(cuts) - len(mv))
+        m = "%dカット" % (len(cuts) - len(mv))
         if mv:
-            cnt += '<br><span class="pin">%sは%s</span>' % (
-                "".join(L.CIR[k - 1] for k in mv), mvday)
-    if (no, si) in L.REUSE:
-        tc = '<span class="pin">撮影しない<br>%s</span>' % L.REUSE[(no, si)]
-    elif L.is_edit_only(no, si):
-        tc = '<span class="sub">撮影しない</span>'
-    else:
-        tc = '<span class="tm">%s</span>' % esc(wh)
-    return ('<tr><td>%s</td><td><span class="sc">'
-            '<span style="color:var(--gold)">%s</span> %s</span><br>'
-            '<span class="sub">%s</span></td><td>%s</td>'
-            '<td>%s<br><span class="dim">%s</span></td><td>%s</td>'
-            '<td class="dim">%s</td></tr>'
-            % (tc, L.MARU[no], esc(nm), cnt,
-               pl_ if pl_ != "同じ" else '<span class="dim">同じ</span>',
-               esc(who), esc(prop), cam, cnote))
+            where = "インタビューの収録で撮る" if mvday == S.SPOT[no][si][2] else "%sに撮る" % mvday
+            m += '（<span class="pin">%sは%s</span>）' % (
+                "・".join("%d枚目" % k for k in mv), where)
+        memo.append(m)
+    if cnote:
+        memo.append(cnote)
+    return ('<tr><td class="tm">%s</td><td>%s</td>'
+            '<td>%s<br><span class="dim">%s</span></td>'
+            '<td><span class="sc"><span style="color:var(--gold)">%s</span> %s</span>'
+            '<br>%s</td><td class="dim">%s</td><td class="dim">%s</td></tr>'
+            % (esc(wh), pl_ if pl_ != "同じ" else '<span class="dim">同じ</span>',
+               esc(who), esc(prop), L.MARU[no], esc(nm), cam,
+               L.scene_len(no, si), "<br>".join(memo)))
 
 
 def day_section(d):
     shoot, edit = L.day_counts(d)
-    rows = []
-    head = ("時 刻", "話す人 ／ 本・シーン", "場 所（セット）", "登 場（人／物）",
-            "録ること ／ 画角の並び", "気 を つ け る こ と")
-    if d.get("talks"):
-        rows.append('<tr><td colspan="6" style="padding:18px 0 6px">'
-                    '<b style="font-size:17px">イ ン タ ビ ュ ー の 収 録</b></td></tr>')
-        for tk in d["talks"]:
-            when, who, place, what, note = tk[:5]
-            rows.append('<tr><td class="tm">%s</td><td class="sc">%s</td><td>%s</td>'
-                        '<td>%s<br><span class="dim">椅子、ピンマイク</span></td>'
-                        '<td>%s</td><td class="dim">%s</td></tr>'
-                        % (esc(when), esc(who), place, esc(who), what, note))
-            for no, si in (tk[5] if len(tk) > 5 else []):
-                rows.append(scene_line(no, si))
-        rows.append('<tr><td colspan="6" style="padding:26px 0 6px">'
-                    '<b style="font-size:17px">セ ッ ト ご と の 撮 影</b></td></tr>')
+    blocks = []
+    head = ("時 刻", "場 所 の 詳 細", "登 場 人 物", "シ ー ン 内 容 詳 細", "尺", "備 考")
+    for tk in d.get("talks", []):
+        when, who, place, what, note = tk[:5]
+        b = ['<tr><td class="tm">%s</td><td>%s</td>'
+             '<td>%s<br><span class="dim">椅子、ピンマイク</span></td>'
+             '<td><span class="sc">%s</span><br>%s</td>'
+             '<td class="dim">三十分</td><td class="dim">%s</td></tr>'
+             % (esc(when), place, esc(who),
+                esc(tk[6] if len(tk) > 6 else "インタビュー"), what, note)]
+        blocks.append((L.start_min(when), "".join(b)))
     for when, place, sc, note in d.get("setups", []):
-        books = "　".join(
-            L.MARU[no] + " " + "・".join(re.sub(r"^S\d+\s*", "", L.cuts_of(no, si)[0])
-                                        for n2, si in sc if n2 == no)
-            for no in dict.fromkeys(n for n, _ in sc))
-        rows.append('<tr class="band"><td colspan="6">'
-                    '<span class="tm">%s</span>　<b style="font-size:17px">%s</b>　'
-                    '<span class="dim">%s</span>'
-                    '<span class="sub" style="float:right">%s</span></td></tr>'
-                    % (esc(when), esc(place), books, note))
-        for no, si in sc:
-            rows.append(scene_line(no, si))
+        if not sc:
+            a, b = [int(x.split(":")[0]) * 60 + int(x.split(":")[1]) for x in when.split("〜")]
+            blocks.append((L.start_min(when),
+                '<tr class="band"><td class="tm">%s</td><td><b>%s</b></td><td>―</td>'
+                '<td>―</td><td class="dim">%d分</td><td class="dim">%s</td></tr>'
+                % (esc(when), esc(place), b - a, note)))
+            continue
+        for k, (no, si) in enumerate(sc):
+            t = S.SPOT[no][si][3]
+            blocks.append((L.start_min(t if t != "―" else when),
+                           scene_line(no, si, note if k == 0 else "")))
+    blocks.sort(key=lambda b: b[0])
+    rows = [b for _, b in blocks]
     keys = "".join("<li>%s</li>" % k for k in d["keys"])
     return f'''<section id="{d["key"]}">
-  <div class="shead">
-    <div class="daynum">{esc(d["no"])}</div>
-    <div class="tag paid">日付　{esc(d["date"])}</div>
-    <div class="place">{esc(d["place"])}</div>
-    <div class="theme">{esc(d["theme"])}</div>
-    <div class="when">{esc(L.day_span(d))}</div>
-    <div class="cuts">撮るカット {shoot}{"（ほかに編集で作る %d）" % edit if edit else ""}</div>
-  </div>
-  <p class="note" style="color:var(--gold)">{d["cond"]}</p>
+  <table class="dhead">
+    <tr><td>タイトル</td><td><b class="dt">{L.day_titles(d)}</b></td></tr>
+    <tr><td>撮影日</td><td><b>{esc(d["date2"])}</b></td></tr>
+    <tr><td>場所</td><td>{esc(d["place"])}</td></tr>
+    <tr><td>時間</td><td>{esc(L.day_span(d))}　<span class="dim">撮るカット {shoot}</span></td></tr>
+    <tr><td>緊急時連絡先</td><td>&nbsp;</td></tr>
+    <tr><td>注意事項</td><td>{d["cond"]}</td></tr>
+  </table>
   <div class="scroll"><table>
-    <colgroup><col style="width:9%"><col style="width:13%"><col style="width:17%"><col style="width:16%"><col style="width:25%"><col></colgroup>
+    <colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%"><col><col style="width:5%"><col style="width:19%"></colgroup>
     <thead><tr>{"".join("<th>%s</th>" % h for h in head)}</tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table></div>
@@ -170,7 +171,7 @@ def shot_section(no):
         sp = L.sec_span(tm)
         each = (sp[1] - sp[0]) / len(cuts) if sp and cuts else None
         mv, mvday = L.MOVED.get((no, si), ([], ""))
-        rows.append('<tr class="band"><td colspan="6"><b>%s</b>　<span class="sub">%s　%s</span>'
+        rows.append('<tr class="band"><td colspan="4"><b>%s</b>　<span class="sub">%s　%s</span>'
                     '　<span class="tm" style="float:right">%s　%s</span></td></tr>'
                     % (esc(nm), esc(re.sub(r"　｜.*", "", tm)),
                        esc(place if place != "同じ" else "同じ場所"), esc(day), esc(when)))
@@ -181,10 +182,10 @@ def shot_section(no):
             if (no, si) in L.REUSE:
                 tag = '<br><span class="pin">撮影しない ── %s</span>' % L.REUSE[(no, si)]
             rows.append('<tr><td><span class="no">%02d</span>'
-                        '<span class="sub">　S%d-%s</span></td><td>%s%s</td><td>%s</td>'
+                        '<span class="sub">　S%d %d枚目</span></td><td>%s%s</td><td>%s</td>'
                         '<td class="dim" style="white-space:nowrap;font-variant-numeric:tabular-nums">%s</td>'
-                        '<td><span class="box"></span></td></tr>'
-                        % (n, si, L.CIR[k], ang[k] if k < len(ang) else "", tag, sh[1], sec))
+                        '</tr>'
+                        % (n, si, k + 1, ang[k] if k < len(ang) else "", tag, sh[1], sec))
     days = []
     for si in sorted(S.SPOT[no]):
         d = S.SPOT[no][si][2]
@@ -237,10 +238,9 @@ def cast_section():
 def main():
     body = (nav() + '<div class="wrap">' + cover() +
             "".join(day_section(d) for d in L.DAYS) +
-            "".join(shot_section(no) for no in L.SHOT_ORDER) +
             cast_section() + "</div>")
-    out = ('<title>動画八本 香盤表とショットリスト</title>\n%s\n'
-           '<style>%s</style>\n%s\n' % (FONT, CSS, body))
+    out = ('<title>動画八本 香盤表</title>\n%s\n'
+           '<style>%s%s</style>\n%s\n' % (FONT, CSS, DHEAD, body))
     p = os.path.join(ROOT, "kouban.html")
     open(p, "w", encoding="utf-8").write(out)
     print(p, len(out), "バイト")

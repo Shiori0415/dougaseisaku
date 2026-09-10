@@ -23,10 +23,9 @@ MARU = {"01": "①", "02": "②", "03": "③", "04": "④",
 
 # 一日ぶんの組み立て。順番は、場所を動かさずに済む順に組んでいる
 # インタビューの収録で先に撮ってしまうカット（本, シーン）→ （カット番号, その日）
-MOVED = {("05", 1): ([3], "店の日"), ("05", 8): ([1, 2], "店の日"),
-         ("05", 6): ([1], "店の日"),
-         ("06", 2): ([3], "工房の日"), ("06", 8): ([3], "工房の日")}
-REUSE = {("05", 5): "⑥から引っ張る"}
+MOVED = {("05", 1): ([3], "10月1日"), ("05", 7): ([1, 2], "10月1日"),
+         ("06", 2): ([3], "10月5日"), ("06", 8): ([3], "10月5日")}
+REUSE = {("05", 4): "⑥から引っ張る"}
 
 # シーンごとの登場（人 ／ 物）
 CASTPROP = {
@@ -36,16 +35,15 @@ CASTPROP = {
 ("01",4):("モデル", "四色目の衣装・鞄"),
 ("01",5):("モデル、通行人（すれ違う役）", "四色ぶんの衣装・鞄"),
 ("01",6):("―", "鞄 四種類、ロゴ"),
-("02",1):("職人（手だけ）", "完成した鞄"),
-("02",2):("―", "革のロールが並ぶ棚"),
-("02",3):("職人（手だけ）", "抜き型、革、裁断機"),
-("02",4):("職人（手だけ）", "革 二枚、型"),
-("02",5):("職人（手と上半身）", "ミシン、糸、革"),
-("02",6):("職人（手だけ）", "刃、道具、革"),
-("02",7):("職人（手だけ）", "コバ塗料、道具、断面"),
-("02",8):("職人（手と上半身）", "木槌、道具、立ち上がった鞄"),
-("02",9):("職人（手だけ）", "完成した鞄、ロゴ"),
-("03",1):("―", "鞄の一部（光の帯だけ）、黒い布"),
+("02",1):("―", "革のロールが並ぶ棚"),
+("02",2):("職人（手だけ）", "抜き型、革、裁断機"),
+("02",3):("職人（手だけ）", "革 二枚、型"),
+("02",4):("職人（手と上半身）", "ミシン、糸、革"),
+("02",5):("職人（手だけ）", "刃、道具、革"),
+("02",6):("職人（手だけ）", "コバ塗料、道具、断面"),
+("02",7):("職人（手と上半身）", "木槌、道具、立ち上がった鞄"),
+("02",8):("職人（手だけ）", "完成した鞄、ロゴ"),
+("03",1):("―", "鞄の一部（光の帯だけ）、黒スチレンボード"),
 ("03",2):("手だけ（時計・指輪は外す）", "革 二枚、染料、道具"),
 ("03",3):("手だけ", "革"),
 ("03",4):("手だけ（白手袋）", "金具"),
@@ -54,14 +52,13 @@ CASTPROP = {
 ("04",2):("手だけ", "鞄、中に入れる持ち物"),
 ("04",3):("モデル（後ろ姿）", "鞄"),
 ("04",4):("モデル", "鞄、持ち物、靴、ロゴ"),
-("05",1):("永尾社長", "表参道の並木通り（高いところから）"),
-("05",2):("―", "店舗の外観、昔の写真"),
-("05",3):("永尾社長ともう一人（覗き込む役）", "色見本、革、店舗の机"),
-("05",4):("手だけ", "図面、型紙"),
-("05",5):("―（⑥の画を使う）", "―"),
-("05",6):("くさがやさん", "店内の商品、ショーウィンドウ"),
-("05",7):("くさがやさん、お客さま役", "商品、ノートPC"),
-("05",8):("永尾社長", "ロゴ"),
+("05",1):("―（人は入れない）", "表参道の並木通り（高いところから）"),
+("05",2):("永尾社長ともう一人（覗き込む役）", "色見本、革、店舗の机"),
+("05",3):("手だけ", "図面、型紙"),
+("05",4):("―（⑥の画を使う）", "―"),
+("05",5):("―", "店内の商品、ショーウィンドウ"),
+("05",6):("くさがやさん、お客さま役", "商品、ノートPC"),
+("05",7):("永尾社長", "ロゴ"),
 ("06",1):("作業する人（顔は出さない）", "工房の入口、通路、機械"),
 ("06",2):("佐藤さん、作業する人", "材料の壁、機械"),
 ("06",3):("手だけ", "革の棚、金型、型紙"),
@@ -76,7 +73,7 @@ CASTPROP = {
 ("07",3):("出演者（手だけ）", "手帳、鍵、サングラス、ペン、傘、水筒"),
 ("07",4):("出演者（手と肩だけ）", "鞄"),
 ("07",5):("―", "何も乗っていない机、ロゴ"),
-("08",1):("購入者（入口に立つ）", "店の外観、商品"),
+("08",1):("購入者（外から中へ入る）", "店の外観、入口の扉、商品"),
 ("08",2):("―", "商品、ロゴの壁"),
 ("08",3):("購入者", "商品、手前に置く植物"),
 ("08",4):("購入者", "商品、窓辺"),
@@ -87,52 +84,51 @@ CASTPROP = {
 }
 
 DAYS = [
- dict(key="d2", no="店の日", place="店舗・事務所", theme="固定で撮れるものから始める",
-      date="10月1日（木）",
-      toc=[("05", "永尾社長・くさがやさんのインタビュー、店の外観と歴史、企画・設計、店内、購入・使う"),
-           ("08", "店の前、店内、窓辺のインタビュー、外に出て使う場面、見送り"),
+ dict(key="d2", no="10月1日", place="店舗・事務所", theme="開店前に⑧、開店後に⑤と⑦",
+      date="10月1日（木）　※仮", date2="2026年10月1日（木）　※仮",
+      toc=[("08", "店の前、店内、窓辺のインタビュー、外に出て使う場面、見送り（すべて開店前）"),
+           ("05", "永尾社長・くさがやさんのインタビュー、企画・設計、店内、購入"),
            ("07", "五シーンすべて（事務所の机・正面固定）")],
-      cond="製作日を待たなくてよい。<b>いちばん先に、いちばんやさしい日から始める</b>── ほとんどが三脚を据えたままの固定。購入者の予定が合わなければ、窓辺と外のカットだけ別の日に切り出す。",
+      cond="<b>⑧は店を開ける前にまとめて撮る。</b>開店を十一時として組んでいるので、実際の開店時刻に合わせて前後にずらす。"
+           "閉店後でもよいが、十月の夕方は外と窓辺が暗いので朝を勧める。購入者の予定が合わなければ、⑧だけ別の日の開店前に切り出す。",
       gear="カメラ／三脚／ピンマイク 二本／ガンマイク／PLフィルター／白い板／手前に置く植物／"
            "鞄に入れる物 一式（A4書類・13インチPC・手帳・鍵・サングラス・ペン・傘・水筒）",
-      keys=["インタビューは窓を横に置く。二人とも同じ椅子・同じ画角で撮る。",
+      keys=["<b>⑧は開店前の 8:00〜10:15 で撮り切る。</b>購入者の拘束もこの時間だけ。",
+            "インタビューは窓を横に置く。二人とも同じ椅子・同じ画角で撮る。",
             "店の外観は午前。看板に日が当たる時間に撮る。",
-            "ショーウィンドウ越しは、向かいの建物が映り込まない立ち位置を先に探す。",
             "⑦は三脚を立てたら最後まで触らない。十四カット全部が同じ画角。"],
-      talks=[("10:15〜10:45", "永尾社長", "店内（窓を横に・インタビューの一角）",
-              "⑤のインタビューを全部（七十五秒ぶん・八シーン）。<br>画は <b>⑤S1③</b>（バストショット）と <b>⑤S8</b>（締めの一言）。",
-              "S1③とS8は同じ画角のまま続けて撮る。空撮の続きに見えるよう、背景は大きくボカす。",
-              [("05", 8)]),
-             ("10:50〜11:20", "くさがやさん", "同じ場所（椅子も画角もそのまま）",
-              "⑤のインタビューのうち、店のところ（二シーン）。<br>画は <b>⑤S6①</b>（横顔）。",
-              "空いた側に見出しテロップが入るので、画面の片側を空けて撮る。", [])],
-      setups=[("9:30〜10:05", "店の外・店の前（向かいの歩道から）", [("05", 2), ("08", 1)],
-               "<b>⑤の歴史と⑧のつかみを、同じ立ち位置でまとめて撮る。</b>三脚を一度組めば両方いける。"),
-              ("11:20〜12:20", "店内（ショーウィンドウ越し・レジまわり・ロゴの壁）",
-               [("05", 6), ("05", 7), ("08", 2)],
-               "<b>店内の三シーンをまとめて撮る。</b>インタビューの収録に続けて、そのまま店内へ。"),
-              ("12:20〜13:20", "昼休み", [],
+      talks=[("10:45〜11:15", "永尾社長", "店内（窓を横に・インタビューの一角）",
+              "", "",
+              [("05", 7)], "⑤ インタビュー"),
+             ("11:20〜11:50", "くさがやさん", "同じ場所（椅子も画角もそのまま）",
+              "", "", [], "⑤ インタビュー（店）")],
+      setups=[("8:00〜8:40", "【開店前】店の外 → 入口 → 店内（つかみ二シーンを続けて）", [("08", 1), ("08", 2)],
+               "<b>つかみはまとめて撮る。</b>外から中へ入るところまで切らずに追い、そのまま店内へ。"),
+              ("8:40〜9:40", "【開店前】店の窓辺（手前に植物を置いてボカす）", [("08", 3), ("08", 4), ("08", 6)],
+               "<b>購入者インタビューの三シーンを続けて撮る。</b>カメラは一度も動かさない。"),
+              ("9:40〜10:15", "【開店前】店の前・店の前の通り", [("08", 5), ("08", 7)],
+               "<b>使っている場面と見送りを、外へ出て続けて撮る。</b>朝の斜めの光に合わせる。ここで購入者は終わり。"),
+              ("11:50〜12:50", "昼休み", [],
                "出演していただく方がいるときは、先に休憩の時間を伝えておく。"),
-              ("13:20〜14:05", "店舗の机（打ち合わせの場所）", [("05", 3), ("05", 4)],
+              ("12:50〜13:35", "店内（ショーウィンドウ越し・レジまわり）", [("05", 5), ("05", 6)],
+               "<b>⑤の店内の二シーン。</b>営業中なので、お客さまが途切れた時間に回す。"),
+              ("13:35〜14:20", "店舗の机（打ち合わせの場所）", [("05", 2), ("05", 3)],
                "<b>⑤の企画と設計。</b>机を一度組んだら、二シーンを続けて撮る。"),
-              ("14:10〜15:25", "事務所（バックヤード）の机・正面固定",
+              ("14:25〜15:40", "事務所（バックヤード）の机・正面固定",
                [("07", 1), ("07", 2), ("07", 3), ("07", 4), ("07", 5)],
                "十四カット全部が同じ画角。物を並べてから、一度通してもらって本番。"),
-              ("15:35〜16:35", "店の窓辺（手前に植物を置いてボカす）", [("08", 3), ("08", 4), ("08", 6)],
-               "<b>購入者インタビューの三シーンを続けて撮る。</b>カメラは一度も動かさない。"),
-              ("16:45〜17:20", "店の前・店の前の通り", [("08", 5), ("08", 7)],
-               "<b>使っている場面と見送りを、外へ出て続けて撮る。</b>朝と同じ立ち位置。夕方の斜めの光に合わせる。"),
-              ("―", "白バック（撮影せず、編集で作る）", [("08", 8)],
-               "⑧の締め。映像が白に抜けて、ロゴだけが残る。")]),
- dict(key="d4", no="モデルの日", place="東京国際フォーラム → 表参道",
-      theme="出演者を立てて撮る二本", date="10月2日（金）",
-      toc=[("05", "冒頭の俯瞰（表参道を高いところから）"),
-           ("01", "ロビーの四シーン（一色目〜四色目）"),
-           ("04", "柵（最初と最後）、置き画、けやき並木の歩道を歩く")],
-      cond="出演者と衣装・鞄 四色ぶんが揃ってから。会場の撮影申請も先に出す。曇りの日に合わせ、予備日を一日置く。",
+]),
+ dict(key="d4", no="10月2日", place="東京国際フォーラム → 表参道",
+      theme="出演者を立てて撮る二本", date="10月2日（金）　※仮", date2="2026年10月2日（金）　※仮",
+      toc=[("01", "ロビーの四シーン（一色目〜四色目）"),
+           ("04", "柵（最初と最後）、置き画、けやき並木の歩道を歩く"),
+           ("05", "冒頭の俯瞰（表参道を高いところから）")],
+      cond="出演者と衣装・鞄 四色ぶんが揃ってから。会場の撮影申請も先に出す。曇りの日に合わせ、予備日を一日置く。<b>表参道はどの時間も人が多い。</b>人を避けるなら、④⑤だけ別の日の 8:00〜9:30 に回す手もある。",
       gear="カメラ／三脚／三脚キャスター／養生テープ／脚立／水準器／衣装と鞄 四色ぶん",
       keys=["四色ぶんは同じ立ち位置で撮る。床にテープで足の位置を貼る。",
             "カメラの高さは胸で固定し、最後まで変えない。",
+            "<b>表参道は人が多い。交差点から離れた端と、けやき並木の裏の路地を使う。</b>"
+            "三脚は歩道の端に寄せ、人が切れる数秒を待って回す。",
             "午後の④は三脚を止めて、背景だけを動かす。顔は主役にしない。",
             "雨上がりの翌日は避ける。濡れた地面が白く光って革の色が出ない。"],
       setups=[("9:00〜10:10", "ガラス棟ロビー（北端 → 柱の列 → ガラスの扉 → 南端の階段前）",
@@ -142,59 +138,57 @@ DAYS = [
                "<b>戻る側。進んだときとまったく同じ画角・立ち位置で撮る。</b>"),
               ("10:45〜11:05", "ロビーのベンチ（真俯瞰で並べる）", [("01", 6)], "四種類を並べて締める。"),
               ("11:05〜13:10", "移動と昼休み（有楽町 → 表参道）", [],
-               "<b>出演者の拘束は 9:00〜15:15。</b>移動と休憩を含めて先に伝えておく。"),
-              ("13:10〜13:30", "表参道が見下ろせる高いところ（歩道橋・商業施設の上階など）", [("05", 1)],
-               "<b>⑤の冒頭の俯瞰。ドローンは使わない。</b>並木通りを見下ろし、寄っていく動きを何度か撮って選ぶ。"),
-              ("13:30〜14:10", "表参道 けやき並木の歩道（柵・手すり）", [("04", 1), ("04", 4)],
-               "<b>④の最初と最後は同じ柵。設営は一度でよい。</b>"),
-              ("14:20〜14:45", "ベンチか石段（真俯瞰が組めるところ）", [("04", 2)], "脚立か手すりの上から。"),
-              ("14:55〜15:15", "けやき並木の下の歩道", [("04", 3)], "顔は主役にしない。")]),
- dict(key="d3", no="工房の日", place="向島工房", theme="佐藤さんのインタビューと、機械の前ごとに二本",
-      date="10月5日（月）　※仮",
-      toc=[("06", "佐藤さんのインタビュー、入口と通路、革と金型、裁断、下仕事、縫製、検品、梱包"),
-           ("02", "九シーンすべて（作業台・革の棚・裁断機・下仕事・コバ塗り・ミシン）"),
-           ("05", "製造シーンは撮らず、⑥の画を使う")],
+               "<b>出演者の拘束は 9:00〜15:00。</b>移動と休憩を含めて先に伝えておく。"),
+              ("13:10〜13:50", "けやき並木の歩道（柵・手すり・青山通り寄りの端）", [("04", 1), ("04", 4)],
+               "<b>④の最初と最後は同じ柵。設営は一度でよい。</b>交差点から離れた端を使う。"),
+              ("14:00〜14:25", "ベンチか石段（真俯瞰が組めるところ）", [("04", 2)], "脚立か手すりの上から。"),
+              ("14:35〜14:55", "けやき並木の裏の路地（人がほとんど通らない側）", [("04", 3)], "顔は主役にしない。人の少ない裏側で撮る。"),
+              ("15:05〜15:25", "表参道が見下ろせる高いところ（商業施設の上階。歩道橋より人に邪魔されない）", [("05", 1)],
+               "<b>⑤の冒頭の俯瞰。ドローンは使わない。人は入れず、景色だけ。</b>並木通りを見下ろし、寄っていく動きを何度か撮って選ぶ。出演者は④で終わり。")]),
+ dict(key="d3", no="10月5日", place="向島工房", theme="佐藤さんのインタビューと、機械の前ごとに二本",
+      date="10月5日（月）　※仮", date2="2026年10月5日（月）　※仮",
+      toc=[("06", "佐藤さんのインタビュー、工房の全体と機械、革と金型、裁断、下仕事、縫製、検品、梱包"),
+           ("02", "八シーンすべて（革の棚・裁断機・作業台・ミシン・下仕事・コバ塗り）"),
+],
       cond="<b>日付は仮。ブルックリンの品を作っている日に合わせて動かす。</b>佐藤さんに製作日を確認してから決める。",
       gear="カメラ（広角）／三脚／ガンマイク／ピンマイク／白い板（発泡スチロール）／脚立／養生テープ",
       keys=["<b>画に入れるのはブルックリンの品だけ。</b>他社の品・金型・ラベルは画角の外へ出す。",
             "蛍光灯と窓の光を混ぜない。明るさとホワイトバランスはマニュアルで固定する。",
             "②のコバ塗りだけは切らずに六秒回す。カメラ位置を決めてから始める。",
-            "機械の前を離れる前に、②のぶんと⑥のぶんが両方撮れているか、その場で確かめる。"],
-      talks=[("9:00〜9:30", "佐藤さん", "向島工房（窓を横に・他社の品が入らない一角）",
-              "⑥のインタビューを全部（二分二十秒ぶん・九工程）。<br>画は <b>⑥S2③</b>（引き）と <b>⑥S8③</b>（バストショット）。",
-              "工程ごとに区切って録る。話す順は工程の順。機械の名前は言わない。", [])],
-      setups=[("9:40〜10:20", "工房の入口・通路（歩きながら）", [("06", 1), ("06", 2)],
-               "<b>⑤S5の「工房の全体」と「大型機械」もここから引っ張る。</b>通路のトラッキングは切らずに長めに回す。"),
-              ("10:20〜11:25", "作業台（窓ぎわ・真俯瞰の三脚が組める台）",
-               [("02", 1), ("02", 4), ("02", 8), ("02", 9)],
-               "<b>②の四シーンをこの台でまとめて撮る。</b>完成形（S1）と完成（S9）は同じ画角なので続けて。"),
-              ("11:35〜12:00", "革の棚・金型の棚", [("02", 2), ("06", 3)],
+            "<b>②は作る順のとおりに撮る。</b>当日その場で一つ作りながら撮るので、順番は入れ替えられない。",
+            "機械の前を離れる前に、②のぶんと⑥のぶんが両方撮れているか、その場で確かめる。",
+            "<b>工房は歩いて見せない。工程ごとにカメラを置き直し、画角を変えて撮る。</b>"],
+      talks=[("15:30〜16:00", "佐藤さん", "向島工房（窓を横に・他社の品が入らない一角）",
+              "", "", [], "⑥ インタビュー")],
+      setups=[("9:40〜10:20", "工房の全体と機械の並び（固定・画角を変えて）", [("06", 1), ("06", 2)],
+               "<b>歩かずに、置く位置を変えて撮る。</b>⑤S5の「工房の全体」と「大型機械」もここから引っ張る。"),
+              ("10:20〜10:50", "革の棚・金型の棚", [("02", 1), ("06", 3)],
                "<b>②の革を選ぶと⑥の革・金型を続けて撮る。</b>棚の奥行きが出る位置から。"),
-              ("12:00〜13:00", "昼休み", [], "工房の昼休みに合わせて止める。"),
-              ("13:00〜13:40", "裁断機のまわり", [("02", 3), ("06", 4)],
+              ("10:50〜11:30", "裁断機のまわり", [("02", 2), ("06", 4)],
                "<b>②の裁つと⑥の裁断をまとめて撮る。⑤S5の「手元」もここから引っ張る。</b>"),
-              ("13:40〜14:20", "下仕事・コバ塗りの台", [("02", 6), ("02", 7), ("06", 5)],
-               "<b>②の仕上げる①・コバ塗りと、⑥の下仕事をまとめて撮る。</b>コバ塗りは六秒回しを何度か。"),
-              ("14:35〜15:15", "ミシンのまわり", [("02", 5), ("06", 6)],
+              ("11:30〜11:50", "作業台（真俯瞰の三脚が組める台）", [("02", 3)],
+               "<b>裁ったパーツを貼り合わせる。</b>ここから先は、品物ができていく順に撮る。"),
+              ("11:50〜12:50", "昼休み", [], "工房の昼休みに合わせて止める。"),
+              ("12:50〜13:30", "ミシンのまわり", [("02", 4), ("06", 6)],
                "<b>②の縫うと⑥の縫製をまとめて撮る。</b>手縫いのカットも忘れずに。"),
-              ("15:15〜15:35", "検品の台", [("06", 7)], "ここで作業音がいったん消える。"),
-              ("15:35〜15:55", "梱包の台", [("06", 8)], "紙とテープの音を拾う。"),
-              ("―", "撮影しない ── ⑥の画をそのまま使う", [("05", 5)],
-               "⑤の製造シーン。入口の通路・機械と人・裁断機の三カットを充てる。"),
-              ("―", "白バック（撮影せず、編集で作る）", [("06", 9)],
-               "⑥の締めカード。対応技法の一覧 → 問い合わせ先 → ロゴ。")]),
- dict(key="d1", no="暗い一本の日", place="向島工房", theme="工房が空いている日に、暗室を作って撮る",
-      date="10月6日（火）　※終業後",
-      toc=[("03", "五シーンすべて（窓を塞いだ一角）")],
-      cond="<b>工房が動いている日中は、窓を塞いで暗室にできない。</b>終業後に借りて撮る。八本でいちばん照明が難しいので、ほかの三日で手が慣れてから最後に。二時間半で終わる。",
-      gear="カメラ／三脚／白い板／黒い布／段ボール／ライト一灯",
-      keys=["<b>工房の人が帰ってから。</b>暗室を組むのに四十分みておく。",
+              ("13:30〜14:10", "下仕事・コバ塗りの台", [("02", 5), ("06", 5), ("02", 6)],
+               "<b>②の縁を整えると⑥の下仕事、そのままコバ塗り。</b>コバ塗りは六秒回しを何度か。"),
+              ("14:10〜14:40", "作業台（引きが撮れる位置まで下がれるところ）", [("02", 7), ("02", 8)],
+               "<b>②の仕上げと完成。</b>この二シーンは同じ画角なので続けて撮る。"),
+              ("14:40〜15:00", "検品の台", [("06", 7)], "ここで作業音がいったん消える。"),
+              ("15:00〜15:20", "梱包の台", [("06", 8)], "紙とテープの音を拾う。")]),
+ dict(key="d1", no="10月6日", place="向島工房（終業後、または休日）", theme="工房が空いてから、一灯で撮る",
+      date="10月6日（火）　※仮・終業後、または休日", date2="2026年10月6日（火）　※仮・終業後、または休日",
+      toc=[("03", "五シーンすべて（工房の隅・作業台の一角）")],
+      cond="<b>暗くなってから撮るので、終業後、または休日に工房を借りる。</b>",
+      gear="カメラ／三脚／白い板／黒スチレンボード／ライト一灯",
+      keys=["<b>工房の人が帰ってから、または休日に。</b>",
             "③はライト一灯だけ。当たっていない側は黒く落とし、レフ板で起こさない。",
             "③はシャッターが遅くなるので三脚は必須。ピントは手で合わせて固定する。",
             "画に入れるのはブルックリンの品だけ。"],
-      setups=[("17:00〜19:20", "工房の隅（窓を段ボールと黒い布で塞いだ台）",
+      setups=[("17:40〜19:20", "工房の隅（作業台の一角）",
                [("03", 1), ("03", 2), ("03", 3), ("03", 4), ("03", 5)],
-               "<b>十七時から四十分で暗室を組み、十七時四十分から回し始める。</b>組んだら五シーンを続けて撮り切る。")]),
+               "<b>台を一度組んだら、五シーンを続けて撮り切る。</b>")]),
 ]
 
 
@@ -282,37 +276,67 @@ def day_span(day):
 
 
 # ─────────────────────────────────────────────────────────────
-def scene_row(no, si):
+def day_of(no, si):
+    return S.SPOT[no][si][2]
+
+
+def plain_row(when, place, note):
+    td = f"padding: 14px 14px; border-bottom: 1px solid {LINE}; vertical-align: top"
+    h, m = when.split("〜")
+    a = int(h.split(":")[0]) * 60 + int(h.split(":")[1])
+    b = int(m.split(":")[0]) * 60 + int(m.split(":")[1])
+    return f'''<tr style="background: {BAND}">
+      <td style="{td}; padding-left: 0; white-space: nowrap">
+        <span style="font-size: 18px; font-weight: 700; color: {GOLD}">{esc(when)}</span></td>
+      <td style="{td}; font-size: 16px; font-weight: 700; color: {INK}">{esc(place)}</td>
+      <td style="{td}; font-size: 15px; color: {MUTED}">―</td>
+      <td style="{td}; font-size: 16px; color: {MUTED}">―</td>
+      <td style="{td}; font-size: 15px; color: {MUTED}; white-space: nowrap">{b - a}分</td>
+      <td style="{td}; padding-right: 0; font-size: 15px; line-height: 1.65; color: {MUTED}">{note}</td>
+    </tr>'''
+
+
+def scene_len(no, si):
+    """絵コンテの秒数から、そのシーンの尺を出す"""
+    pg = pages().get(no)
+    if not pg or si > len(pg["rows"]):
+        return "―"
+    sp = sec_span(pg["rows"][si - 1][1])
+    if not sp:
+        return "―"
+    return "%d秒" % (sp[1] - sp[0]) if sp[1] != sp[0] else "%d秒" % sp[0]
+
+
+def scene_row(no, si, extra=""):
     nm, cuts = cuts_of(no, si)
     place, _, _, when = S.SPOT[no][si]
     cam, note = split_cam(S.D[no][si][0])
-    td = f"padding: 15px 16px; border-bottom: 1px solid {LINE}; vertical-align: top"
-    edit = is_edit_only(no, si)
-    if (no, si) in REUSE:
-        tcell = f'<span style="color: {GOLD}">撮影しない<br>{REUSE[(no, si)]}</span>'
-    elif edit:
-        tcell = f'<span style="color: {FAINT}">撮影しない（編集で作る）</span>'
-    else:
-        tcell = f'<span style="font-size: 19px; font-weight: 700; color: {GOLD}">{esc(when)}</span>'
+    td = f"padding: 14px 14px; border-bottom: 1px solid {LINE}; vertical-align: top"
     who, prop = CASTPROP.get((no, si), ("―", "―"))
     mv, mvday = MOVED.get((no, si), ([], ""))
+    memo = []
+    if extra:
+        memo.append(extra)
     if mv and len(mv) == len(cuts):
-        cnt = f'{len(cuts)}カット<br><span style="color: {GOLD}">インタビューの収録で撮る</span>'
+        memo.append(f'{len(cuts)}カット。<span style="color: {GOLD}">インタビューの収録で撮る</span>')
     else:
-        cnt = f'{len(cuts) - len(mv)}カット'
+        m = f'{len(cuts) - len(mv)}カット'
         if mv:
-            cnt += f'<br><span style="color: {GOLD}">{"".join(CIR[k - 1] for k in mv)}は{mvday}</span>'
+            where = "インタビューの収録で撮る" if mvday == day_of(no, si) else f"{mvday}に撮る"
+            m += f'（<span style="color: {GOLD}">{"・".join(str(k) + "枚目" for k in mv)}は{where}</span>）'
+        memo.append(m)
+    if note:
+        memo.append(note)
     return f'''<tr>
-      <td style="{td}; padding-left: 0; white-space: nowrap">{tcell}</td>
-      <td style="{td}">
-        <div style="font-size: 19px; font-weight: 700; color: {INK}">
-          <span style="color: {GOLD}">{MARU[no]}</span> {esc(nm)}</div>
-        <div style="font-size: 15px; color: {FAINT}; margin-top: 4px; line-height: 1.6">{cnt}</div>
-      </td>
-      <td style="{td}; font-size: 17px; line-height: 1.7; color: {INK}">{place if place != "同じ" else f'<span style="color:{MUTED}">同じ</span>'}</td>
-      <td style="{td}; font-size: 16px; line-height: 1.7; color: {INK}">{who}<div style="color: {MUTED}; margin-top: 3px">{prop}</div></td>
-      <td style="{td}; font-size: 17px; line-height: 1.75; color: {INK}">{cam}</td>
-      <td style="{td}; padding-right: 0; font-size: 16px; line-height: 1.75; color: {MUTED}">{note}</td>
+      <td style="{td}; padding-left: 0; white-space: nowrap">
+        <span style="font-size: 18px; font-weight: 700; color: {GOLD}">{esc(when)}</span></td>
+      <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">{place if place != "同じ" else f'<span style="color:{MUTED}">同じ</span>'}</td>
+      <td style="{td}; font-size: 15px; line-height: 1.65; color: {INK}">{who}<div style="color: {MUTED}; margin-top: 3px">{prop}</div></td>
+      <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">
+        <div style="font-weight: 700"><span style="color: {GOLD}">{MARU[no]}</span> {esc(nm)}</div>
+        <div style="margin-top: 4px">{cam}</div></td>
+      <td style="{td}; font-size: 15px; color: {MUTED}; white-space: nowrap">{scene_len(no, si)}</td>
+      <td style="{td}; padding-right: 0; font-size: 15px; line-height: 1.65; color: {MUTED}">{"<br>".join(memo)}</td>
     </tr>'''
 
 
@@ -330,54 +354,56 @@ def band_row(no):
     </tr>'''
 
 
-def talk_rows(day):
-    out = []
-    td = f"padding: 18px 16px; border-bottom: 1px solid {LINE}; vertical-align: top"
-    for t in day["talks"]:
-        when, who, place, what, note = t[:5]
-        out.append(f'''<tr>
+def start_min(when):
+    if not when or when == "―":
+        return 10 ** 6
+    h, m = when.split("〜")[0].split(":")
+    return int(h) * 60 + int(m)
+
+
+def talk_rows(day, t):
+    td = f"padding: 14px 14px; border-bottom: 1px solid {LINE}; vertical-align: top"
+    when, who, place, what, note = t[:5]
+    label = t[6] if len(t) > 6 else "インタビュー"
+    out = [f'''<tr>
       <td style="{td}; padding-left: 0; white-space: nowrap">
-        <span style="font-size: 19px; font-weight: 700; color: {GOLD}">{esc(when)}</span></td>
-      <td style="{td}"><div style="font-size: 20px; font-weight: 700; color: {INK}">{esc(who)}</div></td>
-      <td style="{td}; font-size: 17px; line-height: 1.7; color: {INK}">{place}</td>
-      <td style="{td}; font-size: 16px; line-height: 1.7; color: {INK}">{esc(who)}<div style="color: {MUTED}; margin-top: 3px">椅子、ピンマイク</div></td>
-      <td style="{td}; font-size: 17px; line-height: 1.75; color: {INK}">{what}</td>
-      <td style="{td}; padding-right: 0; font-size: 16px; line-height: 1.75; color: {MUTED}">{note}</td>
-    </tr>''')
-        for no, si in (t[5] if len(t) > 5 else []):
-            out.append(scene_row(no, si))
+        <span style="font-size: 18px; font-weight: 700; color: {GOLD}">{esc(when)}</span></td>
+      <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">{place}</td>
+      <td style="{td}; font-size: 15px; line-height: 1.65; color: {INK}">{esc(who)}<div style="color: {MUTED}; margin-top: 3px">椅子、ピンマイク</div></td>
+      <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">
+        <div style="font-weight: 700">{esc(label)}</div>
+        <div style="margin-top: 4px">{what}</div></td>
+      <td style="{td}; font-size: 15px; color: {MUTED}; white-space: nowrap">三十分</td>
+      <td style="{td}; padding-right: 0; font-size: 15px; line-height: 1.65; color: {MUTED}">{note}</td>
+    </tr>''']
     return "".join(out)
+
+
+def day_titles(day):
+    pg = pages()
+    return "　／　".join(MARU[no] + " " + pg[no]["jp"] for no, _ in day["toc"])
 
 
 def day_artboard(day):
     shoot, edit = day_counts(day)
+    hl = (f"font-size: 15px; color: {FAINT}; letter-spacing: 0.08em; padding: 9px 0; "
+          f"vertical-align: top; border-bottom: 1px solid {LINE}")
+    hv = (f"font-size: 17px; line-height: 1.7; color: {INK}; padding: 9px 0 9px 4px; "
+          f"vertical-align: top; border-bottom: 1px solid {LINE}")
     th = ("text-align: left; font-size: 15px; font-weight: 400; color: " + FAINT +
           "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 11px")
-    rows = []
-    if day.get("talks"):
-        rows.append(f'<tr><td colspan="6" style="padding: 4px 0 10px">'
-                    f'<span style="font-size: 17px; font-weight: 700; color: {INK}">イ ン タ ビ ュ ー の 収 録</span></td></tr>')
-        rows.append(talk_rows(day))
-    if day.get("setups"):
-        if day.get("talks"):
-            rows.append(f'<tr><td colspan="6" style="padding: 24px 0 10px">'
-                        f'<span style="font-size: 17px; font-weight: 700; color: {INK}">セ ッ ト ご と の 撮 影</span></td></tr>')
-        for when, place, sc, note in day["setups"]:
-            books = "　".join(
-                MARU[no] + " " + "・".join(re.sub(r"^S\d+\s*", "", cuts_of(no, si)[0])
-                                          for n2, si in sc if n2 == no)
-                for no in dict.fromkeys(n for n, _ in sc))
-            rows.append(
-                f'<tr><td colspan="6" style="background: {BAND}; padding: 12px 0; '
-                f'border-bottom: 1px solid {LINE}">'
-                f'<div style="display: flex; align-items: baseline; gap: 14px; padding: 0 4px">'
-                f'<div style="font-size: 19px; font-weight: 700; color: {GOLD}">{esc(when)}</div>'
-                f'<div style="font-size: 19px; font-weight: 700; color: {INK}">{esc(place)}</div>'
-                f'<div style="font-size: 16px; color: {MUTED}">{books}</div>'
-                f'<div style="margin-left: auto; font-size: 15px; color: {MUTED}; '
-                f'padding-right: 4px">{note}</div></div></td></tr>')
-            for no, si in sc:
-                rows.append(scene_row(no, si))
+    blocks = []
+    for t in day.get("talks", []):
+        blocks.append((start_min(t[0]), talk_rows(day, t)))
+    for when, place, sc, note in day.get("setups", []):
+        if not sc:
+            blocks.append((start_min(when), plain_row(when, place, note)))
+            continue
+        for k, (no, si) in enumerate(sc):
+            blocks.append((start_min(S.SPOT[no][si][3]) if S.SPOT[no][si][3] != "―" else start_min(when),
+                           scene_row(no, si, note if k == 0 else "")))
+    blocks.sort(key=lambda b: b[0])
+    rows = [b for _, b in blocks]
     keys = "".join(
         f'<div style="display: flex; gap: 10px; margin-top: 7px">'
         f'<div style="flex: 0 0 14px; color: {GOLD}">・</div><div>{k}</div></div>' for k in day["keys"])
@@ -398,26 +424,28 @@ def day_artboard(day):
   </style>
 </helmet>
 <div style="width: {PAGE_W}px; height: {HEIGHT[day["key"]]}px; background: #ffffff; padding: {MARGIN}px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
-  <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid {INK}; padding-bottom: 14px">
-    <div style="font-size: 32px; font-weight: 700; color: {INK}">{esc(day["no"])}</div>
-    <div style="font-size: 19px; font-weight: 700; color: {GOLD}; border: 1px solid {LINE}; border-radius: 6px; padding: 3px 13px">日付　{esc(day["date"])}</div>
-    <div style="font-size: 19px; font-weight: 700; color: {INK}">{esc(day["place"])}</div>
-    <div style="font-size: 16px; color: {MUTED}">{esc(day["theme"])}</div>
-    <div style="margin-left: auto; font-size: 17px; font-weight: 700; color: {INK}">{esc(day_span(day))}</div>
-    <div style="font-size: 15px; color: {FAINT}">撮るカット {shoot}{"（ほかに編集で作る " + str(edit) + "）" if edit else ""}</div>
-  </div>
-  <div style="font-size: 16px; line-height: 1.7; color: {GOLD}">{day["cond"]}</div>
+  <table style="border-bottom: 2px solid {INK}; padding-bottom: 0">
+    <colgroup><col style="width: 190px"><col></colgroup>
+    {"".join(f'<tr><td style="{hl}">{a}</td><td style="{hv}">{b}</td></tr>' for a, b in [
+      ("タ イ ト ル", f'<span style="font-size: 24px; font-weight: 700">{day_titles(day)}</span>'),
+      ("撮 影 日", f'<span style="font-size: 20px; font-weight: 700">{esc(day["date2"])}</span>'),
+      ("場 所", esc(day["place"])),
+      ("時 間", f'{esc(day_span(day))}　<span style="color: {FAINT}">撮るカット {shoot}</span>'),
+      ("緊 急 時 連 絡 先", "　"),
+      ("注 意 事 項", day["cond"]),
+    ])}
+  </table>
   <table>
     <colgroup>
-      <col style="width: 148px"><col style="width: 205px"><col style="width: 255px"><col style="width: 235px"><col style="width: 420px"><col>
+      <col style="width: 130px"><col style="width: 300px"><col style="width: 230px"><col><col style="width: 80px"><col style="width: 300px">
     </colgroup>
     <tr>
       <th style="{th}; padding-left: 0">時 刻</th>
-      <th style="{th}; padding-left: 16px">{"話 す 人 ／ 本 ・ シ ー ン" if day.get("talks") else "本 ・ シ ー ン"}</th>
-      <th style="{th}; padding-left: 16px">場 所 （ セ ッ ト ）</th>
-      <th style="{th}; padding-left: 16px">登 場 （ 人 ／ 物 ）</th>
-      <th style="{th}; padding-left: 16px">{"録 る こ と ／ 画 角 の 並 び" if day.get("talks") else "画 角 の 並 び"}</th>
-      <th style="{th}; padding-left: 16px">気 を つ け る こ と</th>
+      <th style="{th}; padding-left: 14px">場 所 の 詳 細</th>
+      <th style="{th}; padding-left: 14px">登 場 人 物</th>
+      <th style="{th}; padding-left: 14px">シ ー ン 内 容 詳 細</th>
+      <th style="{th}; padding-left: 14px">尺</th>
+      <th style="{th}; padding-left: 14px; padding-right: 0">備 考</th>
     </tr>
     {"".join(rows)}
   </table>
@@ -459,7 +487,7 @@ def cover_artboard():
             f'<span style="color: {MUTED}">　── {t}</span></div>'
             for no, t in d["toc"])
         rows.append(f'''<tr>
-      <td style="{td}; padding-left: 0; font-size: 21px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(d["date"])}</td>
+      <td style="{td}; padding-left: 0; font-size: 21px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(d["date"].split("　※")[0])}</td>
       <td style="{td}; font-size: 18px; font-weight: 700; color: {INK}">{esc(d["place"])}</td>
       <td style="{td}; font-size: 18px; color: {INK}">{books}</td>
       <td style="{td}; font-size: 18px; font-weight: 700; color: {GOLD}; white-space: nowrap">{esc(day_span(d))}</td>
@@ -485,9 +513,10 @@ def cover_artboard():
   <div style="border-bottom: 2px solid {INK}; padding-bottom: 16px">
     <div style="font-size: 15px; font-weight: 700; color: {GOLD}; letter-spacing: 0.14em">BROOKLYN MUSEUM ／ 向島工房</div>
     <div style="display: flex; align-items: baseline; gap: 18px; margin-top: 10px">
-      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　香盤表とショットリスト</div>
-      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Schedule &amp; Shot List</div>
-      <div style="margin-left: auto; font-size: 18px; font-weight: 700; color: {INK}">全八本　{tot_s + tot_e}カット　／　撮影 六日</div>
+      <div style="font-size: 40px; font-weight: 700; color: {INK}; letter-spacing: -0.01em">動画八本　香盤表</div>
+      <div style="font-size: 17px; color: {FAINT}; letter-spacing: 0.06em">Shooting Schedule</div>
+      <div style="margin-left: auto; font-size: 18px; font-weight: 700; color: {INK}">全八本　{tot_s}カット　／　撮影 四日</div>
+      <div style="font-size: 15px; color: {GOLD}">日付はすべて仮</div>
     </div>
   </div>
 
@@ -508,11 +537,11 @@ def cover_artboard():
     <div style="flex: 1">
       <div style="font-size: 15px; color: {FAINT}; letter-spacing: 0.08em; margin-bottom: 9px">先 に 決 め て お く こ と</div>
       <div style="font-size: 17px; line-height: 1.9; color: {INK}">
-        <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房の日が決まる）と、終業後に工房を使えるか（③の日が決まる）。<br>
-        <b>インタビューの日</b>── 永尾社長・佐藤さんの予定。工房が動いていない日でも撮れる。<br>
-        <b>店の日</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（顔は映らないので、手と肩だけ）。<br>
+        <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
+        <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
+        <b>10月1日（木）</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（顔は映らないので、手と肩だけ）。<br>
 
-        <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。④は曇りの日に合わせるので、予備日を一日置く。<br>
+        <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。④は曇りの日に合わせるので、予備日を一日置く。<br>
         <span style="color: #a8672a">出演者の支度は、最後の一枚「出演者と支度」にまとめています。</span>
       </div>
     </div>
@@ -533,18 +562,23 @@ SHOT_ORDER = ["02", "03", "06", "05", "08", "07", "04", "01"]
 
 
 def shot_angles(no, si):
-    """カメラの一文を①②③…で割って、カットごとの画角にする。
-       「⑥S1③」のような他の本への参照は、割るときの番号として数えない。"""
+    """カメラの一文を「一枚目・二枚目…」で割って、カットごとの画角にする。
+       「⑥S1 1枚目」のような他の本への参照は、割るときの番号として数えない。"""
     cam, _ = split_cam(S.D[no][si][0])
-    mask = re.sub(r"[①-⑨]S\d[①-⑨]", "※S9※", cam)
-    idx = [(mask.index(c), c) for c in CIR if c in mask]
-    idx.sort()
+    mask = re.sub(r"[①-⑨]S\d \d枚目", lambda m: "※" * len(m.group(0)), cam)
+    idx = []
+    for m in re.finditer(r"(\d)枚目", mask):
+        k = int(m.group(1))
+        if any(k == j for j, _, _ in idx):
+            continue
+        idx.append((k, m.start(), m.end()))
+    idx.sort(key=lambda t: t[1])
     out = []
-    for k, (pos, _) in enumerate(idx):
-        end = idx[k + 1][0] if k + 1 < len(idx) else len(cam)
-        t = cam[pos + 1:end].strip()
+    for k, (_, pos, end0) in enumerate(idx):
+        end = idx[k + 1][1] if k + 1 < len(idx) else len(cam)
+        t = cam[end0:end].strip()
         t = re.sub(r"^(→|、|・)\s*", "", t)
-        t = re.sub(r"\s*(→|。)\s*$", "", t)
+        t = re.sub(r"\s*(→|。|／)\s*$", "", t)
         out.append(t)
     return out
 
@@ -594,11 +628,10 @@ def shot_rows(no):
             rows.append(f'''<tr>
       <td style="{td}; padding-left: 0; white-space: nowrap">
         <span style="font-size: 17px; font-weight: 700; color: {INK}">{n:02d}</span>
-        <span style="font-size: 15px; color: {FAINT}">　S{si}-{CIR[k]}</span></td>
+        <span style="font-size: 15px; color: {FAINT}">　S{si} {k + 1}枚目</span></td>
       <td style="{td}; font-size: 16px; line-height: 1.6; color: {INK}">{angles[k] if k < len(angles) else ""}{tag}</td>
       <td style="{td}; font-size: 16px; line-height: 1.7; color: {INK}">{sh[1]}</td>
-      <td style="{td}; font-size: 15px; color: {MUTED}; white-space: nowrap">{sec}</td>
-      <td style="{td}; padding-right: 0"><div style="width: 22px; height: 22px; border: 1px solid {LINE}; border-radius: 3px"></div></td>
+      <td style="{td}; padding-right: 0; font-size: 15px; color: {MUTED}; white-space: nowrap">{sec}</td>
     </tr>''')
     return "".join(rows), n
 
@@ -639,19 +672,18 @@ def shotlist_artboard(no):
   </div>
   <table>
     <colgroup>
-      <col style="width: 150px"><col style="width: 430px"><col><col style="width: 150px"><col style="width: 60px">
+      <col style="width: 150px"><col style="width: 470px"><col><col style="width: 150px">
     </colgroup>
     <tr>
       <th style="{th}; padding-left: 0">№　／　カット</th>
       <th style="{th}; padding-left: 14px">画 角</th>
       <th style="{th}; padding-left: 14px">撮 る も の</th>
-      <th style="{th}; padding-left: 14px">尺 の 目 安</th>
-      <th style="{th}; padding-left: 14px">済</th>
+      <th style="{th}; padding-left: 14px; padding-right: 0">尺 の 目 安</th>
     </tr>
     {body}
   </table>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
-    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　ショットリスト</div>
+    <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　香盤表</div>
     <div>{MARU[no]}　全{n}カット</div>
   </div>
 </div>
@@ -661,23 +693,23 @@ def shotlist_artboard(no):
 '''
 
 CAST = [
- ("①", "01", "モデルの日", "映る（腰より上の寄りがある）",
-  "鏡だけ。四回の着替えのあと、髪の乱れを直す。<br><b>①④は外から立てる出演者。</b>拘束は 9:00〜15:15（移動と休憩を含む）。",
+ ("①", "01", "10月2日", "映る（腰より上の寄りがある）",
+  "鏡だけ。四回の着替えのあと、髪の乱れを直す。<br><b>①④は外から立てる出演者。</b>拘束は 9:00〜15:00（移動と休憩を含む）。",
   "四色ぶんの服と鞄。<b>鞄の色と喧嘩しない服</b>を選ぶ。<br>ヘアメイクを付けないので、<b>髪型が崩れない服</b>にする ──<br>前開きの上着なら、着替えで髪が乱れない。",
   "着替え場所と荷物置き場。四回の着替えを見込んで、<br>会場の使用時間を長めに申請する。"),
- ("④", "04", "モデルの日", "主役にしない（引きと後ろ姿）",
+ ("④", "04", "10月2日", "主役にしない（引きと後ろ姿）",
   "爪を切りそろえる。<b>手が寄りで映る。</b>",
   "一そろい。街に馴染む色。<br>鞄より目立つ柄は避ける。",
   "時計・指輪は外す。<br>歩く距離があるので、履き慣れた靴で。"),
- ("⑦", "07", "店の日", "映らない（手と肩だけ）",
+ ("⑦", "07", "10月1日", "映らない（手と肩だけ）",
   "爪を切り、手を洗っておく。<br>時計・指輪は外す。",
   "袖口の見える無地の上着。<br>柄物だと、手の動きより袖に目が行く。",
   "物を置く速さが一定にできる方を選ぶ。<br>一度通してもらってから本番。"),
- ("⑧", "08", "店の日", "映る（バストショット）",
+ ("⑧", "08", "10月1日", "映る（バストショット）",
   "テカリ止めのパウダーだけ用意する。<br>窓の光で額と鼻が光る。",
   "本人のふだんの服。<br>細かい柄は画面で目がちらつくので避ける。",
-  "顔出しの範囲を、撮る前に本人へ確認する。<br>名前は出さず「購入者Aさん」とだけ出す。"),
- ("⑤⑥", None, "店の日・工房の日", "映る（バストショット・横顔）",
+  "顔出しの範囲を、撮る前に本人へ確認する。<br>名前は出さず「購入者Aさん」とだけ出す。<br><b>撮影は開店前の 8:00〜10:15。拘束はこの二時間強だけ。</b>"),
+ ("⑤⑥", None, "10月1日・10月5日", "映る（バストショット・横顔）",
   "襟元と髪だけ、撮る直前に鏡で見る。",
   "ふだんの仕事着。<br>三人とも同じ日に撮るので、その日の服で揃う。",
   "永尾社長・佐藤さん・くさがやさん。<br>三人とも三十分ずつ。"),
@@ -757,9 +789,7 @@ def cast_artboard():
 '''
 
 # 実際に描かせて測った高さ
-HEIGHT = {"cover": 1011, "d1": 1047, "d2": 2972, "d3": 3047, "d4": 1903, "cast": 1062,
-          "sl01": 1203, "sl02": 2173, "sl03": 1235, "sl04": 993,
-          "sl05": 2297, "sl06": 2595, "sl07": 1185, "sl08": 1845}
+HEIGHT = {"cover": 1054, "d1": 1299, "d2": 3381, "d3": 3437, "d4": 2373, "cast": 1191, "sl01": 1458, "sl02": 2488, "sl03": 1565, "sl04": 1127, "sl05": 2923, "sl06": 3439, "sl07": 1461, "sl08": 2275}
 
 
 def main(outdir):
@@ -767,7 +797,6 @@ def main(outdir):
     arts, x, y, col = [], 0, 0, 0
     items = ([("Main", "cover", cover_artboard)] +
              [(d["key"].upper(), d["key"], (lambda dd: (lambda: day_artboard(dd)))(d)) for d in DAYS] +
-             [("Shot" + no, "sl" + no, (lambda n: (lambda: shotlist_artboard(n)))(no)) for no in SHOT_ORDER] +
              [("Cast", "cast", cast_artboard)])
     for name, key, fn in items:
         f = name + ".dc.html"
