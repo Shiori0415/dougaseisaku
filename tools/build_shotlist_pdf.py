@@ -64,16 +64,6 @@ def cover():
     <th style="{th()}">時間</th><th style="{th()}">カット</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
-  <div class="two">
-    <div><div class="cap">先に決めておくこと</div>
-      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
-      <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
-      <b>10月1日（木）</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（手と肩だけ）。<br>
-      <b>購入者の日</b>── ⑧に出ていただく購入者と、顔出しの範囲。決まってから日を置く。<br>
-      <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
-      ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div>
-    <div>
-  </div>
 </section>'''
 
 
@@ -124,8 +114,6 @@ def day_page(d):
                     m += '（<span style="color:%s">%sは%s</span>）' % (
                         GOLD, "・".join("%d枚目" % j for j in mv), where)
                 memo.append(m)
-            if cnote:
-                memo.append(cnote)
             t = S.SPOT[no][si][3]
             blocks.append((L.start_min(t if t != "―" else when),
                 '<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'

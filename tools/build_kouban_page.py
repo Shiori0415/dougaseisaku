@@ -70,16 +70,6 @@ def cover():
     <thead><tr><th>日付</th><th>場所</th><th>内容</th><th>時間</th><th>カット</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table></div>
-  <div class="foot">
-    <div><div class="cap">先に決めておくこと</div><div class="body">
-      <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
-      <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
-      <b>10月1日（木）</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（手と肩だけ）。<br>
-      <b>購入者の日</b>── ⑧に出ていただく購入者と、顔出しの範囲。決まってから日を置く。<br>
-      <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
-      ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div></div>
-    <div>
-  </div>
 </section>'''
 
 
@@ -101,8 +91,6 @@ def scene_line(no, si, extra=""):
             m += '（<span class="pin">%sは%s</span>）' % (
                 "・".join("%d枚目" % k for k in mv), where)
         memo.append(m)
-    if cnote:
-        memo.append(cnote)
     return ('<tr><td class="tm">%s</td><td>%s</td>'
             '<td>%s<br><span class="dim">%s</span></td>'
             '<td><span class="sc"><span style="color:var(--gold)">%s</span> %s</span>'
