@@ -147,10 +147,6 @@ def day_section(d):
     <thead><tr>{"".join("<th>%s</th>" % h for h in head)}</tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table></div>
-  <div class="foot">
-    <div><div class="cap">持 ち 物</div><div class="body">{d["gear"]}</div></div>
-    <div><div class="cap">こ の 日 の 要 点</div><div class="body"><ul>{keys}</ul></div></div>
-  </div>
 </section>'''
 
 

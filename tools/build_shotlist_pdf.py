@@ -143,10 +143,6 @@ def day_page(d):
     <thead><tr>{"".join('<th style="%s">%s</th>' % (th(), h) for h in head)}</tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
-  <div class="two">
-    <div><div class="cap">持ち物</div>{d["gear"]}</div>
-    <div><div class="cap">この日の要点</div><ul>{keys}</ul></div>
-  </div>
 </section>'''
 
 
