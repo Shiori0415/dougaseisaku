@@ -1,0 +1,217 @@
+<title>撮影の手元メモ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #ffffff; --surface: #ffffff; --band: #f4efe7;
+  --ink: #15191c; --prose: #3d4448; --muted: #5b6266; --faint: #8a8f92;
+  --gold: #a8672a; --line: #ddd7cd; --hair: #ebe6dd;
+}
+* { box-sizing: border-box; }
+html { background: #ffffff; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  font-size: 15px; line-height: 1.75; font-feature-settings: "palt";
+}
+b, strong { font-weight: 700; }
+a { color: var(--gold); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; }
+
+nav { position: sticky; top: 0; z-index: 10; background: #ffffffee;
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.navin { max-width: 1180px; margin: 0 auto; padding: 10px 24px;
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.navlab { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-right: 4px; }
+nav a { font-size: 13px; color: var(--muted); text-decoration: none;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+nav a:hover, nav a:focus-visible { color: var(--gold); border-color: var(--line); background: #fdfbf8; }
+nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.navsep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; }
+
+header.top { padding: 52px 0 26px; border-bottom: 2px solid var(--ink); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--gold); }
+h1 { font-size: clamp(30px, 4.4vw, 44px); font-weight: 700; letter-spacing: -.02em;
+  margin: 12px 0 6px; text-wrap: balance; }
+.en { font-size: 14px; letter-spacing: .08em; color: var(--faint); }
+.count { margin-top: 14px; font-size: 15px; font-weight: 700; }
+.lead { margin: 22px 0 0; color: var(--prose); max-width: 74ch; }
+
+section { scroll-margin-top: 62px; padding-top: 44px; }
+.shead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--ink); padding-bottom: 12px; }
+.daynum { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
+.place { font-size: 17px; font-weight: 700; color: var(--gold); }
+.theme { font-size: 14px; color: var(--muted); }
+.when { margin-left: auto; font-size: 14px; font-weight: 700;
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cuts { font-size: 13px; color: var(--faint); white-space: nowrap; }
+.note { margin: 16px 0 0; color: var(--prose); max-width: 78ch; }
+
+.scroll { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; min-width: 880px; }
+th { text-align: left; font-size: 12px; font-weight: 400; letter-spacing: .1em;
+  color: var(--faint); border-bottom: 1px solid var(--line); padding: 0 14px 9px 0; }
+td { padding: 14px 14px 14px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
+tr.band td { background: var(--band); padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.tm { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sc { font-weight: 700; font-size: 16px; }
+.sub { color: var(--faint); font-size: 13px; }
+.dim { color: var(--muted); }
+.no { font-weight: 700; font-variant-numeric: tabular-nums; }
+.box { display: inline-block; width: 17px; height: 17px; border: 1px solid var(--line); border-radius: 3px; }
+.pin { color: var(--gold); font-size: 13px; }
+.tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.paid { color: var(--gold); border-color: var(--gold); }
+
+.foot { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+.cap { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-bottom: 8px; }
+.foot ul { margin: 0; padding-left: 18px; }
+.foot li { margin-bottom: 6px; }
+.foot .body { color: var(--prose); }
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px 72px; }
+  .navin { padding: 8px 16px; }
+  body { font-size: 14px; }
+}
+
+.q { font-weight:700; font-size:16px; }
+.eng { font-weight:400; font-size:13px; color:var(--faint); letter-spacing:.02em; }
+.ex::before { content:"「"; color:var(--faint); }
+.ex::after { content:"」"; color:var(--faint); }
+.pt { font-weight:700; font-size:16px; }
+.phead { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  border-bottom:1px solid var(--ink); padding-bottom:12px; }
+.pname { font-size:26px; font-weight:700; letter-spacing:-.01em; }
+.prole { font-size:14px; color:var(--muted); }
+.use { margin:14px 0 0; color:var(--prose); max-width:80ch; }
+.warm { margin-top:18px; padding:12px 16px; background:var(--band);
+  border-left:3px solid var(--gold); }
+.warm .cap { margin-bottom:4px; }
+.part { margin-top:64px; padding-top:26px; border-top:2px solid var(--ink); }
+.partno { font-size:12px; font-weight:700; letter-spacing:.18em; color:var(--gold); }
+.parth { font-size:30px; font-weight:700; margin:6px 0 0; }
+</style>
+<nav><div class="navin"><span class="navlab">技術</span><a href="#settei">撮る前に決めて、最後まで動かさない</a><a href="#camera">カメラ</a><a href="#light">照明</a><a href="#sound">音声</a><a href="#genba">現場で時間を落とすところ</a><a href="#renshu">練習で試しておくこと</a><span class="navsep"></span><span class="navlab">質問</span><a href="#common">共通</a><a href="#sato">佐藤さん</a><a href="#nagao">永尾社長</a><a href="#kusagaya">くさがやさん</a><a href="#kounyu">購入者</a></div></nav><div class="wrap">
+<header class="top">
+  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
+  <h1>撮影の手元メモ</h1>
+  <div class="en">Camera, Light, Sound &amp; Interview Questions</div>
+  <div class="count">技術 39項　／　質問 26問</div>
+  <p class="lead">一人で八本を撮るための、手元に置く覚え書き。<b>台本は置かない。</b>
+  日程・場所・時刻は香盤表にあるので、ここには書かない。</p>
+</header>
+<div class="part"><div class="partno">PART 1</div>
+  <h2 class="parth">カ メ ラ ・ 照 明 ・ 音 声</h2></div>
+<section id="settei">
+  <div class="phead"><span class="pname">撮 る 前 に 決 め て 、 最 後 ま で 動 か さ な い</span>
+    <span class="prole">ここを毎回決め直すから時間が溶ける。一度決めて、八本ぶん通す。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">記録形式</td><td><b>4K・30p に固定。八本とも同じ。</b></td><td class="dim">60pで撮って半分の速さにする手はあるが、60pはシャッターが速くなるぶん光が要る。工房の明るさでは足りない。<b>②も30pのまま等速で撮る。</b></td></tr><tr><td class="pt">シャッター速度</td><td><b>1/60 で固定。ここは光が足りなくても動かさない。</b></td><td class="dim">足りないぶんは絞りとISOで取る。落とすと、動くものが尾を引く。<br><b>例外は③だけ。</b>動かないものを三脚で撮るので、落としてよい。</td></tr><tr><td class="pt">ISO</td><td><b>上限を先に決める（ISO6400まで、など）。</b></td><td class="dim">工房は暗いので上げざるを得ない。<b>ノイズは後から減らせるが、ブレは戻らない。</b>迷ったらISOを上げる。</td></tr><tr><td class="pt">絞り</td><td>人＝F2.8〜F4　／　<b>手元の寄り＝F5.6〜F8</b></td><td class="dim">寄りで開けすぎると、指の先だけ合って爪も革も溶ける。手元は絞る。</td></tr><tr><td class="pt">ホワイトバランス</td><td><b>オートにしない。ケルビンで固定する。</b></td><td class="dim">オートだと、同じ場面の中で色が動く。人が画に入った瞬間に変わることもある。<br><b>場所が変わるたびに取り直して、また固定する。</b></td></tr><tr><td class="pt">ピクチャープロファイル</td><td><b>触らない。標準のまま。</b></td><td class="dim">LogやHLGは、編集で色を作りきる前提の形式。初めての八本で入れると、撮れているのに眠い画のまま終わる。</td></tr><tr><td class="pt">手ブレ補正</td><td><b>三脚に載せたら切る。</b></td><td class="dim">三脚の上で効かせると、画がゆっくり泳ぐ。手持ちのときだけ入れる。</td></tr></tbody>
+  </table></div>
+</section><section id="camera">
+  <div class="phead"><span class="pname">カ メ ラ</span>
+    <span class="prole">全部で百三十七カット。ほとんどが三脚の固定。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">据えたら触らない</td><td><b>ズームもパンもしない。</b></td><td class="dim">決めた動き以外は足さない。動かした瞬間、手持ちと同じ揺れが乗る。</td></tr><tr><td class="pt">前後に三秒</td><td><b>回してから三秒待って、始める。終わってから三秒待って、止める。</b></td><td class="dim">切りしろが無いカットは、編集でつなげない。<b>これが一番よく落とす。</b></td></tr><tr><td class="pt">同じ画を二回</td><td>一回目は硬い。とくに人が入るカット。</td><td class="dim">二回目のほうがほぼ良い。撮り直しではなく、はじめから二回撮ると決めておく。</td></tr><tr><td class="pt">ピント</td><td>人は顔認識に任せてよい。<b>手元の寄りはマニュアル。</b></td><td class="dim">寄りでオートにすると、手が動くたびに前後に迷う。<br>置きピンにして、<b>手のほうに入ってきてもらう。</b></td></tr><tr><td class="pt">露出の見かた</td><td><b>顔の明るさを基準にする。迷ったら少し暗め。</b></td><td class="dim">白く飛んだところは戻らない。暗いところは少し戻せる。ゼブラかヒストグラムで見る。</td></tr><tr><td class="pt">真俯瞰</td><td><b>三脚で組もうとしない。</b>脚立から見下ろすか、台の上にカメラを直接置く。</td><td class="dim">いまの三脚はセンターポールを横に倒せない。無理に組むと、傾いた真俯瞰に三十分かける。<b>②③④⑦に真俯瞰がある。事前に一度組んでおく。</b></td></tr><tr><td class="pt">歩きのカット</td><td><b>歩いて撮らない。</b>固定して、人のほうに通り過ぎてもらう。</td><td class="dim">ジンバルが無いので、歩くと必ず揺れる。動きが要るところは、三脚をキャスターに載せて横に押す。</td></tr><tr><td class="pt">カードとデータ</td><td><b>その日のうちに二か所へコピー。撮り終わるまでカードは消さない。</b></td><td class="dim">フォーマットはパソコンではなく<b>カメラで</b>やる。バッテリーが一本なら、待ち時間はモニターを切る。</td></tr></tbody>
+  </table></div>
+</section><section id="light">
+  <div class="phead"><span class="pname">照 明</span>
+    <span class="prole">ライトは一灯だけ。主役は窓の光で、LEDは足すだけ。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">窓は横</td><td><b>背にすると顔が黒くつぶれ、正面に向けると目が細くなる。</b></td><td class="dim">人を座らせる前に、まず窓の位置から決める。</td></tr><tr><td class="pt">レフは影を薄くするもの</td><td><b>影を消さない。</b>窓の反対側から、白い面で起こす。</td><td class="dim">消すと平らな顔になる。薄くするだけでいい。銀の面は硬いので、白を使う。</td></tr><tr><td class="pt">LEDの当てかた</td><td><b>素の球を近づけない。</b>白い面に当てて跳ね返すか、離して弱く。</td><td class="dim">そのまま近づけると、鼻の影が壁に立つ。ソフトボックスが無いうちは、レフの白面か白い紙に当てて跳ね返す。</td></tr><tr><td class="pt">色を混ぜない</td><td><b>店内の電球色を消すか、LEDをその色に合わせるか、どちらかに決める。</b></td><td class="dim">混ざると、顔の片側だけオレンジになる。後から直せない。</td></tr><tr><td class="pt">工房は場所ごとに光が違う</td><td><b>カメラを置き直すたびに、露出を取り直す。</b></td><td class="dim">機械のまわりは暗く、窓ぎわだけ明るい。同じ設定のまま移ると、必ずどこかで潰れる。</td></tr><tr><td class="pt">③の黒背景</td><td><b>光を背景に回さない。</b>被写体をボードから離す。</td><td class="dim">ボードに光が当たると、黒がグレーになる。<b>ボードは指紋が目立つので、素手で持たない。</b></td></tr><tr><td class="pt">外の逆光</td><td>顔の側にレフ。</td><td class="dim">逆光ぎみに立ってもらうと輪郭が出る。そのままだと顔が沈むので、白い面で返す。</td></tr></tbody>
+  </table></div>
+</section><section id="sound">
+  <div class="phead"><span class="pname">音 声</span>
+    <span class="prole">画の粗さより、音の粗さのほうが見ていられない。撮り直しがきかない。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">ヘッドホンで聞きながら録る</td><td><b>これだけは省かない。</b></td><td class="dim">目で見ても分からない。ノイズも、マイクが入っていないことも、聞いていれば分かる。</td></tr><tr><td class="pt">インタビューは口元に近づける</td><td><b>襟に留めて、口元から二十センチ。</b></td><td class="dim">ピンマイクが手元に無いうちは、レコーダーを机の下か膝に置いて別録りする。カメラのマイクだけだと、部屋の反響が全部乗る。</td></tr><tr><td class="pt">別録りしたら手を一回叩く</td><td>回し始めに、カメラの前で。</td><td class="dim">波形が立つので、あとで音と画を合わせられる。<b>忘れると合わせるのに何十分もかかる。</b></td></tr><tr><td class="pt">レベル</td><td>ピークで<b>−12dB あたり</b>。</td><td class="dim">32bitフロートは割れないが、小さすぎると後で持ち上げたときに部屋の音まで上がる。</td></tr><tr><td class="pt">ルームトーン</td><td><b>場所ごとに三十秒、誰も喋らない音を録る。</b></td><td class="dim">つなぎ目に敷くと、音の切れ目が消える。撮り終わって片づける前に録る。</td></tr><tr><td class="pt">止められる音は止める</td><td>エアコン・冷蔵庫・換気扇。</td><td class="dim"><b>止めた状態で、その場面を最後まで通す。</b>途中で入れ直すと音がつながらない。</td></tr><tr><td class="pt">②のASMR</td><td>ガンマイクを音源から<b>十五〜三十センチ</b>まで寄せる。</td><td class="dim">刃・ミシン・磨きの音が主役。ケーブルに触るとその音が乗る。<b>触らない。</b></td></tr><tr><td class="pt">外</td><td>ウインドジャマーを付ける。</td><td class="dim"><b>風の音は後から消せない。</b>付け忘れたカットは、音を捨てることになる。</td></tr></tbody>
+  </table></div>
+</section><section id="genba">
+  <div class="phead"><span class="pname">現 場 で 時 間 を 落 と す と こ ろ</span>
+    <span class="prole">初めての人がつまずくのは、機材ではなくここ。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">三脚を立てる前に、背景を見る</td><td>他社の品・私物・ゴミ箱・コンセント・映り込み。</td><td class="dim">立ててから気づくと、全部やり直しになる。<b>先に画面の隅を見る。</b></td></tr><tr><td class="pt">撮り始める前に十秒回して、再生する</td><td>音が入っているか、露出、ピント。<b>毎回やる。</b></td><td class="dim">一日ぶん録れていなかった、が一番こわい。十秒で防げる。</td></tr><tr><td class="pt">撮ったらその場でメモ</td><td>何番のシーンか、OKかどうか。</td><td class="dim">あとから見ると、似た画が並んでいてどれがOKか分からなくなる。</td></tr><tr><td class="pt">その日の終わりに全部通して見る</td><td>足りないものは<b>その日のうちに</b>撮り直す。</td><td class="dim">翌日には同じ光にならない。人にもう一度お願いすることになる。</td></tr></tbody>
+  </table></div>
+</section><section id="renshu">
+  <div class="phead"><span class="pname">練 習 で 試 し て お く こ と</span>
+    <span class="prole">本番の前に、近所で一度通しておく。</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:22%"><col style="width:34%"><col></colgroup>
+    <tbody><tr><td class="pt">固定して、人に通り過ぎてもらう</td><td>①④と同じ形。</td><td class="dim">三脚を据えて、フレームの外から人に入ってきてもらう。歩いて追わない画の練習。</td></tr><tr><td class="pt">ホワイトバランスを見比べる</td><td>同じ場所でオートと固定を撮って、並べて見る。</td><td class="dim">固定にする理由が、見れば分かる。</td></tr><tr><td class="pt">声を三分録って聞き比べる</td><td>カメラのマイクと、レコーダーを近づけた音。</td><td class="dim">距離だけでここまで変わる、というのを耳で覚えておく。</td></tr><tr><td class="pt">真俯瞰を一度組む</td><td>台の上か、脚立から。</td><td class="dim">本番でここに時間をかけないため。<b>組み方を先に決めておく。</b></td></tr><tr><td class="pt">書き出しまでやる</td><td><b>編集して、書き出すところまで通す。</b></td><td class="dim">尺の感覚は、書き出して初めてつく。三十五秒がどれだけ短いかが分かる。</td></tr></tbody>
+  </table></div>
+</section>
+<div class="part"><div class="partno">PART 2</div>
+  <h2 class="parth">イ ン タ ビ ュ ー の 質 問 事 項</h2></div>
+<section id="common">
+  <div class="phead"><span class="pname">四 人 に 共 通</span>
+    <span class="prole">撮る前に、その場で伝えること</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:32%"><col></colgroup>
+    <tbody><tr><td class="pt">答えだけで意味が通る形で話してもらう</td><td>質問の声は使わない。<b>質問を言い直してから答えてもらう。</b><br>×「三年です」　→　○「使い始めて三年です」</td></tr><tr><td class="pt">カメラは見ない</td><td>質問する人の目を見て話してもらう。<b>質問者はカメラのすぐ横に座る。</b></td></tr><tr><td class="pt">言い直しは何度でも</td><td>詰まったら、その質問の頭から言い直してもらう。編集で切れる。<br>「うまく言えない」と言われたら、こちらが言い換えて聞き直す。</td></tr><tr><td class="pt">一問につき二十秒から三十秒</td><td>長く話さなくていいと、先に伝えておく。短い答えが並ぶほうが切りやすい。</td></tr><tr><td class="pt">話し終わって三秒待ってから止める</td><td>口を閉じるところまで残す。言い終わりの表情が効く。</td></tr><tr><td class="pt">はじめの十分は世間話に使う</td><td><b>録りながら世間話をする。</b>そこで出た一言が、いちばん使えることがある。</td></tr></tbody>
+  </table></div>
+</section><section id="sato">
+  <div class="phead"><span class="pname">佐 藤 さ ん</span>
+    <span class="prole">向島工房</span>
+    <span class="place">⑥ OEM工房案内</span></div>
+  <p class="use">話す画は<b>⑥のS3 3枚目（引き）とS8 3枚目（バストショット）</b>で使う。二カットで合わせて十秒ほど。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li>はじめに <b>「間違えても撮り直せます」</b> と伝える。ここだけは必ず言う。</li><li>作業台の前で聞く。<b>手を動かしながらでいい。</b>手が動いているほうが言葉が出る。</li><li>答えにくい質問は <b>「飛ばしてください」</b> でいい。粘らない。</li><li><b>物の話 → 工程の話 → 人の話、の順で聞く。</b>いきなり人の話を聞かない。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今朝は何時にここに来ましたか。</div><div>今日はこのあと、何をしますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr><td class="no tm">1</td><td class="q">いま手にしているのは、何になる部分ですか。</td><td class="ex">これは鞄の底です。</td><td class="dim">これくらいで十分。「その次は、どこへ回りますか」と工程を辿る。</td></tr><tr><td class="no tm">2</td><td class="q">この機械は、何をする機械ですか。</td><td class="ex">革を裁つ機械です。型を置いて、上から押します。</td><td class="dim">目の前の物を指してもらう。指した手も撮る。</td></tr><tr><td class="no tm">3</td><td class="q">一日に、だいたいいくつ通りますか。</td><td class="ex">日によりますが、百枚くらいです。</td><td class="dim">数字が出たら、そのまま使う。言い直してもらわない。</td></tr><tr><td class="no tm">4</td><td class="q">この工程で手が止まるのは、どんなときですか。</td><td class="ex">革の伸びが場所で違うので、そこで一度止まります。</td><td class="dim">「止まったあとは、どうしますか」で、直す手つきを引き出す。</td></tr><tr><td class="no tm">5</td><td class="q">覚えるのに、いちばん時間がかかった工程はどれでしたか。</td><td class="ex">コバ塗りです。三年かかりました。</td><td class="dim">時間と失敗の話は具体が出やすい。ここは長めに回す。</td></tr><tr><td class="no tm">6</td><td class="q">何年、ここで作っていますか。</td><td class="ex">十八年です。</td><td class="dim">一言でいい。「最初に覚えたのは何でしたか」と続ける。</td></tr><tr><td class="no tm">7</td><td class="q">ブルックリンミュージアムの品で、手がかかるのはどこですか。</td><td class="ex">角の始末です。ここだけは機械に任せられない。</td><td class="dim">その場所を指してもらい、寄りで撮る。</td></tr><tr><td class="no tm">8</td><td class="q">この工房を一言で言うと、どんな場所ですか。</td><td class="ex">小さいですが、最初から最後までここで終わります。</td><td class="dim"><b>締めの一問。</b>答えたあと三秒待ってから止める。</td></tr></tbody>
+  </table></div>
+</section><section id="nagao">
+  <div class="phead"><span class="pname">永 尾 社 長</span>
+    <span class="prole">BROOKLYN MUSEUM</span>
+    <span class="place">⑤ コーポレートムービー</span></div>
+  <p class="use">話す画は<b>⑤のS1 3枚目とS7</b>で使う。バストショット固定、顔の下に役職テロップ。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li>バストショットで固定。<b>カメラは目の高さ。</b>見上げても見下ろしてもいけない。</li><li>会社の話 → 工房の話 → これからの話。</li><li>同じ答えが二度出たら、<b>後のほうが落ち着いている。</b>両方残す。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日はこのあと、どこかへ出られますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr><td class="no tm">1</td><td class="q">ブルックリンミュージアムは、何を作っている会社ですか。</td><td class="ex">革の鞄と革小物を、企画から作って売っています。</td><td class="dim"><b>冒頭に置く一問。</b>短く言い切ってもらう。</td></tr><tr><td class="no tm">2</td><td class="q">どんな方が買っていかれますか。</td><td class="ex">三十代から五十代が多いです。長く使う前提で選ばれます。</td><td class="dim">「その方たちは、何を見て決めていますか」と続ける。</td></tr><tr><td class="no tm">3</td><td class="q">向島の工房と組んでいるのは、なぜですか。</td><td class="ex">歩いて行ける距離にあるので、直せる。作り直しがその日のうちに回ります。</td><td class="dim">距離と速さの話が出たら、そこを掘る。⑥につながる。</td></tr><tr><td class="no tm">4</td><td class="q">他所と違うところを一つ挙げるとしたら、どこですか。</td><td class="ex">コバ ── 革の切り口の仕上げです。</td><td class="dim"><b>⑧の購入者にも同じことを聞く。</b>二人の言葉が重なると効く。</td></tr><tr><td class="no tm">5</td><td class="q">OEMでは、どんな相手と仕事をしていますか。</td><td class="ex">アパレルの会社さんが多いです。小さい数から受けています。</td><td class="dim">数の話が出たら、そのまま使う。⑥の締めに効く。</td></tr><tr><td class="no tm">6</td><td class="q">これから増やしたいのは、どんな仕事ですか。</td><td class="ex">直しながら長く使ってもらう仕事です。</td><td class="dim">先の話は表情が変わる。長めに回す。</td></tr><tr><td class="no tm">7</td><td class="q">お店に来た方に、まず何を見てほしいですか。</td><td class="ex">持ち手を握ってみてほしいです。</td><td class="dim"><b>締めの一問。</b>答えたあと三秒待ってから止める。</td></tr></tbody>
+  </table></div>
+</section><section id="kusagaya">
+  <div class="phead"><span class="pname">く さ が や さ ん</span>
+    <span class="prole">BROOKLYN MUSEUM 店舗</span>
+    <span class="place">⑤ コーポレートムービー</span></div>
+  <p class="use"><b>永尾社長とは別の場所・別の画角。横顔で撮る。</b>棚が背に入る位置に座ってもらう。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li>永尾社長のあとに録る。<b>同じ質問はしない。</b>売り場で見ていることだけ聞く。</li><li>横顔なので、こちらは棚の側に座る。目線が棚のほうへ流れる形にする。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日は何時に開けますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr><td class="no tm">1</td><td class="q">お店には、どんな方が来られますか。</td><td class="ex">はじめての方と、直しに来られる方と、半分ずつくらいです。</td><td class="dim">「直しに来る方は、どのくらい使った品を持ってこられますか」と続ける。</td></tr><tr><td class="no tm">2</td><td class="q">よく聞かれることは何ですか。</td><td class="ex">「どのくらい保ちますか」が一番多いです。</td><td class="dim"><b>売り場でしか出ない言葉。</b>ここは長めに回す。</td></tr><tr><td class="no tm">3</td><td class="q">いちばん動く品は何ですか。</td><td class="ex">小さい財布です。贈り物で出ます。</td><td class="dim">その品を持ってきてもらい、手元の寄りを撮る。</td></tr><tr><td class="no tm">4</td><td class="q">手に取った方が、決める瞬間はどこですか。</td><td class="ex">持ち手を握って、肩に掛けたときですね。</td><td class="dim">その動きを実際にやってもらう。Bロールに使える。</td></tr><tr><td class="no tm">5</td><td class="q">直しで戻ってきた品を見て、気づくことはありますか。</td><td class="ex">擦れる場所が、人によって違います。</td><td class="dim">戻ってきた品が店にあれば、並べて撮る。</td></tr><tr><td class="no tm">6</td><td class="q">はじめての方には、まず何を勧めますか。</td><td class="ex">小さい物から見てもらいます。</td><td class="dim"><b>締めの一問。</b>答えたあと三秒待ってから止める。</td></tr></tbody>
+  </table></div>
+</section><section id="kounyu">
+  <div class="phead"><span class="pname">購 入 者</span>
+    <span class="prole">Aさん（人選はこれから）</span>
+    <span class="place">⑧ 購入者インタビュー</span></div>
+  <p class="use"><b>質問はテロップで画面に出す。声で質問しない。</b>最初の一問はテロップに出さず、答えから始める。話した言葉は画面の下に一行、英訳も一行。右下に「購入者 Aさん」。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li><b>名前は出さない。</b>顔出しの範囲を、撮る前に本人へ確かめる。</li><li>バストショットで固定。話が長くなっても画角は変えない。</li><li><b>台本にない一言が出たら、そこを使う。</b>言い直させない。</li><li>そのあと⑤S6の購入シーンにも入ってもらう。先に段取りを伝えておく。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日はどちらから来られましたか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr><td class="no tm">1</td><td class="q">（テロップに出さない）初めて買われたのは、いつ、どの品ですか。</td><td class="ex">ブルックリンミュージアムを初めて買ったのは、〇〇年ですね。財布からでした。</td><td class="dim"><b>この答えから本編が始まる。</b>年と品名が入る形で言ってもらう。</td></tr><tr><td class="no tm">2</td><td class="q">なぜこの商品を選びましたか？<br><span class='eng'>Why did you choose this one?</span></td><td class="ex">形が変わらないところです。荷物を入れても崩れない。</td><td class="dim">理由が二つ出たら、両方残す。</td></tr><tr><td class="no tm">3</td><td class="q">他にも見ましたか？<br><span class='eng'>Did you look at other brands?</span></td><td class="ex">他も見たんですけど、コバ ── 革の切り口の仕上げが違って。そこで決めました。</td><td class="dim"><b>永尾社長と同じ言葉が出たら、並べて使う。</b></td></tr><tr><td class="no tm">4</td><td class="q">どのくらい使っていますか？<br><span class='eng'>How long have you used it?</span></td><td class="ex">もう〇年です。毎日出し入れしていますが、角が擦り切れていない。手入れは、乾いた布で拭くくらいです。</td><td class="dim">手入れの話が出たら、その手つきを外のカットで撮る。</td></tr><tr><td class="no tm">5</td><td class="q">買う前に迷ったことは？<br><span class='eng'>Anything you hesitated about?</span></td><td class="ex">値段は迷いました。ただ、一度直しに出したら、コバまで磨いて返ってきて。これならあと十年いけるな、と。</td><td class="dim"><b>締めの一問。</b>迷った話のあとに来る一言を待つ。三秒待ってから止める。</td></tr></tbody>
+  </table></div>
+</section>
+</div>
