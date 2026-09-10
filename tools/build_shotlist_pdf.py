@@ -34,20 +34,17 @@ def cover():
         a, b = L.day_counts(d)
         ts += a
         te += b
-        nos = list(dict.fromkeys(no for no, _ in L.day_scenes(d)))
-        books = "<br>".join(
-            '<span style="color:%s;font-weight:700">%s</span>　%s'
-            '<span style="color:%s">　%s</span>'
-            % (GOLD, L.MARU[no], esc(L.PG[no]["jp"]), FAINT, esc(plain(L.PG[no]["meta_len"])))
-            for no in nos)
+        books = "".join(
+            '<div style="margin-top:1mm"><span style="color:%s;font-weight:700">%s</span>'
+            '　<b>%s</b><span style="color:%s">　── %s</span></div>'
+            % (GOLD, L.MARU[no], esc(L.PG[no]["jp"]), MUTED, tx) for no, tx in d["toc"])
         rows.append(
             '<tr>'
-            '<td class="c"><b style="font-size:12pt">%s</b><br>'
-            '<span style="color:%s;font-size:8.5pt">%s</span></td>'
+            '<td class="c"><b style="font-size:12pt">%s</b></td>'
             '<td class="c" style="color:%s;font-weight:700">%s</td><td class="c"><b>%s</b></td><td class="c">%s</td>'
             '<td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
             '<td class="c" style="white-space:nowrap">%dカット</td></tr>'
-            % (esc(d["no"]), MUTED, esc(d["theme"]), GOLD, esc(d["date"]), esc(d["place"]), books, GOLD,
+            % (esc(d["no"]), GOLD, esc(d["date"]), esc(d["place"]), books, GOLD,
                esc(L.day_span(d)), a))
     return f'''<section class="page">
   <div class="head">
@@ -59,20 +56,20 @@ def cover():
     </div>
   </div>
   <p class="lead">
-    はじめの二日で短い二本（②③）を撮り、編集まで一度通します。<b>三日目に三人の語りを全部録り、四日目からは、録れた声に画を当てていきます。</b>
+    はじめの二日で短い二本（②③）を撮り、編集まで一度通します。<b>三日目に三人のインタビューを全部録り、四日目からは、録れた声に画を当てていきます。</b>
     声が先にあると、どの画を何秒使うかが決まるので、撮る量に無駄が出ません。出演者の手配が要る⑧⑦④①は、支度の重い順に、あとの四日へ置いています。<br>
     {ts}カットを撮影し、残りの{te}カット（白バックと文字だけの画面）は編集で作ります。日ごとの香盤表のあとに、<b>本ごとのショットリスト</b>を八枚付けています。
   </p>
   <table>
-    <colgroup><col style="width:14%"><col style="width:7%"><col style="width:16%"><col><col style="width:11%"><col style="width:8%"></colgroup>
-    <thead><tr><th style="{th()}">日　／　ねらい</th><th style="{th()}">日付</th><th style="{th()}">場所</th><th style="{th()}">撮る本</th>
+    <colgroup><col style="width:10%"><col style="width:6%"><col style="width:15%"><col><col style="width:10%"><col style="width:7%"></colgroup>
+    <thead><tr><th style="{th()}">日</th><th style="{th()}">日付</th><th style="{th()}">場所</th><th style="{th()}">撮るもの</th>
     <th style="{th()}">時間</th><th style="{th()}">カット</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
   <div class="two">
     <div><div class="cap">先に決めておくこと</div>
       <b>ブルックリンの製作日</b>を佐藤さんに確認する ── 工房の日は、これで決まる。<br>
-      <b>語りの日</b>── 永尾社長・佐藤さんの予定。工房が動いていない日でも撮れる。<br>
+      <b>インタビューの日</b>── 永尾社長・佐藤さんの予定。工房が動いていない日でも撮れる。<br>
       <b>店の日</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方、購入者と顔出しの範囲。<br>
       <b>モデルの日</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
       ④は曇りの日に合わせるので、モデルの日の前後に予備日を一日置く。</div>
@@ -89,8 +86,9 @@ def day_page(d):
     rows = []
     head = ("時刻", "話す人 ／ 本・シーン", "場所（セット）", "録ること ／ 画角の並び", "気をつけること")
     if d.get("talks"):
-        rows.append('<tr><td colspan="5" style="padding:2mm 0 1mm"><b>語 り の 収 録</b></td></tr>')
-        for when, who, place, what, note in d["talks"]:
+        rows.append('<tr><td colspan="5" style="padding:2mm 0 1mm"><b>イ ン タ ビ ュ ー の 収 録</b></td></tr>')
+        for tk in d["talks"]:
+            when, who, place, what, note = tk[:5]
             rows.append('<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
                         '<td class="c"><b style="font-size:11pt">%s</b></td>'
                         '<td class="c">%s</td><td class="c">%s</td>'
@@ -98,7 +96,10 @@ def day_page(d):
                         % (GOLD, esc(when), esc(who), place, what, MUTED, note))
         rows.append('<tr><td colspan="5" style="padding:4mm 0 1mm"><b>セ ッ ト ご と の 撮 影</b></td></tr>')
     for when, place, sc, note in d.get("setups", []):
-        books = "・".join(dict.fromkeys(L.MARU[no] for no, _ in sc))
+        books = "　".join(
+            L.MARU[no] + " " + "・".join(re.sub(r"^S\\d+\\s*", "", L.cuts_of(no, si)[0])
+                                        for n2, si in sc if n2 == no)
+            for no in dict.fromkeys(n for n, _ in sc))
         rows.append('<tr class="band"><td colspan="5"><span style="color:%s;font-weight:700">%s</span>'
                     '　<b>%s</b>　<span style="color:%s">%s</span>'
                     '<span style="float:right;color:%s">%s</span></td></tr>'
@@ -109,7 +110,7 @@ def day_page(d):
             cam, cnote = L.split_cam(S.D[no][si][0])
             mv, mvday = L.MOVED.get((no, si), ([], ""))
             if mv and len(mv) == len(cuts):
-                cnt = "%dカット<br><span style='color:%s'>語りの収録で撮る</span>" % (len(cuts), GOLD)
+                cnt = "%dカット<br><span style='color:%s'>インタビューの収録で撮る</span>" % (len(cuts), GOLD)
             else:
                 cnt = "%dカット" % (len(cuts) - len(mv))
                 if mv:
