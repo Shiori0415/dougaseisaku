@@ -61,7 +61,7 @@ def cover():
   <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
   <h1>動画八本　香盤表</h1>
   <div class="en">Shooting Schedule</div>
-  <div class="count">全八本　{ts}カット　／　撮影 四日　<span style="color:var(--gold)">日付はすべて仮</span></div>
+  <div class="count">全八本　{ts}カット　／　撮影 五日　<span style="color:var(--gold)">日付はすべて仮</span></div>
 
 </header>
 <section id="schedule">
@@ -74,7 +74,8 @@ def cover():
     <div><div class="cap">先に決めておくこと</div><div class="body">
       <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
       <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
-      <b>10月1日（木）</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方（手と肩だけ）、購入者と顔出しの範囲。<br>
+      <b>10月1日（木）</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（手と肩だけ）。<br>
+      <b>購入者の日</b>── ⑧に出ていただく購入者と、顔出しの範囲。決まってから日を置く。<br>
       <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
       ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div></div>
     <div>
@@ -124,13 +125,18 @@ def day_section(d):
              % (esc(when), place, esc(who),
                 esc(tk[6] if len(tk) > 6 else "インタビュー"), what, note)]
         blocks.append((L.start_min(when), "".join(b)))
-    for when, place, sc, note in d.get("setups", []):
+    for setup in d.get("setups", []):
+        when, place, sc, note = setup[:4]
+        what = setup[4] if len(setup) > 4 else ""
+        who = setup[5] if len(setup) > 5 else ""
         if not sc:
             a, b = [int(x.split(":")[0]) * 60 + int(x.split(":")[1]) for x in when.split("〜")]
             blocks.append((L.start_min(when),
-                '<tr class="band"><td class="tm">%s</td><td><b>%s</b></td><td>―</td>'
-                '<td>―</td><td class="dim">%d分</td><td class="dim">%s</td></tr>'
-                % (esc(when), esc(place), b - a, note)))
+                '<tr class="band"><td class="tm">%s</td><td><b>%s</b></td><td>%s</td>'
+                '<td>%s</td><td class="dim">%s</td><td class="dim">%s</td></tr>'
+                % (esc(when), esc(place), who or "―", what or "―",
+                   ("%d時間%d分" % ((b - a) // 60, (b - a) % 60)) if b - a >= 60 else ("%d分" % (b - a)),
+                   note)))
             continue
         for k, (no, si) in enumerate(sc):
             t = S.SPOT[no][si][3]

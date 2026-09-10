@@ -51,12 +51,12 @@ def cover():
     <div class="titlerow">
       <div class="title">動画八本　香盤表</div>
       <div class="sub">Shooting Schedule</div>
-      <div class="right">全八本　{ts}カット　／　撮影 四日　／　日付はすべて仮</div>
+      <div class="right">全八本　{ts}カット　／　撮影 五日　／　日付はすべて仮</div>
     </div>
   </div>
   <p class="lead">
-    四日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
-    <b>⑧は開店前、③は終業後か休日。②と⑥は、ブルックリンの品を作っている日に合わせて動かします。</b>
+    五日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
+    <b>店舗は開店前と閉店後。購入シーンだけ営業中。③は終業後か休日。②と⑥は、ブルックリンの品を作っている日に合わせて動かします。</b>
   </p>
   <table>
     <colgroup><col style="width:7%"><col style="width:16%"><col><col style="width:10%"><col style="width:7%"></colgroup>
@@ -68,7 +68,8 @@ def cover():
     <div><div class="cap">先に決めておくこと</div>
       <b>佐藤さんに確認する二つ</b>── ブルックリンの製作日（工房で撮る日が決まる）と、終業後か休日に工房を使えるか（③の日が決まる）。<br>
       <b>インタビュー</b>── 永尾社長・くさがやさんは10月1日、佐藤さんは10月5日。三人とも三十分ずつ。<br>
-      <b>10月1日（木）</b>── くさがやさんの予定、⑦で鞄に物を入れて持ち出す方、購入者と顔出しの範囲。<br>
+      <b>10月1日（木）</b>── くさがやさんの予定と、⑦で鞄に物を入れて持ち出す方（手と肩だけ）。<br>
+      <b>購入者の日</b>── ⑧に出ていただく購入者と、顔出しの範囲。決まってから日を置く。<br>
       <b>10月2日（金）</b>── 出演者と、衣装・鞄 四色ぶん。会場の撮影申請。<br>
       ④は曇りの日に合わせるので、10月2日の前後に予備日を一日置く。</div>
     <div>
@@ -90,15 +91,20 @@ def day_page(d):
             '<td class="c" style="color:%s">%s</td></tr>'
             % (GOLD, esc(when), place, esc(who), MUTED,
                esc(tk[6] if len(tk) > 6 else "インタビュー"), what, MUTED, MUTED, note)))
-    for when, place, sc, note in d.get("setups", []):
+    for setup in d.get("setups", []):
+        when, place, sc, note = setup[:4]
+        what = setup[4] if len(setup) > 4 else ""
+        who = setup[5] if len(setup) > 5 else ""
         if not sc:
             a, b = [int(x.split(":")[0]) * 60 + int(x.split(":")[1]) for x in when.split("〜")]
             blocks.append((L.start_min(when),
-                '<tr class="band"><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
-                '<td class="c"><b>%s</b></td><td class="c">―</td><td class="c">―</td>'
-                '<td class="c" style="color:%s;white-space:nowrap">%d分</td>'
-                '<td class="c" style="color:%s">%s</td></tr>'
-                % (GOLD, esc(when), esc(place), MUTED, b - a, MUTED, note)))
+                ('<tr class="band"><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
+                 '<td class="c"><b>%s</b></td><td class="c">%s</td><td class="c">%s</td>'
+                 '<td class="c" style="color:%s;white-space:nowrap">%s</td>'
+                 '<td class="c" style="color:%s">%s</td></tr>')
+                % (GOLD, esc(when), esc(place), who or "―", what or "―", MUTED,
+                   ("%d時間%d分" % ((b - a) // 60, (b - a) % 60)) if b - a >= 60 else ("%d分" % (b - a)),
+                   MUTED, note)))
             continue
         for k, (no, si) in enumerate(sc):
             nm, cuts = L.cuts_of(no, si)
