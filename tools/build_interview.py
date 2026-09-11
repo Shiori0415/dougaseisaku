@@ -380,9 +380,7 @@ PEOPLE = [
 
  dict(key="kusagaya", name="く さ が や さ ん", role="ずっと職人　／　表参道の店の 前 代表",
       video="⑤ コーポレートムービー", length="三十分",
-      use="<b>ずっと職人。そのうえで表参道の店の代表も務めていた。</b>"
-          "⑤で乗るのは<b>S5とS6の四つだけ</b>。口は映らない。"
-          "<b>残りはインタビュー動画のほうで使う。</b>",
+      use="",
       stance=["<b>作る人でありながら、店の代表もやっていた。</b>両方を知っている唯一の人。",
               "<b>「作る側に戻った」という聞き方はしない。</b>ずっと作ってきた人。",
               "<b>向島工房のことは聞かない。</b>工房の話は佐藤さんに聞く。",
@@ -822,7 +820,7 @@ def person(p):
   <div class="phead"><span class="pname">{p["name"]}</span>
     <span class="prole">{esc(p["role"])}</span>
     <span class="place">{esc(p["video"])}</span></div>
-  <p class="use">{p["use"]}</p>
+{f'<p class="use">{p["use"]}</p>' if p["use"] else ""}
   <div class="scroll"><table>
     <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
     <thead><tr><th></th><th>質 問</th>
