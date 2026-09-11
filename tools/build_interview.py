@@ -150,16 +150,6 @@ def S(t):
     return "<br><span class='eng'>%s</span>" % t
 
 
-KISHA = [
- ("一問一答にしない", "答えの中の単語を拾って次を聞く。用意した順に読み上げない。"),
- ("「なぜ」は二回まで", "三回目は詰問になる。<b>「たとえば、どんなときですか」</b>に替える。"),
- ("事実 → 判断 → 気持ち", "いきなり気持ちを聞かない。順を飛ばすと用意してきた言葉が返る。"),
- ("沈黙を三秒待つ", "<b>そこで出る一言がたいてい一番いい。</b>こちらが埋めると出てこない。"),
- ("数字と固有名詞を拾う", "十八年・三年・百枚・一ミリ。出なければ「だいたいどのくらいですか」。"),
- ("言い直して確かめる", "<b>「つまり、〇〇ということですか」</b>。言い切った形をもう一度言ってくれる。"),
- ("核心は真ん中", "最初は硬い。最後は疲れている。<b>十五分から二十五分のあいだ。</b>"),
- ("答えを先に言わない", "×「やっぱり手作業が大事ですよね？」　そう聞けば、そう答えるしかない。"),
-]
 
 def T(*ks):
     return "".join('<span class="tag %s">%s</span>' % (
@@ -579,18 +569,6 @@ def flow(f):
 </section>'''
 
 
-def kisha():
-    rows = "".join('<tr><td class="pt">%s</td><td>%s</td></tr>' % r for r in KISHA)
-    return f'''<section id="kisha">
-  <div class="phead"><span class="pname">聞 き 方 の 原 則</span>
-    <span class="prole">三十分もたせるために、これだけは守る</span></div>
-  <div class="scroll"><table>
-    <colgroup><col style="width:30%"><col></colgroup>
-    <tbody>{rows}</tbody>
-  </table></div>
-</section>'''
-
-
 def nav_tech():
     return "".join('<a href="#%s">%s</a>' % (k, h.replace(" ", "")) for k, h, _, _ in TECH)
 
@@ -598,7 +576,7 @@ def nav_tech():
 def nav_itv():
     p = "".join('<a href="#%s">%s</a>' % (x["key"], x["name"].replace(" ", "")) for x in PEOPLE)
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
-    return ('<a href="#common">共通</a><a href="#kisha">聞き方</a>%s'
+    return ('<a href="#common">共通</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s' % (p, g))
 
 
@@ -608,7 +586,7 @@ def _old_nav():
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
     return ('<nav><div class="navin"><span class="navlab">技術</span>%s'
             '<span class="navsep"></span><span class="navlab">質問</span>'
-            '<a href="#common">共通</a><a href="#kisha">聞き方</a>%s'
+            '<a href="#common">共通</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s'
             '</div></nav>' % (t, p, g))
 
@@ -697,7 +675,7 @@ def build_tech():
 
 
 def build_itv():
-    body = common() + kisha() + "".join(person(p) for p in PEOPLE)
+    body = common() + "".join(person(p) for p in PEOPLE)
     flw = "".join(flow(f) for f in FLOW)
     n = sum(qcount(p) for p in PEOPLE)
     return f'''<title>インタビュー質問事項</title>
