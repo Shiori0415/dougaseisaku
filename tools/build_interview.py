@@ -761,7 +761,7 @@ def nav_tech():
 def nav_itv():
     p = "".join('<a href="#%s">%s</a>' % (x["key"], x["name"].replace(" ", "")) for x in PEOPLE)
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
-    return ('<a href="#mato">誰に</a><a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
+    return ('<a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s' % (p, g))
 
 
@@ -771,7 +771,7 @@ def _old_nav():
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
     return ('<nav><div class="navin"><span class="navlab">技術</span>%s'
             '<span class="navsep"></span><span class="navlab">質問</span>'
-            '<a href="#mato">誰に</a><a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
+            '<a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s'
             '</div></nav>' % (t, p, g))
 
@@ -901,7 +901,7 @@ def build_tech():
 
 
 def build_itv():
-    body = mato() + common() + hori() + "".join(person(p) for p in PEOPLE)
+    body = common() + hori() + "".join(person(p) for p in PEOPLE)
     flw = "".join(flow(f) for f in FLOW)
     n = sum(qcount(p) for p in PEOPLE)
     return f'''<title>インタビュー質問事項</title>
