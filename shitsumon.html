@@ -1,0 +1,221 @@
+<title>インタビュー質問事項</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --ground: #ffffff; --surface: #ffffff; --band: #f4efe7;
+  --ink: #15191c; --prose: #3d4448; --muted: #5b6266; --faint: #8a8f92;
+  --gold: #a8672a; --line: #ddd7cd; --hair: #ebe6dd;
+}
+* { box-sizing: border-box; }
+html { background: #ffffff; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
+  font-size: 15px; line-height: 1.75; font-feature-settings: "palt";
+}
+b, strong { font-weight: 700; }
+a { color: var(--gold); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; }
+
+nav { position: sticky; top: 0; z-index: 10; background: #ffffffee;
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.navin { max-width: 1180px; margin: 0 auto; padding: 10px 24px;
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.navlab { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-right: 4px; }
+nav a { font-size: 13px; color: var(--muted); text-decoration: none;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+nav a:hover, nav a:focus-visible { color: var(--gold); border-color: var(--line); background: #fdfbf8; }
+nav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.navsep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; }
+
+header.top { padding: 52px 0 26px; border-bottom: 2px solid var(--ink); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .18em; color: var(--gold); }
+h1 { font-size: clamp(30px, 4.4vw, 44px); font-weight: 700; letter-spacing: -.02em;
+  margin: 12px 0 6px; text-wrap: balance; }
+.en { font-size: 14px; letter-spacing: .08em; color: var(--faint); }
+.count { margin-top: 14px; font-size: 15px; font-weight: 700; }
+.lead { margin: 22px 0 0; color: var(--prose); max-width: 74ch; }
+
+section { scroll-margin-top: 62px; padding-top: 44px; }
+.shead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--ink); padding-bottom: 12px; }
+.daynum { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
+.place { font-size: 17px; font-weight: 700; color: var(--gold); }
+.theme { font-size: 14px; color: var(--muted); }
+.when { margin-left: auto; font-size: 14px; font-weight: 700;
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cuts { font-size: 13px; color: var(--faint); white-space: nowrap; }
+.note { margin: 16px 0 0; color: var(--prose); max-width: 78ch; }
+
+.scroll { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; min-width: 880px; }
+th { text-align: left; font-size: 12px; font-weight: 400; letter-spacing: .1em;
+  color: var(--faint); border-bottom: 1px solid var(--line); padding: 0 14px 9px 0; }
+td { padding: 14px 14px 14px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
+tr.band td { background: var(--band); padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.tm { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sc { font-weight: 700; font-size: 16px; }
+.sub { color: var(--faint); font-size: 13px; }
+.dim { color: var(--muted); }
+.no { font-weight: 700; font-variant-numeric: tabular-nums; }
+.box { display: inline-block; width: 17px; height: 17px; border: 1px solid var(--line); border-radius: 3px; }
+.pin { color: var(--gold); font-size: 13px; }
+.tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.paid { color: var(--gold); border-color: var(--gold); }
+
+.foot { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+.cap { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-bottom: 8px; }
+.foot ul { margin: 0; padding-left: 18px; }
+.foot li { margin-bottom: 6px; }
+.foot .body { color: var(--prose); }
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px 72px; }
+  .navin { padding: 8px 16px; }
+  body { font-size: 14px; }
+}
+
+.q { font-weight:700; font-size:16px; }
+.tag { margin:0 4px 3px 0; font-size:11px; padding:1px 7px; }
+.tag.hon { color:var(--gold); border-color:var(--gold); }
+.tag.oem { color:#3d4448; border-color:#3d4448; }
+.tag.med { color:#5b6266; }
+.tag.saiyo { color:#8a8f92; }
+.eng { font-weight:400; font-size:13px; color:var(--faint); letter-spacing:.02em; }
+.ex::before { content:"「"; color:var(--faint); }
+.ex::after { content:"」"; color:var(--faint); }
+.pt { font-weight:700; font-size:16px; }
+.phead { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+  border-bottom:1px solid var(--ink); padding-bottom:12px; }
+.pname { font-size:26px; font-weight:700; letter-spacing:-.01em; }
+.prole { font-size:14px; color:var(--muted); }
+.use { margin:14px 0 0; color:var(--prose); max-width:80ch; }
+.warm { margin-top:18px; padding:12px 16px; background:var(--band);
+  border-left:3px solid var(--gold); }
+.warm .cap { margin-bottom:4px; }
+.part { margin-top:64px; padding-top:26px; border-top:2px solid var(--ink); }
+.partno { font-size:12px; font-weight:700; letter-spacing:.18em; color:var(--gold); }
+.parth { font-size:30px; font-weight:700; margin:6px 0 0; }
+</style>
+<nav><div class="navin"><span class="navlab">質問</span><a href="#common">共通</a><a href="#kisha">聞き方</a><a href="#sato">佐藤さん</a><a href="#nagao">永尾社長</a><a href="#kusagaya">くさがやさん</a><a href="#kounyu">購入者</a><span class="navsep"></span><span class="navlab">語りの置きどころ</span><a href="#f06">⑥OEM工房案内</a><a href="#f05">⑤コーポレートムービー</a><a href="#f08">⑧購入者インタビュー</a></div></nav>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
+  <h1>インタビュー　質問事項</h1>
+  <div class="en">Interview Questions</div>
+  <div class="count">四人　／　75問</div>
+  <p class="lead"><b>聞く順は、画の順。</b>一問ずつ、乗る画と用途を添えてある。
+  <span class="tag hon">本編</span>は八本に入るもの。
+  <span class="tag oem">OEM</span><span class="tag med">メディア</span><span class="tag saiyo">採用</span>
+  はインタビュー動画で使う。</p>
+</header>
+<section id="common">
+  <div class="phead"><span class="pname">四 人 に 共 通</span>
+    <span class="prole">撮る前に、その場で伝えること</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:32%"><col></colgroup>
+    <tbody><tr><td class="pt">答えだけで意味が通る形で話してもらう</td><td>質問の声は使わない。<b>質問を言い直してから答えてもらう。</b><br>×「三年です」　→　○「使い始めて三年です」</td></tr><tr><td class="pt">カメラは見ない</td><td>質問する人の目を見て話してもらう。<b>質問者はカメラのすぐ横に座る。</b></td></tr><tr><td class="pt">言い直しは何度でも</td><td>詰まったら、その質問の頭から言い直してもらう。編集で切れる。<br>「うまく言えない」と言われたら、こちらが言い換えて聞き直す。</td></tr><tr><td class="pt">一問につき二十秒から三十秒</td><td>長く話さなくていいと、先に伝えておく。短い答えが並ぶほうが切りやすい。</td></tr><tr><td class="pt">話し終わって三秒待ってから止める</td><td>口を閉じるところまで残す。言い終わりの表情が効く。</td></tr><tr><td class="pt">はじめの十分は世間話に使う</td><td><b>録りながら世間話をする。</b>そこで出た一言が、いちばん使えることがある。</td></tr><tr><td class="pt">例文を先に見せる</td><td><b>この紙をそのまま見せて、一つ読んでもらう。</b>「こんな感じで大丈夫です」と伝わると、その場で硬さが取れる。<br>覚えてもらう必要はない。<b>見ながら話してもらってよい。</b></td></tr><tr><td class="pt">一つの話としてつなげて話してもらう</td><td>単語で終わらせない。<b>質問の言葉を入れて、話の形にしてもらう。</b><br>×「裁断です」　→　○「ここは裁断です。型を置いて、上から刃を下ろします。」</td></tr></tbody>
+  </table></div>
+</section><section id="kisha">
+  <div class="phead"><span class="pname">聞 き 方 の 原 則</span>
+    <span class="prole">三十分もたせるために、これだけは守る</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:30%"><col></colgroup>
+    <tbody><tr><td class="pt">一問一答にしない</td><td>答えの中の単語を拾って次を聞く。用意した順に読み上げない。</td></tr><tr><td class="pt">「なぜ」は二回まで</td><td>三回目は詰問になる。<b>「たとえば、どんなときですか」</b>に替える。</td></tr><tr><td class="pt">事実 → 判断 → 気持ち</td><td>いきなり気持ちを聞かない。順を飛ばすと用意してきた言葉が返る。</td></tr><tr><td class="pt">沈黙を三秒待つ</td><td><b>そこで出る一言がたいてい一番いい。</b>こちらが埋めると出てこない。</td></tr><tr><td class="pt">数字と固有名詞を拾う</td><td>十八年・三年・百枚・一ミリ。出なければ「だいたいどのくらいですか」。</td></tr><tr><td class="pt">言い直して確かめる</td><td><b>「つまり、〇〇ということですか」</b>。言い切った形をもう一度言ってくれる。</td></tr><tr><td class="pt">核心は真ん中</td><td>最初は硬い。最後は疲れている。<b>十五分から二十五分のあいだ。</b></td></tr><tr><td class="pt">答えを先に言わない</td><td>×「やっぱり手作業が大事ですよね？」　そう聞けば、そう答えるしかない。</td></tr></tbody>
+  </table></div>
+</section><section id="sato">
+  <div class="phead"><span class="pname">佐 藤 さ ん</span>
+    <span class="prole">向島工房</span>
+    <span class="place">⑥ OEM工房案内</span></div>
+  <p class="use">工程の説明が⑥の語りになる。<b>作業中には話してもらわない。</b>一日の終わりにまとめて録る。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li>はじめに <b>「間違えても撮り直せます」</b> と伝える。</li><li>物 → 工程 → 人、の順。<b>いきなり人の話を聞かない。</b></li><li>抽象語で終わったら <b>「たとえば、どんなときですか」</b>。</li><li>詰まったら、撮った素材をその場で見せる。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今朝は何時にここに来ましたか。</div><div>今日はこのあと、何をしますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr class="band"><td colspan="4">0 〜 5 分 　導 入</td></tr><tr><td class="no tm">1</td><td class="q">今日は、何を作っていましたか。</td><td class="ex">今日は鞄の持ち手を通していました。</td><td class="dim">声を出してもらうだけ。</td></tr><tr><td class="no tm">2</td><td class="q">いま手にしているのは、何になる部分ですか。</td><td class="ex">これは鞄の底です。</td><td class="dim">物の話から入る。</td></tr><tr><td class="no tm">3</td><td class="q">この仕事は、何年になりますか。<br><span class='eng'>⑥S1 1〜3枚目（声だけ）</span></td><td class="ex">革製造に携わるようになってから二十数年です。</td><td class="dim"><span class="tag hon">本編</span> <b>⑥の冒頭。</b>二回撮る。</td></tr><tr><td class="no tm">4</td><td class="q">御社での「一貫して製造」は、どこからどこまでを指しますか。<br><span class='eng'>⑥S2 3枚目 佐藤さんの引き（口が映る）</span></td><td class="ex"><b>御社では一貫して製造をしています。</b>革を選ぶところから梱包まで、この建物の中です。</td><td class="dim"><span class="tag hon">本編</span><span class="tag oem">OEM</span> 締めの「全部この建物の中で終わります」に返る。</td></tr><tr class="band"><td colspan="4">5 〜 1 5 分 　工 程 　── ⑥ の 画 の 順 に</td></tr><tr><td class="no tm">5</td><td class="q">鞄を一つ作るとき、何から始まりますか。<br><span class='eng'>⑥S2 1枚目 材料の壁</span></td><td class="ex">まず革を選びます。壁一面にあるのが、その革です。厚みと硬さで使い分けます。</td><td class="dim"><span class="tag hon">本編</span> 「壁一面」が画と重なる。</td></tr><tr><td class="no tm">6</td><td class="q">革と型は、どうやって選びますか。<br><span class='eng'>⑥S3 革の棚・金型の棚</span></td><td class="ex">棚から革を出して、金型を合わせます。型は品番ごとにあって、これが持ち手の型です。</td><td class="dim"><span class="tag hon">本編</span> S3 2枚目が「手が金型を抜き出す」画。</td></tr><tr><td class="no tm">7</td><td class="q">裁断は、どういう作業ですか。<br><span class='eng'>⑥S4 裁断機のまわり</span></td><td class="ex">型を置いて、上から刃を下ろします。一度で抜くので、ずれると革が一枚無駄になります。</td><td class="dim"><span class="tag hon">本編</span> 刃が下りる瞬間に言葉が乗る。</td></tr><tr><td class="no tm">8</td><td class="q">下仕事では、何をしますか。<br><span class='eng'>⑥S5 1〜3枚目 折り目・貼り合わせ・コバ塗り</span></td><td class="ex">折り目をつけて、貼り合わせて、切り口を磨きます。ここが仕上がりの八割を決めます。</td><td class="dim"><span class="tag hon">本編</span> 三つの動作を三つのカットが順に見せる。</td></tr><tr><td class="no tm">9</td><td class="q">刃を入れる前に、見ているものはありますか。<br><span class='eng'>⑥S5 4枚目 職人の目（超マクロ）</span></td><td class="ex">革の伸びる向きです。見ても分かりませんが、触れば分かる。</td><td class="dim"><span class="tag hon">本編</span> <b>目のアップに「目では分からない」を乗せる。</b>⑥で一番効く四秒。</td></tr><tr><td class="no tm">10</td><td class="q">縫製は、どういう作業ですか。<br><span class='eng'>⑥S6 ミシンのまわり</span></td><td class="ex">ミシンで送りますが、角だけは手で縫います。厚みが変わるところは機械が拾えないので。</td><td class="dim"><span class="tag hon">本編</span><span class="tag oem">OEM</span> 機械と手を分ける理由＝OEMで頼む理由。</td></tr><tr><td class="no tm">11</td><td class="q">検品では、何を見ていますか。<br><span class='eng'>⑥S7 1〜2枚目 光にかざす・内側を確かめる</span></td><td class="ex">光にかざして、縫い目の幅と、切り口の照りを見ます。</td><td class="dim"><span class="tag hon">本編</span> 見ているものを二つ言ってもらう。</td></tr><tr><td class="no tm">12</td><td class="q">できた品は、最後どうやって店に出ていきますか。<br><span class='eng'>⑥S8 1〜2枚目 包む手元・梱包場の引き</span></td><td class="ex">梱包して、店に出します。ここまで全部、この建物の中で終わります。</td><td class="dim"><span class="tag hon">本編</span> <b>冒頭の答え合わせ。</b>⑥でいちばん効く一秒。</td></tr><tr class="band"><td colspan="4">1 5 〜 2 5 分 　経 験 と 判 断</td></tr><tr><td class="no tm">13</td><td class="q">この道に入ったきっかけは何でしたか。</td><td class="ex">親戚がやっていて、手伝いから入りました。</td><td class="dim"><span class="tag med">メディア</span><span class="tag saiyo">採用</span> </td></tr><tr><td class="no tm">14</td><td class="q">最初に覚えた工程は何でしたか。</td><td class="ex">裁断です。型を置くところは、すぐ覚えました。</td><td class="dim"><span class="tag saiyo">採用</span> </td></tr><tr><td class="no tm">15</td><td class="q">覚えるのに、いちばん時間がかかった工程はどれでしたか。</td><td class="ex">コバ塗りです。三年かかりました。塗って、乾かして、磨いて、また塗る。</td><td class="dim"><span class="tag med">メディア</span><span class="tag saiyo">採用</span> <b>数字が出る。</b>長めに回す。</td></tr><tr><td class="no tm">16</td><td class="q">作り直したことで、覚えている仕事はありますか。</td><td class="ex">厚い革で、角を四つ立てる鞄です。三回作り直しました。</td><td class="dim"><span class="tag med">メディア</span><span class="tag oem">OEM</span> 失敗の話がいちばん具体が出る。</td></tr><tr><td class="no tm">17</td><td class="q">機械に任せるところと、手でやるところの境目は、どこですか。</td><td class="ex">厚みが変わるところは機械が拾えないので、そこから先は手です。</td><td class="dim"><span class="tag oem">OEM</span> 判断の基準を聞く。</td></tr><tr><td class="no tm">18</td><td class="q">仕事で、いちばん気をつけていることは何ですか。<br><span class='eng'>⑥S7 3枚目 職人の横顔（寄り）</span></td><td class="ex">細かいところを最後まで見ることです。<b>一ミリ狂ったら作り直します。</b>使う人には見えませんが、二年目に形が崩れます。</td><td class="dim"><span class="tag hon">本編</span><span class="tag med">メディア</span> <b>横顔に乗せる。</b>抽象語で終わったら「たとえば」で降ろす。</td></tr><tr><td class="no tm">19</td><td class="q">その「一ミリ」は、たとえばどこの一ミリですか。</td><td class="ex">縫い目の幅です。一ミリ寄ると、角が浮きます。</td><td class="dim"><span class="tag med">メディア</span> 前の答えを受けるフォロー質問。</td></tr><tr class="band"><td colspan="4">O E M か ら 聞 か れ る こ と</td></tr><tr><td class="no tm">20</td><td class="q">扱える革は、どんな種類がありますか。</td><td class="ex">牛が中心です。豚と山羊も通せます。</td><td class="dim"><span class="tag oem">OEM</span> 発注側がまず知りたいところ。</td></tr><tr><td class="no tm">21</td><td class="q">小ロットは、何本から通せますか。</td><td class="ex">十本から通せます。</td><td class="dim"><span class="tag oem">OEM</span> 数字で答えてもらう。</td></tr><tr><td class="no tm">22</td><td class="q">試作から量産まで、どのくらいかかりますか。</td><td class="ex">試作が一週間、量産は数によりますが一か月ほどです。</td><td class="dim"><span class="tag oem">OEM</span> 納期の目安。</td></tr><tr><td class="no tm">23</td><td class="q">他所で断られた、という相談を受けたことはありますか。</td><td class="ex">厚みの違う革を一枚に合わせる、という相談は受けました。</td><td class="dim"><span class="tag oem">OEM</span><span class="tag med">メディア</span> <b>断られた仕事を受けた話は強い。</b></td></tr><tr><td class="no tm">24</td><td class="q">不良が出たときは、どうしていますか。</td><td class="ex">全部戻して、こちらで作り直します。</td><td class="dim"><span class="tag oem">OEM</span> 発注側が一番気にするところ。</td></tr><tr class="band"><td colspan="4">採 用 で 聞 く こ と</td></tr><tr><td class="no tm">25</td><td class="q">未経験でも、ここで覚えられますか。</td><td class="ex">覚えられます。裁断から入ってもらいます。</td><td class="dim"><span class="tag saiyo">採用</span> </td></tr><tr><td class="no tm">26</td><td class="q">どんな人が向いていると思いますか。</td><td class="ex">同じことを毎日できる人です。</td><td class="dim"><span class="tag saiyo">採用</span> </td></tr><tr><td class="no tm">27</td><td class="q">これから覚える人に、一つだけ伝えるとしたら。</td><td class="ex">急がないことです。一手飛ばすと、三工程あとで必ず出ます。</td><td class="dim"><span class="tag saiyo">採用</span> 言い切りの形。</td></tr><tr class="band"><td colspan="4">2 5 〜 3 0 分 　締 め</td></tr><tr><td class="no tm">28</td><td class="q">この工房を一言で言うと、どんな場所ですか。<br><span class='eng'>⑥S8 3枚目 バストショット（口が映る）</span></td><td class="ex">小さいですが、最初から最後まで、ここで終わります。</td><td class="dim"><span class="tag hon">本編</span> <b>⑥の締め。</b>三秒待ってから止める。</td></tr><tr><td class="no tm">29</td><td class="q">十年後も、同じやり方で作っていると思いますか。</td><td class="ex">同じだと思います。変えようがないので。</td><td class="dim"><span class="tag med">メディア</span> 最後の一言を待つ。</td></tr></tbody>
+  </table></div>
+</section><section id="nagao">
+  <div class="phead"><span class="pname">永 尾 社 長</span>
+    <span class="prole">BROOKLYN MUSEUM 代表</span>
+    <span class="place">⑤ コーポレートムービー</span></div>
+  <p class="use">⑤で声が乗るのは<b>S1〜S4と締めのS7</b>。口が映るのは<b>S1 3枚目とS7 1枚目の二か所</b>。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li><b>強みや気持ちを聞かない。</b>宣伝の言葉が返って使えなくなる。</li><li><b>決めたこと・変えたこと・数字</b>を聞く。</li><li>用意してきた言葉が出たら <b>「もう少し短く言うと？」</b>。</li><li>同じことを二回聞く。<b>二回目のほうが短く言い切る。</b></li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日はこのあと、どこかへ出られますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr class="band"><td colspan="4">0 〜 5 分 　導 入</td></tr><tr><td class="no tm">1</td><td class="q">ブルックリンミュージアムは、何をしている会社ですか。<br><span class='eng'>⑤S1 1〜2枚目 並木通りの俯瞰（声だけ）　→　3枚目 バストショット（口が映る）</span></td><td class="ex">革の鞄と革小物を、企画から作って売っています。自社の店と、他社さんから受けるOEMと、半分ずつです。</td><td class="dim"><span class="tag hon">本編</span><span class="tag med">メディア</span> <b>二文に分けて言ってもらう。</b>前半が俯瞰、後半がバストショットに乗る。</td></tr><tr><td class="no tm">2</td><td class="q">創業は何年で、いまは何人ですか。</td><td class="ex">〇〇年創業、社員は〇人です。</td><td class="dim"><span class="tag med">メディア</span> <b>記事に必ず要る数字。</b>ここで取っておく。</td></tr><tr class="band"><td colspan="4">5 〜 1 5 分 　会 社 の か た ち</td></tr><tr><td class="no tm">3</td><td class="q">作るものは、どこで、どうやって決めていますか。<br><span class='eng'>⑤S2 店舗の机（二人で覗き込む）</span></td><td class="ex">この机で決めます。革を並べて、形から。作るのは向島の工房です。</td><td class="dim"><span class="tag hon">本編</span> 「この机で」から始めてもらうと画と合う。</td></tr><tr><td class="no tm">4</td><td class="q">近くに工房を置いているのは、何のためですか。<br><span class='eng'>⑤S3 図面をなぞる手 → 型紙の俯瞰</span></td><td class="ex">直せるからです。サンプルを一日で作り直せる。遠いと一週間かかります。</td><td class="dim"><span class="tag hon">本編</span><span class="tag med">メディア</span> <b>「一日」と「一週間」が並ぶ。</b>⑤で一番強い数字。</td></tr><tr><td class="no tm">5</td><td class="q">OEMでは、どんな会社から、どのくらいの数で相談が来ますか。<br><span class='eng'>⑤S4 工房の全体・大型機械・手元（⑥から持ってくる）</span></td><td class="ex">アパレルの会社さんが多いです。小さい数から受けています。十本から作ります。</td><td class="dim"><span class="tag hon">本編</span><span class="tag oem">OEM</span> この三カットは撮らない。⑥の素材を使う。</td></tr><tr><td class="no tm">6</td><td class="q">工房の二人に任せているのは、どこまでですか。</td><td class="ex">作りは全部任せています。決めるのは形と数だけです。</td><td class="dim"><span class="tag oem">OEM</span><span class="tag med">メディア</span> 任せ方に会社の性格が出る。</td></tr><tr class="band"><td colspan="4">O E M か ら 聞 か れ る こ と</td></tr><tr><td class="no tm">7</td><td class="q">最小ロットと、価格の決め方を教えてください。</td><td class="ex">十本からです。革の量と工程の数で出しています。</td><td class="dim"><span class="tag oem">OEM</span> 発注側がまず知りたい二つ。</td></tr><tr><td class="no tm">8</td><td class="q">図面だけでも受けられますか。それともサンプルが要りますか。</td><td class="ex">図面だけでも受けます。一度こちらで試作を作ります。</td><td class="dim"><span class="tag oem">OEM</span> </td></tr><tr><td class="no tm">9</td><td class="q">秘密保持は、どうしていますか。</td><td class="ex">契約を結んでから進めます。</td><td class="dim"><span class="tag oem">OEM</span> </td></tr><tr><td class="no tm">10</td><td class="q">受けられない相談は、どんなものですか。</td><td class="ex">革以外の素材だけの品は受けていません。</td><td class="dim"><span class="tag oem">OEM</span> <b>できないことを言うと、できることがはっきりする。</b></td></tr><tr class="band"><td colspan="4">1 5 〜 2 5 分 　判 断</td></tr><tr><td class="no tm">11</td><td class="q">代表を引き継いだのは、どういう経緯でしたか。</td><td class="ex">くさがやが作る側に戻りたいと。</td><td class="dim"><span class="tag med">メディア</span> <b>記事の見出しになる話。</b></td></tr><tr><td class="no tm">12</td><td class="q">引き継いでから、最初に手をつけたのは何でしたか。</td><td class="ex">直しの受け方を変えました。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">13</td><td class="q">値段は、どうやって決めていますか。</td><td class="ex">革の量と、工程の数から出します。安く見せるために工程を落とすことはしません。</td><td class="dim"><span class="tag med">メディア</span><span class="tag oem">OEM</span> 前提を置かずに聞く。</td></tr><tr><td class="no tm">14</td><td class="q">直しの受け方を変えたのは、なぜですか。</td><td class="ex">売って終わりにしたくなかったからです。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">15</td><td class="q">お客さんに言われて、印象に残っている言葉はありますか。</td><td class="ex">「十年使っています」と言われたときですね。</td><td class="dim"><span class="tag med">メディア</span> <b>エピソードが一つ取れる。</b></td></tr><tr><td class="no tm">16</td><td class="q">国内で、革鞄を一貫して作っている工房は、どのくらい残っていますか。</td><td class="ex">把握しているかぎりでは、ずいぶん減りました。</td><td class="dim"><span class="tag med">メディア</span> <b>業界の文脈。記者がいちばん食いつく。</b>数字が出なくてもよい。</td></tr><tr class="band"><td colspan="4">2 5 〜 3 0 分 　締 め</td></tr><tr><td class="no tm">17</td><td class="q">いちばん苦しかった判断は、何でしたか。</td><td class="ex">数を追うのをやめたときです。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">18</td><td class="q">これから増やしたい仕事は何ですか。</td><td class="ex">直しながら長く使ってもらう仕事です。</td><td class="dim"><span class="tag med">メディア</span><span class="tag saiyo">採用</span> </td></tr><tr><td class="no tm">19</td><td class="q">店に来られた方に、まず何を見てほしいですか。<br><span class='eng'>⑤S7 1枚目 締め（S1とまったく同じ画角・口が映る）</span></td><td class="ex">持ち手を握ってみてほしいです。作りがいちばん出るところなので。</td><td class="dim"><span class="tag hon">本編</span> <b>⑤の締め。</b>同じ画角に戻って終わる。三秒待ってから止める。</td></tr></tbody>
+  </table></div>
+</section><section id="kusagaya">
+  <div class="phead"><span class="pname">く さ が や さ ん</span>
+    <span class="prole">前 代表　／　いまは作る側</span>
+    <span class="place">⑤ コーポレートムービー</span></div>
+  <p class="use">⑤で乗るのは<b>S5とS6の四つだけ</b>。口は映らない。<b>残りはインタビュー動画のほうで使う。</b></p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li><b>代表をやっていて、いまは作る側。</b>二つの立場から話せる唯一の人。</li><li>経緯は<b>年と出来事</b>で。「〇年に〇〇を始めました」の形。</li><li>永尾社長のあとに録る。<b>会社の説明は繰り返さない。</b></li><li>年号が出なければ、あとで確かめて字幕で足す。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日は何時に開けますか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr class="band"><td colspan="4">0 〜 5 分 　導 入</td></tr><tr><td class="no tm">1</td><td class="q">いまは、どの工程を担当されていますか。</td><td class="ex">縫製と、下仕事です。</td><td class="dim"><span class="tag hon">本編</span> <b>②③でどの工程に入ってもらうかが、ここで決まる。</b></td></tr><tr><td class="no tm">2</td><td class="q">一日は、だいたいどんな流れですか。</td><td class="ex">朝は工房、昼から店に出ます。</td><td class="dim"></td></tr><tr class="band"><td colspan="4">5 〜 1 5 分 　こ れ ま で</td></tr><tr><td class="no tm">3</td><td class="q">ブルックリンミュージアムは、いつ、どうやって始まりましたか。<br><span class='eng'>⑤S5 1枚目 店内の引き</span></td><td class="ex">〇〇年に始めました。最初は革小物だけで、鞄はもっとあとです。</td><td class="dim"><span class="tag hon">本編</span><span class="tag med">メディア</span> <b>ここで声が永尾社長から変わる。</b>時間が戻ったと分かる。</td></tr><tr><td class="no tm">4</td><td class="q">なぜ革だったのですか。</td><td class="ex">直せる素材だからです。布は擦り切れたら終わりですが、革は磨けば戻ります。</td><td class="dim"><span class="tag med">メディア</span> ⑧の購入者の「直しに出したら」と重なる。</td></tr><tr><td class="no tm">5</td><td class="q">名前の由来を教えてください。</td><td class="ex">〇〇から取りました。</td><td class="dim"><span class="tag med">メディア</span> 短くていい。</td></tr><tr><td class="no tm">6</td><td class="q">この場所に店を出したのは、いつ、なぜですか。</td><td class="ex">〇〇年です。人通りより、腰を据えて見てもらえる場所を選びました。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">7</td><td class="q">いちばん苦しかった時期は、いつでしたか。</td><td class="ex">〇〇年です。数を追って、作りが落ちました。そこで一度戻しました。</td><td class="dim"><span class="tag med">メディア</span> 急かさずに待つ。</td></tr><tr class="band"><td colspan="4">1 5 〜 2 5 分 　店 と 、 作 る 側</td></tr><tr><td class="no tm">8</td><td class="q">この店を、どんな場所にしようと思って作りましたか。<br><span class='eng'>⑤S5 2枚目 ショーウィンドウ越し</span></td><td class="ex">見て帰ってもらっていい店にしたかった。そのかわり、全部手に取れるようにしてあります。</td><td class="dim"><span class="tag hon">本編</span> <b>⑤でいちばん集客に効く四秒。</b>外から中をのぞく画の真上。</td></tr><tr><td class="no tm">9</td><td class="q">棚や照明で、決めたことはありますか。<br><span class='eng'>⑤S5 棚から商品を手に取る寄り</span></td><td class="ex">棚は低くしました。上から見ると、革の表情が見えるので。照明は白すぎない色にしています。</td><td class="dim"><span class="tag hon">本編</span> <b>答えが出たら、その棚と照明を寄りで撮り足す。</b></td></tr><tr><td class="no tm">10</td><td class="q">代表を代わられたのは、どういう経緯でしたか。</td><td class="ex">作る側に戻りたかったからです。売る仕事は永尾に渡しました。</td><td class="dim"><span class="tag med">メディア</span> <b>記事の見出しになる話。</b></td></tr><tr><td class="no tm">11</td><td class="q">作る側に戻って、見え方は変わりましたか。<br><span class='eng'>⑤S6 会計の引き → 手渡し → 使っている手元</span></td><td class="ex">変わりました。売っていたときは形を見ていましたが、いまは断面を見ます。</td><td class="dim"><span class="tag hon">本編</span><span class="tag med">メディア</span> <b>この人にしか言えない一言。</b>手渡しの画に効く。</td></tr><tr><td class="no tm">12</td><td class="q">「断面を見る」というのは、どこを見ているのですか。</td><td class="ex">切り口の磨きと、縫い目の締まりです。</td><td class="dim"><span class="tag med">メディア</span> 前の答えを受けるフォロー質問。</td></tr><tr><td class="no tm">13</td><td class="q">仕事で、いちばん気をつけていることは何ですか。</td><td class="ex">一ミリを見ることです。使う人には見えませんが、二年目に出ます。</td><td class="dim"><span class="tag med">メディア</span> <b>佐藤さんと同じことを聞く。</b>重なったら、それが会社の芯。</td></tr><tr class="band"><td colspan="4">2 5 〜 3 0 分 　締 め</td></tr><tr><td class="no tm">14</td><td class="q">店に並んだご自分の品を見て、気づくことはありますか。</td><td class="ex">擦れる場所が、人によって違います。持ち方で変わる。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">15</td><td class="q">はじめて来られた方には、まず何を勧めますか。</td><td class="ex">小さい物から見てもらいます。</td><td class="dim"></td></tr><tr><td class="no tm">16</td><td class="q">長く使ってもらうために、作る側でできることは何ですか。</td><td class="ex">直せるように作ることです。分解して直せる縫い方にしてあります。</td><td class="dim"><span class="tag med">メディア</span><span class="tag oem">OEM</span> 言い切りの形。</td></tr><tr><td class="no tm">17</td><td class="q">ネットで買われる方に、伝えておきたいことはありますか。</td><td class="ex">写真では厚みが出ないので、寸法と重さを全部載せています。</td><td class="dim">ECの商品ページに単体で使う。</td></tr></tbody>
+  </table></div>
+</section><section id="kounyu">
+  <div class="phead"><span class="pname">購 入 者</span>
+    <span class="prole">Aさん（人選はこれから）</span>
+    <span class="place">⑧ 購入者インタビュー</span></div>
+  <p class="use"><b>質問がそのままテロップになる。</b>最初の一問だけテロップに出さず、答えから始める。話した言葉は画面の下に一行、英訳も一行。右下に「購入者 Aさん」。</p>
+  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
+    <ul><li><b>名前は出さない。</b>顔出しの範囲を撮る前に確かめる。</li><li>バストショットで固定。画角は変えない。</li><li><b>台本にない一言が出たら、そこを使う。</b></li><li>そのあと⑤S6の購入シーンにも入ってもらう。</li></ul></div></div>
+  <div class="warm"><div class="cap">は じ め の 世 間 話 （ 録 り な が ら ）</div><div>今日はどちらから来られましたか。</div></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
+    <thead><tr><th></th><th>質 問</th>
+      <th>こ う 答 え て も ら え れ ば 十 分</th><th>拾 え た ら</th></tr></thead>
+    <tbody><tr class="band"><td colspan="4">0 〜 3 分 　導 入</td></tr><tr><td class="no tm">1</td><td class="q">いつも、どんなふうに使っていますか。</td><td class="ex">通勤で毎日です。</td><td class="dim">録りながら。</td></tr><tr class="band"><td colspan="4">3 〜 1 0 分 　⑧ に 乗 る 五 問</td></tr><tr><td class="no tm">2</td><td class="q">（テロップに出さない）初めて買われたのは、いつ、どの品ですか。<br><span class='eng'>⑧S3 1枚目 窓辺のバストショット（口が映る）</span></td><td class="ex">ブルックリンミュージアムを初めて買ったのは、〇〇年ですね。財布からでした。</td><td class="dim"><span class="tag hon">本編</span> <b>この答えから本編が始まる。</b>年と品名を入れてもらう。</td></tr><tr><td class="no tm">3</td><td class="q">なぜこの商品を選びましたか？<br><span class='eng'>Why did you choose this one?　／　⑧S3 3枚目 商品の寄り</span></td><td class="ex">形が変わらないところです。荷物を入れても崩れない。</td><td class="dim"><span class="tag hon">本編</span> 画が商品の寄り。</td></tr><tr><td class="no tm">4</td><td class="q">他にも見ましたか？<br><span class='eng'>Did you look at other brands?　／　⑧S4 インタビューに戻る → 空間の引き</span></td><td class="ex">他も見たんですけど、切り口の仕上げが違って。そこで決めました。</td><td class="dim"><span class="tag hon">本編</span> <b>永尾社長と同じ言葉が出たら並べて使う。</b></td></tr><tr><td class="no tm">5</td><td class="q">どのくらい使っていますか？<br><span class='eng'>How long have you used it?　／　⑧S5 別の場所へ → 外に出て空を入れる</span></td><td class="ex">もう〇年です。毎日出し入れしていますが、角が擦り切れていない。</td><td class="dim"><span class="tag hon">本編</span> 手入れの話が出たら、その手つきを外で撮る。</td></tr><tr><td class="no tm">6</td><td class="q">買う前に迷ったことは？<br><span class='eng'>Anything you hesitated about?　／　⑧S6 表情のアップ → 外の引き</span></td><td class="ex">値段は迷いました。ただ、一度直しに出したら、コバまで磨いて返ってきて。あと十年いけるな、と。</td><td class="dim"><span class="tag hon">本編</span> <b>締めの一問。</b>三秒待ってから止める。</td></tr><tr class="band"><td colspan="4">1 0 〜 1 5 分 　追 加</td></tr><tr><td class="no tm">7</td><td class="q">人に勧めたことはありますか。</td><td class="ex">友人に一つ勧めました。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">8</td><td class="q">直しに出したことはありますか。</td><td class="ex">一度あります。コバを磨いて返ってきました。</td><td class="dim"><span class="tag med">メディア</span> </td></tr><tr><td class="no tm">9</td><td class="q">次に買うとしたら、何にしますか。</td><td class="ex">今度は鞄にします。</td><td class="dim"></td></tr><tr><td class="no tm">10</td><td class="q">その鞄を持って行った場所で、印象に残っているところはありますか。</td><td class="ex">出張で京都へ行ったときですね。</td><td class="dim"><span class="tag med">メディア</span> <b>ほかの質問では出ない話。</b></td></tr></tbody>
+  </table></div>
+</section>
+<div class="part"><div class="partno">2</div>
+  <h2 class="parth">語 り を ど こ に 置 く か</h2></div>
+<section id="f06">
+  <div class="phead"><span class="pname">⑥　OEM工房案内</span>
+    <span class="prole">二分二十秒</span>
+    <span class="place">佐藤さん</span></div>
+  <p class="use"><b>語りは全部あとから乗せる。口が動いて映るのは二か所だけ。</b>だから作業中に話してもらう必要はない。<b>冒頭の「一貫して製造」を、締めの「全部この建物の中で終わります」で回収する。</b></p>
+  <div class="scroll"><table>
+    <colgroup><col style="width:6%"><col style="width:22%"><col style="width:10%">
+      <col style="width:34%"><col></colgroup>
+    <thead><tr><th>位 置</th><th>画</th><th>声</th><th>使 う 言 葉</th><th>な ぜ こ こ か</th></tr></thead>
+    <tbody><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S1　工房の全体 → 機械の並び → 作業台の手元</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">革製造に携わるようになってから二十数年です。</td><td class="dim">顔を出す前に、声を先に入れる。誰の声かは、まだ分からなくていい。</td></tr><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S2　材料の壁 → 機械 → <b>佐藤さんの引き</b></td><td class="pt" style="font-size:14px;white-space:nowrap"><b>口が映る</b></td><td class="ex">御社では一貫して製造をしています。</td><td class="dim">S2 3枚目で初めて人が映る。<b>ここで名乗りが着地する。</b></td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S3　革の棚・金型の棚</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">棚から革を出して、金型を合わせます。型は品番ごとにあります。</td><td class="dim">画と言葉が一対一。物の名前を言うだけで持つ。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S4　裁断機のまわり</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">裁断です。型を置いて、上から刃を下ろします。一度で抜くので、置く位置がずれると革が一枚無駄になります。</td><td class="dim">失敗の話が入ると、工程に緊張が出る。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S5　下仕事の台</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">下仕事です。折り目をつけて、貼り合わせて、切り口を磨きます。ここが仕上がりの八割を決めます。</td><td class="dim"><b>「八割」で一度、数字で締まる。</b>中盤のいちばん眠いところに置く。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S6　ミシンのまわり</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">縫製です。ミシンで送りますが、角だけは手で縫います。厚みが変わるところは機械が拾えないので。</td><td class="dim"><b>機械と手を分ける理由＝OEMで頼む理由。</b>この一言が⑥の売り。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S7　検品の台</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">光にかざして、縫い目の幅と、切り口の照りを見ます。一ミリ狂っていたら戻します。</td><td class="dim"><b>ここで「大事にしていること」に橋を架ける。</b>締めの一言が浮かなくなる。</td></tr><tr><td class="tm">締 め</td><td class="q" style="font-size:15px">S8　包む手元 → 梱包場の引き</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">梱包して、店に出します。ここまで全部、この建物の中で終わります。</td><td class="dim"><b>冒頭の「一貫して製造」の答え合わせ。</b>ここが⑥のいちばん効く一秒。</td></tr><tr><td class="tm">締 め</td><td class="q" style="font-size:15px">S8　3枚目 <b>佐藤さんのバストショット</b></td><td class="pt" style="font-size:14px;white-space:nowrap"><b>口が映る</b></td><td class="ex">細かいところを最後まで見ます。一ミリ狂ったら作り直します。</td><td class="dim">最後の一言だけは本人の口で。<b>言い終えて三秒待ってから切る。</b></td></tr><tr><td class="tm">―</td><td class="q" style="font-size:15px">S9　文字カード三枚</td><td class="pt" style="font-size:14px;white-space:nowrap">声なし</td><td class="ex">―</td><td class="dim">対応技法の一覧 → 問い合わせ先 → ロゴ。撮影せず編集で作る。</td></tr></tbody>
+  </table></div>
+</section><section id="f05">
+  <div class="phead"><span class="pname">⑤　コーポレートムービー</span>
+    <span class="prole">六十一秒</span>
+    <span class="place">永尾社長　＋　くさがやさん</span></div>
+  <p class="use"><b>二人の声を役割で分ける。</b>永尾社長＝いまの会社（初めと締め）、くさがやさん＝これまでの経緯と、作る側の目（店内の画）。<b>永尾社長で始まり、永尾社長で終わる。</b></p>
+  <div class="scroll"><table>
+    <colgroup><col style="width:6%"><col style="width:22%"><col style="width:10%">
+      <col style="width:34%"><col></colgroup>
+    <thead><tr><th>位 置</th><th>画</th><th>声</th><th>使 う 言 葉</th><th>な ぜ こ こ か</th></tr></thead>
+    <tbody><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S1　1〜2枚目　並木通りの俯瞰 → 寄っていく</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ　永尾社長</td><td class="ex">革の鞄と革小物を、企画から作って売っています。</td><td class="dim">街の画に会社の説明を乗せる。顔より先に、何の会社かを言う。</td></tr><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S1　3枚目　<b>永尾社長のバストショット</b></td><td class="pt" style="font-size:14px;white-space:nowrap"><b>口が映る</b></td><td class="ex">自社の店と、他社さんから受けるOEMと、半分ずつです。</td><td class="dim">名乗りが着地。<b>顔の下に役職テロップ。</b></td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S2　店舗の机（二人で覗き込む・革を並べる）</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ　永尾社長</td><td class="ex">作るものは、この机で決めます。向島の工房で、歩いて行ける距離にあります。</td><td class="dim">机の画に、場所の説明を重ねる。次のS3へつなぐ。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S3　図面をなぞる手 → 型紙の俯瞰</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ　永尾社長</td><td class="ex">近くに置いているのは、直せるからです。サンプルを一日で作り直せる。遠いと一週間かかります。</td><td class="dim"><b>「一日」と「一週間」が並ぶ。</b>⑤でいちばん強い数字。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S4　工房の全体・大型機械・手元（⑥から持ってくる）</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ　永尾社長</td><td class="ex">小さい数からお受けしています。十本から作ります。</td><td class="dim">工房の画に、OEMの条件を乗せる。<b>この三カットは撮らない。⑥の素材を使う。</b></td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S5　店内の引き → ショーウィンドウ越し</td><td class="pt" style="font-size:14px;white-space:nowrap"><b>声だけ　くさがやさん</b></td><td class="ex">〇〇年に始めました。最初は革小物だけで、鞄はもっとあとです。</td><td class="dim"><b>店舗の画に、これまでの経緯を流す。</b>声が変わることで、時間が戻ったと分かる。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S5　2枚目　ショーウィンドウ越し（＋棚の寄り）</td><td class="pt" style="font-size:14px;white-space:nowrap"><b>声だけ　くさがやさん</b></td><td class="ex">見て帰ってもらっていい店にしたかった。そのかわり、全部手に取れるようにしてあります。</td><td class="dim"><b>店に行ってみようと思わせる一言を、店内の画の真上に置く。</b>⑤でいちばん集客に効く四秒。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S6　会計の引き → 手渡し → 使っている手元</td><td class="pt" style="font-size:14px;white-space:nowrap"><b>声だけ　くさがやさん</b></td><td class="ex">売っていたときは形を見ていましたが、いまは断面を見ます。</td><td class="dim"><b>この人にしか言えない一言。</b>手渡しの画にいちばん効く。</td></tr><tr><td class="tm">締 め</td><td class="q" style="font-size:15px">S7　1枚目　<b>永尾社長の締め</b>（S1と同じ画角）</td><td class="pt" style="font-size:14px;white-space:nowrap"><b>口が映る</b></td><td class="ex">持ち手を握ってみてほしいです。作りがいちばん出るところなので。</td><td class="dim">同じ画角に戻って終わる。<b>言い終えて三秒待ってから切る。</b></td></tr><tr><td class="tm">―</td><td class="q" style="font-size:15px">S7　2枚目　音が引いてロゴ</td><td class="pt" style="font-size:14px;white-space:nowrap">声なし</td><td class="ex">―</td><td class="dim">締めのテロップとロゴ。</td></tr></tbody>
+  </table></div>
+</section><section id="f08">
+  <div class="phead"><span class="pname">⑧　購入者インタビュー</span>
+    <span class="prole">六十秒</span>
+    <span class="place">購入者 Aさん</span></div>
+  <p class="use"><b>質問は声で出さず、テロップで出す。</b>最初の一問はテロップにも出さず、答えから始める。</p>
+  <div class="scroll"><table>
+    <colgroup><col style="width:6%"><col style="width:22%"><col style="width:10%">
+      <col style="width:34%"><col></colgroup>
+    <thead><tr><th>位 置</th><th>画</th><th>声</th><th>使 う 言 葉</th><th>な ぜ こ こ か</th></tr></thead>
+    <tbody><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S1・S2　外から中へ → 商品・空間</td><td class="pt" style="font-size:14px;white-space:nowrap">声なし → 声が入りはじめる</td><td class="ex">―</td><td class="dim">S2の3枚目から声だけ先に入る（Jカット）。人はまだ出さない。</td></tr><tr><td class="tm">初 め</td><td class="q" style="font-size:15px">S3　<b>窓辺のバストショット</b></td><td class="pt" style="font-size:14px;white-space:nowrap"><b>口が映る</b></td><td class="ex">ブルックリンミュージアムを初めて買ったのは、〇〇年ですね。財布からでした。</td><td class="dim"><b>質問を出さずに、答えから始める。</b>3枚目で最初の質問テロップ。</td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S4　インタビューに戻る → 空間の引き</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">他も見たんですけど、切り口の仕上げが違って。そこで決めました。</td><td class="dim">左上に質問テロップ。<b>永尾社長と同じ言葉が出たら、並べて使う。</b></td></tr><tr><td class="tm">間</td><td class="q" style="font-size:15px">S5　別の場所へ → 外に出て空を入れる</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">もう〇年です。毎日出し入れしていますが、角が擦り切れていない。</td><td class="dim">外に出るところで、使っている時間の話に移る。</td></tr><tr><td class="tm">締 め</td><td class="q" style="font-size:15px">S6　表情のアップ → 外の引き</td><td class="pt" style="font-size:14px;white-space:nowrap">声だけ</td><td class="ex">値段は迷いました。ただ、一度直しに出したら、返ってきて。これならあと十年いけるな、と。</td><td class="dim"><b>迷った話のあとに来る一言を待つ。</b>台本にない言葉が出たら、そこを使う。</td></tr><tr><td class="tm">―</td><td class="q" style="font-size:15px">S7　店の前の引き → 手を振って見送る</td><td class="pt" style="font-size:14px;white-space:nowrap">声なし</td><td class="ex">―</td><td class="dim">セリフは入れない。締めのテロップとロゴ。</td></tr></tbody>
+  </table></div>
+</section>
+</div>
