@@ -12,7 +12,7 @@ import build_interview as B
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 INK, PROSE, MUTED, FAINT = "#15191c", "#3d4448", "#5b6266", "#8a8f92"
 GOLD, LINE, HAIR, BAND = "#a8672a", "#ddd7cd", "#ebe6dd", "#f4efe7"
-BASEPT = os.environ.get("SHITSUMON_PT", "8.2")
+BASEPT = os.environ.get("SHITSUMON_PT", "9.2")
 
 
 def esc(s):
@@ -20,7 +20,7 @@ def esc(s):
 
 
 def th():
-    return ('text-align:left;font-size:7.4pt;font-weight:400;color:%s;letter-spacing:.08em;'
+    return ('text-align:left;font-size:8.4pt;font-weight:400;color:%s;letter-spacing:.08em;'
             'border-bottom:.6pt solid %s;padding:0 3mm 1.6mm 0' % (FAINT, INK))
 
 
@@ -55,10 +55,10 @@ def person(p):
     <span class="pn">{i}問</span></div>
   {use}
   <table>
-    <colgroup><col style="width:3.4%"><col style="width:26%"><col style="width:32%"><col></colgroup>
+    <colgroup><col style="width:3.4%"><col style="width:28%"><col style="width:36%"><col></colgroup>
     <thead><tr><th style="{th()}"></th><th style="{th()}">質 問</th>
       <th style="{th()}">回 答 例</th>
-      <th style="{th()}">な ぜ 聞 く か 　── 誰 に 、 何 の た め に</th></tr></thead>
+      <th style="{th()}">な ぜ 聞 く か</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
 </section>'''
@@ -97,22 +97,22 @@ tr {{ break-inside: avoid; }}
 td {{ padding: 0.95mm 2.6mm 0.95mm 0; border-bottom: .4pt solid {HAIR};
   vertical-align: top; word-wrap: break-word; }}
 tr.band td {{ background: {BAND}; padding: 0.85mm 2.2mm; border-bottom: .5pt solid {LINE};
-  font-size: 9pt; font-weight: 700; break-after: avoid; }}
+  font-size: 9.2pt; font-weight: 700; break-after: avoid; }}
 .no {{ font-weight: 700; color: {GOLD}; }}
-.q {{ font-weight: 700; font-size: 9pt; }}
+.q {{ font-weight: 700; font-size: 9.2pt; }}
 .dim {{ color: {MUTED}; }}
-.pt {{ font-weight: 700; font-size: 9pt; }}
+.pt {{ font-weight: 700; font-size: 9.2pt; }}
 .ex::before {{ content: "「"; color: {FAINT}; }}
 .ex::after {{ content: "」"; color: {FAINT}; }}
-.tag {{ display: inline-block; font-size: 7.2pt; font-weight: 700; letter-spacing: .06em;
+.tag {{ display: inline-block; font-size: 8.2pt; font-weight: 700; letter-spacing: .06em;
   padding: 0 1.4mm; margin: 0 1mm .6mm 0; border-radius: 2mm;
   border: .4pt solid {LINE}; color: {MUTED}; white-space: nowrap; }}
 .tag.hon {{ color: {GOLD}; border-color: {GOLD}; }}
 .tag.oem {{ color: {PROSE}; border-color: {PROSE}; }}
 .tag.med {{ color: {MUTED}; }}
 .tag.saiyo {{ color: {FAINT}; }}
-.sm {{ font-size: 7.5pt; color: {FAINT}; }}
-.eng {{ font-weight: 400; font-size: 7.6pt; color: {FAINT}; }}
+.sm {{ font-size: 8.4pt; color: {FAINT}; }}
+.eng {{ font-weight: 400; font-size: 8.6pt; color: {FAINT}; }}
 b {{ font-weight: 700; }}
 '''
 
