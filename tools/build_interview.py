@@ -162,13 +162,6 @@ COMMON = [
  ("例文を先に見せる",
   "<b>この紙をそのまま見せて、一つ読んでもらう。</b>「こんな感じで大丈夫です」と伝わると、"
   "その場で硬さが取れる。<br>覚えてもらう必要はない。<b>見ながら話してもらってよい。</b>"),
- ("一問目は、結論から言ってもらう",
-  "<b>動画の頭は、質問のテロップを出さずに、答えの声から始める。</b>"
-  "だから一問目は<b>「〇〇は、△△です」</b>の形で言い切ってもらう。<br>"
-  "×「そうですね、えーと……」　→　○「ブルックリンミュージアムの魅力は、形が変わらないところです」"),
- ("一つの話としてつなげて話してもらう",
-  "単語で終わらせない。<b>質問の言葉を入れて、話の形にしてもらう。</b><br>"
-  "×「裁断です」　→　○「ここは裁断です。型を置いて、上から刃を下ろします。」"),
 ]
 
 # ══ 掘り下げ方 ═══════════════════════════════════════════════
@@ -276,8 +269,10 @@ PEOPLE = [
         "型を置いて、上から刃を下ろします。一度で抜くので、ずれると革が一枚無駄になります。",
         T("本編") + "<b>取り返しがつかない工程だと分かると、画に緊張が出る。</b>"),
        ("下仕事では、何をしますか。" + S("⑥S5 1〜3枚目 折り目・貼り合わせ・コバ塗り"),
-        "折り目をつけて、貼り合わせて、切り口を磨きます。ここが仕上がりの八割を決めます。",
-        T("本編") + "地味で飛ばされがちな工程。<b>「八割」という数字で、飛ばせないものだと示す。</b>"),
+        "折り目をつけて、貼り合わせて、切り口を磨きます。<b>ここが仕上がりの八割を決めます。</b>"
+        "ここがずれると、あとの工程が全部ずれていって、最後は製品になりません。",
+        T("本編") + "地味で飛ばされがちな工程。<b>「八割」という数字と、"
+        "ずれたらどうなるかの一言で、飛ばせないものだと示す。</b>"),
        ("一番神経を使う作業は、どこですか。" + S("⑥S5 4枚目 職人の目（超マクロ）"),
         "コバ塗りです。乾き具合を見ながらなので、途中で手を離せません。",
         T("本編", "メディア", "OEM") + "<b>目のアップに乗せる。</b>"
@@ -772,13 +767,14 @@ def flow(f):
 
 
 def nav_tech():
-    return "".join('<a href="#%s">%s</a>' % (k, h.replace(" ", "")) for k, h, _, _ in TECH)
+    return ("".join('<a href="#%s">%s</a>' % (k, h.replace(" ", "")) for k, h, _, _ in TECH)
+            + '<span class="navsep"></span><a href="#hori">掘り下げ方</a>')
 
 
 def nav_itv():
     p = "".join('<a href="#%s">%s</a>' % (x["key"], x["name"].replace(" ", "")) for x in PEOPLE)
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
-    return ('<a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
+    return ('<a href="#common">共通</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s' % (p, g))
 
 
@@ -900,8 +896,8 @@ def page(title, en, count, lead, body):
 
 
 def build_tech():
-    tech = "".join(tech_block(*t) for t in TECH)
-    m = sum(len(t[3]) for t in TECH)
+    tech = "".join(tech_block(*t) for t in TECH) + hori()
+    m = sum(len(t[3]) for t in TECH) + len(KATA) + len(ROUTE) + len(FUKASA)
     return f'''<title>撮影メモ</title>
 {FONT}
 <style>{CSS}{EXTRA}</style>
@@ -910,7 +906,7 @@ def build_tech():
 <header class="top">
   <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
   <h1>撮影メモ</h1>
-  <div class="en">Camera, Light &amp; Sound</div>
+  <div class="en">Camera, Light, Sound &amp; Interviewing</div>
   <div class="count">{m}項</div>
 </header>
 {tech}
@@ -918,7 +914,7 @@ def build_tech():
 
 
 def build_itv():
-    body = common() + hori() + "".join(person(p) for p in PEOPLE)
+    body = common() + "".join(person(p) for p in PEOPLE)
     flw = "".join(flow(f) for f in FLOW)
     n = sum(qcount(p) for p in PEOPLE)
     return f'''<title>インタビュー質問事項</title>
