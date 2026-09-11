@@ -84,11 +84,15 @@ def scene_line(no, si, extra=""):
     if mv and len(mv) == len(cuts):
         memo.append('%dカット。<span class="pin">インタビューの収録で撮る</span>' % len(cuts))
     else:
-        m = "%dカット" % (len(cuts) - len(mv))
+        qc, qfrom = L.QUOTE.get((no, si), ([], ""))
+        m = "%dカット" % (len(cuts) - len(mv) - len(qc))
         if mv:
             where = "インタビューの収録で撮る" if mvday == S.SPOT[no][si][2] else "%sに撮る" % mvday
             m += '（<span class="pin">%sは%s</span>）' % (
                 "・".join("%d枚目" % k for k in mv), where)
+        if qc:
+            m += '（<span class="pin">%sは撮らない ── %s</span>）' % (
+                "・".join("%d枚目" % k for k in qc), qfrom)
         memo.append(m)
     return ('<tr><td class="tm">%s</td><td>%s</td>'
             '<td>%s<br><span class="dim">%s</span></td>'
@@ -168,6 +172,8 @@ def shot_section(no):
             n += 1
             sec = "%.1f〜%.1f秒" % (sp[0] + each * k, sp[0] + each * (k + 1)) if each else ""
             tag = '<br><span class="pin">%sに撮影</span>' % mvday if k + 1 in mv else ""
+            if k + 1 in L.quote_cuts(no, si):
+                tag = '<br><span class="pin">撮影しない ── %s</span>' % L.QUOTE[(no, si)][1]
             if (no, si) in L.REUSE:
                 tag = '<br><span class="pin">撮影しない ── %s</span>' % L.REUSE[(no, si)]
             rows.append('<tr><td><span class="no">%02d</span>'

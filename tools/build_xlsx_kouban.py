@@ -86,10 +86,13 @@ def day_sheet(wb, d):
             if mv and len(mv) == len(cuts):
                 memo.append("%dカット（インタビューの収録で撮る）" % len(cuts))
             else:
-                m = "%dカット" % (len(cuts) - len(mv))
+                qc, qfrom = L.QUOTE.get((no, si), ([], ""))
+                m = "%dカット" % (len(cuts) - len(mv) - len(qc))
                 if mv:
                     where = "インタビューの収録で撮る" if mvday == S.SPOT[no][si][2] else "%sに撮る" % mvday
                     m += "（%sは%s）" % ("・".join("%d枚目" % j for j in mv), where)
+                if qc:
+                    m += "（%sは撮らない ── %s）" % ("・".join("%d枚目" % j for j in qc), qfrom)
                 memo.append(m)
             rows.append((L.start_min(wh if wh != "―" else when),
                          [wh, plain(pl_), plain(w2) + "\n" + plain(prop),

@@ -108,11 +108,15 @@ def day_page(d):
             if mv and len(mv) == len(cuts):
                 memo.append('%dカット。<span style="color:%s">インタビューの収録で撮る</span>' % (len(cuts), GOLD))
             else:
-                m = "%dカット" % (len(cuts) - len(mv))
+                qc, qfrom = L.QUOTE.get((no, si), ([], ""))
+                m = "%dカット" % (len(cuts) - len(mv) - len(qc))
                 if mv:
                     where = "インタビューの収録で撮る" if mvday == S.SPOT[no][si][2] else "%sに撮る" % mvday
                     m += '（<span style="color:%s">%sは%s</span>）' % (
                         GOLD, "・".join("%d枚目" % j for j in mv), where)
+                if qc:
+                    m += '（<span style="color:%s">%sは撮らない ── %s</span>）' % (
+                        GOLD, "・".join("%d枚目" % j for j in qc), qfrom)
                 memo.append(m)
             t = S.SPOT[no][si][3]
             blocks.append((L.start_min(t if t != "―" else when),
@@ -165,6 +169,8 @@ def shot_page(no):
             n += 1
             sec = "%.1f〜%.1f秒" % (sp[0] + each * k, sp[0] + each * (k + 1)) if each else ""
             tag = ('<br><span style="color:%s">%sに撮影</span>' % (GOLD, mvday)) if k + 1 in mv else ""
+            if k + 1 in L.quote_cuts(no, si):
+                tag = '<br><span style="color:%s">撮影しない ── %s</span>' % (GOLD, L.QUOTE[(no, si)][1])
             if (no, si) in L.REUSE:
                 tag = '<br><span style="color:%s">撮影しない ── %s</span>' % (GOLD, L.REUSE[(no, si)])
             rows.append('<tr><td class="c" style="white-space:nowrap"><b>%02d</b>'
