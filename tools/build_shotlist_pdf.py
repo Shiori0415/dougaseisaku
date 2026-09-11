@@ -3,11 +3,13 @@
    実行: python3 tools/build_shotlist_pdf.py
    中身は build_shotlist_canvas.py / build_script_canvas.py と同じものを読む。
 """
-import html, os, re, sys
+import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_script_canvas as S
 import build_shotlist_canvas as L
+_sp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pdf_split.json")
+SPLIT = json.load(open(_sp, encoding="utf-8")) if os.path.exists(_sp) else {}
 
 INK, MUTED, FAINT = S.INK, S.MUTED, S.FAINT
 GOLD, LINE, BAND = S.GOLD, S.LINE, "#f6f2ec"
@@ -51,12 +53,12 @@ def cover():
     <div class="titlerow">
       <div class="title">動画八本　香盤表</div>
       <div class="sub">Shooting Schedule</div>
-      <div class="right">全八本　{ts}カット　／　撮影 五日　／　日付はすべて仮</div>
+      <div class="right">全八本　{ts}カット　／　撮影 五日　／　日付は10月中で未定</div>
     </div>
   </div>
   <p class="lead">
     五日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
-    <b>店舗は開店前と閉店後。購入シーンだけ営業中。③は終業後か休日。②と⑥は、ブルックリンの品を作っている日に合わせて動かします。</b>
+    <b>店舗は休みの日（月曜か火曜）に撮ります。工房は、②が休日、⑥が平日。⑥はブルックリンの品を作っている工程しか撮れないので、日が分かれることがあります。</b>
   </p>
   <table>
     <colgroup><col style="width:7%"><col style="width:16%"><col><col style="width:10%"><col style="width:7%"></colgroup>
@@ -131,23 +133,42 @@ def day_page(d):
                    esc(who), MUTED, esc(prop), GOLD, L.MARU[no], esc(nm), cam,
                    MUTED, L.scene_len(no, si), MUTED, "<br>".join(memo))))
     blocks.sort(key=lambda x: x[0])
-    rows = [x for _, x in blocks]
-    keys = "".join("<li>%s</li>" % k for k in d["keys"])
-    return f'''<section class="page">
-  <table class="dhead">
-    <tr><td>タイトル</td><td><b style="font-size:13pt">{L.day_titles(d)}</b></td></tr>
-    <tr><td>撮影日</td><td><b style="font-size:11.5pt">{esc(d["date2"])}</b></td></tr>
-    <tr><td>場所</td><td>{esc(d["place"])}</td></tr>
-    <tr><td>時間</td><td>{esc(L.day_span(d))}　<span style="color:{FAINT}">撮るカット {shoot}</span></td></tr>
-    <tr><td>緊急時連絡先</td><td>&nbsp;</td></tr>
-    <tr><td>注意事項</td><td>{d["cond"]}</td></tr>
-  </table>
-  <table>
-    <colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%"><col><col style="width:5%"><col style="width:19%"></colgroup>
-    <thead><tr>{"".join('<th style="%s">%s</th>' % (th(), h) for h in head)}</tr></thead>
-    <tbody>{"".join(rows)}</tbody>
-  </table>
-</section>'''
+    rows = [x.replace("<tr", '<tr data-r="%s|%d"' % (d["no"], i), 1)
+            for i, (_, x) in enumerate(blocks)]
+
+    dhead = f'''  <table class="dhead">
+    <tr><td>タイトル</td><td colspan="3"><b style="font-size:12.5pt">{L.day_titles(d)}</b></td></tr>
+    <tr><td>撮影日</td><td><b>{esc(d["date2"])}</b></td>
+        <td>場所</td><td>{esc(d["place"])}</td></tr>
+    <tr><td>時間</td><td>{esc(L.day_span(d))}　<span style="color:{FAINT}">撮るカット {shoot}</span></td>
+        <td>緊急時連絡先</td><td>&nbsp;</td></tr>
+    <tr><td>注意事項</td><td colspan="3">{d["cond"]}</td></tr>
+  </table>'''
+    colg = ('<colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%">'
+            '<col><col style="width:5%"><col style="width:19%"></colgroup>')
+    thead = '<thead><tr>%s</tr></thead>' % "".join('<th style="%s">%s</th>' % (th(), h) for h in head)
+
+    def section(header, part):
+        return (f'<section class="page">\n{header}\n  <table data-t="{d["no"]}">'
+                f'{colg}{thead}<tbody>{"".join(part)}</tbody></table>\n</section>')
+
+    def cont(k):
+        return (f'  <div class="conthead"><b>{esc(d["date"])}</b>'
+                f'<span>{esc(d["place"])}　{esc(L.day_span(d))}</span>'
+                f'<span class="contr">（つづき {k}）</span></div>')
+
+    chunks = SPLIT.get(d["no"]) or [len(rows)]
+    out, i, k = [], 0, 0
+    for n in chunks:
+        part = rows[i:i + n]
+        i += n
+        if not part:
+            continue
+        out.append(section(dhead if k == 0 else cont(k + 1), part))
+        k += 1
+    if i < len(rows):
+        out.append(section(dhead if k == 0 else cont(k + 1), rows[i:]))
+    return "".join(out)
 
 
 def shot_page(no):
@@ -242,6 +263,10 @@ body {{ margin: 0; font-family: 'IPAPGothic','IPAGothic',sans-serif; color: {INK
 table {{ width: 100%; border-collapse: collapse; table-layout: fixed; }}
 thead {{ display: table-header-group; }}
 tr {{ break-inside: avoid; }}
+.conthead {{ display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid {INK};
+  padding-bottom: 7px; margin: 0 0 12px; font-size: 12pt; }}
+.conthead span {{ font-size: 9pt; color: {MUTED}; }}
+.conthead .contr {{ margin-left: auto; color: {GOLD}; }}
 td.c {{ padding: 2mm 3mm 2mm 0; border-bottom: .5pt solid {LINE}; vertical-align: top;
         word-wrap: break-word; }}
 tr.band td {{ background: {BAND}; padding: 1.6mm 2mm; border-bottom: .5pt solid {LINE}; font-size: 9.5pt; }}
@@ -253,7 +278,8 @@ ul {{ margin: 0; padding-left: 4mm; }}
 li {{ margin-bottom: 1mm; }}
 .dhead {{ width:100%; border-collapse:collapse; margin:0 0 3mm; border-bottom:.8pt solid {INK}; }}
 .dhead td {{ padding:1.4mm 0; border-bottom:.4pt solid {LINE}; vertical-align:top; font-size:9.5pt; line-height:1.55; }}
-.dhead td:first-child {{ width:26mm; color:{FAINT}; font-size:8.5pt; letter-spacing:.06em; white-space:nowrap; }}
+.dhead td:nth-child(odd) {{ width:26mm; color:{FAINT}; font-size:8.5pt; letter-spacing:.06em; white-space:nowrap; }}
+.dhead td[colspan] {{ width:auto; }}
 b {{ font-weight: 700; }}
 '''
 
