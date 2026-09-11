@@ -18,7 +18,11 @@ if TATE:
 else:
     SPLIT = json.load(open(_sp, encoding="utf-8")) if os.path.exists(_sp) else {}
 _sc = os.path.join(_dir, "pdf_scale.json")
-SCALE = json.load(open(_sc, encoding="utf-8")) if (TATE and os.path.exists(_sc)) else {}
+_scy = os.path.join(_dir, "pdf_scale_yoko.json")
+if TATE:
+    SCALE = json.load(open(_sc, encoding="utf-8")) if os.path.exists(_sc) else {}
+else:
+    SCALE = json.load(open(_scy, encoding="utf-8")) if os.path.exists(_scy) else {}
 
 INK, MUTED, FAINT = S.INK, S.MUTED, S.FAINT
 GOLD, LINE, BAND = S.GOLD, S.LINE, "#f6f2ec"
@@ -162,10 +166,10 @@ def day_page(d):
     def section(header, part):
         body = (f'{header}\n  <table data-t="{d["no"]}">'
                 f'{colg}{thead}<tbody>{"".join(part)}</tbody></table>')
-        if TATE:
-            v = float(SCALE.get(d["no"], 1))
+        v = float(SCALE.get(d["no"], 1))
+        if v != 1:
             body = (f'<div class="fit" data-f="{d["no"]}" '
-                    f'style="width:{100 / v:.4f}%; transform:scale({v:.4f})">{body}</div>')
+                    f'style="zoom:{v:.4f}">{body}</div>')
         return f'<section class="page">\n{body}\n</section>'
 
     def cont(k):
@@ -262,6 +266,7 @@ def cast_page():
 </section>'''
 
 
+BASEPT = os.environ.get("KOUBAN_PT", "8.2")
 PAGESIZE = "A4 portrait" if TATE else "A4 landscape"
 PAGEMARGIN = "10mm" if TATE else "11mm 12mm 12mm 12mm"
 
@@ -269,7 +274,7 @@ CSS = f'''
 @page {{ size: {PAGESIZE}; margin: {PAGEMARGIN}; }}
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; font-family: 'IPAPGothic','IPAGothic',sans-serif; color: {INK};
-        font-size: 9pt; line-height: 1.6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+        font-size: {BASEPT}pt; line-height: 1.55; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
 .page {{ break-after: page; }}
 .page:last-child {{ break-after: auto; }}
 .head {{ border-bottom: 1.2pt solid {INK}; padding-bottom: 3mm; margin-bottom: 4mm; }}
