@@ -12,7 +12,7 @@ import build_interview as B
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 INK, PROSE, MUTED, FAINT = "#15191c", "#3d4448", "#5b6266", "#8a8f92"
 GOLD, LINE, HAIR, BAND = "#a8672a", "#ddd7cd", "#ebe6dd", "#f4efe7"
-BASEPT = os.environ.get("SHITSUMON_PT", "7.4")
+BASEPT = os.environ.get("SHITSUMON_PT", "8.2")
 
 
 def esc(s):
@@ -20,7 +20,7 @@ def esc(s):
 
 
 def th():
-    return ('text-align:left;font-size:7pt;font-weight:400;color:%s;letter-spacing:.08em;'
+    return ('text-align:left;font-size:7.4pt;font-weight:400;color:%s;letter-spacing:.08em;'
             'border-bottom:.6pt solid %s;padding:0 3mm 1.6mm 0' % (FAINT, INK))
 
 
@@ -48,7 +48,7 @@ def person(p):
         rows.append('<tr><td class="no">%d</td><td class="q">%s</td>'
                     '<td class="ex">%s</td><td class="dim">%s</td></tr>' % (i, q, ex, pick))
     use = '<p class="use">%s</p>' % p["use"] if p["use"] else ""
-    return f'''<section class="psec">
+    return f'''<section class="psec pbreak">
   <div class="phead"><span class="pname">{p["name"]}</span>
     <span class="prole">{esc(p["role"])}</span>
     <span class="pvid">{esc(p["video"])}　／　{esc(p["length"])}</span>
@@ -81,13 +81,14 @@ body {{ margin: 0; background: #fff; font-family: 'IPAPGothic','IPAGothic',sans-
 
 .psec {{ margin-top: 4.2mm; }}
 .psec:first-of-type {{ margin-top: 0; }}
+.pbreak {{ break-before: page; margin-top: 0; }}
 .phead {{ display: flex; align-items: baseline; gap: 4mm; flex-wrap: wrap;
   border-bottom: 1pt solid {INK}; padding-bottom: 1.8mm; break-after: avoid; }}
 .pname {{ font-size: 13pt; font-weight: 700; letter-spacing: -.01em; }}
 .prole {{ font-size: 8pt; color: {MUTED}; }}
 .pvid {{ font-size: 8.6pt; font-weight: 700; color: {GOLD}; }}
 .pn {{ margin-left: auto; font-size: 8pt; font-weight: 700; color: {FAINT}; }}
-.use {{ margin: 2mm 0 0; font-size: 7.6pt; line-height: 1.65; color: {PROSE};
+.use {{ margin: 2mm 0 0; font-size: 8.2pt; line-height: 1.65; color: {PROSE};
   break-after: avoid; }}
 
 table {{ width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 2.4mm; }}
@@ -96,22 +97,22 @@ tr {{ break-inside: avoid; }}
 td {{ padding: 0.95mm 2.6mm 0.95mm 0; border-bottom: .4pt solid {HAIR};
   vertical-align: top; word-wrap: break-word; }}
 tr.band td {{ background: {BAND}; padding: 0.85mm 2.2mm; border-bottom: .5pt solid {LINE};
-  font-size: 8.2pt; font-weight: 700; break-after: avoid; }}
+  font-size: 9pt; font-weight: 700; break-after: avoid; }}
 .no {{ font-weight: 700; color: {GOLD}; }}
-.q {{ font-weight: 700; font-size: 8.2pt; }}
+.q {{ font-weight: 700; font-size: 9pt; }}
 .dim {{ color: {MUTED}; }}
-.pt {{ font-weight: 700; font-size: 8.2pt; }}
+.pt {{ font-weight: 700; font-size: 9pt; }}
 .ex::before {{ content: "「"; color: {FAINT}; }}
 .ex::after {{ content: "」"; color: {FAINT}; }}
-.tag {{ display: inline-block; font-size: 6.6pt; font-weight: 700; letter-spacing: .06em;
+.tag {{ display: inline-block; font-size: 7.2pt; font-weight: 700; letter-spacing: .06em;
   padding: 0 1.4mm; margin: 0 1mm .6mm 0; border-radius: 2mm;
   border: .4pt solid {LINE}; color: {MUTED}; white-space: nowrap; }}
 .tag.hon {{ color: {GOLD}; border-color: {GOLD}; }}
 .tag.oem {{ color: {PROSE}; border-color: {PROSE}; }}
 .tag.med {{ color: {MUTED}; }}
 .tag.saiyo {{ color: {FAINT}; }}
-.sm {{ font-size: 6.9pt; color: {FAINT}; }}
-.eng {{ font-weight: 400; font-size: 7pt; color: {FAINT}; }}
+.sm {{ font-size: 7.5pt; color: {FAINT}; }}
+.eng {{ font-weight: 400; font-size: 7.6pt; color: {FAINT}; }}
 b {{ font-weight: 700; }}
 '''
 
