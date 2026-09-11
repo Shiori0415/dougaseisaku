@@ -150,6 +150,58 @@ COMMON = [
   "×「裁断です」　→　○「ここは裁断です。型を置いて、上から刃を下ろします。」"),
 ]
 
+# ══ 掘り下げ方 ═══════════════════════════════════════════════
+# 型（そのまま言う言葉, 何のために）
+KATA = [
+ ("「だいたい、どのくらいですか」", "<b>数字を取りにいく。</b>"
+  "「長い」「多い」「けっこう」で止まったら、必ず数に変える。"
+  "十八年・三年・百枚・一ミリ。<b>数字が入った瞬間に、同じ話が本当らしくなる。</b>"),
+ ("「たとえば、どんなときですか」", "<b>具体を一つ出してもらう。</b>"
+  "「大事にしている」「気をつけている」で終わったら、これ一本で降ろせる。"
+  "三回目の「なぜ」の代わりにも使う。"),
+ ("「うまくいかないときは、どうなりますか」", "<b>逆から聞く。</b>"
+  "いい話しか出てこないときに効く。<b>失敗の側からのほうが、具体が出る。</b>"),
+ ("「それ、いま見せてもらえますか」", "<b>物に戻す。</b>"
+  "説明が長くなったら、手元に返す。<b>言葉が短くなり、そのまま寄りのカットが撮れる。</b>"),
+ ("「つまり、〇〇ということですか」", "<b>言い直して確かめる。</b>"
+  "長く喋って要点が散ったときに。<b>「そうです、〇〇です」と、言い切った形でもう一度返ってくる。</b>"
+  "そのまま本編に使える。"),
+ ("「昔と今で、変わったところはありますか」", "<b>時間で切る。</b>"
+  "話が平たいときに。前と後ろで比べると、起伏が出る。"),
+ ("（何も言わずに三秒待つ）", "<b>黙る。</b>"
+  "答えが終わったように見えてから三秒。<b>そこで出る一言が、たいてい一番いい。</b>"
+  "こちらが埋めると、二度と出てこない。"),
+ ("「佐藤さんは〇〇と言っていましたが」", "<b>別の人の言葉をぶつける。</b>"
+  "一致しても違っても使える。<b>二人が同じことを言えば、それがこの会社の芯。</b>"),
+]
+
+# (返ってきた答え, 次の一手)
+ROUTE = [
+ ("一言で終わった（「はい」「そうですね」）", "たとえば、どんなときですか　／　いま見せてもらえますか"),
+ ("抽象的な言葉（大事・きちんと・いろいろ）", "<b>たとえば、どんなときですか</b>"),
+ ("数字が出ない（長い・多い・けっこう）", "<b>だいたい、どのくらいですか</b>"),
+ ("いい話しか出てこない", "うまくいかないときは、どうなりますか"),
+ ("長く喋って、要点が散った", "<b>つまり、〇〇ということですか</b>"),
+ ("話が平たい、起伏がない", "昔と今で、変わったところはありますか"),
+ ("答えにくそう、止まった", "<b>掘らない。</b>飛ばして、あとで別の角度から聞く"),
+]
+
+# (用途, どこまで掘るか)
+FUKASA = [
+ ("本編", "hon", "<b>一問につき一回まで。</b>長くすると画に乗らない。短く言い切ったところで止める。"),
+ ("OEM", "oem", "<b>条件が出るまで。</b>数字・期間・範囲が出ないと、発注側の判断材料にならない。"),
+ ("メディア", "med", "<b>二回まで。</b>数字か固有名詞が出たら、そこで止める。"),
+ ("採用", "saiyo", "<b>一回。</b>知りたいのは結論だけ。長い説明は、かえって遠ざける。"),
+]
+
+YAMERU = [
+ "本人が<b>きれいに言い切った直後</b>。崩さない。",
+ "<b>「なぜ」の三回目。</b>詰問になる。",
+ "<b>答えにくいことを二度。</b>そこで信頼が切れて、残りの時間が全部固くなる。",
+ "<b>本編に乗る一問。</b>短く言い切ってもらう画なので、長くしない。",
+]
+
+
 def S(t):
     return "<br><span class='eng'>%s</span>" % t
 
@@ -439,11 +491,11 @@ PEOPLE = [
         "棚は低くしました。上から見ると、革の表情が見えるので。照明は白すぎない色にしています。",
         T("本編") + "<b>答えが出たら、その棚と照明を寄りで撮り足す。</b>"
         "言葉に画を合わせにいく一問。"),
-       ("作った人がそのまま売り場に立つのは、ほかの店とどう違いますか。"
+       ("お客さんに手渡すとき、作った人だから言えることはありますか。"
         + S("⑤S6 会計の引き → 手渡し → 使っている手元"),
         "直せるかどうかを、その場で答えられます。どこを縫い直せるかも分かるので。",
         T("本編", "メディア") + "<b>渡している人が、作った人。</b>"
-        "手渡しの画に乗せると、この店の作りがそのまま伝わる。"),
+        "手渡しの画に乗せると、この店でしか起きないことだと伝わる。"),
        ("品物を見るとき、どこを見ていますか。",
         "切り口の磨きと、縫い目の締まりです。",
         T("メディア") + "<b>見るところが一般のお客さんと違う。</b>"
@@ -709,7 +761,7 @@ def nav_tech():
 def nav_itv():
     p = "".join('<a href="#%s">%s</a>' % (x["key"], x["name"].replace(" ", "")) for x in PEOPLE)
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
-    return ('<a href="#mato">誰に</a><a href="#common">共通</a>%s'
+    return ('<a href="#mato">誰に</a><a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s' % (p, g))
 
 
@@ -719,7 +771,7 @@ def _old_nav():
     g = "".join('<a href="#%s">%s%s</a>' % (f["key"], f["no"], f["title"]) for f in FLOW)
     return ('<nav><div class="navin"><span class="navlab">技術</span>%s'
             '<span class="navsep"></span><span class="navlab">質問</span>'
-            '<a href="#mato">誰に</a><a href="#common">共通</a>%s'
+            '<a href="#mato">誰に</a><a href="#common">共通</a><a href="#hori">掘り下げ方</a>%s'
             '<span class="navsep"></span><span class="navlab">語りの置きどころ</span>%s'
             '</div></nav>' % (t, p, g))
 
@@ -750,6 +802,34 @@ def mato():
   </table></div>
 </section>'''
 
+
+
+def hori():
+    k = "".join('<tr><td class="pt">%s</td><td>%s</td></tr>' % r for r in KATA)
+    r = "".join('<tr><td class="pt">%s</td><td>%s</td></tr>' % x for x in ROUTE)
+    f = "".join('<tr><td><span class="tag %s">%s</span></td><td>%s</td></tr>'
+                % (c, k2, t) for k2, c, t in FUKASA)
+    y = "".join("<li>%s</li>" % x for x in YAMERU)
+    return f'''<section id="hori">
+  <div class="phead"><span class="pname">掘 り 下 げ 方</span></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:32%"><col></colgroup>
+    <thead><tr><th>そ の ま ま 言 う 言 葉</th><th>何 の た め に</th></tr></thead>
+    <tbody>{k}</tbody>
+  </table></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:32%"><col></colgroup>
+    <thead><tr><th>こ う 返 っ て き た ら</th><th>次 の 一 手</th></tr></thead>
+    <tbody>{r}</tbody>
+  </table></div>
+  <div class="scroll"><table>
+    <colgroup><col style="width:10%"><col></colgroup>
+    <thead><tr><th></th><th>ど こ ま で 掘 る か</th></tr></thead>
+    <tbody>{f}</tbody>
+  </table></div>
+  <div class="foot"><div><div class="cap">掘 ら な い ほ う が い い と き</div>
+    <ul>{y}</ul></div></div>
+</section>'''
 
 def common():
     rows = "".join('<tr><td class="pt">%s</td><td>%s</td></tr>' % (a, b) for a, b in COMMON)
@@ -821,7 +901,7 @@ def build_tech():
 
 
 def build_itv():
-    body = mato() + common() + "".join(person(p) for p in PEOPLE)
+    body = mato() + common() + hori() + "".join(person(p) for p in PEOPLE)
     flw = "".join(flow(f) for f in FLOW)
     n = sum(qcount(p) for p in PEOPLE)
     return f'''<title>インタビュー質問事項</title>
