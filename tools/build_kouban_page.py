@@ -106,7 +106,7 @@ def day_section(d):
     for tk in d.get("talks", []):
         when, who, place, what, note = tk[:5]
         b = ['<tr><td class="tm">%s</td><td>%s</td>'
-             '<td>%s<br><span class="dim">椅子、ピンマイク</span></td>'
+             '<td>%s<br><span class="dim">椅子、レコーダー</span></td>'
              '<td><span class="sc">%s</span><br>%s</td>'
              '<td class="dim">三十分</td><td class="dim">%s</td></tr>'
              % (esc(when), place, esc(who),

@@ -75,7 +75,7 @@ def day_page(d):
         when, who, place, what, note = tk[:5]
         blocks.append((L.start_min(when),
             '<tr><td class="c" style="color:%s;font-weight:700;white-space:nowrap">%s</td>'
-            '<td class="c">%s</td><td class="c">%s<br><span style="color:%s">椅子、ピンマイク</span></td>'
+            '<td class="c">%s</td><td class="c">%s<br><span style="color:%s">椅子、レコーダー</span></td>'
             '<td class="c"><b>%s</b><br>%s</td>'
             '<td class="c" style="color:%s;white-space:nowrap">三十分</td>'
             '<td class="c" style="color:%s">%s</td></tr>'

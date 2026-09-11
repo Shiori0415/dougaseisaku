@@ -62,7 +62,7 @@ def day_sheet(wb, d):
     for tk in d.get("talks", []):
         when, who, place, what, note = tk[:5]
         rows.append((L.start_min(when),
-                     [when, plain(place), plain(who) + "\n椅子、ピンマイク",
+                     [when, plain(place), plain(who) + "\n椅子、レコーダー",
                       plain(tk[6] if len(tk) > 6 else "インタビュー"), "三十分", plain(note)], True))
     for setup in d.get("setups", []):
         when, place, sc, note = setup[:4]

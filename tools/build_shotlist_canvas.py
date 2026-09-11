@@ -399,7 +399,7 @@ def talk_rows(day, t):
       <td style="{td}; padding-left: 0; white-space: nowrap">
         <span style="font-size: 18px; font-weight: 700; color: {GOLD}">{esc(when)}</span></td>
       <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">{place}</td>
-      <td style="{td}; font-size: 15px; line-height: 1.65; color: {INK}">{esc(who)}<div style="color: {MUTED}; margin-top: 3px">椅子、ピンマイク</div></td>
+      <td style="{td}; font-size: 15px; line-height: 1.65; color: {INK}">{esc(who)}<div style="color: {MUTED}; margin-top: 3px">椅子、レコーダー</div></td>
       <td style="{td}; font-size: 16px; line-height: 1.65; color: {INK}">
         <div style="font-weight: 700">{esc(label)}</div>
         <div style="margin-top: 4px">{what}</div></td>
