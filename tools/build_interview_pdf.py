@@ -57,7 +57,7 @@ def person(p):
   <table>
     <colgroup><col style="width:3.4%"><col style="width:26%"><col style="width:32%"><col></colgroup>
     <thead><tr><th style="{th()}"></th><th style="{th()}">質 問</th>
-      <th style="{th()}">こ う 答 え て も ら え れ ば 十 分</th>
+      <th style="{th()}">回 答 例</th>
       <th style="{th()}">な ぜ 聞 く か 　── 誰 に 、 何 の た め に</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>

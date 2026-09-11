@@ -804,7 +804,7 @@ def person(p):
   <div class="scroll"><table>
     <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
     <thead><tr><th></th><th>質 問</th>
-      <th>こ う 答 え て も ら え れ ば 十 分</th><th>な ぜ 聞 く か 　── 誰 に 、 何 の た め に</th></tr></thead>
+      <th>回 答 例</th><th>な ぜ 聞 く か 　── 誰 に 、 何 の た め に</th></tr></thead>
     <tbody>{rows}</tbody>
   </table></div>
 </section>'''
