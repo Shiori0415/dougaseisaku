@@ -266,15 +266,15 @@ def cast_page():
 </section>'''
 
 
-BASEPT = os.environ.get("KOUBAN_PT", "8.2")
+BASEPT = os.environ.get("KOUBAN_PT", "8")
 PAGESIZE = "A4 portrait" if TATE else "A4 landscape"
-PAGEMARGIN = "10mm" if TATE else "11mm 12mm 12mm 12mm"
+PAGEMARGIN = "10mm" if TATE else "10mm 12mm 10mm 12mm"
 
 CSS = f'''
 @page {{ size: {PAGESIZE}; margin: {PAGEMARGIN}; }}
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; font-family: 'IPAPGothic','IPAGothic',sans-serif; color: {INK};
-        font-size: {BASEPT}pt; line-height: 1.55; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+        font-size: {BASEPT}pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
 .page {{ break-after: page; }}
 .page:last-child {{ break-after: auto; }}
 .head {{ border-bottom: 1.2pt solid {INK}; padding-bottom: 3mm; margin-bottom: 4mm; }}
@@ -291,17 +291,17 @@ tr {{ break-inside: avoid; }}
   padding-bottom: 7px; margin: 0 0 12px; font-size: 12pt; }}
 .conthead span {{ font-size: 9pt; color: {MUTED}; }}
 .conthead .contr {{ margin-left: auto; color: {GOLD}; }}
-td.c {{ padding: 2mm 3mm 2mm 0; border-bottom: .5pt solid {LINE}; vertical-align: top;
+td.c {{ padding: 1.05mm 2.4mm 1.05mm 0; border-bottom: .5pt solid {LINE}; vertical-align: top;
         word-wrap: break-word; }}
-tr.band td {{ background: {BAND}; padding: 1.6mm 2mm; border-bottom: .5pt solid {LINE}; font-size: 9.5pt; }}
+tr.band td {{ background: {BAND}; padding: 1mm 2mm; border-bottom: .5pt solid {LINE}; font-size: 9.5pt; }}
 .two {{ display: flex; gap: 10mm; margin-top: 5mm; padding-top: 3.5mm; border-top: .5pt solid {LINE};
         font-size: 8.5pt; line-height: 1.7; break-inside: avoid; }}
 .two > div {{ flex: 1; }}
 .cap {{ font-size: 8pt; color: {FAINT}; letter-spacing: .08em; margin-bottom: 1.5mm; }}
 ul {{ margin: 0; padding-left: 4mm; }}
 li {{ margin-bottom: 1mm; }}
-.dhead {{ width:100%; border-collapse:collapse; margin:0 0 3mm; border-bottom:.8pt solid {INK}; }}
-.dhead td {{ padding:1.4mm 0; border-bottom:.4pt solid {LINE}; vertical-align:top; font-size:9.5pt; line-height:1.55; }}
+.dhead {{ width:100%; border-collapse:collapse; margin:0 0 1.6mm; border-bottom:.8pt solid {INK}; }}
+.dhead td {{ padding:0.8mm 0; border-bottom:.4pt solid {LINE}; vertical-align:top; font-size:8.6pt; line-height:1.45; }}
 .dhead td:nth-child(odd) {{ width:26mm; color:{FAINT}; font-size:8.5pt; letter-spacing:.06em; white-space:nowrap; }}
 .dhead td[colspan] {{ width:auto; }}
 b {{ font-weight: 700; }}

@@ -3,7 +3,7 @@
 import json, os, re, subprocess, sys
 SP = os.path.dirname(os.path.abspath(__file__))
 ROOT = "/home/user/dougaseisaku"
-PAGE_H = 707          # A4横 210mm − 余白23mm ＝ 187mm ＝ 707px
+PAGE_H = 718          # A4横 210mm − 余白23mm ＝ 187mm ＝ 707px
 CONT_HEAD = 46        # 「つづき」の見出しぶん
 
 def measure():
