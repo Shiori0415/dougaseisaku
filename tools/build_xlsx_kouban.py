@@ -130,11 +130,11 @@ def main():
         day_sheet(wb, d)
     cs = wb.create_sheet("出演者と支度")
     cs.sheet_view.showGridLines = False
-    head_row(cs, 1, ["本", "撮影日", "顔が映るか", "当日の支度", "衣装", "そのほか"],
-             [8, 18, 22, 34, 34, 40])
+    head_row(cs, 1, ["本", "撮影日", "当日の支度", "衣装", "そのほか"],
+             [8, 20, 36, 36, 44])
     cs.freeze_panes = "A2"
     for i, row in enumerate(L.CAST, 2):
-        put(cs, i, [row[0], plain(row[2]), plain(row[3]), plain(row[4]), plain(row[5]), plain(row[6])])
+        put(cs, i, [row[0], plain(row[2]), plain(row[3]), plain(row[4]), plain(row[5])])
         cs.row_dimensions[i].height = 58
     out = os.path.join(ROOT, "pdf", "01_香盤表.xlsx")
     wb.save(out)

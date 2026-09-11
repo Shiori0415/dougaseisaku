@@ -760,23 +760,23 @@ def shotlist_artboard(no):
 '''
 
 CAST = [
- ("①", "01", "五日目　モデル2", "映る（腰より上の寄りがある）",
+ ("①", "01", "五日目　モデル2",
   "鏡だけ。四回の着替えのあと、髪の乱れを直す。",
   "四色ぶんの服と鞄。<b>鞄の色と喧嘩しない服</b>を選ぶ。<br>ヘアメイクを付けないので、<b>髪型が崩れない服</b>にする ──<br>前開きの上着なら、着替えで髪が乱れない。",
   "着替え場所と荷物置き場。四回の着替えを見込んで、<br>東京国際フォーラムは使用時間を長めに申請する。"),
- ("④", "04", "五日目　モデル3", "主役にしない（引きと後ろ姿）",
+ ("④", "04", "五日目　モデル3",
   "爪を切りそろえる。<b>手が寄りで映る。</b>",
-  "一そろい。街に馴染む色。<br>鞄より目立つ柄は避ける。",
+  "一そろい。街に馴染む色。<br><b>ベージュや白、グレーなどの色。</b>",
   "時計・指輪は外す。<br>歩く距離があるので、履き慣れた靴で。"),
- ("⑦", "07", "一日目　モデル1", "映らない",
+ ("⑦", "07", "一日目　モデル1",
   "爪を切り、手を洗っておく。<br>時計・指輪は外す。",
-  "袖口の見える無地の上着。<br>柄物だと、手の動きより袖に目が行く。",
+  "袖口の見える無地の上着。<br><b>ベージュや白、グレーなどのカラー。</b>",
   "物を置く速さが一定にできる方を選ぶ。<br>一度通してもらってから本番。"),
- ("⑧", "08", "二日目", "映る（バストショット）",
+ ("⑧", "08", "二日目",
   "―",
-  "本人のふだんの服。<br>細かい柄は画面で目がちらつくので避ける。",
+  "<b>本人のふだんの服のみでOK。</b>",
   "顔出しの範囲を、撮る前に本人へ確認する。<br>名前は出さず「購入者Aさん」とだけ出す。<br>拘束は 9:00〜12:35。日は購入者が決まってから決める。"),
- ("⑤⑥", None, "一日目・四日目", "映る（バストショット・横顔）",
+ ("⑤⑥", None, "一日目・四日目",
   "襟元と髪だけ、撮る直前に鏡で見る。",
   "ふだんの仕事着。<br>永尾社長・くさがやさんは一日目、佐藤さんは四日目。",
   "永尾社長・佐藤さん・くさがやさん。<br>三人とも三十分ずつ。"),
@@ -788,7 +788,7 @@ def cast_artboard():
           "; letter-spacing: 0.08em; border-bottom: 1px solid " + INK + "; padding-bottom: 11px")
     td = f"padding: 20px 16px; border-bottom: 1px solid {LINE}; vertical-align: top"
     rows = []
-    for maru, no, day, face, hm, cloth, other in CAST:
+    for maru, no, day, hm, cloth, other in CAST:
         name = PG[no]["jp"] if no else "永尾社長・佐藤さん・くさがやさん"
         rows.append(f'''<tr>
       <td style="{td}; padding-left: 0">
@@ -796,7 +796,6 @@ def cast_artboard():
         <div style="font-size: 16px; font-weight: 700; color: {INK}; margin-top: 5px">{esc(name)}</div>
         <div style="font-size: 15px; color: {FAINT}; margin-top: 5px">{esc(day)}</div>
       </td>
-      <td style="{td}; font-size: 17px; line-height: 1.7; color: {INK}">{esc(face)}</td>
       <td style="{td}; font-size: 17px; line-height: 1.75; color: {INK}">{hm}</td>
       <td style="{td}; font-size: 17px; line-height: 1.75; color: {INK}">{cloth}</td>
       <td style="{td}; padding-right: 0; font-size: 16px; line-height: 1.75; color: {MUTED}">{other}</td>
@@ -824,27 +823,20 @@ def cast_artboard():
     <div style="margin-left: auto; font-size: 17px; color: {MUTED}">ヘアメイクは付けない</div>
   </div>
   <div style="font-size: 17px; line-height: 1.8; color: {MUTED}">
-    ヘアメイクは付けません。当日の支度は、鏡・テカリ止めのパウダー・爪の手入れだけです。顔が寄りで映るのは①と⑧の二本だけで、ほかは顔を主役にしないか、まったく映しません。
+    ヘアメイクは付けません。当日の支度は、鏡・テカリ止めのパウダー・爪の手入れだけです。
   </div>
   <table>
     <colgroup>
-      <col style="width: 230px"><col style="width: 280px"><col style="width: 400px"><col style="width: 400px"><col>
+      <col style="width: 250px"><col style="width: 420px"><col style="width: 420px"><col>
     </colgroup>
     <tr>
       <th style="{th}; padding-left: 0">本　／　撮 影 日</th>
-      <th style="{th}; padding-left: 16px">顔 が 映 る か</th>
       <th style="{th}; padding-left: 16px">当 日 の 支 度</th>
       <th style="{th}; padding-left: 16px">衣 装</th>
       <th style="{th}; padding-left: 16px">そ の ほ か</th>
     </tr>
     {"".join(rows)}
   </table>
-  <div style="border-top: 1px solid {LINE}; padding-top: 20px; font-size: 17px; line-height: 1.9; color: {INK}">
-    <div style="font-size: 15px; color: {FAINT}; letter-spacing: 0.08em; margin-bottom: 9px">全 員 に 共 通 す る こ と</div>
-    出演承諾書を、①④⑦⑧の出演者全員からいただく ── 使う範囲（Instagram・EC商品ページ・展示会）、期間、媒体を書いたもの。<br>
-    交通費と拘束時間を、依頼するときに先に伝える。<br>
-    体調不良に備えて、①と④は予備日を一日置く。
-  </div>
   <div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 13px; color: {FAINT}">
     <div>BROOKLYN MUSEUM ／ 向島工房　動画制作　／　香盤表</div>
     <div>出演者と支度</div>

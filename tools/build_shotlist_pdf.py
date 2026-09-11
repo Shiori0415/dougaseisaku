@@ -200,13 +200,13 @@ def shot_page(no):
 
 def cast_page():
     rows = []
-    for maru, no, day, face, prep, cloth, other in L.CAST:
+    for maru, no, day, prep, cloth, other in L.CAST:
         name = L.PG[no]["jp"] if no else "永尾社長・佐藤さん・くさがやさん"
         rows.append('<tr><td class="c"><b style="color:%s;font-size:13pt">%s</b><br><b>%s</b><br>'
                     '<span style="color:%s;font-size:8.5pt">%s</span></td>'
-                    '<td class="c">%s</td><td class="c">%s</td><td class="c">%s</td>'
+                    '<td class="c">%s</td><td class="c">%s</td>'
                     '<td class="c" style="color:%s">%s</td></tr>'
-                    % (GOLD, maru, esc(name), FAINT, esc(day), esc(face), prep, cloth, MUTED, other))
+                    % (GOLD, maru, esc(name), FAINT, esc(day), prep, cloth, MUTED, other))
     return f'''<section class="page">
   <div class="head">
     <div class="titlerow">
@@ -215,18 +215,13 @@ def cast_page():
       <div class="right">ヘアメイクは付けない</div>
     </div>
   </div>
-  <p class="lead">ヘアメイクは付けません。当日の支度は、鏡・テカリ止めのパウダー・爪の手入れだけです。
-  顔が寄りで映るのは①と⑧の二本だけで、ほかは顔を主役にしないか、まったく映しません。</p>
+  <p class="lead">ヘアメイクは付けません。当日の支度は、鏡・テカリ止めのパウダー・爪の手入れだけです。</p>
   <table>
-    <colgroup><col style="width:16%"><col style="width:15%"><col style="width:23%"><col style="width:23%"><col></colgroup>
-    <thead><tr><th style="{th()}">本　／　撮影日</th><th style="{th()}">顔が映るか</th>
+    <colgroup><col style="width:18%"><col style="width:26%"><col style="width:26%"><col></colgroup>
+    <thead><tr><th style="{th()}">本　／　撮影日</th>
     <th style="{th()}">当日の支度</th><th style="{th()}">衣装</th><th style="{th()}">そのほか</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
-  <div class="two"><div><div class="cap">全員に共通すること</div>
-    出演承諾書を、①④⑦⑧の出演者全員からいただく ── 使う範囲（Instagram・EC商品ページ・展示会）、期間、媒体を書いたもの。<br>
-    交通費と拘束時間を、依頼するときに先に伝える。<br>
-    体調不良に備えて、①と④は予備日を一日置く。</div></div>
 </section>'''
 
 
