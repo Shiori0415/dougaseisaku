@@ -8,8 +8,17 @@ import html, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_script_canvas as S
 import build_shotlist_canvas as L
-_sp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pdf_split.json")
-SPLIT = json.load(open(_sp, encoding="utf-8")) if os.path.exists(_sp) else {}
+_dir = os.path.dirname(os.path.abspath(__file__))
+# 縦一枚組み（1日1ページ）にするかどうか
+TATE = os.environ.get("KOUBAN_TATE") == "1"
+_sp = os.path.join(_dir, "pdf_split.json")
+_spt = os.path.join(_dir, "pdf_split_tate.json")
+if TATE:
+    SPLIT = json.load(open(_spt, encoding="utf-8")) if os.path.exists(_spt) else {}
+else:
+    SPLIT = json.load(open(_sp, encoding="utf-8")) if os.path.exists(_sp) else {}
+_sc = os.path.join(_dir, "pdf_scale.json")
+SCALE = json.load(open(_sc, encoding="utf-8")) if (TATE and os.path.exists(_sc)) else {}
 
 INK, MUTED, FAINT = S.INK, S.MUTED, S.FAINT
 GOLD, LINE, BAND = S.GOLD, S.LINE, "#f6f2ec"
@@ -53,11 +62,11 @@ def cover():
     <div class="titlerow">
       <div class="title">動画八本　香盤表</div>
       <div class="sub">Shooting Schedule</div>
-      <div class="right">全八本　{ts}カット　／　撮影 五日　／　日付は10月中で未定</div>
+      <div class="right">全八本　{ts}カット　／　撮影 5日　／　日付は10月中で未定</div>
     </div>
   </div>
   <p class="lead">
-    五日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
+    5日で八本ぶんを撮ります。同じ場所・同じ設営で撮れるものをまとめ、時刻の順に並べています。
     <b>店舗は休みの日（月曜か火曜）に撮ります。工房は、②が休日、⑥が平日。⑥はブルックリンの品を作っている工程しか撮れないので、日が分かれることがあります。</b>
   </p>
   <table>
@@ -144,13 +153,20 @@ def day_page(d):
         <td>緊急時連絡先</td><td>&nbsp;</td></tr>
     <tr><td>注意事項</td><td colspan="3">{d["cond"]}</td></tr>
   </table>'''
-    colg = ('<colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%">'
-            '<col><col style="width:5%"><col style="width:19%"></colgroup>')
+    colg = ('<colgroup><col style="width:13%"><col style="width:15%"><col style="width:13%">'
+            '<col><col style="width:6%"><col style="width:18%"></colgroup>') if TATE else (
+           '<colgroup><col style="width:9%"><col style="width:17%"><col style="width:14%">'
+           '<col><col style="width:5%"><col style="width:19%"></colgroup>')
     thead = '<thead><tr>%s</tr></thead>' % "".join('<th style="%s">%s</th>' % (th(), h) for h in head)
 
     def section(header, part):
-        return (f'<section class="page">\n{header}\n  <table data-t="{d["no"]}">'
-                f'{colg}{thead}<tbody>{"".join(part)}</tbody></table>\n</section>')
+        body = (f'{header}\n  <table data-t="{d["no"]}">'
+                f'{colg}{thead}<tbody>{"".join(part)}</tbody></table>')
+        if TATE:
+            v = float(SCALE.get(d["no"], 1))
+            body = (f'<div class="fit" data-f="{d["no"]}" '
+                    f'style="width:{100 / v:.4f}%; transform:scale({v:.4f})">{body}</div>')
+        return f'<section class="page">\n{body}\n</section>'
 
     def cont(k):
         return (f'  <div class="conthead"><b>{esc(d["date"])}</b>'
@@ -246,8 +262,11 @@ def cast_page():
 </section>'''
 
 
+PAGESIZE = "A4 portrait" if TATE else "A4 landscape"
+PAGEMARGIN = "10mm" if TATE else "11mm 12mm 12mm 12mm"
+
 CSS = f'''
-@page {{ size: A4 landscape; margin: 11mm 12mm 12mm 12mm; }}
+@page {{ size: {PAGESIZE}; margin: {PAGEMARGIN}; }}
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; font-family: 'IPAPGothic','IPAGothic',sans-serif; color: {INK};
         font-size: 9pt; line-height: 1.6; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
@@ -281,6 +300,7 @@ li {{ margin-bottom: 1mm; }}
 .dhead td:nth-child(odd) {{ width:26mm; color:{FAINT}; font-size:8.5pt; letter-spacing:.06em; white-space:nowrap; }}
 .dhead td[colspan] {{ width:auto; }}
 b {{ font-weight: 700; }}
+.fit {{ transform-origin: top left; }}
 '''
 
 
@@ -290,7 +310,7 @@ def main():
     out = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
            '<title>動画八本 香盤表</title><style>%s</style></head><body>%s</body></html>'
            % (CSS, "".join(parts)))
-    p = os.path.join(ROOT, "pdf", "kouban.html")
+    p = os.path.join(ROOT, "pdf", "kouban_tate.html" if TATE else "kouban.html")
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w", encoding="utf-8").write(out)
     print(p, len(parts), "ページぶん")

@@ -60,7 +60,7 @@ def cover():
   <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
   <h1>動画八本　香盤表</h1>
   <div class="en">Shooting Schedule</div>
-  <div class="count">全八本　{ts}カット　／　撮影 五日　<span style="color:var(--gold)">日付は10月中で未定</span></div>
+  <div class="count">全八本　{ts}カット　／　撮影 5日　<span style="color:var(--gold)">日付は10月中で未定</span></div>
 
 </header>
 <section id="schedule">
