@@ -931,14 +931,11 @@ def person(p):
         rows.append('<tr><td class="no tm">%d</td><td class="q">%s</td>'
                     '<td class="ex">%s</td><td class="dim">%s</td></tr>' % (i, q, ex, pick))
     rows = "".join(rows)
-    stance = "".join("<li>%s</li>" % s for s in p["stance"])
     return f'''<section id="{p["key"]}">
   <div class="phead"><span class="pname">{p["name"]}</span>
     <span class="prole">{esc(p["role"])}</span>
     <span class="place">{esc(p["video"])}</span></div>
   <p class="use">{p["use"]}</p>
-  <div class="foot"><div><div class="cap">こ の 人 に 向 き 合 う と き</div>
-    <ul>{stance}</ul></div></div>
   <div class="scroll"><table>
     <colgroup><col style="width:4%"><col style="width:29%"><col style="width:35%"><col></colgroup>
     <thead><tr><th></th><th>質 問</th>
