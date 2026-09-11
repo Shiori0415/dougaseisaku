@@ -111,7 +111,7 @@ def main():
     t = ws.cell(row=1, column=1, value="BROOKLYN MUSEUM ／ 向島工房　動画八本　香盤表")
     t.font = Font(name=JP, size=14, bold=True, color=INK)
     tot = sum(L.day_counts(d)[0] for d in L.DAYS)
-    s2 = ws.cell(row=2, column=1, value="全八本 %dカット ／ 撮影 四日 ／ 日付は10月中で未定" % tot)
+    s2 = ws.cell(row=2, column=1, value="全八本 %dカット ／ 撮影 五日 ／ 日付は10月中で未定" % tot)
     s2.font = Font(name=JP, size=10, color=GOLD)
     head_row(ws, 4, ["日", "場所", "内容", "時間", "カット"], [16, 26, 62, 16, 10])
     ws.freeze_panes = "A5"
