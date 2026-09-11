@@ -54,6 +54,18 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 内容は `tools/data_pdf.py` に、版面は `tools/build_pdf.py` にある。
 日本語フォントは IPAGothic ／ IPAPGothic。
 
+### インタビュー質問事項のPDF
+
+```
+python3 tools/build_interview_pdf.py     # pdf/shitsumon.html を生成
+cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
+  --no-pdf-header-footer --print-to-pdf="02_インタビュー質問事項.pdf" "file://$PWD/shitsumon.html"
+```
+
+中身は `tools/build_interview.py` の `COMMON` / `PEOPLE` をそのまま読む。画面用の `shitsumon.html` と
+同じ情報で、版面だけA4横に組み直している。**行は途中で切らない**（`tr` は `break-inside: avoid`、
+見出し帯は `break-after: avoid`）。字の大きさは `SHITSUMON_PT`（既定 7.4pt）で変えられる。
+
 ### Googleスライドで編集できるpptx版
 
 文言・写真の割り当ては `tools/data_pdf.py` が唯一の情報源。`python3 tools/data_pdf.py` を実行すると
