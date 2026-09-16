@@ -1,0 +1,146 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<title>香盤表　モデル用</title>
+<style>
+@page { size: A4 landscape; margin: 10mm 12mm; }
+* { box-sizing: border-box; }
+html { color-scheme: light; background: #fff; }
+body { margin: 0; background: #fff; font-family: 'IPAPGothic','IPAGothic',sans-serif;
+  color: #15191c; font-size: 7.9pt; line-height: 1.4;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.head { border-bottom: 1.2pt solid #15191c; padding-bottom: 2.2mm; margin-bottom: 2.4mm; }
+.eyebrow { font-size: 7.4pt; font-weight: 700; color: #a8672a; letter-spacing: .14em; margin-bottom: 1.4mm; }
+.titlerow { display: flex; align-items: baseline; gap: 5mm; }
+.title { font-size: 17pt; font-weight: 700; letter-spacing: -.01em; }
+.sub { font-size: 9pt; color: #8a8f92; }
+.right { margin-left: auto; font-size: 11pt; font-weight: 700; color: #a8672a; }
+
+.dhead { width: 100%; border-collapse: collapse; margin: 0 0 2.6mm;
+  border-bottom: .8pt solid #15191c; }
+.dhead td { padding: 0.7mm 0; border-bottom: .4pt solid #ddd7cd; vertical-align: top;
+  font-size: 8.4pt; line-height: 1.45; }
+.dhead td:nth-child(odd) { width: 28mm; color: #8a8f92; font-size: 8.4pt;
+  letter-spacing: .06em; white-space: nowrap; }
+.tel { font-size: 11pt; font-weight: 700; color: #a8672a; letter-spacing: .04em; }
+
+table.main { width: 100%; border-collapse: collapse; table-layout: fixed; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+th { text-align: left; font-size: 8pt; font-weight: 400; color: #8a8f92;
+  letter-spacing: .08em; border-bottom: .6pt solid #15191c; padding: 0 3mm 1.6mm 0; }
+td { padding: 0.55mm 3mm 0.55mm 0; border-bottom: .4pt solid #ebe6dd;
+  vertical-align: top; word-wrap: break-word; }
+tr.band td { background: #f4efe7; padding: 0.7mm 2.4mm; border-bottom: .5pt solid #ddd7cd;
+  font-size: 9.4pt; font-weight: 700; letter-spacing: .04em; break-after: avoid; }
+.tm { color: #a8672a; font-weight: 700; white-space: nowrap; font-size: 9.2pt; }
+.pl { font-weight: 700; }
+.no { font-weight: 700; color: #a8672a; font-size: 11pt; }
+.sm { font-size: 8pt; color: #8a8f92; }
+.dim { color: #5b6266; }
+
+.chui { margin: 0 0 2.2mm; padding-bottom: 2mm; border-bottom: .8pt solid #15191c; }
+.chui .cap { display: block; }
+.two { display: flex; gap: 9mm; margin-top: 2.6mm; padding-top: 2.2mm;
+  border-top: .8pt solid #15191c; break-inside: avoid; }
+.two > div { flex: 1; }
+.cap { font-size: 8pt; color: #8a8f92; letter-spacing: .1em; margin-bottom: 2.2mm; }
+.st { display: flex; gap: 3mm; margin-bottom: 1.6mm; font-size: 8.8pt; line-height: 1.55; }
+.st b.k { flex: 0 0 22mm; color: #a8672a; font-weight: 700; }
+ul { margin: 0; padding-left: 4.4mm; font-size: 8.4pt; line-height: 1.55; }
+ul.two-col { column-count: 2; column-gap: 9mm; }
+ul.two-col li { break-inside: avoid; }
+li { margin-bottom: 1mm; }
+b { font-weight: 700; }
+.page2 { break-before: page; }
+.p2head { display: flex; align-items: baseline; gap: 5mm;
+  border-bottom: 1.2pt solid #15191c; padding-bottom: 2.4mm; margin-bottom: 3.4mm; }
+.p2title { font-size: 17pt; font-weight: 700; letter-spacing: -.01em; }
+.p2sub { font-size: 8.6pt; color: #8a8f92; }
+.p2r { margin-left: auto; font-size: 9pt; font-weight: 700; color: #a8672a; }
+.cols { display: flex; gap: 8mm; }
+.cols > div { flex: 1; }
+.vhead { display: flex; align-items: baseline; gap: 3mm;
+  border-bottom: .8pt solid #15191c; padding-bottom: 1.6mm; margin-bottom: 2.4mm; }
+.vno { font-size: 15pt; font-weight: 700; color: #a8672a; }
+.vname { font-size: 10.5pt; font-weight: 700; }
+.vtag { margin-left: auto; font-size: 8pt; color: #5b6266; }
+.lede { font-size: 8.6pt; line-height: 1.55; color: #3d4448; margin: 0 0 2.2mm; }
+table.sty { width: 100%; border-collapse: collapse; table-layout: fixed;
+  margin-bottom: 2mm; }
+table.sty td { padding: 0.85mm 2.6mm 0.85mm 0; border-bottom: .4pt solid #ebe6dd;
+  vertical-align: top; font-size: 8.6pt; line-height: 1.5; }
+table.sty td.k { width: 21mm; color: #a8672a; font-weight: 700; font-size: 8.4pt; }
+.sub2 { font-size: 8pt; color: #8a8f92; letter-spacing: .1em; margin: 2.2mm 0 1.4mm;
+  padding-top: 1.8mm; border-top: .5pt solid #ddd7cd; }
+.ng { background: #f4efe7; padding: 1.8mm 2.6mm; font-size: 8.2pt; line-height: 1.5;
+  border-left: 1.4pt solid #a8672a; margin-top: 2mm; break-inside: avoid; }
+</style></head><body>
+<div class="head">
+  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>
+  <div class="titlerow">
+    <div class="title">撮影スケジュール</div>
+    <div class="sub">Shooting Schedule</div>
+    <div class="right">難 波 遥　さん</div>
+  </div>
+</div>
+
+<table class="dhead">
+  <tr><td>撮 影 日</td><td><b>10月13日（火）</b>　9:00 〜 15:00 前後</td>
+      <td>雨 天 予 備 日</td><td><b>10月14日（水）</b>　同じ時間</td></tr>
+  <tr><td>場 所</td>
+      <td colspan="3"><b>午前</b>　BROOKLYN MUSEUM 表参道店 ・ 表参道けやき並木　／
+        <b>午後</b>　東京国際フォーラム（有楽町）</td></tr>
+  <tr><td>撮 る 動 画</td>
+      <td colspan="3">
+        <span class="no">①</span> 服装ごとに画が変わる　／
+        <span class="no">④</span> 鞄を持って街を歩く　／
+        <span class="no">⑤</span> コーポレートムービー（店舗の場面だけ）</td></tr>
+  <tr><td>緊 急 時 連 絡 先</td>
+      <td colspan="3"><span class="tel">090-1748-0280</span>
+        　<span class="sm">遅れる・迷った・体調が悪い、いつでもこちらへ。</span></td></tr>
+</table>
+
+<div class="chui"><span class="cap">当 日 の こ と</span>
+  <ul class="two-col"><li><b>①も④も、映るのは難波さん一人です。</b>ほかの出演者と一緒に映る場面はありません。</li><li><b>⑤（店舗）だけ、店の人と二人で映ります。</b>鞄を受け取って、見送られるところ。セリフはありません。</li><li><b>①は四色を一巡ずつ撮ります。</b>一つの色で、外を歩く → 廊下 → ベンチまで通して撮ってから、次の色に着替えます。<b>行ったり来たりしないので、着替えは四回で済みます。</b></li><li><b>雨のときは、10月14日（水）に振り替えます。</b>前日の夕方までにご連絡します。</li><li>撮影中に困ったこと・体調のことは、その場でいつでも言ってください。<b>何度でも撮り直せます。</b></li></ul></div>
+
+<table class="main">
+  <colgroup><col style="width:11%"><col style="width:22%"><col style="width:4%">
+    <col><col style="width:16%"></colgroup>
+  <thead><tr><th>時 刻</th><th>場 所</th><th></th><th>す る こ と</th><th>衣 装</th></tr></thead>
+  <tbody><tr class="band"><td colspan="5">表 参 道 　── 　店 舗 と 街</td></tr><tr><td class="tm">9:00〜9:30</td><td class="pl">BROOKLYN MUSEUM 表参道店</td><td class="no"></td><td>集合・支度。着替えて、髪を整えます。</td><td class="dim">④の一そろいに着替え</td></tr><tr><td class="tm">9:30〜10:10</td><td class="pl">店内 ・ レジまわり</td><td class="no">⑤</td><td><b>買う人の役。</b>店の人から鞄を受け取って、笑顔で見送られる。そのあと、使っている手元。<span class='sm'>顔が映ります。セリフはありません。</span></td><td class="dim">④と同じ一そろいのまま</td></tr><tr><td class="tm">10:25〜11:00</td><td class="pl">けやき並木の歩道（柵のあるところ）</td><td class="no">④</td><td><span class='sm'>店舗から歩いて数分です。</span><br><b>鞄を柵に掛けて立つ。</b>カメラは止めたまま、背景の街だけが動きます。同じ場所で、立ち止まって終わるカットも撮ります。</td><td class="dim">同じ</td></tr><tr><td class="tm">11:00〜11:30</td><td class="pl">ベンチか石段</td><td class="no">④</td><td><b>真上から。</b>鞄の口を開けて、中身を整える手。<b>手が寄りで映ります。</b></td><td class="dim">同じ</td></tr><tr><td class="tm">11:30〜11:55</td><td class="pl">並木の裏の路地</td><td class="no">④</td><td><b>歩く。</b>引きで一回、肩の鞄に寄って一回。最後に鞄と持ち物・靴を並べて置きます。</td><td class="dim">同じ</td></tr><tr><td class="tm">11:55〜12:55</td><td class="pl">ラ ン チ 　／ 　表 参 道 　→ 　有 楽 町 へ 移 動</td><td class="no"></td><td>そのまま東京国際フォーラムへ。<span class='sm'>地下鉄で二十分ほど。</span></td><td class="dim">―</td></tr><tr class="band"><td colspan="5">東 京 国 際 フ ォ ー ラ ム 　── 　四 色 を 一 巡 ず つ</td></tr><tr><td class="tm">12:55〜13:35</td><td class="pl">フォーラム付近の並木 　→ 　廊下 　→ 　ベンチ</td><td class="no">①</td><td><span class='sm'>着いたら一色目に着替え。ここから四回、色を変えます。</span><br><b>歩いてくる全身の引き</b>と、腰から上の寄り。表情はすまし顔。<br>そのまま建物に入って、<b>廊下を歩くところ</b>と、<b>ベンチで立ち姿を一枚</b>。</td><td class="dim"><b>一色目</b></td></tr><tr><td class="tm">13:35〜14:00</td><td class="pl">横断歩道 　→ 　廊下 　→ 　ベンチ</td><td class="no">①</td><td><b>道を渡りきるところ。</b>寄りではサングラスを直します。<b>ここは笑った表情で。</b>そのあと、廊下とベンチを同じように。</td><td class="dim"><b>二色目</b>　<span class='sm'>着替え十分</span></td></tr><tr><td class="tm">14:00〜14:25</td><td class="pl">渡った先のけやきぎわ 　→ 　廊下 　→ 　ベンチ</td><td class="no">①</td><td><b>木の後ろを通って歩く。</b>少し急ぎ足の表情で。<br>そのあと、廊下とベンチ。</td><td class="dim"><b>三色目</b>　<span class='sm'>着替え十分</span></td></tr><tr><td class="tm">14:25〜15:05</td><td class="pl">ガラス棟の扉 　→ 　廊下 　→ 　ベンチ</td><td class="no">①</td><td><b>扉をまたいで中へ入る。</b>寄りでは肩の鞄を掛け直して笑う。そのあと、廊下とベンチ。<span class='sm'>最後に撮り足して終わります。</span></td><td class="dim"><b>四色目</b>　<span class='sm'>着替え十分</span></td></tr></tbody>
+</table>
+
+<div class="page2">
+<div class="p2head">
+  <div class="p2title">服 装 と 佇 ま い</div>
+  <div class="p2sub">Styling &amp; Direction</div>
+  <div class="p2r">難 波 遥　さん</div>
+</div>
+
+<div class="cols">
+  <div>
+    <div class="vhead"><span class="vno">&#9312;</span>
+      <span class="vname">服装ごとに画が変わる</span>
+      <span class="vtag">三十五秒　／　四色を着替える</span></div>
+    <p class="lede"><b>鞄が差し色です。</b>四色の鞄が主役で、服はその台になります。</p>
+    <table class="sty"><tr><td class="k">考え方</td><td><b>色で語るのは鞄だけ。服は引く。</b>二十秒で四回色が変わるので、服と鞄の両方が主張すると、何が変わったのか分からなくなります。</td></tr><tr><td class="k">トップス</td><td><b>無地。無彩色か、くすんだ一色。</b>白（オフホワイト）／ グレー ／ ベージュ ／ チャコールの四色で組むと、どの色の鞄も立ちます。<br><b>前開きの上着</b>（シャツ・カーディガン・ジャケット）。着替えで髪が乱れません。</td></tr><tr><td class="k">ボトムス</td><td><b>四色とも同じものを穿きっぱなし。</b>黒か濃紺のストレートパンツ、またはくるぶし丈のスカート。<br><span class='sm'>下を固定すると、上と鞄の色だけが変わって見えます。着替えも上だけで済むので、四回が二、三分ずつで終わります。</span></td></tr><tr><td class="k">靴</td><td><b>四色とも同じ。</b>歩くので履き慣れたもの。革のローファーかショートブーツ。</td></tr><tr><td class="k">素材</td><td>コットン ／ ウール ／ リネン。<b>テカらないもの。</b>光沢のある生地は、屋外で白く飛びます。</td></tr><tr><td class="k">小物</td><td>サングラスを一つ（二色目で掛け直します）。<br>時計・指輪は外します。揺れる長いアクセサリーも外してください。</td></tr></table>
+    <div class="sub2">佇 ま い と 表 情</div>
+    <table class="sty"><tr><td class="k">一色目</td><td><b>すまし顔。</b>口角は上げない。顎を引かず、まっすぐ前を見て歩く。</td></tr><tr><td class="k">二色目</td><td><b>笑う。</b>サングラスを直しながら。歯は見せすぎない。</td></tr><tr><td class="k">三色目</td><td><b>少し急ぎ足。</b>歩幅を広く、視線は遠くへ。</td></tr><tr><td class="k">四色目</td><td><b>肩の鞄を掛け直して笑う。</b>一度手元に視線を落としてから、前へ戻す。</td></tr><tr><td class="k">四色に共通</td><td><b>歩く速さを四色とも同じに。</b>速さが変わると、色の切り替わりが成立しません。<br><b>鞄は必ず同じ側の肩に。</b>カメラは見ません。</td></tr></table>
+    <div class="ng"><b>①で避けるもの</b>　── 柄物、大きいロゴ、光沢のある生地、フリンジや揺れる飾り、鞄と同じ色の服。<br>二十秒で四回変わる画なので、柄が入ると目が散って、鞄の色が読めなくなります。</div>
+  </div>
+
+  <div>
+    <div class="vhead"><span class="vno">&#9315;</span>
+      <span class="vname">鞄を持って街を歩く</span>
+      <span class="vtag">三十秒　／　一そろい</span></div>
+    <p class="lede"><b>街に馴染む色で、大人っぽく。</b>
+    ブラウンの大きめの鞄を、毎日使っている人に見えるように。</p>
+    <table class="sty"><tr><td class="k">考え方</td><td><b>主役はブラウンの鞄。服は鞄より明るく。</b>暗い服だと、表参道の日中でも鞄が沈みます。</td></tr><tr><td class="k">色</td><td><b>三色まで。</b>ベージュ ／ グレージュ ／ 白 ／ チャコールの中から。<br><b>鞄と同じブラウンは着ない。</b>鞄が服に溶けます。</td></tr><tr><td class="k">シルエット</td><td><b>ロング丈の上着かコート。</b>歩く画で裾が揺れると、それだけで画が動きます。<br>ボトムスは細すぎないストレート。真俯瞰で鞄の横に立つので、形が出るもの。</td></tr><tr><td class="k">靴</td><td><b>革のローファーかショートブーツ。</b>スニーカーだと大人っぽさが出ません。<br><span class='sm'>最後に鞄・持ち物と並べて置き画にするので、汚れを落としておいてください。</span></td></tr><tr><td class="k">素材</td><td>ウール ／ コットン ／ リネン。<b>マットな質感で。</b>参考動画から起こした絵コンテも、光らない生地で成立しています。</td></tr><tr><td class="k">この服のまま</td><td><b>⑤（店舗）も同じ服で撮ります。</b>着替えは午後の四色ぶんだけです。</td></tr></table>
+    <div class="sub2">佇 ま い と 表 情</div>
+    <table class="sty"><tr><td class="k">顔</td><td><b>主役にしない。</b>引きが多く、カメラに視線は向けません。</td></tr><tr><td class="k">立ち姿</td><td><b>片足に重心。</b>まっすぐ立つと固く見えます。</td></tr><tr><td class="k">歩く</td><td><b>ふだんより少しゆっくり。</b>歩幅は広く、速くない。</td></tr><tr><td class="k">表情</td><td><b>笑わない。無表情でもない。</b>何かを考えている顔で。</td></tr><tr><td class="k">手</td><td>鞄を持たない側の手は自然に下ろす。ポケットに入れてもかまいません。</td></tr><tr><td class="k">手元の寄り</td><td><b>動きをゆっくり。</b>真俯瞰で中身を整えるところは、ふだんの速さだと速すぎます。</td></tr></table>
+    <div class="sub2">鞄 に 入 れ る も の 　── 　中 身 を 見 せ ま す</div>
+    <ul><li>ノートPC（十三インチ）か、A4のファイル　── <b>これが入ることを見せたい</b></li><li>長財布　／　折りたたみ傘　／　水筒（五百ミリリットル）</li><li>文庫本か手帳　／　鍵とイヤホンの小物ポーチ</li></ul>
+    <div class="ng"><b>中身は色をそろえてください。</b>ベージュ・黒・こげ茶あたりで。真俯瞰で一度に映るので、色がばらばらだと散らかって見えます。<br><b>出す順番も決めておいてください。</b>一度だけ撮るので、迷うと手が止まります。</div>
+  </div>
+</div>
+</div>
+</body></html>

@@ -66,6 +66,18 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 同じ情報で、版面だけA4横に組み直している。**行は途中で切らない**（`tr` は `break-inside: avoid`、
 見出し帯は `break-after: avoid`）。字の大きさは `SHITSUMON_PT`（既定 7.4pt）で変えられる。
 
+### モデル渡し用の香盤表
+
+```
+python3 tools/build_model_kouban.py     # pdf/model_kouban.html を生成
+cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
+  --no-pdf-header-footer --print-to-pdf="03_香盤表_モデル用.pdf" "file://$PWD/model_kouban.html"
+```
+
+出演者に渡す紙。**①④⑤だけ。** 本編用の香盤表（`build_shotlist_pdf.py`）とは別に持つ。
+カット番号・機材・段取りの裏は入れない。A4横・2枚。
+1枚目が当日の流れ、2枚目が服装と佇まい。中身は `tools/build_model_kouban.py` に直接書いてある。
+
 ### Googleスライドで編集できるpptx版
 
 文言・写真の割り当ては `tools/data_pdf.py` が唯一の情報源。`python3 tools/data_pdf.py` を実行すると
