@@ -326,7 +326,7 @@ def build():
         <span class="no">①</span> 服装ごとに画が変わる　／
         <span class="no">④</span> 鞄を持って街を歩く　／
         <span class="no">⑤</span> コーポレートムービー（店舗の場面だけ）</td></tr>
-  <tr><td>緊 急 時 連 絡 先</td>
+  <tr><td>緊 急 時 連 絡 先（ 宮 下 ）</td>
       <td colspan="3"><span class="tel">{TEL}</span>
         　<span class="sm">遅れる・迷った・体調が悪い、いつでもこちらへ。</span></td></tr>
 </table>
@@ -345,7 +345,142 @@ def build():
 </body></html>'''
 
 
+# ══ 画面で読む版 ═══════════════════════════════════════════════
+SCREEN_EXTRA = """
+.tm { color: var(--gold); font-weight: 700; white-space: nowrap; }
+.pl { font-weight: 700; }
+.no { font-weight: 700; color: var(--gold); font-size: 20px; }
+.sm { font-size: 13px; color: var(--faint); }
+.dim { color: var(--muted); }
+.tel { font-size: 22px; font-weight: 700; color: var(--gold); letter-spacing: .02em; }
+.dhead { width: 100%; border-collapse: collapse; min-width: 0; margin: 22px 0 0;
+  border-bottom: 2px solid var(--ink); }
+.dhead td { padding: 9px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
+.dhead td:nth-child(odd) { width: 160px; color: var(--faint); font-size: 13px;
+  letter-spacing: .06em; white-space: nowrap; }
+.dhead td[colspan] { width: auto; }
+.chui { margin-top: 26px; padding: 18px 20px; background: var(--band);
+  border-left: 3px solid var(--gold); }
+.cap { font-size: 12px; letter-spacing: .1em; color: var(--faint); margin-bottom: 10px; }
+.chui ul { margin: 0; padding-left: 20px; }
+.chui li { margin-bottom: 7px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 46px; margin-top: 22px; }
+.vhead { display: flex; align-items: baseline; gap: 12px;
+  border-bottom: 2px solid var(--ink); padding-bottom: 11px; }
+.vno { font-size: 26px; font-weight: 700; color: var(--gold); }
+.vname { font-size: 20px; font-weight: 700; }
+.vtag { margin-left: auto; font-size: 13px; color: var(--muted); }
+.lede { margin: 16px 0 0; color: var(--prose); }
+table.sty { min-width: 0; margin-top: 14px; }
+table.sty td { padding: 11px 14px 11px 0; border-bottom: 1px solid var(--hair);
+  vertical-align: top; }
+table.sty td.k { width: 108px; color: var(--gold); font-weight: 700; font-size: 14px; }
+.sub2 { font-size: 12px; letter-spacing: .1em; color: var(--faint);
+  margin: 26px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
+.ng { margin-top: 16px; padding: 14px 18px; background: var(--band);
+  border-left: 3px solid var(--gold); }
+@media (max-width: 640px) { .wrap { padding: 0 16px 72px; } table { min-width: 620px; } }
+"""
+
+
+def _sty(rs):
+    return '<table class="sty">%s</table>' % "".join(
+        '<tr><td class="k">%s</td><td>%s</td></tr>' % (a, b) for a, b in rs)
+
+
+def screen():
+    import page_style
+    rows = []
+    for r in ROWS:
+        if r[0] == "band":
+            rows.append('<tr class="band"><td colspan="5"><b>%s</b></td></tr>' % r[1])
+            continue
+        tm, place, no, what, cloth = r
+        rows.append(
+            '<tr><td class="tm">%s</td><td class="pl">%s</td><td class="no">%s</td>'
+            '<td>%s</td><td class="dim">%s</td></tr>' % (tm, place, no, what, cloth))
+    body = "".join(rows)
+    ch = "".join("<li>%s</li>" % x for x in CHUI)
+    st = "".join('<tr><td class="k">%s</td><td>%s</td></tr>' % (a, b) for a, b in SHITAKU)
+    nk = "".join("<li>%s</li>" % x for x in NAKAMI)
+    return (
+      '<title>撮影スケジュール　難波遥さん</title>\n'
+      + page_style.FONT + '\n<style>' + page_style.CSS + SCREEN_EXTRA + '</style>\n'
+      + '<div class="wrap">\n'
+      + '<header class="top">\n'
+      + '  <div class="eyebrow">BROOKLYN MUSEUM ／ 向島工房</div>\n'
+      + '  <h1>撮影スケジュール</h1>\n'
+      + '  <div class="en">Shooting Schedule</div>\n'
+      + '  <div class="count">' + MODEL + '　／　' + DAY + '</div>\n'
+      + '</header>\n\n'
+      + '<table class="dhead">\n'
+      + '  <tr><td>撮 影 日</td><td><b>' + DAY + '</b>　' + HOURS + '</td>'
+      + '<td>雨 天 予 備 日</td><td><b>' + RAIN + '</b>　同じ時間</td></tr>\n'
+      + '  <tr><td>場 所</td><td colspan="3"><b>午前</b>　'
+      + 'BROOKLYN MUSEUM 表参道店 ・ 表参道けやき並木　／　'
+      + '<b>午後</b>　東京国際フォーラム（有楽町）</td></tr>\n'
+      + '  <tr><td>撮 る 動 画</td><td colspan="3">'
+      + '<span class="no">①</span> 服装ごとに画が変わる　／　'
+      + '<span class="no">④</span> 鞄を持って街を歩く　／　'
+      + '<span class="no">⑤</span> コーポレートムービー（店舗の場面だけ）</td></tr>\n'
+      + '  <tr><td>緊 急 時 連 絡 先（ 宮 下 ）</td><td colspan="3">'
+      + '<span class="tel">' + TEL + '</span>　'
+      + '<span class="sm">遅れる・迷った・体調が悪い、いつでもこちらへ。</span></td></tr>\n'
+      + '</table>\n\n'
+      + '<div class="chui"><div class="cap">当 日 の こ と</div><ul>' + ch + '</ul></div>\n\n'
+      + '<section>\n'
+      + '  <div class="shead"><span class="daynum">当 日 の 流 れ</span>'
+      + '<span class="theme">上から順に進みます</span>'
+      + '<span class="when">' + HOURS + '</span></div>\n'
+      + '  <div class="scroll"><table>\n'
+      + '    <colgroup><col style="width:11%"><col style="width:21%"><col style="width:4%">'
+      + '<col><col style="width:16%"></colgroup>\n'
+      + '    <thead><tr><th>時 刻</th><th>場 所</th><th></th>'
+      + '<th>す る こ と</th><th>衣 装</th></tr></thead>\n'
+      + '    <tbody>' + body + '</tbody>\n'
+      + '  </table></div>\n</section>\n\n'
+      + '<section>\n'
+      + '  <div class="shead"><span class="daynum">服 装 と 佇 ま い</span>'
+      + '<span class="theme">Styling &amp; Direction</span></div>\n'
+      + '  <div class="cols">\n'
+      + '    <div>\n'
+      + '      <div class="vhead"><span class="vno">①</span>'
+      + '<span class="vname">服装ごとに画が変わる</span>'
+      + '<span class="vtag">三十五秒　／　四色を着替える</span></div>\n'
+      + '      <p class="lede"><b>鞄が差し色です。</b>四色の鞄が主役で、服はその台になります。</p>\n'
+      + '      ' + _sty(STY01) + '\n'
+      + '      <div class="sub2">佇 ま い と 表 情</div>\n'
+      + '      ' + _sty(POSE01) + '\n'
+      + '      <div class="ng">' + NG01 + '</div>\n'
+      + '    </div>\n'
+      + '    <div>\n'
+      + '      <div class="vhead"><span class="vno">④</span>'
+      + '<span class="vname">鞄を持って街を歩く</span>'
+      + '<span class="vtag">三十秒　／　一そろい</span></div>\n'
+      + '      <p class="lede"><b>街に馴染む色で、大人っぽく。</b>'
+      + 'ブラウンの大きめの鞄を、毎日使っている人に見えるように。</p>\n'
+      + '      ' + _sty(STY04) + '\n'
+      + '      <div class="sub2">佇 ま い と 表 情</div>\n'
+      + '      ' + _sty(POSE04) + '\n'
+      + '      <div class="sub2">鞄 に 入 れ る も の 　── 　中 身 を 見 せ ま す</div>\n'
+      + '      <ul style="margin-top:12px">' + nk + '</ul>\n'
+      + '      <div class="ng">' + NG04 + '</div>\n'
+      + '    </div>\n'
+      + '  </div>\n</section>\n\n'
+      + '<section>\n'
+      + '  <div class="shead"><span class="daynum">持 ち 物 と 支 度</span></div>\n'
+      + '  <div class="scroll"><table class="sty" style="margin-top:18px">\n'
+      + '    <colgroup><col style="width:160px"><col></colgroup>\n'
+      + '    <tbody>' + st + '</tbody>\n'
+      + '  </table></div>\n</section>\n'
+      + '</div>\n')
+
+
 if __name__ == "__main__":
-    out = os.path.join(ROOT, "pdf", "model_kouban.html")
-    open(out, "w", encoding="utf-8").write(build())
-    print(out, os.path.getsize(out), "バイト")
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    for path, txt in ((os.path.join(ROOT, "pdf", "model_kouban.html"), build()),
+                      (os.path.join(ROOT, "model_kouban.html"), screen())):
+        open(path, "w", encoding="utf-8").write(txt)
+        print(path, os.path.getsize(path), "バイト")
