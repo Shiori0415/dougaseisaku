@@ -90,6 +90,22 @@ Googleドライブに上げて「Googleスプレッドシートで開く」と�
 **CSVで上げてはいけない。** Google側が全部を素のセルにするので、列幅も折り返しも罫線も付かず読めなくなる。
 書式が要るときは、この .xlsx を上げるか、HTMLをアップロードしてGoogleドキュメントに変換する。
 
+### モデル渡しの香盤表 ── 本編と同じ形
+
+```
+python3 tools/build_model_schedule.py     # pdf/model_schedule.html を生成
+cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
+  --no-pdf-header-footer --print-to-pdf="03_香盤表_モデル用_当日.pdf" "file://$PWD/model_schedule.html"
+```
+
+本編の香盤表（`build_shotlist_pdf.py`）と**同じ列・同じ言い方**で、モデルの一日だけを出す。
+列は 時刻 ／ 場所の詳細 ／ 登場人物 ／ シーン内容詳細 ／ 尺 ／ 備考。
+画の並び（1枚目 → 2枚目 …）と尺は絵コンテ（`deck_data.json`）から引くので、本編の香盤表とずれない。
+**カット数・機材・段取りの裏は入れない。** 服装と佇まいは `build_model_kouban.py` のほうに置く。
+
+Googleドキュメントに上げるときは、mmをpxに直して字を1.25倍にしたHTMLを
+`create_file`（`contentMimeType: text/html`）で上げる。表・太字・色・帯がそのまま残る。
+
 ### Googleスライドで編集できるpptx版
 
 文言・写真の割り当ては `tools/data_pdf.py` が唯一の情報源。`python3 tools/data_pdf.py` を実行すると
