@@ -103,7 +103,13 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 画の並び（1枚目 → 2枚目 …）と尺は絵コンテ（`deck_data.json`）から引くので、本編の香盤表とずれない。
 **カット数・機材・段取りの裏は入れない。** 服装と佇まいは `build_model_kouban.py` のほうに置く。
 
-Googleドキュメントに上げるときは、mmをpxに直して字を1.25倍にしたHTMLを
+スプレッドシートで渡すときは `python3 tools/build_xlsx_model_schedule.py` で
+`pdf/03_香盤表_モデル用_当日.xlsx` を作り、base64で `create_file`
+（`contentMimeType: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`）に渡す。
+Google側でスプレッドシートに変換され、列幅・折り返し・帯の色が残る。
+**theme1.xml を抜いた .xlsx は変換に失敗する。** openpyxlが書いたものをそのまま上げる。
+
+ドキュメントで渡すときは、mmをpxに直して字を1.25倍にしたHTMLを
 `create_file`（`contentMimeType: text/html`）で上げる。表・太字・色・帯がそのまま残る。
 
 ### Googleスライドで編集できるpptx版
