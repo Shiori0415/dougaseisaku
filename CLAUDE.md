@@ -78,6 +78,18 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 カット番号・機材・段取りの裏は入れない。A4横・2枚。
 1枚目が当日の流れ、2枚目が服装と佇まい。中身は `tools/build_model_kouban.py` に直接書いてある。
 
+### モデル渡し用の香盤表 ── エクセル版
+
+```
+python3 tools/build_xlsx_model_kouban.py   # pdf/03_香盤表_モデル用.xlsx を生成
+```
+
+Googleドライブに上げて「Googleスプレッドシートで開く」と、列幅・折り返し・帯の色まで残ったまま開く。
+文言は `build_model_kouban.py` の `ROWS` / `CHUI` をそのまま読むので、PDF版とずれない。
+
+**CSVで上げてはいけない。** Google側が全部を素のセルにするので、列幅も折り返しも罫線も付かず読めなくなる。
+書式が要るときは、この .xlsx を上げるか、HTMLをアップロードしてGoogleドキュメントに変換する。
+
 ### Googleスライドで編集できるpptx版
 
 文言・写真の割り当ては `tools/data_pdf.py` が唯一の情報源。`python3 tools/data_pdf.py` を実行すると
