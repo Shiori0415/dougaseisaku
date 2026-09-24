@@ -66,6 +66,19 @@ cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
 同じ情報で、版面だけA4横に組み直している。**行は途中で切らない**（`tr` は `break-inside: avoid`、
 見出し帯は `break-after: avoid`）。字の大きさは `SHITSUMON_PT`（既定 7.4pt）で変えられる。
 
+### インタビュー質問事項 ── 「なぜ聞くか」を自分で書く版
+
+```
+SHITSUMON_BLANK=1 python3 tools/build_interview_pdf.py     # pdf/shitsumon_kinyu.html を生成
+cd pdf && /opt/pw-browsers/chromium --headless --disable-gpu --no-sandbox \
+  --no-pdf-header-footer --print-to-pdf="02_インタビュー質問事項_記入用.pdf" "file://$PWD/shitsumon_kinyu.html"
+
+python3 tools/build_xlsx_shitsumon.py    # pdf/02_インタビュー質問事項_記入用.xlsx（打ち込む用）
+```
+
+「なぜ聞くか」の文章だけを落とし、**タグ（本編／OEM／メディア／採用）と点線の記入欄だけ残す。**
+質問と回答例は通常版と同じものを読むので、直せば両方に反映される。
+
 ### モデル渡し用の香盤表
 
 ```

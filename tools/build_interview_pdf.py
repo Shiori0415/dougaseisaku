@@ -13,6 +13,14 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 INK, PROSE, MUTED, FAINT = "#15191c", "#3d4448", "#5b6266", "#8a8f92"
 GOLD, LINE, HAIR, BAND = "#a8672a", "#ddd7cd", "#ebe6dd", "#f4efe7"
 BASEPT = os.environ.get("SHITSUMON_PT", "9.2")
+# SHITSUMON_BLANK=1 で「なぜ聞くか」を空欄にする（自分で書き込む用）
+BLANK = os.environ.get("SHITSUMON_BLANK") == "1"
+
+
+def only_tags(pick):
+    """頭に付いているタグだけ残して、文章は落とす"""
+    m = re.match(r'\s*((?:<span class="tag[^"]*">.*?</span>\s*)*)', pick or "")
+    return (m.group(1) if m else "").strip()
 
 
 def esc(s):
@@ -45,8 +53,9 @@ def person(p):
             continue
         i += 1
         q, ex, pick = x
+        cell = ('%s<div class="write"></div>' % only_tags(pick)) if BLANK else pick
         rows.append('<tr><td class="no">%d</td><td class="q">%s</td>'
-                    '<td class="ex">%s</td><td class="dim">%s</td></tr>' % (i, q, ex, pick))
+                    '<td class="ex">%s</td><td class="dim">%s</td></tr>' % (i, q, ex, cell))
     use = '<p class="use">%s</p>' % p["use"] if p["use"] else ""
     return f'''<section class="psec pbreak">
   <div class="phead"><span class="pname">{p["name"]}</span>
@@ -58,7 +67,7 @@ def person(p):
     <colgroup><col style="width:3.4%"><col style="width:28%"><col style="width:36%"><col></colgroup>
     <thead><tr><th style="{th()}"></th><th style="{th()}">質 問</th>
       <th style="{th()}">回 答 例</th>
-      <th style="{th()}">な ぜ 聞 く か</th></tr></thead>
+      <th style="{th()}">{"な ぜ 聞 く か（ 記 入 欄 ）" if BLANK else "な ぜ 聞 く か"}</th></tr></thead>
     <tbody>{"".join(rows)}</tbody>
   </table>
 </section>'''
@@ -112,6 +121,7 @@ tr.band td {{ background: {BAND}; padding: 0.85mm 2.2mm; border-bottom: .5pt sol
 .tag.med {{ color: {MUTED}; }}
 .tag.saiyo {{ color: {FAINT}; }}
 .sm {{ font-size: 8.4pt; color: {FAINT}; }}
+.write {{ min-height: 7mm; border-bottom: .4pt dotted {LINE}; margin-top: 1.2mm; }}
 .eng {{ font-weight: 400; font-size: 8.6pt; color: {FAINT}; }}
 b {{ font-weight: 700; }}
 '''
@@ -138,6 +148,6 @@ def build():
 
 
 if __name__ == "__main__":
-    out = os.path.join(ROOT, "pdf", "shitsumon.html")
+    out = os.path.join(ROOT, "pdf", "shitsumon_kinyu.html" if BLANK else "shitsumon.html")
     open(out, "w", encoding="utf-8").write(build())
     print(out, os.path.getsize(out), "バイト")
