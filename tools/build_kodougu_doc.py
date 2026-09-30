@@ -43,25 +43,42 @@ if __name__ == "__main__":
         print(out, os.path.getsize(out))
 
 
+W = [40, 34, 170, 96, 284]      # 列の幅（px）。A4縦の本文幅に収める
+FIT_NOTE = "鞄に無理なく収まる量"
+
+
 def build_all():
-    """三人分を一つのドキュメントにまとめる。人が替わるところで改ページする。"""
+    """三人分を一つのドキュメントにまとめる。一人一ページ。
+       Googleドキュメントは % の幅と h2 の改ページを無視するので、
+       幅は td の width 属性（px）で、改ページは br で入れる。"""
+    def td(body, w=None, align=None, style=""):
+        a = (f' width="{w}"' if w else "") + (f' align="{align}"' if align else "")
+        st = f' style="{style}"' if style else ""
+        return f"<td{a}{st}>{body}</td>"
+
     parts = []
     for i, (name, groups) in enumerate(PEOPLE.items()):
         rows, n = [], 0
         for kind, items in groups:
-            rows.append(f'<tr><td colspan="5" style="background:#EDE6DA"><b>{kind}</b></td></tr>')
+            label = f"{kind}　<span style=\"font-weight:normal;color:#5B6266\">（どれも{FIT_NOTE}）</span>" \
+                if kind == "鞄の中身" else kind
+            rows.append(f'<tr><td colspan="5" style="background:#EDE6DA"><b>{label}</b></td></tr>')
             for item, qty, note, state in items:
                 n += 1
+                if note == FIT_NOTE:
+                    note = ""
                 if state == "要確認":
                     note = f'<b style="color:#A8672A">要確認</b>　{note}'
-                rows.append(f'<tr><td align="center">☐</td><td align="center">{n}</td>'
-                            f'<td><b>{item}</b></td><td align="center">{qty}</td><td>{note}</td></tr>')
-        head = "".join(f'<td align="center" style="background:#15191C;color:#FFFFFF"><b>{h}</b></td>'
-                       for h in ["確認", "No.", "品目", "数", "使う場面・備考"])
-        brk = ' style="page-break-before:always"' if i else ""
-        parts.append(f'<h2{brk}>{name}　小道具・備品チェックリスト</h2>'
+                rows.append("<tr>" + td("☐", W[0], "center") + td(n, W[1], "center")
+                            + td(f"<b>{item}</b>", W[2]) + td(qty, W[3], "center") + td(note, W[4]) + "</tr>")
+        head = "".join(td(f"<b>{h}</b>", w, "center", "background:#15191C;color:#FFFFFF")
+                       for h, w in zip(["確認", "No.", "品目", "数", "使う場面・備考"], W))
+        if i:
+            parts.append('<br style="page-break-before:always">')
+        parts.append(f'<h2>{name}　小道具・備品チェックリスト</h2>'
                      f'<p>撮影日：　　月　　日　／　全 {n} 点</p>'
-                     f'<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">'
+                     f'<table border="1" cellpadding="4" cellspacing="0" width="{sum(W)}" '
+                     f'style="border-collapse:collapse;font-size:10pt">'
                      f'<tr>{head}</tr>{"".join(rows)}</table>')
     return '<html><head><meta charset="utf-8"></head><body>' + "".join(parts) + '</body></html>'
 
