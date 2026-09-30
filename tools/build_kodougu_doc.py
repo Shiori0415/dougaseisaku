@@ -41,3 +41,32 @@ if __name__ == "__main__":
         out = os.path.join(ROOT, "pdf", f"kodougu_{name}.html")
         open(out, "w").write(build(name, groups))
         print(out, os.path.getsize(out))
+
+
+def build_all():
+    """三人分を一つのドキュメントにまとめる。人が替わるところで改ページする。"""
+    parts = []
+    for i, (name, groups) in enumerate(PEOPLE.items()):
+        rows, n = [], 0
+        for kind, items in groups:
+            rows.append(f'<tr><td colspan="5" style="background:#EDE6DA"><b>{kind}</b></td></tr>')
+            for item, qty, note, state in items:
+                n += 1
+                if state == "要確認":
+                    note = f'<b style="color:#A8672A">要確認</b>　{note}'
+                rows.append(f'<tr><td align="center">☐</td><td align="center">{n}</td>'
+                            f'<td><b>{item}</b></td><td align="center">{qty}</td><td>{note}</td></tr>')
+        head = "".join(f'<td align="center" style="background:#15191C;color:#FFFFFF"><b>{h}</b></td>'
+                       for h in ["確認", "No.", "品目", "数", "使う場面・備考"])
+        brk = ' style="page-break-before:always"' if i else ""
+        parts.append(f'<h2{brk}>{name}　小道具・備品チェックリスト</h2>'
+                     f'<p>撮影日：　　月　　日　／　全 {n} 点</p>'
+                     f'<table border="1" cellpadding="6" style="border-collapse:collapse;width:100%">'
+                     f'<tr>{head}</tr>{"".join(rows)}</table>')
+    return '<html><head><meta charset="utf-8"></head><body>' + "".join(parts) + '</body></html>'
+
+
+if __name__ == "__main__":
+    out = os.path.join(ROOT, "pdf", "kodougu_三人分.html")
+    open(out, "w").write(build_all())
+    print(out, os.path.getsize(out))
