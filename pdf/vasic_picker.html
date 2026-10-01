@@ -16,7 +16,7 @@
   --bg:#121312; --panel:#1c1d1c; --fg:#ecebe7; --muted:#9a968e; --line:#2f302e;
   --accent:#7fb8a5; --on-accent:#0f1a16; --done:#e07a5f; color-scheme:dark}
 html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--jp);padding-inline:12px;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--fg);font-family:var(--jp);padding-inline:6px;-webkit-tap-highlight-color:transparent}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;display:flex;flex-direction:column;gap:8px}
 .head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
 h1{font-size:17px;font-weight:700;margin:0;letter-spacing:.04em}
@@ -28,9 +28,9 @@ h1{font-size:17px;font-weight:700;margin:0;letter-spacing:.04em}
 .tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .tab[aria-pressed="true"] span{color:var(--on-accent);opacity:.8}
 .tab:focus-visible,.cell:focus-visible,.vbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.group{margin-block:14px 6px;font-size:12px;letter-spacing:.12em;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px;padding-bottom:24px}
-.cell{position:relative;border:0;padding:0;background:var(--panel);border-radius:6px;overflow:hidden;cursor:pointer;aspect-ratio:4/5;max-width:100%}
+.group{margin-block:10px 4px;font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:3px;padding-bottom:24px}
+.cell{position:relative;border:0;padding:0;background:var(--panel);border-radius:3px;overflow:hidden;cursor:pointer;aspect-ratio:4/5;max-width:100%}
 .cell img{width:100%;height:100%;object-fit:cover;display:block}
 .no{position:absolute;left:5px;top:5px;font:500 12px var(--num);background:rgba(0,0,0,.62);color:#fff;padding:2px 6px;border-radius:4px}
 .cell.done img{opacity:.35}
@@ -60,10 +60,10 @@ h1{font-size:17px;font-weight:700;margin:0;letter-spacing:.04em}
 </div>
 
 <script>
-const SHOTS=[{"n":1,"g":"全身"},{"n":2,"g":"全身"},{"n":3,"g":"全身"},{"n":4,"g":"全身"},{"n":5,"g":"全身"},{"n":6,"g":"全身"},{"n":7,"g":"全身"},{"n":8,"g":"全身"},{"n":9,"g":"全身"},{"n":10,"g":"全身"},{"n":11,"g":"全身"},{"n":12,"g":"全身"},{"n":13,"g":"全身"},{"n":14,"g":"全身"},{"n":15,"g":"全身"},{"n":16,"g":"腰より下"},{"n":17,"g":"腰より下"},{"n":18,"g":"腰より下"},{"n":19,"g":"腰より下"},{"n":20,"g":"腰より下"},{"n":21,"g":"腰より下"},{"n":22,"g":"腰より下"},{"n":23,"g":"腰より下"},{"n":24,"g":"腰より下"},{"n":25,"g":"腰より下"},{"n":26,"g":"腰より下"},{"n":27,"g":"腰より下"},{"n":28,"g":"腰より下"},{"n":29,"g":"腰より下"},{"n":30,"g":"腰より下"},{"n":31,"g":"腰より下"},{"n":32,"g":"腰より下"},{"n":33,"g":"腰より下"},{"n":34,"g":"腰より下"},{"n":35,"g":"腰より下"},{"n":36,"g":"腰より下"},{"n":37,"g":"腰より下"},{"n":38,"g":"腰より下"},{"n":39,"g":"腰より下"},{"n":40,"g":"腰より下"},{"n":41,"g":"腰より下"},{"n":42,"g":"腰より下"},{"n":43,"g":"腰より下"},{"n":44,"g":"腰より下"},{"n":45,"g":"階段"},{"n":46,"g":"階段"},{"n":47,"g":"階段"},{"n":48,"g":"ドア越し"},{"n":49,"g":"ドア越し"},{"n":50,"g":"ドア越し"}];
-const GROUPS=["全身","腰より下","階段","ドア越し"];
+const SHOTS=[{"n":1,"g":"全身"},{"n":2,"g":"全身"},{"n":3,"g":"全身"},{"n":4,"g":"全身"},{"n":5,"g":"全身"},{"n":6,"g":"全身"},{"n":7,"g":"全身"},{"n":8,"g":"全身"},{"n":9,"g":"全身"},{"n":10,"g":"全身"},{"n":11,"g":"全身"},{"n":12,"g":"全身"},{"n":13,"g":"全身"},{"n":14,"g":"全身"},{"n":15,"g":"全身"},{"n":16,"g":"全身"},{"n":17,"g":"全身"},{"n":18,"g":"全身"},{"n":19,"g":"全身"},{"n":20,"g":"全身"},{"n":21,"g":"全身"},{"n":22,"g":"全身"},{"n":23,"g":"全身"},{"n":24,"g":"全身"},{"n":25,"g":"全身"},{"n":26,"g":"全身"},{"n":27,"g":"全身"},{"n":28,"g":"全身"},{"n":29,"g":"全身"},{"n":30,"g":"全身"},{"n":31,"g":"全身"},{"n":32,"g":"全身"},{"n":33,"g":"全身"},{"n":34,"g":"全身"},{"n":35,"g":"全身"},{"n":36,"g":"全身"},{"n":37,"g":"全身"},{"n":38,"g":"全身"},{"n":39,"g":"全身"},{"n":40,"g":"全身"},{"n":41,"g":"全身"},{"n":42,"g":"全身"},{"n":43,"g":"全身"},{"n":44,"g":"腰下"},{"n":45,"g":"腰下"},{"n":46,"g":"腰下"},{"n":47,"g":"腰下"},{"n":48,"g":"階段"},{"n":49,"g":"階段"},{"n":50,"g":"階段"}];
+const GROUPS=["全身","腰下","階段"];
 const src=n=>`img/${String(n).padStart(2,"0")}.jpg`;
-const KEY="vasic-shot-done";
+const KEY="vasic-shot-done-v2";
 let done=new Set();
 try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}};
