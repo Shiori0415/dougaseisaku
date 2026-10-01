@@ -1,0 +1,114 @@
+<title>VASIC ショット帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=DM+Mono:wght@500&display=swap">
+<style>
+/* 撮影現場で片手で選ぶ：上に分類の切り替え、下に写真の格子。タップで大きく、左右で送る */
+:root{
+  --bg:#f3f2ef; --panel:#ffffff; --fg:#1d1c1a; --muted:#77736b; --line:#dcd8d0;
+  --accent:#2f5d50; --on-accent:#ffffff; --done:#b4462e;
+  --jp:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --num:"DM Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121312; --panel:#1c1d1c; --fg:#ecebe7; --muted:#9a968e; --line:#2f302e;
+  --accent:#7fb8a5; --on-accent:#0f1a16; --done:#e07a5f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121312; --panel:#1c1d1c; --fg:#ecebe7; --muted:#9a968e; --line:#2f302e;
+  --accent:#7fb8a5; --on-accent:#0f1a16; --done:#e07a5f; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--jp);padding-inline:12px;-webkit-tap-highlight-color:transparent}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;display:flex;flex-direction:column;gap:8px}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+h1{font-size:17px;font-weight:700;margin:0;letter-spacing:.04em}
+.count{font-family:var(--num);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--fg);font:700 14px var(--jp);padding:9px 14px;border-radius:999px;cursor:pointer}
+.tab span{font-family:var(--num);font-weight:500;font-size:11px;color:var(--muted);margin-left:5px}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tab[aria-pressed="true"] span{color:var(--on-accent);opacity:.8}
+.tab:focus-visible,.cell:focus-visible,.vbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.group{margin-block:14px 6px;font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px;padding-bottom:24px}
+.cell{position:relative;border:0;padding:0;background:var(--panel);border-radius:6px;overflow:hidden;cursor:pointer;aspect-ratio:4/5;max-width:100%}
+.cell img{width:100%;height:100%;object-fit:cover;display:block}
+.no{position:absolute;left:5px;top:5px;font:500 12px var(--num);background:rgba(0,0,0,.62);color:#fff;padding:2px 6px;border-radius:4px}
+.cell.done img{opacity:.35}
+.cell.done::after{content:"撮影済";position:absolute;right:5px;bottom:5px;font:700 11px var(--jp);background:var(--done);color:#fff;padding:2px 6px;border-radius:4px}
+/* 拡大表示 */
+.viewer{position:fixed;inset:0;z-index:20;background:#000;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.vtop,.vbot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;color:#fff}
+.vno{font:500 18px var(--num)}
+.vg{font-size:13px;color:#bdbab3;margin-left:8px}
+.vimg{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.vimg img{max-height:100%;max-width:100%;object-fit:contain}
+.vbtn{border:1px solid #555;background:#1a1a1a;color:#fff;font:700 15px var(--jp);padding:12px 18px;border-radius:10px;cursor:pointer;min-width:64px}
+.vbtn.mark[aria-pressed="true"]{background:var(--done);border-color:var(--done)}
+@media (prefers-reduced-motion:no-preference){.cell img{transition:opacity .15s}}
+</style>
+
+<div class="bar">
+  <div class="head"><h1>VASIC ショット帳</h1><span class="count" id="count"></span></div>
+  <div class="tabs" id="tabs" role="toolbar" aria-label="分類"></div>
+</div>
+<main id="list"></main>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="拡大表示">
+  <div class="vtop"><div><span class="vno" id="vno"></span><span class="vg" id="vg"></span></div><button class="vbtn" id="close">閉じる</button></div>
+  <div class="vimg" id="vimg"><img id="vpic" alt=""></div>
+  <div class="vbot"><button class="vbtn" id="prev" aria-label="前のショット">←</button><button class="vbtn mark" id="mark" aria-pressed="false">撮影済</button><button class="vbtn" id="next" aria-label="次のショット">→</button></div>
+</div>
+
+<script>
+const SHOTS=[{"n":1,"g":"全身"},{"n":2,"g":"全身"},{"n":3,"g":"全身"},{"n":4,"g":"全身"},{"n":5,"g":"全身"},{"n":6,"g":"全身"},{"n":7,"g":"全身"},{"n":8,"g":"全身"},{"n":9,"g":"全身"},{"n":10,"g":"全身"},{"n":11,"g":"全身"},{"n":12,"g":"全身"},{"n":13,"g":"全身"},{"n":14,"g":"全身"},{"n":15,"g":"全身"},{"n":16,"g":"腰より下"},{"n":17,"g":"腰より下"},{"n":18,"g":"腰より下"},{"n":19,"g":"腰より下"},{"n":20,"g":"腰より下"},{"n":21,"g":"腰より下"},{"n":22,"g":"腰より下"},{"n":23,"g":"腰より下"},{"n":24,"g":"腰より下"},{"n":25,"g":"腰より下"},{"n":26,"g":"腰より下"},{"n":27,"g":"腰より下"},{"n":28,"g":"腰より下"},{"n":29,"g":"腰より下"},{"n":30,"g":"腰より下"},{"n":31,"g":"腰より下"},{"n":32,"g":"腰より下"},{"n":33,"g":"腰より下"},{"n":34,"g":"腰より下"},{"n":35,"g":"腰より下"},{"n":36,"g":"腰より下"},{"n":37,"g":"腰より下"},{"n":38,"g":"腰より下"},{"n":39,"g":"腰より下"},{"n":40,"g":"腰より下"},{"n":41,"g":"腰より下"},{"n":42,"g":"腰より下"},{"n":43,"g":"腰より下"},{"n":44,"g":"腰より下"},{"n":45,"g":"階段"},{"n":46,"g":"階段"},{"n":47,"g":"階段"},{"n":48,"g":"ドア越し"},{"n":49,"g":"ドア越し"},{"n":50,"g":"ドア越し"}];
+const GROUPS=["全身","腰より下","階段","ドア越し"];
+const src=n=>`img/${String(n).padStart(2,"0")}.jpg`;
+const KEY="vasic-shot-done";
+let done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}};
+let filter="すべて",open=null;
+
+const $=id=>document.getElementById(id);
+function visible(){return filter==="すべて"?SHOTS:SHOTS.filter(s=>s.g===filter)}
+
+function renderTabs(){
+  const t=$("tabs");t.innerHTML="";
+  ["すべて",...GROUPS].forEach(g=>{
+    const b=document.createElement("button");b.className="tab";b.id="tab-"+g;
+    const c=g==="すべて"?SHOTS.length:SHOTS.filter(s=>s.g===g).length;
+    b.innerHTML=`${g}<span>${c}</span>`;b.setAttribute("aria-pressed",g===filter);
+    b.onclick=()=>{filter=g;renderTabs();renderList();window.scrollTo(0,0)};t.appendChild(b);
+  });
+}
+function renderList(){
+  const m=$("list");m.innerHTML="";
+  const groups=filter==="すべて"?GROUPS:[filter];
+  groups.forEach(g=>{
+    const items=SHOTS.filter(s=>s.g===g);
+    if(filter==="すべて"){const h=document.createElement("div");h.className="group";h.textContent=g;m.appendChild(h)}
+    const grid=document.createElement("div");grid.className="grid";
+    items.forEach(s=>{
+      const b=document.createElement("button");b.className="cell"+(done.has(s.n)?" done":"");
+      b.setAttribute("aria-label",`ショット${s.n}`);
+      b.innerHTML=`<img src="${src(s.n)}" alt="" loading="lazy"><span class="no">${s.n}</span>`;
+      b.onclick=()=>show(s.n);grid.appendChild(b);
+    });
+    m.appendChild(grid);
+  });
+  $("count").textContent=`撮影済 ${done.size}／${SHOTS.length}`;
+}
+function show(n){
+  open=n;const s=SHOTS.find(x=>x.n===n);
+  $("vpic").src=src(n);$("vno").textContent=`ショット ${n}`;$("vg").textContent=s.g;
+  $("mark").setAttribute("aria-pressed",done.has(n));$("viewer").hidden=false;
+}
+function step(d){const v=visible();const i=v.findIndex(s=>s.n===open);show(v[(i+d+v.length)%v.length].n)}
+function close(){$("viewer").hidden=true;open=null;renderList()}
+$("close").onclick=close;$("prev").onclick=()=>step(-1);$("next").onclick=()=>step(1);
+$("mark").onclick=()=>{done.has(open)?done.delete(open):done.add(open);save();$("mark").setAttribute("aria-pressed",done.has(open));$("count").textContent=`撮影済 ${done.size}／${SHOTS.length}`};
+document.addEventListener("keydown",e=>{if($("viewer").hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")step(-1);if(e.key==="ArrowRight")step(1)});
+let x0=null;$("vimg").addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+$("vimg").addEventListener("touchend",e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)step(dx<0?1:-1);x0=null});
+renderTabs();renderList();
+</script>
