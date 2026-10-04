@@ -23,8 +23,10 @@ TD = 'style="border:1px solid #999;padding:3px;vertical-align:top"'
 
 
 def cell(title, img, w, h, pct):
-    return (f'<td width="{pct}" {TD}><p style="margin:0 0 2pt;font-size:8pt"><b>{title}</b></p>'
-            f'<img src="{B}{img}.jpg" width="{w}" height="{h}"></td>')
+    # 画を先、ショット名を下に置く。行がページに収まらないとき、先頭の画ごと次のページへ送られるので
+    # ショット名だけが前のページに取り残されない。
+    return (f'<td width="{pct}" {TD}><p style="margin:0"><img src="{B}{img}.jpg" width="{w}" height="{h}"></p>'
+            f'<p style="margin:2pt 0 0;font-size:8pt"><b>{title}</b></p></td>')
 
 
 def main():
@@ -33,13 +35,10 @@ def main():
     h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 110, 238, "25%") for t, i in ONE) + "</tr></table>"
     h += f'<h2 style="margin:8pt 0 4pt">❷絵コンテ　1秒〜3秒　計20秒　参考<a href="{L2}">Link</a></h2>'
     cells = [cell(t, i, 230, hh, "50%") for t, i, hh in TWO] + [f'<td width="50%" {TD}></td>']
-    # 行の途中でページが切れると、ショット名と画が別のページに分かれる。
-    # ショット4のあとで改ページを入れ、1ページ目＝❶と❷の1〜4、2ページ目＝❷の5〜9に固定する。
-    rows = ["<tr>" + "".join(cells[r:r + 2]) + "</tr>" for r in range(0, 10, 2)]
-    tbl = '<table style="border-collapse:collapse">'
-    h += tbl + "".join(rows[:2]) + "</table>"
-    h += '<hr style="page-break-before:always;display:none;">'
-    h += tbl + "".join(rows[2:]) + "</table></body></html>"
+    h += '<table style="border-collapse:collapse">'
+    for r in range(0, 10, 2):
+        h += "<tr>" + "".join(cells[r:r + 2]) + "</tr>"
+    h += "</table></body></html>"
     out = os.path.join(ROOT, "pdf", "ue1008_ekonte.html")
     open(out, "w").write(h)
     print(out, len(h))
