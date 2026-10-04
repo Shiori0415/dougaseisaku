@@ -23,10 +23,10 @@ TD = 'style="border:1px solid #999;padding:3px;vertical-align:top"'
 
 
 def cell(title, img, w, h, pct):
-    # 画を先、ショット名を下に置く。行がページに収まらないとき、先頭の画ごと次のページへ送られるので
-    # ショット名だけが前のページに取り残されない。
-    return (f'<td width="{pct}" {TD}><p style="margin:0"><img src="{B}{img}.jpg" width="{w}" height="{h}"></p>'
-            f'<p style="margin:2pt 0 0;font-size:8pt"><b>{title}</b></p></td>')
+    # ショット名を画の上に置く。名前と画を一つの段落にまとめ「段落を分割しない」（page-break-inside:avoid）にして、
+    # ページの切れ目で名前だけが前のページに取り残されないようにする。
+    return (f'<td width="{pct}" {TD}><p style="margin:0;font-size:8pt;page-break-inside:avoid;page-break-after:avoid">'
+            f'<b>{title}</b><br><img src="{B}{img}.jpg" width="{w}" height="{h}"></p></td>')
 
 
 def main():
