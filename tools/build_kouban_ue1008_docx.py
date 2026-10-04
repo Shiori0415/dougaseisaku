@@ -34,7 +34,7 @@ def document(src):
             bd = (f"<w:tcBorders><w:top {wb}/><w:left {wb}/><w:bottom {bk}/><w:right {wb}/></w:tcBorders>"
                   '<w:shd w:val="clear" w:color="auto" w:fill="073763"/>') if ri == 0 else ""
             cells.append(f'<w:tc><w:tcPr><w:tcW w:w="{COLS[ci]}" w:type="dxa"/>{bd}</w:tcPr>{"".join(para(p) for p in ps)}</w:tc>')
-        out.append("<w:tr>" + "".join(cells) + "</w:tr>")
+        out.append("<w:tr><w:trPr><w:cantSplit/>" + ("<w:tblHeader/>" if ri == 0 else "") + "</w:trPr>" + "".join(cells) + "</w:tr>")
     grid = "".join(f'<w:gridCol w:w="{w}"/>' for w in COLS)
     tblpr = (f'<w:tblW w:w="{sum(COLS)}" w:type="dxa"/><w:tblInd w:w="-240" w:type="dxa"/><w:tblLayout w:type="fixed"/>'
              f"<w:tblBorders><w:top {bk}/><w:left {bk}/><w:bottom {bk}/><w:right {bk}/><w:insideH {bk}/><w:insideV {bk}/></w:tblBorders>"
