@@ -70,14 +70,25 @@ def shoe(d, x, y, right=True):
 
 def s1():
     im, d = canvas()
-    d.rectangle((0, 440, W, H), fill=LIGHT)
-    d.line((0, 440, W, 440), fill=INK, width=4)
-    bag(d, (200, 230, 540, 440), scratch=True)
-    # 手：右上から伸びて、傷を指で払う
-    d.polygon([(800, 150), (800, 240), (600, 360), (560, 330)], fill=(235, 205, 185), outline=INK)
-    for i, dy in enumerate((0, 16, 32, 48)):
-        d.line((585, 330 + dy * 0.3, 450 + i * 10, 360 + dy * 0.6), fill=INK, width=12)
-    arrow(d, (520, 210), (700, 70), "持って画面の外へ", dash=True)
+    d.rectangle((0, 470, W, H), fill=LIGHT)
+    d.line((0, 470, W, 470), fill=INK, width=4)
+    bag(d, (120, 230, 520, 470))
+    # 傷：払ったあと、丸で囲んで確かめる
+    sx, sy = 190, 400
+    d.line((sx, sy, sx + 30, sy - 10, sx + 50, sy + 5, sx + 85, sy - 8), fill=RED, width=6)
+    d.ellipse((sx - 30, sy - 50, sx + 115, sy + 40), outline=RED, width=4)
+    f = ImageFont.truetype(F, 28)
+    d.text((sx - 40, 490), "傷を確かめる", font=f, fill=RED)
+    # 手のひらで払う：手首は右から、指先は傷のほうへ
+    skin = (235, 205, 185)
+    d.polygon([(800, 240), (800, 340), (560, 330), (560, 260)], fill=skin, outline=INK)
+    d.ellipse((440, 240, 600, 350), fill=skin, outline=INK, width=3)
+    for i, y in enumerate((245, 270, 295, 320)):
+        d.rounded_rectangle((330 + i * 6, y, 470, y + 22), radius=11, fill=skin, outline=INK, width=3)
+    for k in range(3):
+        d.arc((300 - k * 30, 190 - k * 20, 520 + k * 30, 410 + k * 20), 200, 250, fill=GRAY, width=4)
+    d.text((560, 170), "手で払う", font=f, fill=RED)
+    arrow(d, (330, 300), (230, 340))
     tag(d, "ラフ　寄り")
     return im
 
@@ -154,7 +165,9 @@ def s9():
     d.rectangle((0, 0, W, 520), fill=(240, 238, 232))
     d.rectangle((180, 60, 620, 150), fill=INK)  # 看板
     f = ImageFont.truetype(F, 48)
-    d.text((300, 80), "店舗ロゴ", font=f, fill="white")
+    f = ImageFont.truetype(F, 44)
+    t = "BROOKLYN MUSEUM"
+    d.text((400 - d.textlength(t, font=f) / 2, 82), t, font=f, fill="white")
     d.rectangle((60, 190, 260, 480), outline=INK, width=5, fill=(210, 220, 225))
     d.rectangle((540, 190, 740, 480), outline=INK, width=5, fill=(210, 220, 225))
     d.rectangle((320, 190, 480, 520), outline=INK, width=5, fill=(120, 110, 100))
