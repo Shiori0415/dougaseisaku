@@ -171,23 +171,29 @@ def s7():
 
 
 def s9():
+    from PIL import ImageFilter
     im, d = canvas()
+    # 背景の店：ピントを外してぼかす
     d.rectangle((0, 0, W, 520), fill=(240, 238, 232))
-    d.rectangle((180, 60, 620, 150), fill=INK)  # 看板
-    f = ImageFont.truetype(F, 48)
+    d.rectangle((120, 60, 560, 150), fill=INK)
     f = ImageFont.truetype(F, 44)
     t = "BROOKLYN MUSEUM"
-    d.text((400 - d.textlength(t, font=f) / 2, 82), t, font=f, fill="white")
-    d.rectangle((60, 190, 260, 480), outline=INK, width=5, fill=(210, 220, 225))
-    d.rectangle((540, 190, 740, 480), outline=INK, width=5, fill=(210, 220, 225))
-    d.rectangle((320, 190, 480, 520), outline=INK, width=5, fill=(120, 110, 100))
+    d.text((340 - d.textlength(t, font=f) / 2, 82), t, font=f, fill="white")
+    d.rectangle((20, 190, 220, 480), outline=INK, width=5, fill=(210, 220, 225))
+    d.rectangle((460, 190, 660, 480), outline=INK, width=5, fill=(210, 220, 225))
+    d.rectangle((280, 190, 400, 520), outline=INK, width=5, fill=(120, 110, 100))
     d.rectangle((0, 520, W, H), fill=LIGHT)
-    d.line((0, 520, W, 520), fill=INK, width=4)
-    # 右端で切れていく人
-    d.ellipse((730, 150, 820, 240), fill=(60, 50, 45))
-    d.polygon([(700, 250), (840, 250), (840, 560), (720, 560)], fill=(60, 60, 65))
-    arrow(d, (420, 570), (700, 570), "画面の外へ")
-    tag(d, "ラフ　店の前・ロゴ")
+    im = im.filter(ImageFilter.GaussianBlur(5))
+    d = ImageDraw.Draw(im)
+    # 手前の人：斜め前からカメラの右手前へ抜ける（ピントは人）
+    d.ellipse((560, 120, 700, 270), fill=(60, 50, 45), outline=INK, width=3)
+    d.polygon([(520, 280), (760, 260), (840, 600), (480, 600)], fill=(55, 55, 60), outline=INK)
+    bag(d, (700, 400, 830, 520))
+    arrow(d, (120, 330), (460, 500), None)
+    f2 = ImageFont.truetype(F, 28)
+    d.text((30, 280), "斜め前から画面の外へ", font=f2, fill=RED)
+    d.text((20, 540), "背景の店はぼかす", font=f2, fill=GRAY)
+    tag(d, "ラフ　店バック・ぼかし")
     return im
 
 
