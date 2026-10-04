@@ -10,15 +10,15 @@ L1 = "https://www.instagram.com/reel/DbGnXCnRMrT/?stkn=MWhvbGVkamlwd3Nn"
 L2 = "https://www.instagram.com/reel/DdEWeatvvig/?stkn=MWN1aDVpdzZnOGZ0ZQ=="
 ONE = [("ショット1　服装１", "a1"), ("ショット2　車が通り　服装変化", "a2"),
        ("ショット3　服装２", "a3"), ("ショット4　服装３　手を振る", "a4")]
-TWO = [("ショット1　傷を確認して払い、持ち上げてフレームアウト", "il_s1", 159),
-       ("ショット2　bagアップ　歩く", "il_s2", 159),
-       ("ショット3　正面から曲がってトラッキング", "s3", 173),
-       ("ショット4　パンでブルックリンと後ろ姿", "s4", 173),
-       ("ショット5　左方向で入り口に入る　下半身", "s5", 173),
-       ("ショット6　右方向で入り口を出る　下半身", "il_s6", 172),
-       ("ショット7　傷なしbagアップトラッキング", "s7", 173),
-       ("ショット8　店バック　上半身前から　人すれ違って振り返り戻ってフレームアウト", "s8", 173),
-       ("ショット9　店舗をぼかして背に、斜め前からフレームアウト", "s9", 173)]
+TWO = [("ショット1　傷を確認して払い、持ち上げてフレームアウト", "il_s1", 138),
+       ("ショット2　bagアップ　歩く", "il_s2", 138),
+       ("ショット3　正面から曲がってトラッキング", "s3", 150),
+       ("ショット4　パンでブルックリンと後ろ姿", "s4", 150),
+       ("ショット5　左方向で入り口に入る　下半身", "s5", 150),
+       ("ショット6　右方向で入り口を出る　下半身", "il_s6", 149),
+       ("ショット7　傷なしbagアップトラッキング", "s7", 150),
+       ("ショット8　店バック　上半身前から　人すれ違って振り返り戻ってフレームアウト", "s8", 150),
+       ("ショット9　店舗をぼかして背に、斜め前からフレームアウト", "s9", 150)]
 TD = 'style="border:1px solid #999;padding:3px;vertical-align:top"'
 
 
@@ -33,7 +33,7 @@ def main():
     h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 130, 282, "25%") for t, i in ONE) + "</tr></table>"
     h += f'<h2 style="margin:8pt 0 4pt">❷絵コンテ　1秒〜3秒　計20秒　参考<a href="{L2}">Link</a></h2>'
     h += '<table style="border-collapse:collapse">'
-    cells = [cell(t, i, 230, hh, "50%") for t, i, hh in TWO] + [f'<td width="50%" {TD}></td>']
+    cells = [cell(t, i, 200, hh, "50%") for t, i, hh in TWO] + [f'<td width="50%" {TD}></td>']
     for r in range(0, 10, 2):
         h += "<tr>" + "".join(cells[r:r + 2]) + "</tr>"
     h += "</table></body></html>"
