@@ -30,7 +30,7 @@ def cell(title, img, w, h, pct):
 def main():
     h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial">'
     h += f'<h2 style="margin:0 0 4pt">❶絵コンテ　3秒　計12秒　参考<a href="{L1}">Link</a></h2>'
-    h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 130, 282, "25%") for t, i in ONE) + "</tr></table>"
+    h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 110, 238, "25%") for t, i in ONE) + "</tr></table>"
     h += f'<h2 style="margin:8pt 0 4pt">❷絵コンテ　1秒〜3秒　計20秒　参考<a href="{L2}">Link</a></h2>'
     h += '<table style="border-collapse:collapse">'
     cells = [cell(t, i, 200, hh, "50%") for t, i, hh in TWO] + [f'<td width="50%" {TD}></td>']
