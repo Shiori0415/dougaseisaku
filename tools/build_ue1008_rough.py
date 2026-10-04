@@ -70,25 +70,35 @@ def shoe(d, x, y, right=True):
 
 def s1():
     im, d = canvas()
-    d.rectangle((0, 470, W, H), fill=LIGHT)
-    d.line((0, 470, W, 470), fill=INK, width=4)
-    bag(d, (120, 230, 520, 470))
-    # 傷：払ったあと、丸で囲んで確かめる
-    sx, sy = 190, 400
-    d.line((sx, sy, sx + 30, sy - 10, sx + 50, sy + 5, sx + 85, sy - 8), fill=RED, width=6)
-    d.ellipse((sx - 30, sy - 50, sx + 115, sy + 40), outline=RED, width=4)
+    d.rectangle((0, 480, W, H), fill=LIGHT)
+    d.line((0, 480, W, 480), fill=INK, width=4)
+    # 鞄を斜めから：正面＋右の側面（マチ）
+    body, side = (205, 190, 170), (180, 165, 145)
+    d.polygon([(90, 270), (200, 220), (560, 220), (450, 270)], fill=(220, 207, 190), outline=INK)
+    d.polygon([(450, 270), (560, 220), (560, 430), (450, 480)], fill=side, outline=INK)
+    d.rectangle((90, 270, 450, 480), fill=body, outline=INK, width=6)
+    d.line((450, 270, 560, 220), fill=INK, width=6)
+    d.line((560, 220, 560, 430), fill=INK, width=6)
+    d.line((560, 430, 450, 480), fill=INK, width=6)
+    d.line((98, 360, 442, 360), fill=INK, width=4)
+    d.rectangle((252, 356, 288, 382), outline=INK, width=4, fill="white")
+    d.arc((190, 165, 460, 335), 190, 350, fill=INK, width=6)
+    # 傷は側面に
+    sx, sy = 470, 400
+    d.line((sx, sy, sx + 20, sy - 12, sx + 38, sy - 2, sx + 62, sy - 18), fill=RED, width=6)
+    d.ellipse((sx - 25, sy - 55, sx + 90, sy + 30), outline=RED, width=4)
     f = ImageFont.truetype(F, 28)
-    d.text((sx - 40, 490), "傷を確かめる", font=f, fill=RED)
-    # 手のひらで払う：手首は右から、指先は傷のほうへ
+    d.text((400, 495), "側面の傷を確かめる", font=f, fill=RED)
+    # 手のひらで側面を払う
     skin = (235, 205, 185)
-    d.polygon([(800, 240), (800, 340), (560, 330), (560, 260)], fill=skin, outline=INK)
-    d.ellipse((440, 240, 600, 350), fill=skin, outline=INK, width=3)
-    for i, y in enumerate((245, 270, 295, 320)):
-        d.rounded_rectangle((330 + i * 6, y, 470, y + 22), radius=11, fill=skin, outline=INK, width=3)
+    d.polygon([(800, 200), (800, 300), (700, 300), (700, 220)], fill=skin, outline=INK)
+    d.ellipse((620, 205, 760, 315), fill=skin, outline=INK, width=3)
+    for i, y in enumerate((212, 236, 260, 284)):
+        d.rounded_rectangle((530 + i * 6, y, 650, y + 22), radius=11, fill=skin, outline=INK, width=3)
     for k in range(3):
-        d.arc((300 - k * 30, 190 - k * 20, 520 + k * 30, 410 + k * 20), 200, 250, fill=GRAY, width=4)
-    d.text((560, 170), "手で払う", font=f, fill=RED)
-    arrow(d, (330, 300), (230, 340))
+        d.arc((560 - k * 25, 240 - k * 20, 700 + k * 25, 420 + k * 20), 100, 150, fill=GRAY, width=4)
+    d.text((600, 140), "手で払う", font=f, fill=RED)
+    arrow(d, (600, 330), (560, 380))
     tag(d, "ラフ　寄り")
     return im
 
