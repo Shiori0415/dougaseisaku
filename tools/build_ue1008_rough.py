@@ -99,7 +99,7 @@ def s1():
         d.arc((560 - k * 25, 240 - k * 20, 700 + k * 25, 420 + k * 20), 100, 150, fill=GRAY, width=4)
     d.text((600, 140), "手で払う", font=f, fill=RED)
     arrow(d, (600, 330), (560, 380))
-    tag(d, "ラフ　寄り")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
@@ -113,7 +113,7 @@ def s2():
     for y in (300, 360, 420):
         d.line((70, y, 180, y), fill=GRAY, width=5)
     arrow(d, (600, 545), (770, 545), "歩く")
-    tag(d, "ラフ　鞄の寄り")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
@@ -141,7 +141,7 @@ def s5():
     entrance(d)
     walker(d, 500, -1)
     arrow(d, (700, 570), (320, 570), "入る")
-    tag(d, "ラフ　下半身")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
@@ -150,7 +150,7 @@ def s6():
     entrance(d)
     walker(d, 420, 1)
     arrow(d, (480, 570), (780, 570), "出る")
-    tag(d, "ラフ　下半身")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
@@ -166,7 +166,7 @@ def s7():
     d.rounded_rectangle((60, 510, 150, 570), radius=8, fill=INK)
     d.ellipse((90, 520, 130, 560), fill="white")
     arrow(d, (170, 540), (760, 540), "鞄と並んで追う")
-    tag(d, "ラフ　寄り・傷なし")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
@@ -193,7 +193,7 @@ def s9():
     f2 = ImageFont.truetype(F, 28)
     d.text((30, 280), "斜め前から画面の外へ", font=f2, fill=RED)
     d.text((20, 540), "背景の店はぼかす", font=f2, fill=GRAY)
-    tag(d, "ラフ　店バック・ぼかし")
+    pass  # 左上の「ラフ」表記は入れない
     return im
 
 
