@@ -10,17 +10,17 @@ L1 = "https://www.instagram.com/reel/DbGnXCnRMrT/?stkn=MWhvbGVkamlwd3Nn"
 L2 = "https://www.instagram.com/reel/DdEWeatvvig/?stkn=MWN1aDVpdzZnOGZ0ZQ=="
 ONE = [("ショット1　服装１", "a1"), ("ショット2　車が通り　服装変化", "a2"),
        ("ショット3　服装２", "a3"), ("ショット4　服装３　手を振る", "a4")]
-TWO = [("ショット1　傷を確認して払い、持ち上げてフレームアウト", "il_s1", 150, 104),
-       ("ショット2　bagアップ　歩く", "il_s2", 150, 104),
-       ("ショット3　正面から曲がってトラッキング", "s3", 150, 112),
-       ("ショット4　パンでブルックリンと後ろ姿", "s4", 150, 112),
-       ("ショット5　左方向で入り口に入る　下半身", "s5", 150, 112),
-       ("ショット6　くさがやさんがクリームをぬる", "il_cream", 74, 112),
-       ("ショット7　お客様がコーヒーを飲んで待つ", "il_coffee", 74, 112),
-       ("ショット8　右方向で入り口を出る　下半身", "il_s6", 150, 112),
-       ("ショット9　傷なしbagアップトラッキング", "s7", 150, 112),
-       ("ショット10　店バック　上半身前から　人すれ違って振り返り戻ってフレームアウト", "s8", 150, 112),
-       ("ショット11　店舗をぼかして背に、斜め前からフレームアウト", "s9", 150, 112)]
+TWO = [("ショット1　傷を確認して払い、持ち上げてフレームアウト", "il_s1", 190, 131),
+       ("ショット2　bagアップ　歩く", "il_s2", 190, 131),
+       ("ショット3　正面から曲がってトラッキング", "s3", 190, 142),
+       ("ショット4　パンでブルックリンと後ろ姿", "s4", 190, 142),
+       ("ショット5　左方向で入り口に入る　下半身", "s5", 190, 142),
+       ("ショット6　くさがやさんがクリームをぬる", "il_cream", 94, 142),
+       ("ショット7　お客様がコーヒーを飲んで待つ", "il_coffee", 94, 142),
+       ("ショット8　右方向で入り口を出る　下半身", "il_s6", 190, 142),
+       ("ショット9　傷なしbagアップトラッキング", "s7", 190, 142),
+       ("ショット10　店バック　上半身前から　人すれ違って振り返り戻ってフレームアウト", "s8", 190, 142),
+       ("ショット11　店舗をぼかして背に、斜め前からフレームアウト", "s9", 190, 142)]
 TD = 'style="border:1px solid #999;padding:3px;vertical-align:top"'
 
 
@@ -32,9 +32,11 @@ def cell(title, img, w, h, pct):
 
 
 def main():
-    h = '<html><head><meta charset="utf-8"></head><body style="font-family:Arial">'
+    # Googleドキュメントは body のクラスの padding をページ余白、max-width を本文の幅として読み込む（レター幅612pt）
+    h = ('<html><head><meta charset="utf-8"><style>.doc{max-width:600pt;padding:6pt 6pt 6pt 6pt}'
+         'table{width:600pt}</style></head><body class="doc" style="font-family:Arial">')
     h += f'<h2 style="margin:0 0 4pt">❶絵コンテ　3秒　計12秒　参考<a href="{L1}">Link</a></h2>'
-    h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 80, 173, "25%") for t, i in ONE) + "</tr></table>"
+    h += '<table style="border-collapse:collapse"><tr>' + "".join(cell(t, i, 160, 347, "25%") for t, i in ONE) + "</tr></table>"
     h += f'<h2 style="margin:8pt 0 4pt">❷絵コンテ　1秒〜3秒　計20秒　参考<a href="{L2}">Link</a></h2>'
     # ❷を4列×3段にして、❶と合わせて1ページに収める。ページの切れ目がないので、ショット名と画が分かれない。
     cells = [cell(t, i, w, hh, "25%") for t, i, w, hh in TWO] + [f'<td width="25%" {TD}></td>']
